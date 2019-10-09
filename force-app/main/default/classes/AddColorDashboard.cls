@@ -1,3 +1,7 @@
+/**
+    Name: AddColorDashboard
+    Description:
+*/
 public with sharing class AddColorDashboard{
     public UIpanel__c UIPanelData{get;set;}
     public string LogoColor{get;set;}
