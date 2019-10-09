@@ -1,0 +1,406 @@
+<apex:page showHeader="false" controller="BookingForm_Controller" lightningStylesheets="true" standardStylesheets="false" docType="html-5.0">
+<apex:slds />
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    <script>
+        $(document).ready(function(){
+            $('#eventType').on('change', function() {
+                //alert(this.value);
+                if ( this.value == 'Anand Karaj (Wedding)')
+                    {
+                    $("#AnandKaraj").show();
+                    $("#otherService").hide();
+                    }
+                if ( this.value == 'Kurmai (Engagement)')
+                    {
+                    $("#AnandKaraj").hide();
+                    $("#otherService").hide();
+                    }
+                if ( this.value == 'Akhand Paath (3 Day Prayers)')
+                    {
+                    $("#AnandKaraj").hide();
+                    $("#otherService").hide();
+                    }
+                if ( this.value == 'Sejeh Paath (Custom Length Prayers)')
+                    {
+                    $("#AnandKaraj").hide();
+                    $("#otherService").hide();
+                    }
+                if ( this.value == 'Sukhmani Sahib Paath (stanzas of 10 hymns)')
+                    {
+                    $("#AnandKaraj").hide();
+                    $("#otherService").hide();
+                    }
+                if ( this.value == 'Other')
+                    {
+                    $("#otherService").show();
+                    $("#AnandKaraj").hide();
+                    }
+                if ( this.value == 'None')
+                    {
+                    $("#otherService").hide();
+                    $("#AnandKaraj").hide();
+                    }
+            });
+            $('#courtMarriage').on('change', function() {
+                if(this.value == 'No'){
+                    $("#courtMarriageRequired").show();
+                }
+                if(this.value == 'Yes'){
+                    $("#courtMarriageRequired").hide();
+                }
+            });
+            $('#prashada').on('change', function() {
+                if(this.value == 'Yes'){
+                    $("#kitchen").show();
+                }
+                if(this.value == 'No'){
+                    $("#kitchen").hide();
+                }
+            });
+        });
+        
+        
+    </script>
+
+    <div class="slds-page-header">
+        <div class="slds-media">
+            <div class="slds-media__figure">
+                <span class="slds-icon_container slds-icon-standard-opportunity">
+                <svg class="slds-icon slds-page-header__icon" aria-hidden="true">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#GurudwaraIcon1.svg" />
+                </svg>
+                </span>
+            </div>
+            <div class="slds-media__body">
+                <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Booking Form">Booking Form</h1>
+                <p class="slds-text-body_small slds-line-height_reset"><b>Ramgharia Sikh Gurdwara</b></p>
+            </div>
+        </div>
+    </div>
+    <br/>
+    
+    <apex:form styleclass="slds-align_absolute-center"> 
+    
+        <div class="slds-form slds-form_stacked">
+            <div class="slds-grid slds-gutters" style="width:900px">
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-01"><b>First Name</b></label>
+                            <div class="slds-form-element__control">
+                                 <apex:inputField id="form-element-01" value="{!con.firstname}" styleClass="slds-input" />
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-02"><b>Last Name</b></label>
+                            <div class="slds-form-element__control">
+                                <apex:inputField id="form-element-02" value="{!con.lastname}" styleClass="slds-input" />
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <br/>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-03"><b>Phone</b></label>
+                            <div class="slds-form-element__control">
+                                <apex:inputField id="form-element-03" value="{!con.phone}" styleClass="slds-input" />
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-04"><b>Email</b></label>
+                            <div class="slds-form-element__control">
+                                <apex:inputField id="form-element-04" value="{!con.email}" styleClass="slds-input" />
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <br/>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-05"><b>Street</b></label>
+                            <div class="slds-form-element__control">
+                                <apex:inputField id="form-element-05" value="{!con.MailingStreet}" styleClass="slds-input" />
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-06"><b>City</b></label>
+                            <div class="slds-form-element__control">
+                                <apex:inputField id="form-element-06" value="{!con.MailingCity}" styleClass="slds-input"/>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div> 
+            <br/>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-07"><b>State</b></label>
+                            <div class="slds-form-element__control">
+                                <apex:inputField id="form-element-07" value="{!con.MailingState}" styleClass="slds-input"/>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-08"><b>Postal Code</b></label>
+                            <div class="slds-form-element__control">
+                                <apex:inputField id="form-element-08" value="{!con.MailingPostalcode}" styleClass="slds-input"/>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <br/>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-09"><b>Country</b></label>
+                            <div class="slds-form-element__control">
+                                <apex:inputField id="form-element-09" value="{!con.MailingCountry}" styleClass="slds-input"/>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-10"><b>Membership Number</b></label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="form-element-10" class="slds-input" placeholder="Membership Number"/>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <br/>
+            <div class="slds-grid slds-gutters">
+            <div class="slds-col" style="width: 50%;">
+                <span>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="form-element-11"><b>Date</b></label>
+                        <div class="slds-form-element__control">
+                            <input type="date" id="form-element-11" class="slds-input"  value="{!date1}" />
+                    </div>
+                    </div>
+                </span>
+            </div>
+            <div class="slds-col" style="width: 50%;padding: 10px">
+                <span>
+                    <div class="slds-form-element" >
+                        <label class="slds-form-element__label"><b>Type of Event</b></label>
+                        <div class="slds-form-element__control" >
+                            <!--<div class="slds-select_container">-->
+                                <!--<apex:selectList size="1"  styleClass="slds-select" >
+                                    <apex:selectOptions value="{!eventLst}" 
+                                </apex:selectList>-->
+                                <apex:inputHidden value="{!testPicklist}" id="eventId"/>
+                                <select onchange="document.getElementById('{!$Component.eventId}').value = this.value;" id='eventType'  style="padding:3px;font-size:15px;padding-right: 90px;">
+                                    <option value="None">--None-- </option>
+                                    <option value="Anand Karaj (Wedding)">Anand Karaj (Wedding)</option>
+                                    <option value="Kurmai (Engagement)">Kurmai (Engagement)</option>
+                                    <option value="Akhand Paath (3 Day Prayers)">Akhand Paath (3 Day Prayers)</option>
+                                    <option value="Sejeh Paath (Custom Length Prayers)">Sejeh Paath (Custom Length Prayers)</option>
+                                    <option value="Sukhmani Sahib Paath (stanzas of 10 hymns)">Sukhmani Sahib Paath (stanzas of 10 hymns)</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <br/>
+        </div>
+        
+        <div style='display:none;' id='AnandKaraj'>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-12"><b>Bride's Name</b></label>
+                            <div class="slds-form-element__control">
+                            <input type="text" id="form-element-12" class="slds-input" placeholder="Bride's Name"/>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-13"><b>Father's Name</b></label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="form-element-13" class="slds-input" placeholder="Father's Name"/>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <br/>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-14"><b>Groom's Name</b></label>
+                            <div class="slds-form-element__control">
+                            <input type="text" id="form-element-14" class="slds-input" placeholder="Groom's Name"/>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-15"><b>Father's Name</b></label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="form-element-15" class="slds-input" placeholder="Father's Name"/>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+             <br/>
+            <div class="slds-grid slds-grid_vertical" style="width:100%">
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element" >
+                            <label class="slds-form-element__label"><b>Court Marriage already performed at registry?</b></label>
+                            <div class="slds-form-element__control" >
+                                <select id='courtMarriage' style="padding:3px;font-size:15px;padding-right:90px;">
+                                    <option value="No">No </option>
+                                    <option value="Yes">Yes</option>
+                               </select>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="slds-col">
+                    <span>
+                    <br/>
+                        <div class="slds-form-element" style='display:block;' id='courtMarriageRequired' >
+                            <label class="slds-form-element__label"><b>Court Marriage required in Gurdwara?</b></label>
+                            <div class="slds-form-element__control" >
+                                <select id='courtMarriageIsRequired' style="padding:3px;font-size:15px;padding-right:90px;">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                               </select>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="slds-grid slds-grid_vertical">
+                <div class="slds-col">
+                <br/>
+                    <span>
+                        <div class="slds-form-element" >
+                            <label class="slds-form-element__label"><b>Prashada at the Gurdwara?</b></label>
+                            <div class="slds-form-element__control" >
+                                <select id='prashada' style="padding:3px;font-size:15px;padding-right:90px;">
+                                    <option value="Yes">Yes </option>
+                                    <option value="No">No</option>
+                               </select>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="slds-col">
+                    <span>
+                    <br/>
+                        <div class="slds-form-element" style='display:block;' id='kitchen'>
+                            <label class="slds-form-element__label"><b>Will you require the use of the kitchen?</b></label>
+                            <div class="slds-form-element__control" >
+                                <select id='kitchenRequired' style="padding:3px;font-size:15px;padding-right:90px;">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                               </select>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <br/> 
+        </div> 
+          
+        <div style='display:none;' id='otherService'>
+            <span>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <span>
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="form-element-16"><b>Please provide the service required</b></label>
+                                <div class="slds-form-element__control">
+                                <input type="text" id="form-element-16" class="slds-input" />
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </span>
+            <br/>
+        </div> 
+        
+        
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="form-element-17"><b>How many people to attend</b></label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="form-element-16" class="slds-input" />
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <br/>
+            
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <span>
+                        <div class="slds-form-element" >
+                            <label class="slds-form-element__label"><b>Darbar (venue hall) required</b></label>
+                            <div class="slds-form-element__control" >
+                                <select id='courtMarriage' style="padding:3px;font-size:15px;padding-right:90px;">
+                                    <option value="Guru Nanak Darbar">Sri Guru Nanak Darbar</option>
+                                    <option value="Guru Angad Darbar">Sri Guru Angad Darbar</option>
+                                    <option value="Guru Amardas Darbar">Sri Guru Amardas Darbar</option>
+                               </select>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <div class="slds-button-toolbar slds-align_absolute-center" role="group">
+                <apex:commandButton styleClass="slds-button slds-button_brand" value="Save" action="{!Save}"/>
+                <apex:commandButton styleClass="slds-button slds-button_brand" value="Cancel" action="{!Cancel}"/>
+            </div>    
+            
+        </div>  
+    
+    
+</apex:form>
+</apex:page>

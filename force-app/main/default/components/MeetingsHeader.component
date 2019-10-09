@@ -1,0 +1,71 @@
+<apex:component >
+<apex:form id="compofrm">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>    
+<apex:styleSheet value="{!URLFOR($Resource.MettingsResources,'MettingsResources/css/bootstrap.min.css')}" />
+<apex:styleSheet value="{!URLFOR($Resource.MettingsResources,'MettingsResources/css/bootstrap-theme.min.css')}" />
+<script src="{!URLFOR($Resource.MettingsResources,'MettingsResources/js/bootstrap.min.js')}"></script>    
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+<style>
+    /* Large desktop */
+    @media (min-width: 1200px) { ... }
+    
+    /* Portrait tablet to landscape and desktop */
+    @media (min-width: 768px) and (max-width: 979px) { ... }
+    
+    /* Landscape phone to portrait tablet */
+    @media (max-width: 767px) { ... }
+    
+    /* Landscape phones and down */    
+    @media (max-width: 480px) { ... }      
+    
+    body{
+          background-image: url('http://ironsummitmedia.github.io/startbootstrap-creative/img/header.jpg');
+          width: 100%;
+          background-position: center;
+    }
+    #calendar {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .liHover:Hover{
+        background: darkgrey;
+        border-radius: 23px;
+        cursor: pointer;
+    }
+</style>
+
+<nav class="navbar navbar-default " role="navigation" style="padding:0px;margin:0px;background-image: url('http://ironsummitmedia.github.io/startbootstrap-creative/img/header.jpg');
+  border: 0px;"  >
+  <div class="container-fluid" style="color:#fff" id="headercolor" >
+    <div class="navbar-header" >
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button> 
+      <a  class="navbar-brand"> 
+          <img style="background-color: #fff;margin-top: -15px;height: 50px;margin-left: -16px;margin-right: -15px;" src=""/>
+      </a>
+      <a class="navbar-brand"  href="#" style="color:#fff"   >
+          <i><font size='4' style="padding-left:10px">Meetings</font></i>  
+      </a>      
+    </div>
+    
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="liHover"><a href="/apex/schedulemeetings" style="color:#fff;">Schedule Meeting</a></li>
+        <li class="liHover"><a ref="#" style="color:#fff;">My Meetings</a></li>
+      </ul>            
+      <ul class="nav navbar-nav navbar-right">
+        <!--<li><a href="/" style="color:#B23B51"><b>Exit</b></a></li>-->
+      </ul>
+    </div>
+  </div>
+</nav>
+</apex:form>
+</apex:component>

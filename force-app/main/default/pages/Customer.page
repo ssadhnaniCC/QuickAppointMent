@@ -1,0 +1,497 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" controller="CustomerCtrl" title="{!$Label.cc_qappt__customer} -{!$Label.cc_qappt__quick_appointment}">
+<c:NewHeader />
+  <style> 
+  body  {
+  display:none;
+  } 
+  </style>
+ 
+<!-- Menu Code --->
+  <script>
+  window.addEventListener("DOMContentLoaded", function(){
+  document.getElementsByTagName("body")[0].style.display = "block";
+});
+    $(document).ready(function() {
+      $('#action').removeClass('headerSortDown');
+    });
+ </script>  
+<body hoe-navigation-type="vertical" hoe-nav-placement="left" id="navTypeAndPlacement">
+    <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
+        <c:HeaderNested />
+        <div id="hoeapp-container" hoe-color-type="lpanel-bg2" hoe-lpanel-effect="shrink">
+            <c:SideBar />
+<section id="main-content">
+<!-- Menu Code End --->
+<style>
+.custPopup{
+    background-color: white;
+    border-width: 0px;
+    border-radius:10px;
+    z-index: 9999;
+    left: 50%;
+    padding:20px;
+    position: absolute;
+    margin-left: -100px;
+    top:40%;
+}
+div.simple-pagination-page-numbers a:not(:first-child) {
+   margin-left:5px;
+}
+.popupBackground{
+    background-color:black;
+    opacity: 0.30;
+    filter: alpha(opacity = 30);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9998;
+}
+.custPopup1 {
+    background-color: white;
+    border-width: 0px;
+    border-radius: 10px;
+    z-index: 9999;
+    padding: 20px;
+    position: absolute;
+    margin-left: 35%;
+    top: -2%;
+}
+table.tablesorter thead tr .header {
+    background: URL({!URLFOR($Resource.tablesorter,'tablesorter/bg.GIF')}) no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+table.tablesorter thead tr .headerSortUp { 
+    background: URL({!URLFOR($Resource.tablesorter,'tablesorter/up.GIF')}) no-repeat; 
+    background-position: center right;
+    cursor: pointer;
+} 
+table.tablesorter thead tr .headerSortDown{ 
+    background: URL({!URLFOR($Resource.tablesorter,'tablesorter/down.GIF')}) no-repeat; 
+    background-position: center right;
+    cursor: pointer;
+} 
+    .myBtn {
+        width: 60px;
+        height: 32px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;  
+        }  
+    .myBtnWidth {
+         width:100%;
+    }
+ </style>
+<apex:actionStatus id="fetching">
+    <apex:facet name="start">
+         <apex:outputPanel id="tstpopup">
+                <apex:outputPanel styleClass="popupBackground" layout="block"/>
+                <apex:outputPanel styleClass="custPopup" layout="block">
+                    <img src="/img/loading24.gif" style="vertical-align:middle; horizontal-align:middle"/> 
+                    <span>Please wait...</span>  
+                </apex:outputPanel>
+          </apex:outputPanel> 
+    </apex:facet>
+</apex:actionStatus>
+ <apex:actionStatus id="savestatus">
+            <apex:facet name="start">
+                 <apex:outputPanel id="tst">
+                        <apex:outputPanel layout="block"/>
+                        <apex:outputPanel styleClass="custPopup1" layout="block">
+                            <img src="/img/loading24.gif" style="vertical-align:middle; horizontal-align:middle"/> 
+                            <span>Please wait...</span>  
+                        </apex:outputPanel>
+                  </apex:outputPanel> 
+            </apex:facet>
+        </apex:actionStatus>
+        
+<apex:form id="CustomerPanel">
+<apex:outputPanel id="CustomerPanel1">
+<apex:actionFunction name="addNewCustomer" action="{!goToNewEditMode}" reRender="CustomerPanel,errorMsg" oncomplete="showpopup();return false;" status="fetching">
+    <apex:param assignTo="{!CustomerId}" name="CusId" value=""/>
+</apex:actionFunction>
+
+<apex:actionFunction name="DeleteCustomer" action="{!DeleteCustomer}" reRender="CustomerPanel,errorMsg" status="fetching" oncomplete="handlePagination();">
+    <apex:param assignTo="{!customerIdForDelete}" name="conDelId" value=""/>
+</apex:actionFunction>
+
+<apex:actionFunction name="ShowCustomerAppointment" action="{!ShowCustomerAppointment}" reRender="relatedListSection"  status="fetching">
+    <apex:param assignTo="{!CustomerIdForAppointment}" name="cusId" value=""/>
+</apex:actionFunction>
+
+<apex:actionFunction name="DeleteCustomerAppointment" action="{!DeleteCustomerAppointment}" reRender="CustomerPanel,errorMsg" status="fetching" oncomplete="handlePagination();">
+    <apex:param assignTo="{!customerAppIdForDelete}" name="appDelId" value=""/>
+</apex:actionFunction>
+
+<apex:actionFunction id="errorshow" name="errorshow" action="{!saveCustomer}" reRender="errorMsg,customer1,pagination2" oncomplete="handlePagination(); console.log('@@##= {!errorDiv}'); hidePopUp({!errorDiv});" status="savestatus" >
+  </apex:actionFunction>
+
+
+<div class="container-fluid">
+ 
+<div class="row">
+    <div class="col-md-4" align="center">
+        <h2>{!$Label.Customer_Details}</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-offset-4 col-md-2" align="center">
+        <button class="myBtn myBtnWidth btn btn-default" onclick="addNewCustomer();return false;"><apex:outputText value="{!$Label.cc_qappt__add_customer}"/></button>
+    </div>
+    <div class="col-md-4">
+        <div style="display: flex;;"><apex:inputText value="{!customerNameSearch}" html-Placeholder="{!$Label.cc_qappt__customer_name}" styleClass="form-control customer-val" id="id_of_textbox" onkeyup="handleKeypress(event),handleKeypress2(event)"/>
+        <apex:commandButton action="{!search}" value="{!$Label.cc_qappt__search}" onclick="if($('[id$=id_of_textbox]').val().trim().length==0) return false;"  styleClass="btn btn-default" id="id_of_button" reRender="CustomerPanel,test,relatedListSection" oncomplete="$('#first-container').simplePagination({ items_per_page: 15});"/></div>
+    </div>
+</div><br/>
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="table-responsive" id="first-container" style="padding: 5%;padding-top: 1%;"> 
+                <apex:outputPanel id="customer1"> 
+                <table class="table table-striped tablesorter" id="table">
+            
+                    <thead>
+                        <tr>
+                            <th class="header" id="action">{!$Label.cc_qappt__action}</th>
+                            <th><apex:outputText value="{!$Label.cc_qappt__customer_name}"/></th>
+                            <th><apex:outputText value="{!$Label.cc_qappt__email}"/></th>
+                            <th><apex:outputText value="{!$Label.cc_qappt__phone}"/></th>
+                            <th><apex:outputText value="{!$Label.cc_qappt__address}"/></th>
+                            <th><apex:outputText value="{!$Label.cc_qappt__description}"/></th>
+                        </tr>  
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!UserList}" var="UL">
+                        <tr>
+                          <td><a href="" onclick="addNewCustomer('{!UL.id}');return false;">{!$Label.Edit}</a>|
+                              <a href="javascript:if (window.confirm('Are you sure?')) DeleteCustomer('{!UL.id}');">{!$Label.Delete}</a>|
+                              <a href="" onclick="ShowCustomerAppointment('{!UL.id}');return false;">{!$Label.Appointment}</a>
+                          </td>
+                          <td>{!UL.name}</td>
+                          <td>{!UL.email}</td>
+                          <td>{!UL.phone}</td>
+                          <td>{!UL.MailingStreet} &nbsp; {!UL.MailingCity}</td>
+                          <td>{!UL.description}</td>
+                        </tr>
+                        </apex:repeat>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" id="test">
+                             <apex:outputPanel rendered="{!containtselement}">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>                
+                                                <div class="simple-pagination-first form-control"></div>
+                                            </td>
+                                            <td style="padding-left: 5px;">
+                                                <div class="simple-pagination-previous form-control"></div>
+                                            </td>
+                                            <td style="padding-left: 5px;">
+                                                <div class="simple-pagination-next form-control"></div>
+                                            </td>
+                                            <td style="padding-left: 5px;">
+                                                <div class="simple-pagination-last form-control"></div>
+                                            
+                                            </td>
+                                            <td style="padding-left: 5px;">
+                                                <div class="simple-pagination-page-numbers form-control"></div>
+                                            </td>
+                                            <td style="padding-left: 5px;">
+                                                <div class="simple-pagination-page-x-of-x form-control"></div>
+                                            </td>                                            
+                                        </tr>
+                                    </thead>
+                                </table>
+                             </apex:outputPanel>  
+                              <apex:outputPanel rendered="{!!containtselement}">
+                               <p><center><b>No Records Found</b></center></p>
+                               </apex:outputPanel>
+                            </td>
+                        </tr>
+                    </tfoot> 
+                    
+                </table>
+                </apex:outputPanel>
+            </div>
+        </div>
+    </div>
+
+<!-- customer insert edit -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{!$Label.Customer}</h4>
+      </div>
+      <div class="modal-body">
+          <apex:outputPanel id="errorMsg">
+            <script>
+            
+                 function testing(){ 
+                 if({!errorDiv} == false){
+                 <!-- var pageName = prompt('Visualforce page name:'); -->
+                  <!--var pageName = ('Visualforce page name:');-->
+                   $('[id$=myModal]').modal('hide');
+                   $A.get("e.force:navigateToURL").setParams(
+                   {"url": "/apex/CC_QAppt__Customer" + pageName}).fire();}};         
+   
+                function hidePopUp(){
+                    if({!errorDiv} == false){
+                       $('[id$=myModal]').modal('hide');
+                       window.location.assign("/apex/CC_QAppt__Customer");
+                    }
+                }
+            </script>
+            <apex:outputPanel rendered="{!errorDiv}" >
+            <div class="alert alert-danger" role="alert" style="margin-top: 9px;">
+             <span class="sr-only">Error:</span>
+             <apex:pageMessages />
+             
+            </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+       <div class="row">
+            <div class="col-md-6">
+                <label>{!$Label.cc_qappt__frst_name}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__frst_name}" value="{!con.firstname}" styleClass="form-control"/>
+                
+            </div>
+            <div class="col-md-6">
+                <label>{!$Label.cc_qappt__last_name}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__last_name}" value="{!con.lastname}" styleClass="form-control"/>
+            </div> 
+        </div>
+        <div class="row">              
+            <div class="col-md-6">
+                <label>{!$Label.cc_qappt__email}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__email}" value="{!con.email}" styleClass="form-control"/>
+            </div>
+            <div class="col-md-6">
+                <label>{!$Label.cc_qappt__phone}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__phone}" value="{!con.phone}" styleClass="form-control"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>{!$Label.cc_qappt__address}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__address}" value="{!con.MailingStreet}" styleClass="form-control"/>
+                
+            </div>
+            <div class="col-md-6">
+                <label>{!$Label.cc_qappt__city}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__city}" value="{!con.MailingCity}" styleClass="form-control"/>
+            </div> 
+        </div>
+        <div class="row">              
+            <div class="col-md-6">
+                <label>{!$Label.cc_qappt__state}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__state}" value="{!con.MailingState}" styleClass="form-control"/>
+            </div>
+            <div class="col-md-6">    
+                <label>{!$Label.cc_qappt__postal_code}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__postal_code}" value="{!con.MailingPostalcode}" styleClass="form-control"/>
+             </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>{!$Label.cc_qappt__country}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__country}" value="{!con.MailingCountry}" styleClass="form-control"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">    
+                <label>{!$Label.cc_qappt__description}</label>
+                <apex:inputField id="descriptionbox" html-placeholder="{!$Label.cc_qappt__description}" value="{!con.Description}" styleClass="form-control" style="max-width:871px;max-height:151px;" />
+             </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-12">
+                <center><apex:commandButton styleclass="myBtn btn btn-default" value="{!$Label.cc_qappt__save}" onclick="errorshow();return false;"/>&nbsp;&nbsp;
+                <apex:commandButton onclick="$('[id$=myModal]').modal('hide'); return false;" styleclass="myBtn btn btn-default" value="{!$Label.cc_qappt__cancel}"/></center>
+             </div>
+        </div>
+
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Appointment List of Customer -->
+<apex:outputPanel id="relatedListSection">
+<apex:outputPanel rendered="{!relatedAppointment}">
+<div class="row" id="RelatedListId">
+        <div class="col-md-12">
+        <h4> {!customerName.name} &nbsp; {!$Label.Appointment}</h4>
+                <table class="table table-striped tablesorter" id="table">
+                    <thead>
+                        <tr>
+                        <th class="header">{!$Label.Action}</th>
+                        <th>Appointment Name</th>
+                        <th>{!$Label.Location}</th>
+                        <th>{!$Label.Service}</th>
+                        <th>{!$Label.Resource_Staff}</th>
+                        <th>{!$Label.Start_Date}</th>
+                        <th>{!$Label.End_Date}</th>
+                        <th>{!$Label.Status}</th>
+                        </tr>  
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!AppListForCustomer}" var="app">
+                        <tr>
+                          <td style="width: 86px;"><a href="" onclick="EditCustomerAppoitment('{!app.id}');return false;">{!$Label.Edit}</a>|
+                              <a href="javascript:if (window.confirm('Are you sure?')) DeleteCustomerAppointment('{!app.id}');">{!$Label.Delete}</a>
+                          </td>
+                          <td>{!app.name}</td>
+                          <td>{!app.Resource_Service_Alignment__r.Location__r.street__c}, &nbsp; {!app.Resource_Service_Alignment__r.Location__r.city__c}</td>
+                          <td>{!app.Resource_Service_Alignment__r.Service__r.name}</td>
+                          <td>{!app.Resource_Service_Alignment__r.Resource_Staff__r.name}</td>
+                          <td>{!app.Start_Date_Time__c}</td>
+                          <td>{!app.End_Date_Time__c}</td>
+                          <td>{!app.Status__c}</td>
+                        </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</apex:outputPanel>
+</apex:outputPanel>
+<!-- end -->
+
+<!-- appointment update -->       
+<div class="modal fade bs-example-modal-lg" id="myAppointmentUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{!$Label.Appointment_Details}</h4>
+      </div>
+      <div class="modal-body" id="appUpdates">
+          
+
+       </div>
+            </div>
+          </div>
+        </div>     
+
+</div>
+<script>
+    
+    function handlePagination(){
+        $('.modal-backdrop.in').css('opacity','0');
+        $("#first-container").simplePagination({
+            items_per_page: 15
+        });
+    }
+    
+    /*   $( document ).ready(function() {
+        $('[id$=myModal]').css('display','none');
+        $('.customer-val').keypress(function(event){
+            if(event.keyCode == 13){
+                //$('[id$=myModal]').modal('hide');
+                event.preventDefault();
+                $('[id$=id_of_button]').click();
+                return false;
+            }
+        });
+    });*/
+     function handleKeypress2(event){    
+      var textvalue = $('[id$=id_of_textbox]').val();     
+            if(textvalue == ""){
+            handleReRender();
+            }
+            }
+    
+    
+    
+    
+       function handleKeypress(event){
+         // $('[id$=myModal]').css('display','none');
+          if(event.keyCode == 13 || event.which == 13){
+              $('[id$=myModal]').modal('hide');
+               var textvalue = $('.service-val').val();
+              console.log("textvalue",textvalue);
+                event.preventDefault();
+                $('[id$=id_of_button]').click();
+              /*if(textvalue!="" || textvalue!=''){
+                  $('[id$=id_of_button]').click();
+              }*/  
+          } 
+        }
+    
+        
+    function showpopup(){
+        $('#first-container').simplePagination({ items_per_page: 15});
+        $('[id$=myModal]').modal('show');
+        
+    }
+    function scrollDown(){
+        window.location.hash = '#RelatedListId';
+        handlePagination();
+    }
+    function EditCustomerAppoitment(aId){
+        $('[id$=myAppointmentUpdate]').modal('show');
+        $('#appUpdates').html('<iframe src="/apex/Appointment?id='+aId+'" width="100%" height="480" frameborder="0"></iframe>'); 
+    }
+</script>
+<apex:outputPanel id="pagination2">
+<script>
+    (function($){
+        $("#first-container").simplePagination({
+            items_per_page: 15
+        });
+          var pagecount= $(".simple-pagination-navigation-page").length;
+                       if(pagecount==1){
+                           var style1 = {
+                         'text-decoration':'none',
+                         'color': 'black',
+                          'pointer-events': 'none'
+                         };
+                     $('.simple-pagination-navigation-previous').css(style1);
+                    $('.simple-pagination-previous.form-control').css('background-color','#dddddd');
+                    $('.simple-pagination-navigation-next').css(style1);
+                    $('.simple-pagination-next.form-control').css('background-color','#dddddd');
+                    $('.simple-pagination-navigation-first').css(style1);
+                    $('.simple-pagination-first.form-control').css('background-color','#dddddd');
+                    $('.simple-pagination-navigation-last').css(style1);
+                    $('.simple-pagination-last.form-control').css('background-color','#dddddd');
+                    $('.simple-pagination-navigation-page').css(style1);
+                    $('.simple-pagination-navigation-page.form-control').css('background-color','#dddddd');
+                    $('.simple-pagination-page-numbers.form-control').css('background-color','#dddddd');
+                    $('.simple-pagination-page-x-of-x.form-control').css('background-color','#dddddd');
+                       }      
+    })(jQuery);
+    
+    function hidePopUp(errorDiv){
+      console.log('@@##4'); 
+      console.log(errorDiv);
+      if(errorDiv == false)
+      {
+          <!-- var pageName = prompt('Visualforce page name:'); -->
+          <!--var pageName = ('Visualforce page name:');-->
+          $('[id$=myModal]').modal('hide');
+      } 
+     
+    }   
+</script>
+   </apex:outputPanel>
+   </apex:outputPanel>
+   
+    <apex:actionFunction name="handleReRender" action="{!search}" reRender="CustomerPanel,test,relatedListSection"  />
+</apex:form>
+</section>
+
+</div>
+</div>  
+</body>
+
+</apex:page>

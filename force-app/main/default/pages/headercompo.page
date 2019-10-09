@@ -1,0 +1,51 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false">
+    <script src="{!URLFOR($Resource.Semantic,'semantic/jquery-1.11.1.min.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Semantic,'semantic/jquery-ui.min.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Semantic,'semantic/bootstrap.min.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Semantic,'semantic/bootstrap.offcanvas.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Semantic,'semantic/bootstrap.offcanvas.min.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Semantic,'semantic/jquery-simple-pagination-plugin.js')}" type="text/javascript"></script>    
+    <link href="{!URLFOR($Resource.Semantic,'semantic/jquery-ui.css')}" rel="stylesheet"/>
+    <link href="{!URLFOR($Resource.Semantic,'semantic/bootstrap.min.css')}" rel="stylesheet"/>
+    <link href="{!URLFOR($Resource.Semantic,'semantic/bootstrap.offcanvas.css')}" rel="stylesheet"/>
+    <link href="{!URLFOR($Resource.Semantic,'semantic/bootstrap.offcanvas.min.css')}" rel="stylesheet"/>
+    <script>
+        $(document).ready(function(){
+        $('.right.menu.open').on("click",function(e){
+            e.preventDefault();
+            $('.ui.vertical.menu').toggle();
+        });
+        
+        $('.ui.dropdown').dropdown();
+        });
+    </script>
+    
+ <body class="body-offcanvas">
+    <header class="clearfix">
+        <button type="button" class="navbar-toggle offcanvas-toggle" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas-2" style="float:left;">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <nav class="navbar navbar-inverse navbar-default navbar-offcanvas  navbar-offcanvas-touch navbar-offcanvas-fade" role="navigation" id="js-bootstrap-offcanvas-2">
+            <div class="container-fluid">            
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" style="float:left">Quick Appointment</a>
+                    <button type="button" class="navbar-toggle offcanvas-toggle pull-right" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas-2" style="float:left; ">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </button>
+                </div>                
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/apex/Location">Locations</a></li>
+                        <li><a href="/apex/BussinessPage">Bussiness</a></li>
+                        <li><a href="#">Resource/Staff/Users</a></li>
+                    </ul>                    
+                </div>                
+            </div>
+        </nav>
+    </header>
+</body>
+</apex:page>

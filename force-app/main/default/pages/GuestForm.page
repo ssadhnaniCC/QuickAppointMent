@@ -1,0 +1,57 @@
+<apex:page sidebar="false" showHeader="false" controller="GuestFormClass" lightningStylesheets="true">
+
+<apex:slds />
+    <div class="slds-page-header slds-text-heading--label">
+    <center>Customer Page</center>
+    </div>
+    <div>
+     <apex:form styleclass="slds-align_absolute-center">
+    <apex:pageBlock >
+    <apex:pageBlockSection columns="1">
+    <apex:pageblocksectionItem >
+          <apex:outputLabel styleClass="slds-form-element__label" value="First Name"/>
+            <apex:inputField styleClass="slds-input" value="{!con.firstName}"/>
+    </apex:pageblocksectionItem>
+    <apex:pageblocksectionItem >
+        <apex:outputLabel styleClass="slds-form-element__label" value="Last Name"/> 
+            <apex:inputField styleClass="slds-input" value="{!con.lastname}"/>
+    </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+        <apex:outputLabel styleClass="slds-form-element__label" value="Email"/>
+         <apex:inputField styleClass="slds-input" value="{!con.Email}"/>
+     </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+        <apex:outputLabel styleClass="slds-form-element__label" value="Phone"/>
+            <apex:inputField styleClass="slds-input" value="{!con.Phone}"/>
+     </apex:pageblocksectionItem>
+     <apex:pageblocksectionItem >
+        <apex:outputLabel styleClass="slds-form-element__label" value="Address"/>
+            <apex:inputField styleClass="slds-input" value="{!con.MailingStreet}"/>
+        </apex:pageblocksectionItem>
+        <apex:pageblocksectionItem >
+        <apex:outputLabel styleClass="slds-form-element__label" value="City"/>
+            <apex:inputField styleClass="slds-input" value="{!con.MailingCity}"/>
+        </apex:pageblocksectionItem>
+        <apex:pageblocksectionItem >
+        <apex:outputLabel styleClass="slds-form-element__label" value="State"/>
+            <apex:inputField styleClass="slds-input" value="{!con.MailingState}"/>
+        </apex:pageblocksectionItem>
+        <apex:pageblocksectionItem >
+        <apex:outputLabel styleClass="slds-form-element__label" value="Postal Code"/>
+            <apex:inputField styleClass="slds-input" value="{!con.MailingPostalcode}"/>
+        </apex:pageblocksectionItem>
+        <apex:pageblocksectionItem >
+        <apex:outputLabel styleClass="slds-form-element__label" value="Country"/>
+            <apex:inputField styleClass="slds-input" value="{!con.MailingCountry}"/>
+        </apex:pageblocksectionItem>
+        <apex:pageblocksectionItem >
+        <apex:outputPanel >
+                    <apex:commandButton styleClass="slds-button slds-button--brand " value="{!$Label.cc_qappt__save}" action="{!Save}"/>
+                    <apex:commandButton styleClass="slds-button slds-button--brand " value="{!$Label.cc_qappt__cancel}" action="{!Cancel}"/>
+         </apex:outputPanel>
+         </apex:pageblocksectionItem>
+    </apex:pageBlockSection>
+    </apex:pageBlock>
+    </apex:form>
+      </div>
+</apex:page>

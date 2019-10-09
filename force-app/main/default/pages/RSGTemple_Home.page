@@ -1,0 +1,42 @@
+<apex:page lightningStylesheets="true" standardStylesheets="false" showHeader="false" sidebar="false" title="Home">
+  <apex:slds />
+  
+  <!--<c:RSGTemple_Header/>
+  <div class="slds-grid slds-wrap">
+      <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12">
+          <span><c:RSGTemple_Left/></span>
+      </div>
+      <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
+          <span></span>
+      </div>
+      <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12">
+          <span><c:RSGTemple_Right/></span>
+      </div>
+  </div> 
+  <c:RSGTemple_Footer/>-->
+  <div class="slds-grid slds-grid_vertical" style="height:200px">
+      <div class="slds-col">
+        <span><c:RSGTemple_Header /></span>
+      </div>
+      <div class="slds-col">
+        <span>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-wrap slds-size_1-of-1 slds-large-size_2-of-12">
+                    <span><c:RSGTemple_Left /></span>
+                </div>
+                <div class="slds-col slds-wrap slds-size_1-of-1 slds-large-size_8-of-12">
+                    <span>Gurudwara</span>
+                </div>
+                    <div class="slds-col slds-wrap slds-size_1-of-1 slds-large-size_2-of-12">
+                <span><c:RSGTemple_Right /></span>
+                </div>
+            </div> 
+        </span>
+      </div>
+      <div class="slds-col">
+        <span><c:RSGTemple_Footer /></span>
+      </div>
+</div>
+    
+
+</apex:page>

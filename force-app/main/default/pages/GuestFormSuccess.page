@@ -1,0 +1,13 @@
+<apex:page showHeader="false">
+  <div style="text-align:center;margin-top:200px;font-size: 25px;">
+      <apex:outputText value="Details Successfully submitted."/>
+  </div>
+  <!--<apex:form>
+      <apex:commandButton onclick="Navigate();" value="Insert a New One"/>
+  </apex:form>
+  <script>
+      function Navigate() {
+          window.location.href = "https://cc-qappt.ap6.visual.force.com/apex/GuestForm";
+      }
+  </script>-->
+</apex:page>

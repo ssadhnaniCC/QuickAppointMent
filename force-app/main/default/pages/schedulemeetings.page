@@ -1,0 +1,403 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" controller="ScheduleMeetingsController">
+<c:MeetingsHeader />
+<title>Schedule Meetings</title>
+
+<style>
+    .numbring{
+        font-weight: 800;
+        width: 5%;
+        text-align: center;
+    }
+    .hrlines{
+          border-top: 2px solid #eee !important;
+    }
+    .numberingDiv{
+        background: white;
+        color: black;
+        border-radius: 50%;
+        height: 22px;
+    }
+    .numberingDivSel{
+        background: rgb(96, 161, 247);
+        color: rgb(255, 255, 255);
+        border-radius: 50%;
+        height: 22px;
+    }
+    .tableTrColor:nth-of-type(odd){
+          background-color: #EFEFEF;
+    }
+    .tableTrColor:nth-of-type(even){
+        background: rgb(218, 218, 218);
+    }
+    .trcursor{
+        cursor:pointer;
+    }
+    .trcursor:Hover{
+        cursor:pointer;
+          background: aliceblue !important;
+    }
+    .overlay{
+        width: 100%;
+        height:700px;
+        background:#000;
+        opacity : 0.7;
+        top:0px;
+        left:0px;
+        position: fixed;
+        z-index:500;
+    }
+    .status{
+       
+        background: none repeat scroll 0% 0% #DDD;
+        border: 1px solid #AAA;
+        border-radius: 2px;
+        
+        font-weight: bold;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0px 0px 15px 5px #DDD;
+        opacity: 1;
+        height: auto;
+        position: fixed;
+        padding: 15px;
+        z-index: 1000;
+        top: auto;
+        left: auto;
+        right: auto;
+        width: auto;
+        margin: 20% 49%;
+    }
+</style>
+<apex:actionStatus id="st">
+    <apex:facet name="start">
+        <div class="overlay" style=" opacity: 0.1;filter: alpha(opacity=40);  "></div>
+        <div class="status">
+            <img src="/img/loading24.gif" />
+        </div>
+    </apex:facet>
+</apex:actionStatus>
+
+<apex:form id="frm">
+<!---Action functions start here--->
+<apex:actionFunction name="goOn1" reRender="frm" action="{!goOnStage1}" status="st" oncomplete="initialize();"/>   
+<apex:actionFunction name="goOn2" reRender="frm" action="{!goOnStage2}" status="st"/>   
+<apex:actionFunction name="goOn3" reRender="frm" action="{!goOnStage3}" status="st"/>   
+<apex:actionFunction name="goOn4" reRender="frm" action="{!goOnStage4}" status="st"/>   
+<apex:actionFunction name="goOn5" reRender="frm" action="{!goOnStage5}" status="st"/>   
+<!---Action functions end here--->
+<div class="container-fluid">         
+    <!---First Step Start Here-->
+    <apex:outputPanel layout="none" rendered="{!showStage1}">
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
+        <script>
+            function initialize() {
+              var mapProp = {
+                center:new google.maps.LatLng(51.508742,-0.120850),
+                zoom:5,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+              };
+              var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);            
+        </script>
+        
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <table width="100%">
+                    <tr>
+                        <td class="numbring"><div class="numberingDivSel">1</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv">2</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv">3</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv">4</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv">5</div></td>
+                    </tr>
+                </table>
+            </div>     
+        </div>
+    
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div id="googleMap" style="width:100%;height:250px;border-radius: 15px;border: 2px solid rgb(48, 61, 63);"></div>
+            </div>
+        </div>       
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="table-responsive" style="border-radius: 7px;">  
+                    <table class="table table-striped tableTrColor" >
+                        <thead>
+                            <tr style="color:#fff;background: darkgrey;">
+                                <th><center>Index</center></th>
+                                <th><input type="text" class="form-control" placeholder="Location name ..."/></th>
+                            </tr>   
+                        </thead>
+                        <tbody>
+                            <tr class="trcursor" onclick="goOn2(); return false;">
+                                <td align="center">1</td>
+                                <td>1, SH 13, Islampur, Sector 38, Gurgaon, Haryana 122018</td>
+                            </tr>
+                            <tr class="trcursor" onclick="goOn2(); return false;">
+                                <td align="center">2</td>
+                                <td>2, Pushkar By-Pass Road, Ajmer, Rajasthan 305009</td>
+                            </tr>
+                            <tr class="trcursor" onclick="goOn2(); return false;">
+                                <td align="center">3</td>
+                                <td>2, Pushkar By-Pass Road, Ajmer, Rajasthan 305009</td>
+                            </tr>
+                            <tr class="trcursor" onclick="goOn2(); return false;">
+                                <td align="center">4</td>
+                                <td>2, Pushkar By-Pass Road, Ajmer, Rajasthan 305009</td>
+                            </tr>
+                            <tr class="trcursor" onclick="goOn2(); return false;">
+                                <td align="center">5</td>
+                                <td>2, Pushkar By-Pass Road, Ajmer, Rajasthan 305009</td>
+                            </tr>
+                        </tbody>  
+                        <tfoot>
+                        </tfoot>    
+                    </table>
+                </div>
+            </div>
+        </div> 
+    </apex:outputPanel>
+    <!---First Step Start Here-->
+    
+    <!---Second Step Start Here-->
+    <apex:outputPanel layout="none" rendered="{!showStage2}">     
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <table width="100%">
+                    <tr>
+                        <td class="numbring"><div class="numberingDiv" style="cursor:pointer" onclick="goOn1(); return false;">1</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDivSel">2</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv">3</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv">4</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv">5</div></td>
+                    </tr>
+                </table>
+            </div>     
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="table-responsive" style="border-radius: 7px;">  
+                    <table class="table table-striped tableTrColor" >
+                        <thead>
+                            <tr style="color:#fff;background: darkgrey;">
+                                <th><center>Index</center></th>
+                                <th><input type="text" class="form-control" placeholder="Service name ..."/></th>
+                            </tr>   
+                        </thead>
+                        <tbody>
+                            <tr class="trcursor" onclick="goOn3(); return false;">
+                                <td align="center">1</td>
+                                <td>Consultant</td>
+                            </tr>
+                            <tr class="trcursor" onclick="goOn3(); return false;">
+                                <td align="center">2</td>
+                                <td>Architects </td>
+                            </tr>
+                            <tr class="trcursor" onclick="goOn3(); return false;">
+                                <td align="center">3</td>
+                                <td>Software Developer</td>
+                            </tr>
+                            <tr class="trcursor" onclick="goOn3(); return false;">
+                                <td align="center">4</td>
+                                <td>technicians</td>
+                            </tr>
+                        </tbody>  
+                        <tfoot>
+                        </tfoot>    
+                    </table>
+                </div>
+            </div>
+        </div> 
+    </apex:outputPanel>
+    <!---Second Step Start Here-->
+    
+    <!---Third Step Start Here-->
+    <apex:outputPanel layout="none" rendered="{!showStage3}">     
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <table width="100%">
+                    <tr>
+                        <td class="numbring"><div class="numberingDiv" style="cursor:pointer" onclick="goOn1(); return false;">1</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv" style="cursor:pointer" onclick="goOn2(); return false;">2</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDivSel">3</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv">4</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv">5</div></td>
+                    </tr>
+                </table>
+            </div>     
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="table-responsive" style="border-radius: 7px;">  
+                    <table class="table table-striped tableTrColor" >
+                        <thead>
+                            <tr style="color:#fff;background: darkgrey;">
+                                <th><center>Index</center></th>
+                                <th><input type="text" class="form-control" placeholder="Provider name ..."/></th>
+                            </tr>   
+                        </thead>
+                        <tbody>
+                            <tr class="trcursor" onclick="goOn4(); return false;">
+                                <td align="center">1</td>
+                                <td>Mr. Harry Porter</td>
+                            </tr>
+                            <tr class="trcursor" onclick="goOn4(); return false;">
+                                <td align="center">2</td>
+                                <td>Ms. Jammy Lay</td>
+                            </tr>
+                            <tr class="trcursor" onclick="goOn4(); return false;">
+                                <td align="center">3</td>
+                                <td>Mr. David Gutta</td>
+                            </tr>
+                            <tr class="trcursor" onclick="goOn4(); return false;">
+                                <td align="center">4</td>
+                                <td>Ms. Raymay</td>
+                            </tr>
+                        </tbody>  
+                        <tfoot>
+                        </tfoot>    
+                    </table>
+                </div>
+            </div>
+        </div> 
+    </apex:outputPanel>
+    <!---Third Step End Here-->
+    
+    <!---Fourth Step Start Here-->
+    <apex:outputPanel layout="none" rendered="{!showStage4}">                           
+        <script class="cssdesk" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>       
+        <link href="{!URLFOR($Resource.MettingsResources,'MettingsResources/fullcalendar.css')}" rel="stylesheet" />
+        <link href="{!URLFOR($Resource.MettingsResources,'MettingsResources/fullcalendar.print.css')}" rel="stylesheet" />        
+        <script class="cssdesk" src="{!URLFOR($Resource.MettingsResources,'MettingsResources/fullcalendar.min.js')}" type="text/javascript"></script> 
+        <script>
+            $(function () {
+                loadFullCal();
+            });
+            
+            function loadFullCal(){
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+                
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: ''
+                    },
+                    editable: true
+                });
+                $('#calendar').fullCalendar( 'changeView', 'agendaWeek');
+                $('#calendar').fullCalendar('option', 'contentHeight', 450);
+            }
+        </script> 
+        <style>
+        #calendar {
+            width: 100%;
+            margin: 0 auto;
+        }
+        .fc-header-title h2{
+            font-size:14px;
+        }
+        </style>
+        <div class="row" onload="loadFullCal();">
+            <div class="col-md-6 col-md-offset-3">
+                <table width="100%">
+                    <tr>
+                        <td class="numbring"><div class="numberingDiv" style="cursor:pointer" onclick="goOn1(); return false;">1</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv" style="cursor:pointer" onclick="goOn2(); return false;">2</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv" style="cursor:pointer" onclick="goOn3(); return false;">3</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDivSel">4</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv">5</div></td>
+                    </tr>
+                </table>
+            </div>     
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" style="background:white;border-radius: 15px;">
+                <div id='calendar' style="  margin-top: 15px;margin-bottom: 15px;" onclick="goOn5(); return false;"></div>
+            </div>
+        </div> 
+    </apex:outputPanel>
+    <!---Fourth Step End Here-->
+    
+    <!---Fifth Step Start Here-->
+    <apex:outputPanel layout="none" rendered="{!showStage5}">     
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <table width="100%">
+                    <tr>
+                        <td class="numbring"><div class="numberingDiv" style="cursor:pointer" onclick="goOn1(); return false;">1</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv" style="cursor:pointer" onclick="goOn2(); return false;">2</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv" style="cursor:pointer" onclick="goOn3(); return false;">3</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDiv" style="cursor:pointer" onclick="goOn4(); return false;" >4</div></td>
+                        <td><hr class="hrlines"/></td>
+                        <td class="numbring"><div class="numberingDivSel">5</div></td>
+                    </tr>
+                </table>
+            </div>     
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" style="background: rgb(224, 224, 224);border-radius: 15px;">
+                <div class="table-responsive" style="border-radius: 7px;">  
+                    <table width="100%" style="  margin-top: 15px;margin-bottom: 15px;">
+                            <tr>
+                                <td><b>Location</b></td>
+                                <td>1, SH 13, Islampur, Sector 38, Gurgaon, Haryana 122018</td>
+                            </tr> 
+                            <tr>
+                                <td><b>Service</b></td>
+                                <td>Architects </td>
+                            </tr>   
+                            <tr>
+                                <td><b>Provider</b></td>
+                                <td>Ms. Jammy Lay</td>
+                            </tr>
+                            <tr>
+                                <td><b>Date/Time</b></td>
+                                <td>2:00 P.M. ,2/12/2015</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><b>Reason of Metting</b></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><apex:inputTextarea style="width:100%;height:125px" styleClass="form-control"/></td>                               
+                            </tr> 
+                            <tr>
+                                <td align="right" colspan="2"><apex:commandButton style="margin-top:5px" styleClass="btn btn-success" value="Schedule it !!!"/> </td>                               
+                            </tr>  
+                    </table>
+                </div>
+            </div>
+        </div> 
+    </apex:outputPanel>
+    <!---Fifth Step End Here-->      
+</div>
+</apex:form>  
+</apex:page>

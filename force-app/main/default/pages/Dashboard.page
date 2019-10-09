@@ -1,0 +1,147 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" controller="DashboardCtrl" title="{!$Label.cc_qappt__dashboard} -{!$Label.cc_qappt__quick_appointment}">
+  <c:NewHeader />
+<style>
+.showhideul {
+display:none;
+}
+  body{
+  display:none;
+  } 
+</style>
+ <script>
+window.addEventListener("DOMContentLoaded", function(){
+  document.getElementsByTagName("body")[0].style.display = "block";
+});
+</script>  
+<script>
+    $(document).ready(function(){
+    
+    $('ul[id^=list]').each(function(){
+
+    if ( $(this).children().length > 2 ) {
+
+        $(this).children('li:gt(2)').hide(); 
+        $(this).after('<a href="#" class="showhideul" style="float:right;">More/Less</a>');
+    }
+          });
+          $('.showhideul').click(function(e){
+                e.preventDefault();
+                $(this).prev('ul[id^=list]').children('li:gt(2)').toggle('slow');
+                $('ul[id^=list]').not($(this).prev('ul[id^=list]')).each(function(){
+                      $(this).children('li:gt(2)').hide();
+                });
+          });
+
+    
+
+});
+</script>
+  <!-- Menu Code --->
+<body hoe-navigation-type="vertical" hoe-nav-placement="left" id="navTypeAndPlacement">
+    <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
+        <c:HeaderNested />
+        <div id="hoeapp-container" hoe-color-type="lpanel-bg2" hoe-lpanel-effect="shrink">
+            <c:SideBar />
+<section id="main-content">
+<!-- Menu Code End --->
+<div class="row">
+    
+<div class="col-md-6">
+    <div class="panel panel-default">
+    <!-- Default panel contents -->
+        <div class="panel-heading"><b>{!$Label.Upcoming_Appointments_List}</b></div>
+        <div class="panel-body">
+        <ul class="list-group" id="list1">
+            <apex:repeat value="{!appLIst}" var="app">
+                <li class="list-group-item">
+                  {!app.name} &nbsp; <apex:outputField value="{!app.Start_Date_Time__c}" />
+                </li>
+            </apex:repeat>
+        </ul>
+        <!-- <a href="" class="btn_More" style="float:right;">Show More</a>
+        <a href="" class="btn_less" style="float:right;">Show Less</a> -->
+        </div>
+        
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="panel panel-default">
+    <!-- Default panel contents -->
+        <div class="panel-heading"><b>{!$Label.Appointments_By_Service_Type}</b></div>
+        <div class="panel-body">
+        <ul class="list-group" id="list2">
+            <apex:repeat value="{!serviceMap}" var="ser">
+                <li class="list-group-item">
+                  <b> {!ser} </b>
+                  <ul class="list-group">
+                    <apex:repeat value="{!serviceMap[ser]}" var="se">
+                        <li class="list-group-item">
+                          {!se.name} &nbsp; <apex:outputField value="{!se.Start_Date_Time__c}"/>
+                        </li>
+                    </apex:repeat>
+                </ul>
+                </li>
+            </apex:repeat>
+        </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+<div class="row">
+    
+<div class="col-md-6">
+    <div class="panel panel-default">
+    <!-- Default panel contents -->
+        <div class="panel-heading"><b>{!$Label.Appointments_By_Customer}</b></div>
+        <div class="panel-body">
+        <ul class="list-group" id="list3">
+            <apex:repeat value="{!customerMap}" var="cus">
+            <li class="list-group-item">
+               <b> {!cus} </b>
+              <ul class="list-group">
+                <apex:repeat value="{!customerMap[cus]}" var="app">
+                    <li class="list-group-item">
+                      {!app.name}
+                    </li>
+                </apex:repeat>
+            </ul>
+                </li>
+            </apex:repeat>
+        </ul>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="panel panel-default">
+    <!-- Default panel contents -->
+        <div class="panel-heading"><b>{!$Label.Appointments_By_Location}</b></div>
+        <div class="panel-body">
+        <ul class="list-group" id="list4">
+                <apex:repeat value="{!locationMap}" var="loc">
+                <li class="list-group-item">
+                   <b> {!loc} </b>
+                  <ul class="list-group">
+                    <apex:repeat value="{!locationMap[loc]}" var="lo">
+                        <li class="list-group-item">
+                          {!lo.name} &nbsp; <apex:outputField value="{!lo.Start_Date_Time__c}" />
+                        </li>
+                        
+                    </apex:repeat>
+                </ul>
+                </li>
+            </apex:repeat>
+        </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+</section>
+
+</div>
+</div>  
+</body>
+</apex:page>

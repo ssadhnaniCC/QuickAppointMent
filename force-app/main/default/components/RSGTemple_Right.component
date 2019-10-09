@@ -1,0 +1,39 @@
+<apex:component >
+    <!--<div class="slds-panel slds-size_small slds-panel_docked slds-panel_docked-right slds-is-directional slds-is-open" aria-hidden="false">
+    
+        <div class="slds-panel__body">A panel body accepts any layout or component</div>
+    </div>-->
+    <br/> <br/> 
+    <div class="slds-grid  slds-grid_vertical slds-grid_align-space slds-text-heading_medium" style="height:450px;padding:50px;">
+        <div class="slds-col slds-wrap">
+            <span>
+                <a href="https://www.facebook.com/pages/Ramgharia-Sikh-Gurdwara/131123543610376"><apex:image id="facebook" value="{!$Resource.Facebook}" width="70" height="70" alt="Facebook"/></a>
+            </span>
+        </div>
+        <br/>
+        <div class="slds-col slds-wrap">
+            <span>
+                <a href="https://twitter.com/rsgslough"><apex:image id="twitter" value="{!$Resource.twitter}" width="70" height="70" alt="Twitter"/></a>     
+            </span>
+        </div>
+        <br/>
+        <div class="slds-col">
+            <span>
+                <apex:image id="google" value="{!$Resource.googlep}" width="70" height="70" alt="Google+"/>
+            </span>
+        </div>
+        <br/>
+        <div class="slds-col">
+            <span>
+                <a href="https://www.instagram.com/rsgslough/"><apex:image id="instagram" value="{!$Resource.instagram}" width="70" height="70" alt="Instagram"/></a>
+            </span>
+        </div>
+        <br/>
+        <div class="slds-col">
+            <span>
+                <a href="https://youtube.com/RamghariaSikhGurdwara"><apex:image id="YouTube" value="{!$Resource.YouTube}" width="70" height="70" alt="Youtube"/></a>
+            </span>
+        </div>
+        <br/>
+    </div>
+</apex:component>

@@ -1,0 +1,558 @@
+<apex:page controller="ResourceStaffUsersCtrl" standardStylesheets="false" showHeader="false" sidebar="false" title="{!$Label.cc_qappt__resource_staff} -{!$Label.cc_qappt__quick_appointment}">
+    <c:NewHeader />
+ <style> 
+body  {
+display:none;
+} 
+</style>
+  <script>
+   window.addEventListener("DOMContentLoaded", function(){
+  document.getElementsByTagName("body")[0].style.display = "block";
+});
+    $(document).ready(function() {
+      $('#action').removeClass('headerSortDown');
+    });
+ </script>  
+    
+    <style>
+        .custPopup{
+        background-color: white;
+        border-width: 0px;
+        border-radius:10px;
+        z-index: 9999;
+        left: 50%;
+        padding:20px;
+        position: absolute;
+        margin-left: -100px;
+        top:40%;
+        }
+        .popupBackground{
+        background-color:black;
+        opacity: 0.30;
+        filter: alpha(opacity = 30);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 9998;
+        }
+        div.simple-pagination-page-numbers a:not(:first-child) {
+   margin-left:5px;
+}
+        .custPopup1 {
+    background-color: white;
+    border-width: 0px;
+    border-radius: 10px;
+    z-index: 9999;
+    padding: 20px;
+    position: absolute;
+    margin-left: 40%;
+    top: 10%;
+}
+        table.tablesorter thead tr .header {
+        width: 113px;
+        background: URL({!URLFOR($Resource.tablesorter,'tablesorter/bg.GIF')}) no-repeat;
+        background-position: center right;
+        cursor: pointer;
+        }
+        
+        
+        table.tablesorter thead tr .headerSortUp { 
+        background: URL({!URLFOR($Resource.tablesorter,'tablesorter/up.GIF')}) no-repeat; 
+        background-position: center right;
+        cursor: pointer;
+        } 
+        table.tablesorter thead tr .headerSortDown{ 
+        background: URL({!URLFOR($Resource.tablesorter,'tablesorter/down.GIF')}) no-repeat; 
+        background-position: center right;
+        cursor: pointer;
+        } 
+        
+        
+        .myBtn {
+        height: 32px;
+        width:60px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;  
+        }    
+    </style>
+    <apex:actionStatus id="fetching">
+        <apex:facet name="start">
+            <apex:outputPanel id="tstpopup">
+                <apex:outputPanel styleClass="popupBackground" layout="block"/>
+                <apex:outputPanel styleClass="custPopup" layout="block">
+                    <img src="/img/loading24.gif" style="vertical-align:middle; horizontal-align:middle"/> 
+                    <span>Please wait...</span>  
+                </apex:outputPanel>
+            </apex:outputPanel> 
+        </apex:facet>
+    </apex:actionStatus>
+       <apex:actionStatus id="savestatus">
+            <apex:facet name="start">
+                 <apex:outputPanel id="tst">
+                        <apex:outputPanel layout="block"/>
+                        <apex:outputPanel styleClass="custPopup1" layout="block">
+                            <img src="/img/loading24.gif" style="vertical-align:middle; horizontal-align:middle"/> 
+                            <span>Please wait...</span>  
+                        </apex:outputPanel>
+                  </apex:outputPanel> 
+            </apex:facet>
+        </apex:actionStatus>
+        
+    
+    
+    <!-- Menu Code --->
+    <body hoe-navigation-type="vertical" hoe-nav-placement="left" id="navTypeAndPlacement">
+        <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
+            <c:HeaderNested />
+            <div id="hoeapp-container" hoe-color-type="lpanel-bg2" hoe-lpanel-effect="shrink">
+                <c:SideBar />
+                <section id="main-content">
+                    <!-- Menu Code End --->
+                    <apex:form id="ResourceStaffUsersPanel">
+                        
+                        <apex:actionFunction name="saveResourceStaffDetails" action="{!ResourceStaffUsers}"  oncomplete="hidePopUp({!errorDiv}); return false;" reRender="errorMsg,resource1,pagination2" status="savestatus"/>
+                        
+                        <apex:actionFunction name="addNewResourceStaffUsers" action="{!goToNewEditMode}" reRender="ResourceStaffUsersPanel,errorMsg" oncomplete="showpopup();return false;" status="fetching">
+                            <apex:param assignTo="{!contactId}" name="conId" value=""/>
+                        </apex:actionFunction>
+                        
+                        <apex:actionFunction name="DeleteResourceStaffUsers" action="{!DeleteResourceStaffUsers}" reRender="ResourceStaffUsersPanel,errorMsg" status="fetching" oncomplete="$('#first-container').simplePagination({ items_per_page: 15});">
+                            <apex:param assignTo="{!contactIdForDelete}" name="conDelId" value=""/>
+                        </apex:actionFunction>
+                        
+                        
+                        <apex:actionFunction name="ShowRelatedList" action="{!ShowAlignemtn}" reRender="RelatedListSection"  status="fetching">
+                            <apex:param assignTo="{!ConIdForAlignemnt}" name="conAlignmentId1" value=""/>
+                        </apex:actionFunction>
+                        
+                        <apex:actionFunction name="getServiceLocation" action="{!getServiceBasedOnLocation}" reRender="Service" status="fetching"/>
+                        <!-- <apex:actionFunction name="DeleteResourceAlignment" action="{!DeleteAlignment}" reRender="ResourceStaffUsersPanel" status="fetching">
+<apex:param assignTo="{!deletedId}" name="conDelId" value=""/>
+</apex:actionFunction>
+<apex:actionFunction name="addNewAlignments" action="{!AddNewAlignment}" reRender="ResourceStaffUsersPanel" oncomplete="showpopupForAlignment();return false;" status="fetching">
+<apex:param assignTo="{!alignmentId}" name="conAlignmentId" value=""/>
+</apex:actionFunction> -->
+                        
+                        <div class="container-fluid">
+                            
+                            <div class="row">
+                                <div class="col-md-4" align="center">
+                                    <h2>{!$Label.Resource_Staff_Details}</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-offset-4 col-md-4" align="center">
+                                    <div class="slds-scope">
+                                        <button class="myBtn btn btn-default" onclick="addNewResourceStaffUsers(); return false;">{!$Label.New}</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div style="display: flex;;"><apex:inputText value="{!NameSearch}" html-Placeholder="{!$Label.cc_qappt__name}" styleClass="form-control resourceStaff-val" id="id_of_textbox" onkeypress="handleKeypress(event);"/>
+                                        <apex:commandButton action="{!search}" value="{!$Label.cc_qappt__search}" styleClass="btn btn-default" id="id_of_button" reRender="ResourceStaffUsersPanel,test" oncomplete="$('#first-container').simplePagination({ items_per_page: 15});"/></div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive" id="first-container" style="padding: 5%;padding-top: 1%;"> 
+                                        <apex:outputPanel id="resource1">
+                                            <table class="table table-striped tablesorter" id="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="header" id="action">{!$Label.Action}</th>
+                                                        <th>{!$Label.cc_qappt__name}</th>
+                                                        <th>{!$Label.cc_qappt__address}</th>
+                                                        <th>{!$Label.cc_qappt__city}</th>
+                                                        <th>{!$Label.cc_qappt__state}</th>
+                                                        <th>{!$Label.cc_qappt__postal_code}</th>
+                                                        <th>{!$Label.cc_qappt__country}</th>
+                                                        <!-- <th>{!$Label.Capacity}</th>
+<th>{!$Label.Languages}</th> -->
+                                                        <th>{!$Label.cc_qappt__phone}</th>
+                                                        <!-- <th>{!$Label.Level}</th> -->
+                                                    </tr>  
+                                                </thead>
+                                                <tbody>
+                                                    <apex:repeat value="{!conList}" var="con">
+                                                        <tr>
+                                                            <td width="163px;"><a href="" onclick="addNewResourceStaffUsers('{!con.id}');return false;">{!$Label.Edit}</a>|
+                                                                <a href="javascript:if (window.confirm('If you delete this resource/staff avaliable appointment on this location will also be deleted Are you sure?')) DeleteResourceStaffUsers('{!con.id}');">{!$Label.Delete}</a>|
+                                                                <a href="" onclick="ShowRelatedList('{!con.id}');return false;">{!$Label.Appointment}</a>
+                                                            </td>
+                                                            <td>{!con.name}</td>
+                                                            <td>{!con.MailingStreet}</td>
+                                                            <td>{!con.MailingCity}</td>
+                                                            <td>{!con.MailingState}</td>
+                                                            <td>{!con.MailingPostalCode}</td>
+                                                            <td>{!con.MailingCountry}</td>
+                                                            <!-- <td>{!con.Capacity__c}</td>
+<td>{!con.Languages__c}</td> -->
+                                                            <td>{!con.Phone}</td>
+                                                            <!-- <td>{!con.Level__c}</td> -->
+                                                        </tr>
+                                                    </apex:repeat>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="5" id="test">
+                                                            <apex:outputPanel rendered="{!containtselement}">
+                                                                <table>
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <td>                
+                                                                                <div class="simple-pagination-first form-control"></div>
+                                                                            </td>
+                                                                            <td style="padding-left: 5px;">
+                                                                                <div class="simple-pagination-previous form-control"></div>
+                                                                            </td>
+                                                                            <td style="padding-left: 5px;">
+                                                                                <div class="simple-pagination-next form-control"></div>
+                                                                            </td>
+                                                                            <td style="padding-left: 5px;">
+                                                                                <div class="simple-pagination-last form-control"></div>
+                                                                                
+                                                                            </td>
+                                                                            <td style="padding-left: 5px;">
+                                                                                <div class="simple-pagination-page-numbers form-control"></div>
+                                                                            </td>
+                                                                            <td style="padding-left: 5px;">
+                                                                                <div class="simple-pagination-page-x-of-x form-control"></div>
+                                                                            </td>                                            
+                                                                        </tr>
+                                                                    </thead>             
+                                                                </table>  
+                                                            </apex:outputPanel>
+                                                            <apex:outputPanel rendered="{!!containtselement}">
+                                                                <p><center><b>No Records Found</b></center></p>
+                                                            </apex:outputPanel>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot> 
+                                            </table>
+                                        </apex:outputPanel> 
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">{!$Label.Resource_Staff}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <apex:outputPanel id="errorMsg">
+                                                <script>  
+                                                
+                                                function testing(){ 
+                                                    if({!errorDiv} == false){
+                                                        <!-- var pageName = prompt('Visualforce page name:'); -->
+                                                            <!--var pageName = ('Visualforce page name:');-->
+                                                                $('[id$=myModal]').modal('hide');
+                                                        $A.get("e.force:navigateToURL").setParams(
+                                                            {"url": "/apex/CC_QAppt__ResourceStaffUsers" + pageName}).fire();}};
+                                                
+                                                
+                                                
+                                                </script>
+                                                <apex:outputPanel rendered="{!errorDiv}" >
+                                                    <div class="alert alert-danger" role="alert" style="margin-top: 9px;">
+                                                        <span class="sr-only">Error:</span>
+                                                        <apex:pageMessages />
+                                                        
+                                                    </div>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>{!$Label.cc_qappt__name}</label>
+                                                    <apex:inputText html-placeholder="{!$Label.cc_qappt__name}" value="{!con.name}" styleClass="form-control"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>{!$Label.cc_qappt__address}</label>
+                                                    <apex:inputText html-placeholder="{!$Label.cc_qappt__address}" value="{!con.MailingStreet}" styleClass="form-control"/>
+                                                    
+                                                    <!-- <label>{!$Label.Type}</label>
+<apex:selectList value="{!selectedType}" multiselect="false" size="1" styleClass="form-control">
+<apex:selectOptions value="{!Type}"/>
+<apex:actionSupport event="onchange" reRender="capacity"/>
+</apex:selectList> -->
+                                                </div> 
+                                            </div>
+                                            <div class="row"> 
+                                                <div class="col-md-6">
+                                                    <label>{!$Label.cc_qappt__city}</label>
+                                                    <apex:inputText html-placeholder="{!$Label.cc_qappt__city}" value="{!con.MailingCity}" styleClass="form-control"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>{!$Label.cc_qappt__state}</label>
+                                                    <apex:inputText html-placeholder="{!$Label.cc_qappt__state}" value="{!con.MailingState}" styleClass="form-control"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>{!$Label.cc_qappt__postal_code}</label>
+                                                    <apex:inputText html-placeholder="{!$Label.cc_qappt__postal_code}" value="{!con.MailingPostalCode}" styleClass="form-control"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>{!$Label.cc_qappt__country}</label>
+                                                    <apex:inputText html-placeholder="{!$Label.cc_qappt__country}" value="{!con.MailingCountry}" styleClass="form-control"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">    
+                                                    <label>{!$Label.cc_qappt__phone}</label>
+                                                    <apex:inputText html-placeholder="{!$Label.cc_qappt__phone}" value="{!con.Phone}" styleClass="form-control"/>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row">
+<div class="col-md-6">
+<label>{!$Label.Languages}</label>
+<apex:inputField html-placeholder="{!$Label.Languages}" value="{!con.Languages__c}" styleClass="form-control"/>
+</div>
+<!- <div class="col-md-6">    
+<label>{!$Label.Level}</label>
+<apex:inputField html-placeholder="{!$Label.Level}" value="{!con.Level__c}" styleClass="form-control"/>
+</div> ->
+<div class="col-md-6">
+<apex:outputPanel style="{!IF((selectedType== 'Resource'), '', 'display:none')}" id="capacity">
+<label>{!$Label.Capacity}</label>
+<apex:inputText html-placeholder="{!$Label.Capacity}" value="{!con.Capacity__c}" styleClass="form-control"/>
+</apex:outputPanel>
+</div>
+</div> -->
+                                            <div class="row">
+                                                <div class="col-md-6"> 
+                                                    <c:MultiselectPicklist leftLabel="Available Location"
+                                                                           leftOption="{!allLocation}"
+                                                                           rightLabel="Selected Location"
+                                                                           rightOption="{!selectedMuliLocation}"
+                                                                           size="10"
+                                                                           width="150px"/>
+                                                </div>
+                                                <apex:outputPanel id="Service">
+                                                    <apex:outputPanel rendered="{!ServiceDesableFirstTime}">
+                                                        <div class="col-md-6"> 
+                                                            <c:MultiselectPicklist1 leftLabel="Available Service"
+                                                                                    leftOption="{!AvaliableService}"
+                                                                                    rightLabel="Selected Service"
+                                                                                    rightOption="{!selectedMultiService}"
+                                                                                    size="10"
+                                                                                    width="150px"/>
+                                                        </div>
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel>
+                                            </div>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <center><apex:commandButton styleclass="myBtn btn btn-default" value="{!$Label.cc_qappt__save}" onclick="SaveResourceStaff(); return false;"/>&nbsp;
+                                                        <button class="myBtn btn btn-default" onclick="$('[id$=myModal]').modal('hide');return false;">{!$Label.cc_qappt__cancel}</button></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <apex:outputPanel id="RelatedListSection">
+                            <apex:outputPanel rendered="{!relatedList}">
+                                <div class="row" id="RelatedListId">
+                                    <div class="col-md-12">
+                                        <h2>{!con.name} {!$Label.Appointment}</h2>
+                                        <div class="table-responsive" id="first-container" style="padding: 5%;padding-top: 1%;"> 
+                                            <!-- <h3>{!$Label.Resource_Service_Alignments}</h3> 
+<div align="center">
+<button class="btn btn-default" onclick="addNewAlignments();return false;">New Resource/Business Alignments</button>
+</div> -->
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{!$Label.Appointment_Name}</th>
+                                                        <th>{!$Label.Location}</th>
+                                                        <th>{!$Label.Service}</th>
+                                                        <th>{!$Label.Resource_Staff}</th>
+                                                        <th>{!$Label.Start_Date}</th>
+                                                        <th>{!$Label.End_Date}</th>
+                                                        <th>{!$Label.Status}</th>
+                                                    </tr>  
+                                                </thead>
+                                                <tbody>
+                                                    <apex:repeat value="{!alignmentList}" var="ali">
+                                                        <tr>
+                                                            <!-- <td><a href="" onclick="addNewAlignments('{!ali.id}');return false;">Edit </a>| 
+<a href="javascript:if (window.confirm('Are you sure?')) DeleteResourceAlignment('{!ali.id}');">Delete</a> </td> -->
+                                                            <td><!-- <a href="/apex/ResourceStaffTimeAllocation?id={!ali.id}"></a> -->{!ali.name}</td>
+                                                            <td>{!ali.Resource_Service_Alignment__r.Location__r.street__c}, &nbsp; {!ali.Resource_Service_Alignment__r.Location__r.city__c}</td>
+                                                            <td>{!ali.Resource_Service_Alignment__r.Service__r.name}</td>
+                                                            <td>{!ali.Resource_Service_Alignment__r.Resource_Staff__r.name}</td>
+                                                            <td>{!ali.Start_Date_Time__c}</td>
+                                                            <td>{!ali.End_Date_Time__c}</td>
+                                                            <td>{!ali.Status__c}</td>
+                                                        </tr>
+                                                    </apex:repeat>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                            </apex:outputPanel>
+                            <div class="modal fade bs-example-modal-lg" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Resource Service Alignment</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-offset-3 col-md-3">
+                                                    <label>{!$Label.Resource_Service_Alignment_Name}</label>
+                                                    <apex:inputText html-placeholder="{!$Label.cc_qappt__name}" value="{!Alignment.name}" styleClass="form-control"/>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label>{!$Label.cc_qappt__location}</label>
+                                                    <!-- <apex:inputField html-placeholder="{!$Label.Location}" value="{!Alignment.Location__c}" styleClass="form-control"/> -->
+                                                    <apex:selectList value="{!selectedLocation}" multiselect="false" size="1" styleClass="form-control">
+                                                        <apex:selectOptions value="{!ActiveLocation}"/>
+                                                    </apex:selectList>
+                                                </div> 
+                                            </div>
+                                            
+                                            <div class="row">              
+                                                <div class="col-md-offset-3 col-md-3">
+                                                    <label>{!$Label.cc_qappt__service}</label>
+                                                    <!--<apex:inputField html-placeholder="{!$Label.Service}" value="{!Alignment.Service__c}" styleClass="form-control"/> -->
+                                                    <apex:selectList value="{!selectedService}" multiselect="false" size="1" styleClass="form-control">
+                                                        <apex:selectOptions value="{!ActiveService}"/>
+                                                    </apex:selectList>
+                                                </div>
+                                                
+                                            </div><br/>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <center><apex:commandButton action="{!SaveAlignment}" styleclass="btn btn-default" value="{!$Label.cc_qappt__save}"/> &nbsp;&nbsp;&nbsp;
+                                                    <button class="btn btn-default" onclick="CancelNewAlignment();return false;">{!$Label.cc_qappt__cancel}</button></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                        var flag = 0;
+                        /*$( document ).ready(function() {
+        $('[id$=myModal]').css('display','none');
+        $('.resourceStaff-val').keypress(function(event){
+            if(event.keyCode == 13){
+                //$('[id$=myModal]').modal('hide');
+                
+                event.preventDefault();
+                $('[id$=id_of_button]').click();
+                return false;
+            }
+        });
+    });*/
+                        function handleKeypress(event){
+                            // $('[id$=myModal]').css('display','none');
+                            if(event.keyCode == 13 || event.which == 13){
+                                $('[id$=myModal]').modal('hide');
+                                var textvalue = $('.service-val').val();
+                                console.log("textvalue",textvalue);
+                                event.preventDefault();
+                                $('[id$=id_of_button]').click();
+                                /*if(textvalue!="" || textvalue!=''){
+                  $('[id$=id_of_button]').click();
+              }*/  
+                            } 
+                        }
+                        
+                        function showpopup(){
+                            $('#first-container').simplePagination({ items_per_page: 15});
+                            $('[id$=myModal]').modal('show');
+                        }
+                        function showpopupForAlignment(){
+                            $('[id$=myModal1]').modal('show');
+                        }
+                        function scrollDown(){
+                            $('#first-container').simplePagination({ items_per_page: 15});
+                            window.location.hash = '#RelatedListId';
+                        }
+                        
+                        function getServicevalues(){
+                            getServiceLocation();
+                        }
+                        
+                        function SaveResourceStaff(){
+                            if(flag == 1){
+                                if (confirm("If You Changes in location and service your previous appointment will be deleted.") == true) {
+                                    saveResourceStaffDetails();
+                                }
+                            }else{
+                                saveResourceStaffDetails();
+                            }
+                        }
+                        </script>
+                        <apex:outputPanel id="pagination2">
+                            <script>
+                            (function($){
+                                $("#first-container").simplePagination({
+                                    items_per_page: 15
+                                });
+                                     var pagecount= $(".simple-pagination-navigation-page").length;
+                       if(pagecount==1){
+                           var style1 = {
+                         'text-decoration':'none',
+                         'color': 'black',
+                          'pointer-events': 'none'
+                         };
+                        $('.simple-pagination-navigation-previous').css(style1);
+                    $('.simple-pagination-previous.form-control').css('background-color','#dddddd');
+                    $('.simple-pagination-navigation-next').css(style1);
+                    $('.simple-pagination-next.form-control').css('background-color','#dddddd');
+                    $('.simple-pagination-navigation-first').css(style1);
+                    $('.simple-pagination-first.form-control').css('background-color','#dddddd');
+                    $('.simple-pagination-navigation-last').css(style1);
+                    $('.simple-pagination-last.form-control').css('background-color','#dddddd');
+                    $('.simple-pagination-navigation-page').css(style1);
+                    $('.simple-pagination-navigation-page.form-control').css('background-color','#dddddd');
+                    $('.simple-pagination-page-numbers.form-control').css('background-color','#dddddd');
+                    $('.simple-pagination-page-x-of-x.form-control').css('background-color','#dddddd');
+
+                       }      
+                            })(jQuery);
+                            
+                            function hidePopUp(errorDiv){
+                                
+                                $("#first-container").simplePagination({
+                                    items_per_page: 15
+                                });  
+                                
+                                console.log('@@##4'); 
+                                console.log(errorDiv);
+                                if(errorDiv == false)
+                                {
+                                    <!-- var pageName = prompt('Visualforce page name:'); -->
+                                        <!--var pageName = ('Visualforce page name:');-->
+                                            $('[id$=myModal]').modal('hide');
+                                } 
+                                
+                            }   
+                            </script>
+                        </apex:outputPanel>
+                        
+                        
+                    </apex:form> 
+                    <!-- main code of Resource end -->
+                </section>
+                
+            </div>
+        </div>  
+    </body>
+</apex:page>

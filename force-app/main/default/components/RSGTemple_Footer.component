@@ -1,0 +1,12 @@
+<apex:component >
+    <div class="slds-grid">
+        <div class="slds-col slds-p-horizontal_medium">
+            <span></span>
+          </div>
+        <div class="slds-col slds-p-horizontal_medium">
+            <span><b>Copyright 2018 for the RSG TempleWebsite provided by </b></span>
+            <span><apex:image id="CCIcon" value="{!$Resource.CCIcon}" width="100" height="50" alt="RSGIcon"/></span>
+            <span><apex:image id="Salesforce" value="{!$Resource.SalesforceIcon}" width="100" height="50" alt="RSGIcon"/> </span>
+        </div>
+    </div>
+</apex:component>

@@ -1,0 +1,485 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false"  docType="html-5.0" controller="ServiceCtrl" >
+ <c:NewHeader />
+  <style> 
+  body  {
+  display:none;
+  } 
+  </style>
+ <script>
+window.addEventListener("DOMContentLoaded", function(){
+  document.getElementsByTagName("body")[0].style.display = "block";
+});
+    $(document).ready(function() {
+      $('#action').removeClass('headerSortDown');
+     
+    });
+ </script> 
+<!-- Menu Code --->
+<body hoe-navigation-type="vertical" hoe-nav-placement="left" id="navTypeAndPlacement">
+
+    <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
+        <c:HeaderNested />
+        <div id="hoeapp-container" hoe-color-type="lpanel-bg2" hoe-lpanel-effect="shrink">
+            <c:SideBar />
+<section id="main-content">
+<!-- Menu Code End --->
+<style>
+.custPopup{
+    background-color: white;
+    border-width: 0px;
+    border-radius:10px;
+    z-index: 9999;
+    left: 50%;
+    padding:20px;
+    position: absolute;
+    margin-left: -100px;
+    top:40%;
+}
+.popupBackground{
+    background-color:black;
+    opacity: 0.30;
+    filter: alpha(opacity = 30);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9998;
+}
+div.simple-pagination-page-numbers a:not(:first-child) {
+   margin-left:5px;
+}
+.custPopup1 {
+    background-color: white;
+    border-width: 0px;
+    border-radius: 10px;
+    z-index: 9999;
+    padding: 20px;
+    position: absolute;
+    margin-left: 35%;
+    top: -2%;
+}
+table.tablesorter thead tr .header {
+    background: URL({!URLFOR($Resource.tablesorter,'tablesorter/bg.GIF')}) no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+table.tablesorter thead tr .headerSortUp { 
+    background: URL({!URLFOR($Resource.tablesorter,'tablesorter/up.GIF')}) no-repeat; 
+    background-position: center right;
+    cursor: pointer;
+} 
+table.tablesorter thead tr .headerSortDown{ 
+    background: URL({!URLFOR($Resource.tablesorter,'tablesorter/down.GIF')}) no-repeat; 
+    background-position: center right;
+    cursor: pointer;
+} 
+ </style>
+<apex:actionStatus id="fetching">
+        <apex:facet name="start">
+             <apex:outputPanel id="tstpopup">
+                    <apex:outputPanel styleClass="popupBackground" layout="block"/>
+                    <apex:outputPanel styleClass="custPopup" layout="block">
+                        <img src="/img/loading24.gif" style="vertical-align:middle; horizontal-align:middle"/> 
+                        <span>Please wait...</span>  
+                    </apex:outputPanel>
+              </apex:outputPanel> 
+        </apex:facet>
+    </apex:actionStatus>
+         <apex:actionStatus id="savestatus">
+            <apex:facet name="start">
+                 <apex:outputPanel id="tst">
+                        <apex:outputPanel layout="block"/>
+                        <apex:outputPanel styleClass="custPopup1" layout="block">
+                            <img src="/img/loading24.gif" style="vertical-align:middle; horizontal-align:middle"/> 
+                            <span>Please wait...</span>  
+                        </apex:outputPanel>
+                  </apex:outputPanel> 
+            </apex:facet>
+        </apex:actionStatus>
+
+<apex:form id="BussinessPanel">
+    <script>
+    (function($){
+        $("#first-container").simplePagination({
+            items_per_page: 15
+        });
+    })(jQuery);
+    </script>
+   
+<apex:actionFunction name="addNewBussiness" action="{!goToNewEditMode}" reRender="BussinessPanel"  oncomplete="showpopup();return false;" status="fetching">
+    <apex:param assignTo="{!BussinessId}" name="bussId" value=""/>
+</apex:actionFunction>
+
+<apex:actionFunction name="DeleteBussiness" action="{!DeleteBussiness}" reRender="BussinessPanel" status="fetching">
+    <apex:param assignTo="{!ServiceIdForDelete}" name="bussDelId" value=""/>
+</apex:actionFunction>
+<div class="container-fluid">
+<apex:actionFunction id="errorshow" name="errorshow" action="{!saveBussiness}" reRender="errorMsg,service22,pagination2" oncomplete="handlePagination();hidePopUp({!errorDiv});hideParticipantPOpup();" status="savestatus">
+</apex:actionFunction>
+
+<div class="row">
+    <div class="col-md-4" align="center">
+        <h2>{!$Label.Service_Details}</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-offset-4 col-md-4" align="center">
+        <div class="slds-scope">
+            <button class="btn btn-default" onclick="addNewBussiness();return false;">{!$Label.New}</button>
+        </div>
+        <!--<button class="btn btn-default" onclick="addNewBussiness();return false;">{!$Label.New}</button>-->
+    </div>
+    <div class="col-md-4">
+        <div style="display: flex;"><apex:inputText value="{!ServiceNameSearch}" html-Placeholder="{!$Label.cc_qappt__service}" styleClass="form-control service-val" id="searchvaluetext" onkeyup="handleKeypress(event),handleKeypress2(event)"/>
+        <apex:commandButton action="{!search}" value="{!$Label.cc_qappt__search}" onclick="if($('[id$=searchvaluetext]').val().trim().length==0) return false;" reRender="BussinessPanel,test" styleClass="btn btn-default" id="id_of_button" /></div>
+    </div>
+   
+</div><br/>
+
+<script>
+ function handleKeypress1(event){
+       
+      var textvalue = $('.searchvaluetext').val();
+    
+ if ( (event.button== 1||event.button==0||event.button==2 ) &&  typeof textvalue ==="undefined") {
+                               event.preventDefault();
+                                        }
+ 
+ }
+
+</script>
+     <apex:outputPanel id="serice2">
+    <div class="row">
+        <div class="col-sm-12">
+         
+            <div class="table-responsive" id="first-container" style="padding: 5%;padding-top: 1%;"> 
+             <apex:outputPanel id="service22" >
+                <table class="table table-striped tablesorter" id="table">
+                
+                    <thead>
+                        <tr>
+                            <th class="header" id="action">{!$Label.cc_qappt__action}</th>
+                            <th><apex:outputText value="{!$Label.cc_qappt__service_name}"/></th>
+                            <th><apex:outputText value="{!$Label.cc_qappt__description}"/></th>
+                            <th><apex:outputText value="{!$Label.cc_qappt__duration}"/></th>
+                            <!-- <th>{!$Label.Padding_Time}</th> -->
+                            <th><apex:outputText value="{!$Label.cc_qappt__price}"/></th>
+                            
+                            <!-- <th><apex:outputText value="{!$Label.Active}"/></th>
+                            <th>{!$Label.Chargable}</th> -->
+                        </tr>  
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!bussList}" var="bu">
+                        <tr>
+                          <td><a href="" onclick="addNewBussiness('{!bu.id}');return false;" >{!$Label.Edit}</a>|
+                              <a href="javascript:if (window.confirm('If you delete this service avaliable appointment on this location will also be deleted Are you sure?')) DeleteBussiness('{!bu.id}');">{!$Label.Delete}</a>
+                          </td>
+                          <td>{!bu.name}</td>
+                          <td>{!bu.Description__c}</td>
+                          <td>{!bu.Duration__c}</td>
+                          <!-- <td>{!bu.Padding_Time__c}</td> -->
+                          <td>{!bu.Price__c}</td>
+                          
+                          <!-- <td><apex:inputCheckbox value="{!bu.Active__c}" disabled="true"/></td>
+                          <td><apex:inputCheckbox value="{!bu.Chargable__c}" disabled="true"/></td> -->
+                          
+                        </tr>
+                        </apex:repeat>
+                    </tbody>
+                    <tfoot> 
+                        <tr>
+                          <td colspan="5"  id="test">
+                             <apex:outputPanel rendered="{!containtselement}">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>                
+                                                <div class="simple-pagination-first form-control"></div>
+                                            </td>
+                                            <td style="padding-left: 5px;">
+                                                <div class="simple-pagination-previous form-control"></div>
+                                            </td>
+                                            <td style="padding-left: 5px;">
+                                                <div class="simple-pagination-next form-control"></div>
+                                            </td>
+                                            <td style="padding-left: 5px;">
+                                                <div class="simple-pagination-last form-control"></div>
+                                            
+                                            </td>
+                                           
+                                                <td style="padding-left: 5px;" >
+                                                      <div class="simple-pagination-page-numbers form-control"></div>
+                                                </td>
+                                            <td style="padding-left: 5px;">
+                                                <div class="simple-pagination-page-x-of-x form-control"></div>
+                                            </td>                                            
+                                        </tr>
+                                    </thead>
+                                </table> 
+                               </apex:outputPanel> 
+                               <apex:outputPanel rendered="{!!containtselement}">
+                               <p><center><b>No Records Found</b></center></p>
+                               </apex:outputPanel>
+                            </td>                 
+                        </tr>          
+                    </tfoot> 
+                </table>
+              </apex:outputPanel> 
+            </div>
+        </div>
+    </div>
+     </apex:outputPanel> 
+     <apex:outputPanel id="modal">
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">{!$Label.cc_qappt__service}</h4>
+      </div>
+      <div class="modal-body">
+      
+        <!-- Error msg -->
+        <apex:outputPanel id="errorMsg">
+                <script>
+                
+                    function testing(){ 
+                    
+                if({!errorDiv} == false){
+                  var url ="/apex/CC_QAppt__ServicePage";
+                 <!-- var pageName = prompt('Visualforce page name:'); -->
+                  <!--var pageName = ('Visualforce page name:');-->
+                   $('[id$=myModal]').modal('hide');
+                  
+                   <!--  $(location).attr('href',url); -->
+                  }
+                   else({!errorDiv} == true))
+                   {
+                     $('[id$=myModal]').modal('show');
+                   }
+                   
+                   
+                   };
+                   
+                    function hidePopUp(){
+                        if({!errorDiv} == false){
+                           $('[id$=myModal]').modal('hide');
+                            $('.modal-backdrop.in').css('opacity','0');
+                           window.location.assign("/apex/CC_QAppt__ServicePage");
+                        }
+                       
+                    }
+                </script>
+            <apex:outputPanel rendered="{!errorDiv}" >
+            <div class="alert alert-danger" role="alert" style="margin-top: 9px;">
+             <span class="sr-only">Error:</span>
+             
+             <apex:pageMessages />
+            </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+       
+          <apex:outputPanel id="rerenderform1">
+          <div class="row">
+            <div class="col-md-6">
+                <label>{!$Label.cc_qappt__service_name}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__service_name}" value="{!Buss.name}" styleClass="form-control"/>
+            </div>
+            <div class="col-md-6">
+                <label>{!$Label.cc_qappt__description}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__description}" value="{!Buss.Description__c}" styleClass="form-control"/>
+            </div> 
+        </div>
+        <div class="row">              
+            <div class="col-md-6">
+                <label id="durationtitle">{!$Label.cc_qappt__duration}</label>
+                <label style="color:#cc0033;display:none;" id="Durationlabel">Duration should be in numbers*</label>                     
+                <apex:inputText id="DurationInput" html-placeholder="{!$Label.cc_qappt__duration}" value="{!Buss.Duration__c}" styleClass="form-control"  onkeypress="return isNumbers(event)" />
+            </div>
+            <script>
+            function isNumbers(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ( (charCode > 31 && charCode < 48) || charCode > 57) {
+           $('label#durationtitle').css('display','none');
+              $('label#Durationlabel').css('display','block');
+              $('#DurationInput.form-label').css('border','1px solid #cc0033');
+
+            return false;
+        }
+           $('label#durationtitle').css('display','block');
+              $('label#Durationlabel').css('display','none'); 
+        return true;
+    }
+            </script>
+            <div class="col-md-6" id="pricediv">
+                <!-- <label>{!$Label.Padding_Time}</label>
+                <apex:inputText html-placeholder="{!$Label.Padding_Time}" value="{!Buss.Padding_Time__c}" styleClass="form-control"/> -->
+                <label id="pricetitle">{!$Label.cc_qappt__price}</label><br/>
+                <label style="color:#cc0033;display:none;" id="Pricelabel">Price should be in numbers*</label>                     
+                <div class="input-group">
+                <span class="input-group-addon">&#8360;</span>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__price}" id="PriceInputs" value="{!Buss.Price__c}" styleClass="form-control" onkeypress="return isNumber(event)"/>
+                </div>
+            </div>
+          <script>
+            function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ( (charCode > 31 && charCode < 48) || charCode > 57) {
+              $('label#pricetitle').css('display','none');
+              $('label#Pricelabel').css('display','block');
+         //     $('#PriceInputs.form-label').css('border','1px solid #cc0033');
+              $('div#pricediv').css('margin-top','-19px');
+            return false;
+        }
+          $('label#pricetitle').css('display','block');
+              $('label#Pricelabel').css('display','none');
+             $('div#pricediv').css('margin-top','3px');
+          //   $('input#PriceInputs.form-label').css('margin-top','-20px');
+        return true;
+    }
+      </script>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-3 col-md-9"> 
+                <c:MultiselectPicklist1 leftLabel="Available Location"
+                leftOption="{!allLocation}"
+                rightLabel="Selected Location"
+                rightOption="{!selectedLocation}"
+                size="10"
+                width="150px"/>
+            </div>
+        </div>
+              </apex:outputPanel>
+        <!-- <div class="row">
+            <div class="col-md-6">                  
+                <apex:inputCheckbox value="{!Buss.Active__c}"/><label>{!$Label.Active}</label>
+            </div>
+            <div class="col-md-6">                  
+                    <apex:inputCheckbox value="{!Buss.Chargable__c}"/><label>{!$Label.Chargable}</label>
+            </div>
+        </div> -->
+    <br/>
+    
+        <div class="row">
+            <div class="col-md-12">
+                <center><apex:commandButton styleclass="btn btn-default" value="{!$Label.cc_qappt__save}" reRender="BussinessPanel" onclick="errorshow();return false;" oncomplete="renderThing()"/>&nbsp;
+                <button class="btn btn-default" reRender="rerenderform1" onclick="$('[id$=myModal]').modal('hide');return false;">{!$Label.cc_qappt__cancel}</button></center>
+
+             </div>
+        </div>
+    </div>
+      </div>
+    </div>
+</div>
+</apex:outputPanel>
+</div>
+
+<script> 
+    function showpopup(){
+        $('[id$=myModal]').modal('show');
+    }
+    /*   $(document).ready(function() {
+        $('[id$=myModal]').css('display','none');
+        $('.service-val').keypress(function(event){
+            alert('Hello');
+            console.log("Keydown");
+            if(event.keyCode == 13){
+                console.log('HI');
+                //$('[id$=myModal]').modal('hide');
+                
+                event.preventDefault();
+                   $('[id$=id_of_button]').click();
+                return false;
+            }
+        });
+    });*/
+     function handleKeypress2(event){    
+      var textvalue = $('[id$=searchvaluetext]').val();     
+            if(textvalue == ""){
+            handleReRender();
+            }
+            }
+</script>
+<apex:outputPanel id="pagination2">
+<script>
+     function handleKeypress(event){
+     
+         // $('[id$=myModal]').css('display','none');
+          /* if(event.keyCode == 8 || event.which == 8){
+           var textvalue = $('.searchvaluetext').val();
+            if(textvalue == ""){
+            sayHello();
+            $('[id$=id_of_button]').click(function({
+            
+                  rerenderonsearch();       
+            }));
+            }    
+           }*/
+          if(event.keyCode == 13 || event.which == 13){
+              $('[id$=myModal]').modal('hide');
+               var textvalue = $('.service-val').val();
+              console.log("textvalue",textvalue);
+                event.preventDefault();
+                $('[id$=id_of_button]').click();
+              /*if(textvalue!="" || textvalue!=''){
+                  $('[id$=id_of_button]').click();
+              }*/  
+          } 
+        }
+    function handlePagination(){
+        $('.modal-backdrop.in').css('opacity','0');
+        $("#first-container").simplePagination({
+            items_per_page: 15
+        });
+    }
+    
+    (function($){
+        $("#first-container").simplePagination({
+            items_per_page: 15
+        });
+         var pagecount= $(".simple-pagination-navigation-page").length;
+                   if(pagecount==1){
+                       var style1 = {
+                     'text-decoration':'none',
+                     'color': 'black',
+                      'pointer-events': 'none'
+                     };
+                    $('.simple-pagination-navigation-previous').css(style1);
+                    $('.simple-pagination-navigation-next').css(style1);
+                    $('.simple-pagination-navigation-next').css(style1);
+                    $('.simple-pagination-navigation-first').css(style1);
+                    $('.simple-pagination-navigation-last').css(style1);
+                    $('.simple-pagination-navigation-page').css(style1);
+                   }      
+        
+    })(jQuery);
+    
+     function hidePopUp(errorDiv){
+      console.log('@@##4'); 
+      console.log(errorDiv);
+      if(errorDiv == false)
+      {
+          <!-- var pageName = prompt('Visualforce page name:'); -->
+          <!--var pageName = ('Visualforce page name:');-->
+          $('[id$=myModal]').modal('hide');
+      } 
+     
+    }   
+</script>
+</apex:outputPanel>
+ 
+        <!-- Define the JavaScript function sayHello-->
+        <apex:actionFunction name="handleReRender" action="{!search}" reRender="test,BussinessPanel"  />
+   
+</apex:form> 
+<!-- main code of service end -->
+</section>
+
+</div>
+</div>  
+</body>
+</apex:page>

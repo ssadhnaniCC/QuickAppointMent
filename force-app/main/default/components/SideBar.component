@@ -1,0 +1,102 @@
+<apex:component controller="UserPhotoUrl">
+<script>
+$(document).ready(function() {
+    var url=''+window.location;
+    var str=url.split("/");
+   // console.log("str",str);
+    var name = str[str.length-1];
+   //  console.log("name",name);
+    var names   = name.split("__");
+   //  console.log("String split",names[names.length-1]);
+    var name = names[names.length-1];
+    if(name.indexOf("?") != -1){
+      var names = name.split("?");
+      name = names[0];
+    }
+      $('.'+name).parent().children().each(function() {
+        $(this).removeClass('active');
+      });
+    $('.'+name).addClass('active');
+});
+ 
+</script>
+
+  <aside id="hoe-left-panel" hoe-position-type="">
+                <div class="profile-box">
+                    <div class="media">
+                        <a class="pull-left" href="">
+                        
+                            <img class="img-circle" src="{!Photolink}"/>
+                        </a>
+                        <div class="media-body">
+                            <h5 class="media-heading">Welcome <span>{!userName}</span></h5>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav panel-list">
+                    <li class="nav-level">{!$Label.Navigation}</li>
+                    
+                    <li class="Dashboard active">
+                        <a href="/apex/CC_QAppt__Dashboard">
+                            <i class="fa fa-tachometer"></i>
+                            <span class="menu-text">{!$Label.Dashboard}</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    
+                    <li class="Location">
+                        <a href="/apex/CC_QAppt__Location">
+                            <i class="fa fa-location-arrow"></i>
+                            <span class="menu-text">{!$Label.Location}</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="ServicePage">
+                        <a href="/apex/CC_QAppt__ServicePage">
+                            <i class="fa fa-server"></i>
+                            <span class="menu-text">{!$Label.Service}</span>
+                            <!-- <span class="label sul">{!$Label.New}</span> -->
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="ResourceStaffUsers">
+                        <a href="/apex/CC_QAppt__ResourceStaffUsers">
+                            <i class="fa fa-plus-square"></i>
+                            <span class="menu-text">{!$Label.Resource_Staff_Users}</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="Customer">
+                        <a href="/apex/CC_QAppt__Customer">
+                            <i class="fa fa-user"></i>
+                            <span class="menu-text">{!$Label.Customer}</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="calendar">
+                    <a href="/apex/CC_QAppt__calendar">
+                        <i class="fa fa-calendar"></i>
+                        <span class="menu-text">{!$Label.Calender}</span>
+                        <span class="selected"></span>
+                    </a>
+                    
+                    </li>
+                   <li class="SettingPage">
+                    <a href="/apex/CC_QAppt__SettingPage">
+                        <i class="fa fa-cogs"></i>
+                        <span class="menu-text">{!$Label.Settings}</span>
+                        <span class="selected"></span>
+                    </a>
+                    
+                    </li>         
+                      
+                </ul>
+      <script>
+      $('ul li ').click(function(){
+          $('ul').children().removeClass('active');
+          $(this).addClass('active');
+      });
+      </script>
+                 
+            </aside>
+</apex:component>

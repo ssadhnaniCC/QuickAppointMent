@@ -1,0 +1,161 @@
+<apex:page controller="ResourceStaffTimeAllocation" standardStylesheets="false" showHeader="false" sidebar="false">
+ <c:NewHeader />
+ <script>
+    function showpopup(){
+        $('[id$=myModal]').modal('show');
+    }
+ </script>
+ <style>
+     .dateFormat{
+         display: none;
+     }
+ </style>
+ <!-- Menu Code --->
+<body hoe-navigation-type="vertical" hoe-nav-placement="left" >
+    <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
+        <c:HeaderNested />
+        <div id="hoeapp-container" hoe-color-type="lpanel-bg2" hoe-lpanel-effect="shrink">
+            <c:SideBar />
+<section id="main-content">
+<!-- Menu Code End --->
+
+<apex:form id="ResourceStaffTimeAllocation">
+<apex:actionFunction name="addNewTimeAllocation" action="{!goToNewEditMode}" reRender="ResourceStaffTimeAllocation" oncomplete="showpopup();return false;">
+    <apex:param assignTo="{!AllocationId}" name="conId" value=""/>
+</apex:actionFunction>
+<div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive" id="first-container" style="padding: 5%;padding-top: 1%;"> 
+                <h3>{!$Label.Resource_Service_Alignments}</h3> 
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th>{!$Label.Resource_Service_Alignment_Name}</th>
+                        <th>{!$Label.Location}</th>
+                        <th>{!$Label.Service}</th>
+                        <th>{!$Label.Resource_Staff}</th>
+                        </tr>  
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <td>{!Alignment.name}</td>
+                          <td>{!Alignment.Location__r.name}</td>
+                          <td>{!Alignment.Service__r.name}</td>
+                          <td>{!Alignment.Resource_Staff__r.name}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive" id="first-container" style="padding: 5%;padding-top: 1%;"> 
+                <h3>{!$Label.Resource_Staff_Time_Allocation}</h3> 
+                <div align="center">
+                    <button class="btn btn-default" onclick="addNewTimeAllocation();return false;">{!$Label.New}&nbsp;{!$Label.Resource_Staff_Time_Allocation}</button>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th>{!$Label.Action}</th>
+                        <th>{!$Label.Resource_Staff_Time_Allocation}&nbsp; {!$Label.cc_qappt__name}</th>
+                        <th>{!$Label.cc_qappt__start_date}</th>
+                        <th>{!$Label.cc_qappt__end_date}</th>
+                        <th>{!$Label.Active}</th>
+                        <th colspan="7">{!$Label.Days}&nbsp;(Monday--Turesday--Wednesday--Thursday--Friday--Saturday--Sunday)</th>
+                        </tr>  
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!resourceTimeList}" var="timeList">
+                        <tr>
+                          <td><a href="" onclick="addNewTimeAllocation('{!timeList.id}');return false;">Edit </a>| 
+                              <a href="">Delete</a> </td>  
+                          <td>{!timeList.name}</td>
+                          <td>{!timeList.Start_Date_Time__c}</td>
+                          <td>{!timeList.End_Date_Time__c}</td>
+                          <td>{!timeList.Active__c}</td>
+                          <td><apex:inputCheckbox value="{!timeList.Monday__c}"/></td>
+                          <td><apex:inputCheckbox value="{!timeList.Tuesday__c}"/></td>
+                          <td><apex:inputCheckbox value="{!timeList.Wednesday__c}"/></td>
+                          <td><apex:inputCheckbox value="{!timeList.Thursday__c}"/></td>
+                          <td><apex:inputCheckbox value="{!timeList.Friday__c}"/></td>
+                          <td><apex:inputCheckbox value="{!timeList.Saturday__c}"/></td>
+                          <td><apex:inputCheckbox value="{!timeList.Sunday__c}"/></td>
+                        </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> 
+    
+ <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Resource/Staff Time Allocation</h4>
+      </div>
+      <div class="modal-body">  
+            <div class="row">
+                <div class="col-md-6">
+                    <label>{!$Label.Resource_Staff_Time_Allocation}&nbsp; {!$Label.cc_qappt__name}</label>
+                    <apex:inputText html-placeholder="{!$Label.cc_qappt__name}" value="{!resourceTime.name}" styleClass="form-control"/>
+                </div>
+                <div class="col-md-6">
+                    <label>{!$Label.cc_qappt__start_date}</label>
+                    <apex:inputField html-placeholder="{!$Label.cc_qappt__start_date}" value="{!resourceTime.Start_Date_Time__c}" styleClass="form-control"/>
+                </div> 
+            </div>
+            <div class="row">              
+                <div class="col-md-6">
+                    <label>{!$Label.cc_qappt__end_date}</label>
+                    <apex:inputField html-placeholder="{!$Label.cc_qappt__end_date}" value="{!resourceTime.End_Date_Time__c}" styleClass="form-control"/>
+                </div>
+                <div class="col-md-6">
+                    <label></label>
+                    <apex:inputCheckbox value="{!resourceTime.Active__c}"/><label>{!$Label.cc_qappt__active}</label>
+                </div>
+                
+            </div>
+            <div class="row">              
+                <div class="col-md-2">
+                    <label>Days</label>
+                </div>
+                <div class="col-md-5">
+                    <apex:inputCheckbox value="{!resourceTime.Monday__c}"/><label>Monday</label>
+                    <apex:inputCheckbox value="{!resourceTime.Tuesday__c}"/><label>Tuesday</label>
+                    <apex:inputCheckbox value="{!resourceTime.Wednesday__c}"/><label>Wednesday</label>
+                </div>
+                <div class="col-md-5">
+                    <apex:inputCheckbox value="{!resourceTime.Thursday__c}"/><label>Thursday</label>
+                    <apex:inputCheckbox value="{!resourceTime.Friday__c}"/><label>Friday</label>
+                    <apex:inputCheckbox value="{!resourceTime.Saturday__c}"/><label>Saturday</label>
+                    <apex:inputCheckbox value="{!resourceTime.Sunday__c}"/><label>Sunday</label>
+                </div>
+                
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-12">
+                    <center><apex:commandButton action="{!saveAllocation}" styleclass="btn btn-default" value="{!$Label.cc_qappt__save}"/>&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-default" onclick="CancelNewAllocation();return false;">{!$Label.cc_qappt__cancel}</button></center>
+                 </div>
+            </div>
+     </div>
+    </div>
+    </div>
+</div>  
+
+
+</apex:form>
+<!-- main code of Alignment end -->
+</section>
+
+</div>
+</div>  
+</body>
+     
+</apex:page>

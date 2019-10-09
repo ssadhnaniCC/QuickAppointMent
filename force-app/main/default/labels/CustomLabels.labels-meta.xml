@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Action</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Action</shortDescription>
+        <value>Action</value>
+    </labels>
+    <labels>
+        <fullName>Active</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Active</shortDescription>
+        <value>Active</value>
+    </labels>
+    <labels>
+        <fullName>Add</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add</shortDescription>
+        <value>Add</value>
+    </labels>
+    <labels>
+        <fullName>Add_Appointment</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add Appointment</shortDescription>
+        <value>Add Appointment</value>
+    </labels>
+    <labels>
+        <fullName>Add_Busy_Time</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add Busy Time</shortDescription>
+        <value>Add Busy Time</value>
+    </labels>
+    <labels>
+        <fullName>Add_Customer</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add Customer</shortDescription>
+        <value>Add Customer</value>
+    </labels>
+    <labels>
+        <fullName>Add_Participants</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Add Participants</shortDescription>
+        <value>Add Participants</value>
+    </labels>
+    <labels>
+        <fullName>Address</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Address</shortDescription>
+        <value>Address</value>
+    </labels>
+    <labels>
+        <fullName>Agenda</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Agenda</shortDescription>
+        <value>Agenda</value>
+    </labels>
+    <labels>
+        <fullName>Appointment</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Appointment</shortDescription>
+        <value>Appointment</value>
+    </labels>
+    <labels>
+        <fullName>Appointment_Details</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Appointment Details</shortDescription>
+        <value>Appointment Details</value>
+    </labels>
+    <labels>
+        <fullName>Appointment_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Appointment Name</shortDescription>
+        <value>Appointment Name</value>
+    </labels>
+    <labels>
+        <fullName>Appointments_By_Customer</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Appointments By Customer</shortDescription>
+        <value>Appointments By Customer</value>
+    </labels>
+    <labels>
+        <fullName>Appointments_By_Location</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Appointments By Location</shortDescription>
+        <value>Appointments By Location</value>
+    </labels>
+    <labels>
+        <fullName>Appointments_By_Service_Type</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Appointments By Service Type</shortDescription>
+        <value>Appointments By Service Type</value>
+    </labels>
+    <labels>
+        <fullName>Calendar_Screen</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Calendar Screen</shortDescription>
+        <value>Calendar Screen</value>
+    </labels>
+    <labels>
+        <fullName>Calender</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Calender</shortDescription>
+        <value>Calendar</value>
+    </labels>
+    <labels>
+        <fullName>Calender_Event_Color</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Calendar Event Color</shortDescription>
+        <value>Calendar Event Color</value>
+    </labels>
+    <labels>
+        <fullName>Calender_Section</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Calender Section</shortDescription>
+        <value>To schedule appointment, either click on Add Appointment button or double click on calendar screen. You may see Calendar in Day, Week  and Month view.</value>
+    </labels>
+    <labels>
+        <fullName>Calender_Tooltip</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Calender Tooltip</shortDescription>
+        <value>Calendar Tooltip</value>
+    </labels>
+    <labels>
+        <fullName>Cancel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>Capacity</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Capacity</shortDescription>
+        <value>Capacity</value>
+    </labels>
+    <labels>
+        <fullName>Chargable</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Chargable</shortDescription>
+        <value>Chargable</value>
+    </labels>
+    <labels>
+        <fullName>City</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>City</shortDescription>
+        <value>City</value>
+    </labels>
+    <labels>
+        <fullName>Cloud</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Cloud</shortDescription>
+        <value>Cloud Certitude Pvt. Ltd.</value>
+    </labels>
+    <labels>
+        <fullName>Completed</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Completed</shortDescription>
+        <value>Completed</value>
+    </labels>
+    <labels>
+        <fullName>Country</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Country</shortDescription>
+        <value>Country</value>
+    </labels>
+    <labels>
+        <fullName>Customer</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Customer</shortDescription>
+        <value>Customer</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Details</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Customer Details</shortDescription>
+        <value>Customer Details</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Customer Name</shortDescription>
+        <value>Customer Name</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Screen</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Customer Screen</shortDescription>
+        <value>Customer Screen</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Section</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Customer Section</shortDescription>
+        <value>All the customers/contact are listed on this screen.</value>
+    </labels>
+    <labels>
+        <fullName>Dashboard</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Dashboard</shortDescription>
+        <value>Dashboard</value>
+    </labels>
+    <labels>
+        <fullName>Days</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Days</shortDescription>
+        <value>Days</value>
+    </labels>
+    <labels>
+        <fullName>Declined</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Declined</shortDescription>
+        <value>Declined</value>
+    </labels>
+    <labels>
+        <fullName>Delete</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Delete</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>Delete_Appointment</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Delete Appointment</shortDescription>
+        <value>Delete Appointment</value>
+    </labels>
+    <labels>
+        <fullName>Description</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Description</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>Description_Notes</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Description/Notes</shortDescription>
+        <value>Description/Notes</value>
+    </labels>
+    <labels>
+        <fullName>Discount</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Discount</shortDescription>
+        <value>Discount</value>
+    </labels>
+    <labels>
+        <fullName>Double_Booking</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Double Booking</shortDescription>
+        <value>Double Booking</value>
+    </labels>
+    <labels>
+        <fullName>Duration</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Duration</shortDescription>
+        <value>Duration in Minutes</value>
+    </labels>
+    <labels>
+        <fullName>Edit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>Email</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Email</shortDescription>
+        <value>Email</value>
+    </labels>
+    <labels>
+        <fullName>End_Date</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>End Date</shortDescription>
+        <value>End Date</value>
+    </labels>
+    <labels>
+        <fullName>Error</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error</shortDescription>
+        <value>Error</value>
+    </labels>
+    <labels>
+        <fullName>Exit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Exit</shortDescription>
+        <value>Exit</value>
+    </labels>
+    <labels>
+        <fullName>Frst_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>First Name</shortDescription>
+        <value>First Name</value>
+    </labels>
+    <labels>
+        <fullName>Getting_Started</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Getting Started</shortDescription>
+        <value>Getting Started</value>
+    </labels>
+    <labels>
+        <fullName>Header_BG_Color_Option</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Header BG Color Option</shortDescription>
+        <value>Header BG Color Option</value>
+    </labels>
+    <labels>
+        <fullName>Info</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Info</shortDescription>
+        <value>Quick Appointment provides you, access to powerful scheduling features in order to manage appointments.</value>
+    </labels>
+    <labels>
+        <fullName>Languages</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Languages</shortDescription>
+        <value>Languages</value>
+    </labels>
+    <labels>
+        <fullName>Last_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Last Name</shortDescription>
+        <value>Last Name</value>
+    </labels>
+    <labels>
+        <fullName>Left_Panel_BG_Color_Option</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Left Panel BG Color Option</shortDescription>
+        <value>Left Panel BG Color Option</value>
+    </labels>
+    <labels>
+        <fullName>Level</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Level</shortDescription>
+        <value>Level</value>
+    </labels>
+    <labels>
+        <fullName>Loc_Section</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Loc Section</shortDescription>
+        <value>List the business locations. User may create more than one location by clicking on New Button</value>
+    </labels>
+    <labels>
+        <fullName>Location</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Location</shortDescription>
+        <value>Location</value>
+    </labels>
+    <labels>
+        <fullName>Location_Discription</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Location Discription</shortDescription>
+        <value>Before creating appointments, you have to create records for Location, Service,  Resource/Staff and Customer.</value>
+    </labels>
+    <labels>
+        <fullName>Location_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Location Name</shortDescription>
+        <value>Location Name</value>
+    </labels>
+    <labels>
+        <fullName>Location_Screen</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Location Screen</shortDescription>
+        <value>Location Screen</value>
+    </labels>
+    <labels>
+        <fullName>Locations_Details</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Locations Details</shortDescription>
+        <value>Location Details</value>
+    </labels>
+    <labels>
+        <fullName>Logo_Color_BG_Option</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Logo Color BG Option</shortDescription>
+        <value>Logo Color BG Option</value>
+    </labels>
+    <labels>
+        <fullName>Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Name</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>Navigation</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Navigation</shortDescription>
+        <value>Navigation</value>
+    </labels>
+    <labels>
+        <fullName>Navigation_Side</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Navigation Side</shortDescription>
+        <value>Navigation Side</value>
+    </labels>
+    <labels>
+        <fullName>Navigation_Type</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Navigation Type</shortDescription>
+        <value>Navigation Type</value>
+    </labels>
+    <labels>
+        <fullName>New</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>New</shortDescription>
+        <value>New</value>
+    </labels>
+    <labels>
+        <fullName>Notifications</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Notifications</shortDescription>
+        <value>Notifications</value>
+    </labels>
+    <labels>
+        <fullName>Padding_Time</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Padding Time</shortDescription>
+        <value>Padding Time</value>
+    </labels>
+    <labels>
+        <fullName>Participants</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Participants</shortDescription>
+        <value>Customer</value>
+    </labels>
+    <labels>
+        <fullName>Past_Appointments</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Past Appointments</shortDescription>
+        <value>Past Appointments</value>
+    </labels>
+    <labels>
+        <fullName>Phone</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Phone</shortDescription>
+        <value>Phone</value>
+    </labels>
+    <labels>
+        <fullName>Postal_Code</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Postal Code</shortDescription>
+        <value>Postal Code</value>
+    </labels>
+    <labels>
+        <fullName>Powered_by</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Powered by</shortDescription>
+        <value>Powered by</value>
+    </labels>
+    <labels>
+        <fullName>Price</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Price</shortDescription>
+        <value>Price</value>
+    </labels>
+    <labels>
+        <fullName>Provider</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Provider</shortDescription>
+        <value>Provider</value>
+    </labels>
+    <labels>
+        <fullName>Quick_Appointment</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Quick Appointment</shortDescription>
+        <value>Quick Appointment</value>
+    </labels>
+    <labels>
+        <fullName>Resource_Section</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Resource Section</shortDescription>
+        <value>Using this screen, you can specify which all services would be provided by Resource/ Staff</value>
+    </labels>
+    <labels>
+        <fullName>Resource_Service_Alignment_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Resource/Service Alignment Name</shortDescription>
+        <value>Resource/Service Alignment Name</value>
+    </labels>
+    <labels>
+        <fullName>Resource_Service_Alignments</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Resource/Service Alignments</shortDescription>
+        <value>Resource/Service Alignments</value>
+    </labels>
+    <labels>
+        <fullName>Resource_Staff</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Resource/Staff</shortDescription>
+        <value>Resource/Staff</value>
+    </labels>
+    <labels>
+        <fullName>Resource_Staff_Details</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Resource Staff Details</shortDescription>
+        <value>Resource Staff Details</value>
+    </labels>
+    <labels>
+        <fullName>Resource_Staff_Screen</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Resource/ Staff Screen</shortDescription>
+        <value>Resource/ Staff Screen</value>
+    </labels>
+    <labels>
+        <fullName>Resource_Staff_Time_Allocation</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Resource/Staff Time Allocation</shortDescription>
+        <value>Resource/Staff Time Allocation</value>
+    </labels>
+    <labels>
+        <fullName>Resource_Staff_Users</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Resource/Staff</shortDescription>
+        <value>Resource/Staff</value>
+    </labels>
+    <labels>
+        <fullName>Resource_Staff_Users_Details</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Resource Staff Users Details</shortDescription>
+        <value>Resource Staff Users Details</value>
+    </labels>
+    <labels>
+        <fullName>Running</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Running</shortDescription>
+        <value>Running</value>
+    </labels>
+    <labels>
+        <fullName>Save</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Submit</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>Schedule_Appointment</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Schedule Appointment</shortDescription>
+        <value>Schedule Appointment</value>
+    </labels>
+    <labels>
+        <fullName>Search</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Search</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>Service</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Service</shortDescription>
+        <value>Service</value>
+    </labels>
+    <labels>
+        <fullName>Service_Details</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Service Details</shortDescription>
+        <value>Service Details</value>
+    </labels>
+    <labels>
+        <fullName>Service_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Service Name</shortDescription>
+        <value>Service Name</value>
+    </labels>
+    <labels>
+        <fullName>Service_Price</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Service Price</shortDescription>
+        <value>Service Price</value>
+    </labels>
+    <labels>
+        <fullName>Service_Screen</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Service Screen</shortDescription>
+        <value>Service Screen</value>
+    </labels>
+    <labels>
+        <fullName>Service_Section</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Service Section</shortDescription>
+        <value>This screen gives ability to define the various services offered, locations and price.</value>
+    </labels>
+    <labels>
+        <fullName>Setting_Panel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setting Panel</shortDescription>
+        <value>Setting Panel</value>
+    </labels>
+    <labels>
+        <fullName>Setting_Section</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Setting Section</shortDescription>
+        <value>Setting screen allows to set up User Interface features like display appointments in different colors as per status, calendar tooltip message and Double booking.</value>
+    </labels>
+    <labels>
+        <fullName>Settings</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Settings</shortDescription>
+        <value>Settings</value>
+    </labels>
+    <labels>
+        <fullName>Settings_Screen</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Settings Screen</shortDescription>
+        <value>Settings Screen</value>
+    </labels>
+    <labels>
+        <fullName>Sidebar_Position</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Sidebar Position</shortDescription>
+        <value>Sidebar Position</value>
+    </labels>
+    <labels>
+        <fullName>Start_Date</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Start Date</shortDescription>
+        <value>Start Date</value>
+    </labels>
+    <labels>
+        <fullName>State</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>State</shortDescription>
+        <value>State</value>
+    </labels>
+    <labels>
+        <fullName>Status</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>Step_1_Insert_Location</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Step 1 Insert Location</shortDescription>
+        <value>Step 1 Insert Location</value>
+    </labels>
+    <labels>
+        <fullName>Step_2_Insert_Service</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Step 2 Insert Service</shortDescription>
+        <value>Step 2 Insert Service</value>
+    </labels>
+    <labels>
+        <fullName>Step_3_Insert_Resource_Staff</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Step 3 Insert Resource/ Staff</shortDescription>
+        <value>Step 3 Insert Resource/ Staff</value>
+    </labels>
+    <labels>
+        <fullName>Step_4_Insert_Customer</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Step 4 Insert Customer</shortDescription>
+        <value>Step 4 Insert Customer</value>
+    </labels>
+    <labels>
+        <fullName>Step_5_Create_Appointment</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Step 5 Create Appointment</shortDescription>
+        <value>Step 5 Create Appointment</value>
+    </labels>
+    <labels>
+        <fullName>Step_6_Change_Setting</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Step 6 Change Setting</shortDescription>
+        <value>Step 6 Change Setting</value>
+    </labels>
+    <labels>
+        <fullName>Steps_To_Start</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Steps To Start</shortDescription>
+        <value>Steps To Start</value>
+    </labels>
+    <labels>
+        <fullName>Submit_Search</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Submit</shortDescription>
+        <value>Submit</value>
+    </labels>
+    <labels>
+        <fullName>Time</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Time</shortDescription>
+        <value>Time</value>
+    </labels>
+    <labels>
+        <fullName>Total_Price</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Total Price</shortDescription>
+        <value>Total Price</value>
+    </labels>
+    <labels>
+        <fullName>Type</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Type</shortDescription>
+        <value>Type</value>
+    </labels>
+    <labels>
+        <fullName>Upcoming</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Upcoming</shortDescription>
+        <value>Upcoming</value>
+    </labels>
+    <labels>
+        <fullName>Upcoming_Appointments_List</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Upcoming Appointments List</shortDescription>
+        <value>Upcoming Appointments List</value>
+    </labels>
+    <labels>
+        <fullName>Welcome</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Welcome</shortDescription>
+        <value>Welcome to Quick Appointment</value>
+    </labels>
+    <labels>
+        <fullName>hierarchie_setting</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>hierarchie setting</shortDescription>
+        <value>Step: Custom Settings &gt; UI Panel &gt; Then click on manage button &gt; Then click on new to add organization user for custom settings.</value>
+    </labels>
+    <labels>
+        <fullName>hierarchies</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>hierarchies</shortDescription>
+        <value>Installation grant access using hierarchies because we are using Custom settings in our app.</value>
+    </labels>
+</CustomLabels>

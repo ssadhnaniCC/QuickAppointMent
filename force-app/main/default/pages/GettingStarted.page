@@ -1,0 +1,125 @@
+<apex:page sidebar="false" tabStyle="Getting_Started__tab" title="{!$Label.cc_qappt__getting_started} -{!$Label.cc_qappt__quick_appointment}">
+  <c:NewHeader />
+<apex:form >
+  <style>
+      .HeaderDiv{
+        padding: 30px;
+        margin-bottom: 30px;
+        float:left;
+        width:100%;
+         border-radius: 10px;
+        background-color: #eeeeee;
+    }
+    .HeaderDiv h1{font-size: 40px;
+        font-weight: 200;
+        line-height: 2.1428571435;
+        color: inherit;
+        display:block
+    }
+    .copyright{ float:right; font-size:20px}
+    .discription{font-size:20px; font-family: "Times New Roman";}   
+  </style>
+  <script>
+      $( document ).ready(function() {
+            leftoffsetVal= $('.leftPanel').offset().top;
+          $(window).scroll(function(){
+            if($(window).scrollTop() > leftoffsetVal){
+            $('.leftPanel').css({'position':'fixed','top':0});
+            }else{
+            $('.leftPanel').css({'position':'static','top':0});
+            }
+            });
+            
+             $('.leftPanel a').click(function(e){
+                 e.preventDefault();
+                 
+                 $('body').animate({scrollTop:$(this.hash).offset().top});
+             })
+        });
+  </script>
+  <div class="container-fluid">
+      <div class="HeaderDiv">
+         <h1>{!$Label.Welcome}</h1>
+         <p style="font-size:15px;">{!$Label.Info}</p>
+         <p class="copyright">{!$Label.Powered_by} <a href="http://cloudcertitude.com/" target="_blank">{!$Label.Cloud}</a></p>
+      </div>
+      <div style="clear:both"></div>
+      <div class="leftPanel" style="width:20%;float:left;">
+          
+          <div class="panel panel-default">
+            <div class="panel-heading"><b>{!$Label.Steps_To_Start}</b></div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <a href="#Step1" ><li class="list-group-item">{!$Label.Step_1_Insert_Location}</li></a><br/>
+                        <a href="#Step2" ><li class="list-group-item">{!$Label.Step_2_Insert_Service}</li></a><br/>
+                        <a href="#Step3" ><li class="list-group-item">{!$Label.Step_3_Insert_Resource_Staff}</li></a><br/>
+                        <a href="#Step4" ><li class="list-group-item">{!$Label.Step_4_Insert_Customer}</li></a><br/>
+                        <a href="#Step5" ><li class="list-group-item">{!$Label.Step_5_Create_Appointment}</li></a><br/>
+                        <a href="#Step6" ><li class="list-group-item">{!$Label.Step_6_Change_Setting}</li></a>
+                    </ul>
+                </div>
+            </div>
+
+          
+      </div>
+      <div class="rightPanel" style="float:right;width:78%;">    
+          <!-- location discription -->
+          <div id="Step1">
+          <p class="discription">{!$Label.hierarchies}<br/>
+          Step: Custom Settings >{!$Label.hierarchie_setting}.</p>
+          <p class="discription">{!$Label.Location_Discription}</p>
+          <b class="discription">{!$Label.Location_Screen} –</b>
+          <p class="discription" style="margin-left: 153px;">{!$Label.Loc_Section} –</p>
+          <img src="{!URLFOR($Resource.QuickSnap,'location.png')}" width="80%" height="80%" style="margin-left: 153px;"/><br/><br/>
+          <img src="{!URLFOR($Resource.QuickSnap,'location-new.png')}" width="80%" height="80%" style="margin-left: 153px;"/><br/><br/>
+          </div>
+          <!-- location end -->
+          
+          <!-- service discription -->
+          <div id="Step2">
+          <b class="discription">{!$Label.Service_Screen} – </b>
+          <p class="discription" style="margin-left: 153px;">{!$Label.Service_Section}</p>
+          <img src="{!URLFOR($Resource.QuickSnap,'service.png')}" width="80%" height="80%" style="margin-left: 153px;"/><br/><br/>
+          <img src="{!URLFOR($Resource.QuickSnap,'service-new.png')}" width="80%" height="80%" style="margin-left: 153px;"/><br/><br/>
+          </div>
+          <!-- service end -->
+          
+          <!-- Resource/staff discription -->
+          <div id="Step3">
+          <b class="discription">{!$Label.Resource_Staff_Screen}– </b>
+          <p class="discription" style="margin-left: 153px;">{!$Label.Resource_Section}</p>
+          <img src="{!URLFOR($Resource.QuickSnap,'resource.png')}" width="80%" height="80%" style="margin-left: 153px;"/><br/><br/>
+          <img src="{!URLFOR($Resource.QuickSnap,'resource-new.png')}" width="80%" height="80%" style="margin-left: 153px;"/><br/><br/>
+          </div>
+          <!-- service end -->
+          
+          <!-- customer discription -->
+          <div id="Step4">
+          <b class="discription">{!$Label.Customer_Screen} – </b>
+          <p class="discription" style="margin-left: 153px;">{!$Label.Customer_Section} </p>
+          <img src="{!URLFOR($Resource.QuickSnap,'customer.png')}" width="80%" height="80%" style="margin-left: 153px;"/><br/><br/>
+          <img src="{!URLFOR($Resource.QuickSnap,'customer-new.png')}" width="80%" height="80%" style="margin-left: 153px;"/><br/><br/>
+          </div>
+          <!-- service end -->
+          
+          <!-- calender discription -->
+          <div id="Step5">
+          <b class="discription">{!$Label.Calendar_Screen} – </b>
+          <p class="discription" style="margin-left: 153px;">{!$Label.Calender_Section}</p>
+          <img src="{!URLFOR($Resource.QuickSnap,'calender.png')}" width="80%" height="80%" style="margin-left: 153px;"/><br/><br/>
+          <img src="{!URLFOR($Resource.QuickSnap,'appointment.png')}" width="80%" height="80%" style="margin-left: 153px;"/><br/><br/>
+          </div>
+          <!-- service end -->
+          
+          <!-- setting discription -->
+          <div id="Step6">
+          <b class="discription">{!$Label.Settings_Screen} – </b>
+          <p class="discription" style="margin-left: 153px;">{!$Label.Setting_Section}</p>
+          <img src="{!URLFOR($Resource.QuickSnap,'setting.png')}" width="80%" height="80%" style="margin-left: 153px;"/><br/><br/>
+          <img src="{!URLFOR($Resource.QuickSnap,'appointment.png')}" width="80%" height="80%" style="margin-left: 153px;"/><br/><br/>
+          </div>
+          <!-- service end -->
+      </div>
+  </div>
+</apex:form>
+</apex:page>

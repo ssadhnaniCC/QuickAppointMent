@@ -1,0 +1,5 @@
+<apex:page standardController="contact">
+ 
+    <social:profileViewer entityId="{!contact.id}"></social:profileViewer>
+    <apex:detail inlineEdit="false" relatedList="false" title="false"/>
+</apex:page>

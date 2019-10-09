@@ -1,0 +1,87 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" controller="CalenderController" title="Calender" id="pge">
+<c:NewHeader />
+<link rel="stylesheet" href="{!URLFOR($Resource.calender,'calender/fullcalendar.css')}" />
+<link rel="stylesheet" href="{!URLFOR($Resource.calender,'calender/fullcalendar.print.css')}" media='print'/>
+<script src="{!URLFOR($Resource.calender,'calender/moment.min.js')}"></script>
+<script src="{!URLFOR($Resource.calender,'calender/fullcalendar.min.js')}"></script>
+<script>
+    var currentTimezone = '{!JSENCODE($CurrentPage.parameters.selectedTimeZone)}';
+    var appevents = new Array();
+    
+    $(document).ready(function() { 
+        fetchAppointmentsJSON();        
+    });
+    
+    function fetchAppointmentsJSON(){
+        $('#status').css('display','block');
+        $('#calendar').fullCalendar( 'refresh' );        
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.CalenderController.fetchAllAppointmentSlotsJSON}',
+            currentTimezone,
+            function(result, event) 
+            {       
+                var apps = '';
+                apps = result.replace(/&(lt|gt|quot);/g, function (m, p) { 
+                    return (p == "lt") ? "<" : ((p == "gt") ? ">" : "\"");
+                });  
+                appevents = jQuery.parseJSON(apps);
+                console.log(appevents);
+                refreshCalendar();            
+            }            
+        );         
+    }
+    
+    function changeTimezone(){        
+        currentTimezone = $("#pge\\:frm\\:timezone-selector option:selected").val();         
+        fetchAppointmentsJSON();
+    }
+    
+    function refreshCalendar(){              
+        $('#calendar').fullCalendar( 'destroy' );
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            editable: true,
+            eventLimit: true,
+            events: appevents,             
+            eventRender: function(event, element) {
+               element.css('background-color',event.eventColor);               
+            },  
+            eventClick : function(calEvent,event) {                     
+              
+            },            
+        });
+        $('#status').css('display','none');
+    }   
+</script>
+
+<!-- Menu Code Start--->
+<body hoe-navigation-type="vertical" hoe-nav-placement="left" id="navTypeAndPlacement">
+    <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
+        <c:HeaderNested />
+        <div id="hoeapp-container" hoe-color-type="lpanel-bg2" hoe-lpanel-effect="shrink">
+            <c:SideBar />
+            <section id="main-content">
+                <!-- Menu Code End --->
+                <apex:form id="frm">  
+                    <div id="status" style="display:none;"> 
+                        fetching....
+                    </div>
+                    <apex:selectList onchange="changeTimezone();" id="timezone-selector" value="{!selectedTimeZone}" multiselect="false" size="1">
+                        <apex:selectOptions value="{!allTimeZones}"/>
+                    </apex:selectList>        
+                    <div id="calendar"></div>
+                </apex:form>
+                <!-- main code of Calender end -->
+            </section>
+            <c:addColor />
+        </div>
+    </div>  
+</body>
+
+
+        
+</apex:page>

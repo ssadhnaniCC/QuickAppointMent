@@ -1,0 +1,190 @@
+<apex:component controller="NotificationCtrl">
+<script>
+    $(document).ready(function(){
+         document.getElementById("hoe-header").setAttribute("hoe-color-type",LogoBgColor);
+        document.getElementById("rightHeader").setAttribute("hoe-color-type",HeaderBgColor);
+        document.getElementById("hoeapp-container").setAttribute("hoe-color-type",LeftPanelBgColor);
+        if(NavigationType == "horizontal-compact"){
+        document.getElementById("navTypeAndPlacement").setAttribute("hoe-navigation-type","horizontal");
+        console.log("horiztype",document.getElementById("navTypeAndPlacement").getAttribute("hoe-navigation-type"));
+
+        }
+        if(NavigationType == "vertical-compact"){
+        document.getElementById("navTypeAndPlacement").setAttribute("hoe-navigation-type","vertical");
+            console.log("typessssss",document.getElementById("navTypeAndPlacement").getAttribute("hoe-navigation-type"));
+        }
+        else{
+        document.getElementById("navTypeAndPlacement").setAttribute("hoe-navigation-type",NavigationType);
+        }
+        document.getElementById("navTypeAndPlacement").setAttribute("hoe-nav-placement",NavigationSide);
+        document.getElementById("hoe-left-panel").setAttribute("hoe-position-type",SidebarPosition);
+        $('#notificationpopup').hide();
+        $('.ui.dropdown').dropdown();
+        NotificationCount();
+    });
+    $(document).click(function(){
+ $(".dropnotification").css('display','none');
+});
+
+ 
+
+   /* function start(){
+      
+    }
+    window.onload=start;*/
+    function NotificationCount(){
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.NotificationCtrl.getNotificationCount}',function(result, event){
+            if (event.status) { 
+                $('[id$=count]').html(result);
+            }
+         });
+     }
+    
+    function NotificationDetails(){
+        $('#notificationpopup').toggle();
+
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.NotificationCtrl.getNotification}',function(result, event){
+                             if($("#dropnotification").hasClass("dropdown")){
+                                  $('.dropdown-menu').css('display','none');
+                                   $("#notificationpopup").css('display','none');
+                              }
+            if($("#dropnotification").hasClass("dropdown") && $("#dropnotification").hasClass("active")){
+            $('.dropdown-menu').css('display','none');
+             $("#notificationpopup").css('display','none');
+            }
+           
+            if($("#dropnotification").hasClass("dropdown active open")){
+              $('.dropdown-menu').css('display','inline-block');
+               $("#notificationpopup").css('display','inline-block');
+            }
+                  if (event.status) { 
+                var newUI = '';
+                var conId = '';
+                console.log('result',result);
+                if(result.length>0){
+                console.log('navigation side',NavigationSide );
+                   var navSideType = document.getElementsByTagName("body")[0].getAttribute("hoe-nav-placement");
+                    console.log("navSideType",navSideType);
+                    if(navSideType == 'left'){
+                       console.log("body" ,document.getElementsByTagName("body")[0]);
+                        console.log("body" ,document.getElementsByTagName("body")[0].getAttribute("hoe-nav-placement"));
+                       $('.dropdown-menu').css('left','-237px');
+                                           $('.dropdown-menu').css('right','');
+
+                       
+                        }
+                   else {
+                   $('.dropdown-menu').css('left','');
+                    $('.dropdown-menu').css('right','-237px');
+                    }
+                }
+                else{
+                  $('.dropdown-menu').css('left','0px');
+                }
+                for(var i = 0;i<result.length ;i++ ){
+                     if(result[i].read == false){ 
+                         newUI += '<li style="background-color:#f1f1f1"><a href="" onclick="ReadNotification(\''+result[i].notificationId+'\');return false;"><i class="fa fa-bell"></i> '+result[i].description+'</a></li>';
+                         
+                     }else{
+                         newUI += '<li><a href=""><i class="fa fa-bell-o"></i> '+result[i].description+'</a></li>';
+                     }
+                      conId = result[i].contactId;
+                }
+                 if(result.length>0){  
+                 newUI += '<li class="clearAll"><a href="#" onclick="ClearAllNotification(\''+conId+'\');return false;">Clear All</a></li>';
+                }
+                 if(result.length==0){
+                 newUI += '<li><p style="color:red;margin-left:5px;"><b>There is no Notification</b></p></li>'
+               //   $('.dropdown-menu').css('height','90px');
+                 }
+                $(".parentUI").html(newUI);        
+                
+            }       
+        });
+        
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.NotificationCtrl.CheckAllNotification}',function(result, event){
+            if (event.status) { 
+                NotificationCount();
+            }
+        });
+    }
+    
+    function ReadNotification(id){
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.NotificationCtrl.CheckReadNotification}',id,function(result, event){
+            if (event.status) { 
+                NotificationDetails();
+            }
+        });
+    }
+    
+    function ClearAllNotification(conId){
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.NotificationCtrl.ClearAllNotification}',conId,function(result, event){
+            if (event.status) { 
+            <!-- $('.dropdown-menu').css('left','0px');-->
+                NotificationDetails();
+            }
+        });
+
+    }
+</script>
+<style>
+    #hoe-header { overflow: inherit;  }
+    ul#notificationpopup li{ border-top:1px solid #ccc; display:block; width:100%}
+    ul#notificationpopup li:first-child{ border-top:none}
+    ul#notificationpopup li a{  color: #050505;display:block;}
+    ul#notificationpopup li.clearAll a{ text-align: center;   font-weight: bold;  padding: 5px 20px;}
+    #hoe-header.hoe-minimized-lpanel>.hoe-left-header {height: inherit;  width: 52px;}
+    #hoe-header.hoe-minimized-lpanel>.hoe-left-header a i {top: 19px;}
+    .hoe-right-header ul  { display: inline-block; }
+</style>
+
+  <header id="hoe-header" hoe-lpanel-effect="shrink">
+            <div class="hoe-left-header" style="position:fixed;">
+                <a href="#"><i class="fa fa-clock-o fa-lg"></i> <span>{!$Label.Quick_Appointment}</span></a>
+                <span class="hoe-sidebar-toggle"><a href="#"></a></span>
+            </div>
+            
+            <div class="hoe-right-header" hoe-position-type="relative" hoe-color-type="" id="rightHeader">
+                <span class="hoe-sidebar-toggle"><a href="#"></a></span>
+                
+                <ul class="right-navbar">
+                    <li class="dropdown" id="dropnotification"><a href="#"  id="myAnchor" onclick="checkstate(event);NotificationDetails();return false;"  class="dropdown-toggle" data-toggle="dropdown">{!$Label.Notifications}<span class="label label-danger" id="count"></span><i class="fa fa-bell"></i></a>
+                        <div class="dropdown-menu dropnotification"  role="menu" style="height: 310px; overflow-y:auto;font-size: 12px;display: none;">
+                       <ul class="parentUI" id="notificationpopup" >
+                        
+                        </ul>
+                        
+                        </div>
+                    </li>
+                    
+                     
+                    <!--   <li class="theme-config"><a href="/home/home.jsp"><i class="fa fa-sign-out"></i>&nbsp; {!$Label.Exit}</a> </li>-->
+                    <li class="theme-config"><a href="/"><i class="fa fa-sign-out"></i>&nbsp; {!$Label.Exit}</a>
+                    </li>
+                </ul>
+                <script>
+                    $('.dropdown-menu').click( function(event){
+                        event.stopPropagation();
+                        $('#drop').toggle();
+                    });});
+                </script>
+              <span class="clear"></span>  
+          </div>
+          <script>
+           function checkstate(){
+            if($("#dropnotification").hasClass("dropdown")){
+            $('.dropdown-menu').css('display','none');
+             $("#notificationpopup").css('display','none');
+            }
+              if($("#dropnotification").hasClass("dropdown") && $("#dropnotification").hasClass("active")){
+            $('.dropdown-menu').css('display','none');
+             $("#notificationpopup").css('display','none');
+            }
+            if($("#dropnotification").hasClass("dropdown active open")){
+              $('.dropdown-menu').css('display','none');
+               $("#notificationpopup").css('display','inline-block');
+            }
+          }     
+             </script>
+        </header>
+</apex:component>

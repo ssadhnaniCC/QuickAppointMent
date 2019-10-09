@@ -1,0 +1,697 @@
+<apex:page standardStylesheets="false" showHeader="false" controller="AppointmentCtrl" sidebar="false" id="pg">
+<c:NewHeader />
+<script src="{!URLFOR($Resource.datepicker,'datepicker/bootstrap-datepicker.min.js')}" type="text/javascript"></script>
+ <script src="{!URLFOR($Resource.datepicker,'datepicker/timepicki.js')}" type="text/javascript"></script> 
+
+<link href="{!URLFOR($Resource.datepicker,'datepicker/datepicker.min.css')}" rel="stylesheet"/>
+<link href="{!URLFOR($Resource.datepicker,'datepicker/datepicker3.min.css')}" rel="stylesheet"/>
+  <apex:slds />
+
+<apex:form id="appPanel" style="background-color: white !important;">
+ <script> 
+ $(document).ready(function() {
+  document.getElementById('pg:appPanel:loc').setAttribute('autocomplete','nope');
+
+ var date = new Date();
+date.setDate(date.getDate()-1);
+$('#datePicker').datepicker({
+startDate: date,
+altFormat: "yyyy-mm-dd",
+format: "yyyy-mm-dd",
+dateFormat: "yyyy-mm-dd",
+  onSelect: function (date) {
+    //defined your own method here
+    alert(date);
+    }
+}); 
+ $('.timepicker').timepicki();
+ 
+     document.getElementById("Durations").value = '{!duration}';
+     
+ }); 
+ $('.timepicki-input').attr('readonly', 'readonly');
+ 
+ function showParticipantPOpup(){
+//document.getElementById('namesearch').value = "";
+//$('#serch').click();
+      $('[id$=myModal]').modal('show');
+ }
+ 
+ 
+ 
+ function saveAppointment(){
+     var dur = document.getElementById("Durations").value;
+     $('[id$=DurationId]').val(dur);
+    saveApp();
+ }
+ 
+ function getDiscount(){
+     GenerateDiscount();
+ }
+ 
+ function closeAppointmentWindow(){
+    window.parent.location.href = '/apex/calendar';
+ }
+ 
+ function addCustomer(){
+     $('[id$=myModal]').modal('hide');
+     $('[id$=AddCustomer]').modal('show');
+ }
+ 
+ 
+ 
+ function redirectCalender(){
+     window.parent.location.href = '/apex/calendar';
+ }
+  
+ </script>
+ <style>
+
+.ti_tx,
+.mi_tx,
+.mer_tx {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.time,
+.mins,
+.meridian {
+    width: 60px;
+    float: left;
+    margin: 0 10px;
+    font-size: 20px;
+    color: #2d2e2e;
+    font-family: arial;
+    font-weight: 700;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    padding: 18px;
+    width: 28%;
+    border: 1px solid #ccc;
+    margin: auto;
+    background: url({!URLFOR($Resource.datepicker,'datepicker/images/arrow.png')}) no-repeat;
+    border-radius: 5px;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: #ccc;
+}
+
+.next {
+    background-position: 50% 150%;
+}
+
+.prev {
+    background-position: 50% -50%;
+}
+
+.time_pick {
+    position: relative;
+}
+
+.timepicker_wrap {
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 998;
+    display: none;
+    box-shadow: 2px 2px 5px 0 rgba(50,50,50,0.35);
+    background: #f6f6f6;
+    border: 1px solid #ccc;
+    float: left;
+    position: absolute;
+    top: 27px;
+    left: 0;
+    width: 262px;
+}
+
+.arrow_top {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: url({!URLFOR($Resource.datepicker,'datepicker/images/top_arr.png')}) no-repeat;
+    width: 18px;
+    height: 10px;
+    z-index: 999;
+}
+input.timepicki-input {
+    background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #CCCCCC;
+        border-radius: 5px 5px 5px 5px;
+        float: none;
+        margin: 0;
+        text-align: center;
+        width: 70%;
+}
+a.reset_time {
+    float: left;
+    margin-top: 5px;
+    color: #000;
+}
+
+
+.custPopup{
+    background-color: white;
+    border-width: 0px;
+    border-radius:10px;
+    z-index: 9999;
+    left: 50%;
+    padding:20px;
+    position: absolute;
+    margin-left: -100px;
+    top:40%;
+}
+.popupBackground{
+    background-color:black;
+    opacity: 0.30;
+    filter: alpha(opacity = 30);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9998;
+}
+ </style>
+<apex:actionStatus id="fetching">
+        <apex:facet name="start">
+             <apex:outputPanel id="tstpopup">
+                    <apex:outputPanel styleClass="popupBackground" layout="block"/>
+                    <apex:outputPanel styleClass="custPopup" layout="block">
+                        <img src="/img/loading24.gif" style="vertical-align:middle; horizontal-align:middle"/> 
+                        <span>Please wait...</span>  
+                    </apex:outputPanel>
+              </apex:outputPanel> 
+        </apex:facet>
+    </apex:actionStatus>
+
+<apex:actionFunction name="saveApp" action="{!saveAppointment}" oncomplete="showMessageSuccess(); return false;" status="fetching" reRender="errorMsg"/>   
+<apex:inputHidden id="DurationId" value="{!duration}"/>
+ 
+<apex:actionFunction action="{!fetchParticipant}" name="addNewParticipant" oncomplete="showParticipantPOpup();return false;" reRender="warningMsg1,customerInformation" status="fetching"/>
+<apex:actionFunction name="showApp" action="{!SelectedAppointment}" reRender="appPanel" status="fetching">
+    <apex:param assignTo="{!SelectedApppointmentId}" name="appId" value=""/>
+</apex:actionFunction>
+
+<apex:actionFunction name="reoveParticipent" action="{!removeParticipant}" reRender="appPanel"  status="fetching">
+    <apex:param assignTo="{!removeId}" name="removeParticipantId" value=""/>
+</apex:actionFunction>
+
+<apex:actionFunction name="GenerateDiscount" action="{!getDiscount}" reRender="totalprice,errorMsg" status="fetching"/>
+
+<apex:actionFunction name="addParticipant" action="{!addParticipant}" oncomplete="hideParticipantPOpup();return false;" reRender="warningMsg1,myModal,ParticipantPanelData" status="fetching"/>
+<apex:actionFunction name="testingclose" reRender="AddCustomer,customerInformation,testingsearch" />
+<body class="slds-scope" >
+<apex:outputPanel id="errorMsg">
+<script>
+    function showMessageSuccess(){
+     if({!errorDiv} == false){
+         $('[id$=SuccessfullMsg]').modal('show');
+     }
+ }
+</script>
+<apex:outputPanel rendered="{!errorDiv}" >
+<div class="alert alert-danger" role="alert" style="margin-top: 9px;">
+ <span class="sr-only">Error:</span>
+ <apex:pageMessages />
+</div>
+</apex:outputPanel>
+</apex:outputPanel>
+                  <apex:outputPanel rendered="{!multipleIds}">
+                  <div class="row">
+                        <div class="col-md-12 col-xs-12" align="center">
+                            <apex:repeat value="{!AppMultipleList}" var="app">
+                                <button type="button" class="btn btn-danger btn-lg" onclick="showApp('{!app.id}');return false;">{!app.name}</button>
+                            </apex:repeat>
+                        </div>
+                    </div><br/>
+                  </apex:outputPanel> 
+                  <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                          <center>  <apex:commandButton styleclass="btn btn-default" value="{!$Label.cc_qappt__save}" onclick="saveAppointment();return false;"/>&nbsp;
+                           <apex:outputPanel rendered="{!cloneButtonShowHide}">
+                                  <apex:commandButton value="Clone" action="{!cloneExistingRecord}" styleclass="btn btn-default"/>
+                            </apex:outputPanel>
+                            <button class="btn btn-default" onclick="closeAppointmentWindow(); return false;">{!$Label.cc_qappt__cancel}</button> </center>
+    
+                         </div>
+                    </div>       
+                    <div class="row">
+                       
+                        <div class="col-md-6 col-xs-6">
+                            <label>{!$Label.cc_qappt__appointment_name}</label>
+                           <apex:inputText value="{!newAppointment.name}" styleClass="form-control" disabled="true"/>
+                        </div>
+                      
+                        <div class="col-md-6 col-xs-6">
+                            <label>{!$Label.cc_qappt__location}</label>
+                            <apex:selectList id="loc" value="{!selectedLocation}" multiselect="false" size="1" styleClass="form-control">
+                                <apex:selectOptions value="{!LocationList}" />
+                                <apex:actionSupport action="{!fetchServiceBasedOnLocation}" event="onchange" reRender="Provider,service,errorMsg" status="fetching"/>
+                            </apex:selectList>
+                        </div> 
+                  </div>  
+                  <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <label>{!$Label.cc_qappt__service}</label>
+                            <apex:selectList value="{!selectedService}" multiselect="false" size="1" styleClass="form-control" id="service">
+                                <apex:selectOptions value="{!serviceList}"/>
+                                <apex:actionSupport action="{!fetchProviderBasedOnService}" event="onchange" reRender="Provider,Price,totalprice,Durations,discounts" status="fetching"/>
+                            </apex:selectList>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <label>{!$Label.cc_qappt__resource_staff}</label>
+                            <apex:selectList value="{!selectedProvider}" multiselect="false" size="1" styleClass="form-control" id="Provider" disabled="{!ResourceStaffDesable}">
+                                <apex:selectOptions value="{!ProviderList}"/>
+                                <apex:actionSupport action="{!fetchProviderBasedOnService}"/>
+                            </apex:selectList>
+                        </div>
+                  </div>
+                 
+                  <div class="row">
+                        <div class="col-md-3 col-xs-3">
+                            <label>{!$Label.cc_qappt__start_date}</label>
+                         <!--   <div class="row form-group">--> 
+                                 <div class="input-group input-append date" id="datePicker">
+                                      <apex:inputText value="{!startDate}" styleClass="form-control" html-name="date"/> 
+                                      <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+                                  </div>
+                                  
+                     <!--       </div> -->
+                            <!-- <label>All Day Event</label><br/>
+                            <apex:inputField value="{!newAppointment.All_Day_Event__c}"/> -->
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <label>{!$Label.Time}</label>
+                            <apex:inputText html-name="timepicker" value="{!startTime}" styleClass="form-control timepicker" onclick="timepickerHandler();"/>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <label>{!$Label.cc_qappt__duration}</label>
+                            <apex:outputPanel id="Durations"> 
+                                <input type="number" min="0" max="999" step="1" value="{!ServiceDuration}" Class="form-control" id="Durations"/>
+                            </apex:outputPanel>
+                        </div>
+                        <!-- <div class="col-md-3 col-xs-3">
+                            <label>{!$Label.Capacity}</label>
+                             <apex:OutputLabel value="{!Capacity}" styleClass="form-control" id="Capacity"/>
+                        </div> -->
+                    </div>
+                    <div class="row">
+                        <div class=" col-md-6 col-xs-6">
+                            <label>{!$Label.Status}</label>
+                          <apex:inputField value="{!newAppointment.Status__c}" styleClass="form-control"/>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <label>{!$Label.cc_qappt__description_notes}</label>
+                            <apex:inputField value="{!newAppointment.Description__c}" styleClass="form-control" style=" max-width : 871px ; max-height:151px ;resize: vertical;"/>
+                        </div>
+                    </div>
+                    
+                    <br/>
+                    
+                     <div class="row">
+                         <div class="panel panel-default">
+                              <div class="panel-heading"><b>{!$Label.cc_qappt__service_price}</b></div>
+                              <div class="panel-body">
+                                <div class="col-md-6 col-xs-6">
+                                    <label>{!$Label.cc_qappt__price}</label>
+                                    <apex:OutputLabel value="{!PriceBasedOnService}" styleClass="form-control" id="Price"/>
+                                </div>
+                               <div class="col-md-3 col-xs-3" >
+                                   <apex:outputPanel id="discounts">
+                                   <apex:outputpanel rendered="{!PriceBasedOnService==0}">
+                                       <label>{!$Label.cc_qappt__discount}(%)</label>   
+                                       <apex:inputField html-placeholder="Discount" value="{!newAppointment.Discount__c}" styleClass="form-control" id="discount" html-disabled="true" onblur="getDiscount(); return false;"/>
+                                   </apex:outputpanel>
+                                   <apex:outputpanel rendered="{!If(PriceBasedOnService>0,true,false)}">
+                                       <label>{!$Label.cc_qappt__discount}(%)</label>   
+                                       <apex:inputField html-placeholder="Discount" value="{!newAppointment.Discount__c}" styleClass="form-control" id="disc"  onblur="getDiscount(); return false;"/>
+                                   </apex:outputpanel>
+                                   </apex:outputPanel>
+                                </div>
+                                <div class="col-md-3 col-xs-3">
+                                    <label>{!$Label.cc_qappt__total_price}</label>
+                                     <apex:OutputLabel value="{!TotalPrice}" styleClass="form-control" id="totalprice"/>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                              
+                              <div class="panel-heading"><b>{!$Label.Participants}</b> &nbsp; <apex:commandButton value="{!$Label.cc_qappt__add_customer}" onclick="addNewParticipant();return false;" styleclass="btn btn-default"/>
+                              <!-- <apex:commandButton value="Save" action="{!saveParticipant}" styleclass="btn btn-default" style="float:right;" oncomplete="closeAppointmentWindow();return false;"/> -->
+                              </div>
+                              <apex:outputPanel id="ParticipantPanelData" >   
+                              <div class="panel-body">
+                              <div class="table-responsive" id="first-container">  
+                              
+                              <table width="100%" class="table table-striped">
+                                   <thead>
+                                      <tr>
+                                        <th>{!$Label.Action}</th>
+                                        <th><apex:outputText value="{!$Label.cc_qappt__customer_name}"/></th>
+                                        <th><apex:outputText value="{!$Label.cc_qappt__email}"/></th>
+                                        <th><apex:outputText value="{!$Label.cc_qappt__phone}"/></th>
+                                        <th><apex:outputText value="{!$Label.cc_qappt__address}"/></th>
+                                        <th><apex:outputText value="{!$Label.cc_qappt__description}"/></th>
+                                    </tr>  
+                                   </thead>
+                                 
+                                 <tbody>
+                                 <apex:repeat value="{!addedParticipantList}" var="p">
+                                     <tr>
+                                         <td><a href="" onclick="reoveParticipent('{!p.con.id}');return false;">remove</a></td>
+                                         <td><apex:outputText value="{!p.con.name}"/></td>
+                                         <td><apex:outputText value="{!p.con.email}"/></td>
+                                         <td><apex:outputText value="{!p.con.phone}"/></td>
+                                         <td><apex:outputText value="{!p.con.MailingStreet}"/>&nbsp;<apex:outputText value="{!p.con.MailingCity}"/></td>
+                                         <td><apex:outputText value="{!p.con.Description}"/></td>
+                                     </tr>
+                                  </apex:repeat> 
+                                  </tbody>
+                                  
+                                  <tfoot>
+                                        <tr>
+                                            <td colspan="5">
+                                             <apex:outputPanel rendered="{!containtselement}">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <td>                
+                                                                <div class="simple-pagination-first form-control"></div>
+                                                            </td>
+                                                            <td style="padding-left: 5px;">
+                                                                <div class="simple-pagination-previous form-control"></div>
+                                                            </td>
+                                                            <td style="padding-left: 5px;">
+                                                                <div class="simple-pagination-next form-control"></div>
+                                                            </td>
+                                                            <td style="padding-left: 5px;">
+                                                                <div class="simple-pagination-last form-control"></div>
+                                                            
+                                                            </td>
+                                                            <td style="padding-left: 5px;">
+                                                                <div class="simple-pagination-page-numbers form-control"></div>
+                                                            </td>
+                                                            <td style="padding-left: 5px;">
+                                                                <div class="simple-pagination-page-x-of-x form-control"></div>
+                                                            </td>                                            
+                                                        </tr>
+                                                    </thead>
+                                                </table>  
+                                                </apex:outputPanel>
+                                            </td>
+                                        </tr>
+                                    </tfoot> 
+                                  </table>
+                                  
+                                  </div>
+                              </div>
+                                  <script>
+                                    (function($){
+                                        $("#first-container").simplePagination({
+                                            items_per_page: 5
+                                        });
+                                    })(jQuery);
+                                setpaginationforfirstpage();
+                               function setpaginationforfirstpage(){
+                               var pagecount= $(".simple-pagination-navigation-page").length;
+                               if(pagecount==1){
+                                   var style1 = {
+                                 'text-decoration':'none',
+                                 'color': 'black',
+                                  'pointer-events': 'none',
+                                 };
+                                $('.simple-pagination-navigation-previous').css(style1);
+                                $('.simple-pagination-previous.form-control').css('background-color','#dddddd');
+                                $('.simple-pagination-navigation-next').css(style1);
+                                $('.simple-pagination-next.form-control').css('background-color','#dddddd');
+                                $('.simple-pagination-navigation-first').css(style1);
+                                $('.simple-pagination-first.form-control').css('background-color','#dddddd');
+                                $('.simple-pagination-navigation-last').css(style1);
+                                $('.simple-pagination-last.form-control').css('background-color','#dddddd');
+                                $('.simple-pagination-navigation-page').css(style1);
+                                $('.simple-pagination-navigation-page.form-control').css('background-color','#dddddd');
+                                $('.simple-pagination-page-numbers.form-control').css('background-color','#dddddd');
+                                $('.simple-pagination-page-x-of-x.form-control').css('background-color','#dddddd');
+                
+                               }      
+                          }                                       
+                       </script>
+                              </apex:outputPanel>
+                          </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                          <center>  <apex:commandButton styleclass="btn btn-default" value="{!$Label.cc_qappt__save}" onclick="saveAppointment();return false;"/>&nbsp;
+                           <apex:outputPanel rendered="{!cloneButtonShowHide}">
+                                  <apex:commandButton value="Clone" action="{!cloneExistingRecord}" styleclass="btn btn-default"/>
+                            </apex:outputPanel>
+                            <button class="btn btn-default" onclick="closeAppointmentWindow(); return false;">{!$Label.Cancel}</button> </center>
+    
+                         </div>
+                    </div>
+
+                 
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-y: auto;" data-backdrop="static" data-keyboard="false">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">{!$Label.cc_qappt__add_customer}</h4>
+              </div>
+              <div class="modal-body">
+                  
+        <apex:outputPanel id="warningMsg1">
+        <apex:outputPanel rendered="{!warningDiv}">
+
+        <div class="alert alert-warning" role="alert" style="margin-top: 9px;">
+         <span class="sr-only">Please select customer before Adding</span>
+         <apex:pageMessages />
+        </div>
+        </apex:outputPanel>
+                <script>
+                function hideParticipantPOpup(){
+                  console.log('warningdiv',{!warningDiv});
+                         if({!warningDiv} == false){
+                     $('[id$=myModal]').modal('hide');
+                       }
+                     else{
+                      $('[id$=myModal]').modal('show');
+                     }
+                 }            
+                </script>
+        </apex:outputPanel>
+                 <!-- <div id="errrPanel" style="color:red"></div>-->
+                  <div style="display:inline-flex;"><apex:inputText id="namesearch" value="{!NameSearch}" html-Placeholder="Name" styleClass="form-control" onkeypress="setDefaultEvent(event)"/>
+               <script>
+                  function setDefaultEvent(event) {
+                   
+                   if (event.keyCode === 10 || event.keyCode === 13) {
+                               event.preventDefault();
+                      }
+                }
+               
+               </script>
+               
+                <apex:commandButton id="serch" action="{!search}" value="Search" reRender="customerInformation"    styleClass="btn btn-default" status="fetching"/></div>
+                <apex:outputPanel id="customerInformation">
+                 <apex:outputPanel rendered="{!containts}">
+                  <table width="100%" style="margin-top:10px;">          
+                  <apex:repeat value="{!ContactUser}" var="lst">
+                      <tr>   
+                         <td>
+                           <label class="slds-checkbox">
+                             <apex:inputCheckbox value="{!lst.isCheck}" styleClass="chk slds-input"/>
+                                <span class="slds-checkbox--faux"></span>                                                                     
+                             </label>
+                             </td>&nbsp; 
+                         <td>
+                         
+                         
+                       <span style="margin-left:10px;">  <apex:outputField value="{!lst.con.name}" style="float:left;"/></span>                    
+                         </td>
+                         <td><apex:outputField value="{!lst.con.email}" style="float:left;"/></td>
+                         <td><apex:outputField value="{!lst.con.phone}" style="float:left;"/></td>
+                      </tr>
+                  </apex:repeat>
+                  </table>
+                  </apex:outputPanel>
+                      <apex:outputPanel id="testingsearch" rendered="{!!containts}">
+                                        <p><center><b>No Customer Found</b></center></p>
+                      </apex:outputPanel>
+                  </apex:outputPanel>
+                 
+               </div>
+                
+                <div class="modal-footer">
+                <apex:commandButton value="{!$Label.cc_qappt__add}" onclick="addParticipant(); return false;" styleclass="btn btn-default" rerender="warningMsg1"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal" reRender="AddCustomer,customerInformation,testingsearch" >Close</button>
+                <apex:commandButton value="Add New Customer" styleclass="btn btn-default" action="{!addCustomerFromAppointment}" oncomplete="addCustomer(); return false;" reRender="AddCustomer,erroMsg"/>
+              </div>
+            </div>
+          </div>
+        </div> 
+                 
+        <script>
+        function closehandle(){
+     //   document.getElementbyId('namesearch').setAttribute('value','');
+      //  $('#serch').click();
+        
+        }
+        </script>
+        
+<!-- customer insert edit -->
+   
+<div class="modal fade bs-example-modal-lg" id="AddCustomer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-y: auto;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Customer</h4>
+      </div>
+      <div class="modal-body">
+      <apex:outputPanel id="erroMsg">
+          <script>
+                function hidePopUp(){
+                    if({!errorDiv} == false){
+                       $('[id$=AddCustomer]').modal('hide');
+                        console.log('loc',document.getElementById('select#loc'));
+                     document.getElementById('pg:appPanel:loc').setAttribute('autocomplete','none');
+                       }
+                     console.log('loc',document.getElementById('#loc'));
+                    document.getElementById('pg:appPanel:loc').setAttribute('autocomplete','none');
+                }
+            </script>
+        <apex:outputPanel rendered="{!errorDiv}" >
+        <div class="alert alert-danger" role="alert" style="margin-top: 9px;">
+         <span class="sr-only">Error:</span>
+         <apex:pageMessages />
+        </div>
+        </apex:outputPanel>
+        </apex:outputPanel>
+    <apex:outputPanel id="NewCustomerForm">
+          <div class="row">
+            <div class="col-md-6 col-xs-6">
+                 
+                <label>{!$Label.cc_qappt__frst_name}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__frst_name}" value="{!con.firstname}" styleClass="form-control"/>
+                
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <label>{!$Label.cc_qappt__last_name}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__last_name}" value="{!con.lastname}" styleClass="form-control"/>
+            </div> 
+        </div>
+        <div class="row">              
+            <div class="col-md-6 col-xs-6">
+                <label>{!$Label.cc_qappt__email}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__email}" value="{!con.email}" styleClass="form-control"/>
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <label>{!$Label.cc_qappt__phone}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__phone}" value="{!con.phone}" styleClass="form-control"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-xs-6">
+                <label>{!$Label.cc_qappt__address}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__address}" value="{!con.MailingStreet}" styleClass="form-control"/>
+                
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <label>{!$Label.cc_qappt__city}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__city}" value="{!con.MailingCity}" styleClass="form-control"/>
+            </div> 
+        </div>
+        <div class="row">              
+            <div class="col-md-6 col-xs-6">
+                <label>{!$Label.cc_qappt__state}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__state}" value="{!con.MailingState}" styleClass="form-control"/>
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <label>{!$Label.cc_qappt__country}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__country}" value="{!con.MailingCountry}" styleClass="form-control"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-xs-6">    
+                <label>{!$Label.cc_qappt__postal_code}</label>
+                <apex:inputText html-placeholder="{!$Label.cc_qappt__postal_code}" value="{!con.MailingPostalcode}" styleClass="form-control"/>
+             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">    
+                <label>{!$Label.cc_qappt__description}</label>
+                <apex:inputField html-placeholder="{!$Label.cc_qappt__description}" value="{!con.Description}" styleClass="form-control" style=" max-width : 871px ; max-height:151px ;resize: vertical;"  />
+             </div>
+        </div>
+   </apex:outputPanel>
+        <br/>
+          
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <center><apex:commandButton action="{!saveCustomer}" styleclass="btn btn-default" value="{!$Label.cc_qappt__save}" oncomplete="hidePopUp(); return false;" reRender="erroMsg,NewCustomerForm,AddCustomer"/>&nbsp;
+                <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.Cancel}</button></center>
+             </div>
+        </div>
+
+
+    
+          </div>
+  </div>
+</div>
+</div>
+ 
+   
+
+
+<!-- show successful message of saveing appointment -->
+    <div class="modal fade bs-example-modal-sm" id="SuccessfullMsg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Save Appointment</h4>
+              </div>
+              <div class="modal-body">
+                  <div class="alert alert-success" role="alert">
+                   Your Appointment has been save !!!
+                </div>
+             </div>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="redirectCalender(); return false;">OK</button>
+            </div>
+  </div>
+</div>
+</div>
+<!-- end -->
+</body>
+<script>
+    (function($){
+        $("#first-container").simplePagination({
+            items_per_page: 5
+        });
+    })(jQuery);
+    function timepickerHandler(){
+     $('.timepicki-input').attr('readonly', 'readonly');
+    }
+</script>
+</apex:form>
+
+</apex:page>

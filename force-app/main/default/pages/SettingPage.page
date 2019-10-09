@@ -1,0 +1,246 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" controller="AddColorDashboard" title="{!$Label.cc_qappt__settings} -{!$Label.cc_qappt__quick_appointment}">
+  <c:NewHeader />
+    <style> 
+  body  {
+  display:none;
+  } 
+  h4 {
+  margin-top:3px;
+  }
+  
+  .boltext{
+  font-weight:bold;
+  
+  }
+  </style>
+ <script>
+  $(document).ready(function(){
+  if(NavigationSide=='right'){
+         document.getElementById("navigation-side").value='right';
+        // document.getElementById("navTypeAndPlacement").setAttribute("hoe-nav-placement","right");
+         }
+         else
+         document.getElementById("navigation-side").value='left';
+       
+    });
+ 
+window.addEventListener("DOMContentLoaded", function(){
+  document.getElementsByTagName("body")[0].style.display = "block";
+});
+</script>
+   <script>
+       
+    function getAllvalues(){
+        var logovalue = document.getElementById("hoe-header").getAttribute("hoe-color-type");
+        var hedervalue = document.getElementById("rightHeader").getAttribute("hoe-color-type");
+        var leftpanelvalue = document.getElementById("hoeapp-container").getAttribute("hoe-color-type");
+       // var navigationvalue = document.getElementById("navTypeAndPlacement").getAttribute("hoe-navigation-type");
+         var navigationvalue = document.getElementById("navigation-type").value;
+        console.log('navigationtypeupdated'+navigationvalue);
+     //   var placementvalue = document.getElementById("navTypeAndPlacement").getAttribute("hoe-nav-placement");
+        var placementvalue = document.getElementById("navigation-side").value; 
+           console.log("placementvalueupdated",placementvalue );
+      //  var SidebarPosition = document.getElementById("hoe-left-panel").getAttribute("hoe-position-type");
+          var  SidebarPosition = document.getElementById("sidebar-position").value;
+          console.log("SidebarPositionupdated",SidebarPosition);
+        
+        
+    
+        $('[id$=Logo]').val(logovalue);
+        $('[id$=header]').val(hedervalue);
+        $('[id$=leftpanel]').val(leftpanelvalue);
+        $('[id$=navigationpanel]').val(navigationvalue);
+        $('[id$=navigationplacement]').val(placementvalue);
+        $('[id$=SidebarPosition]').val(SidebarPosition);
+        saveDashbordValue();
+    }
+</script>
+
+
+
+  <!-- Menu Code --->
+<body hoe-navigation-type="vertical" hoe-nav-placement="left" id="navTypeAndPlacement">
+    <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
+        <c:HeaderNested />
+        <div id="hoeapp-container" hoe-color-type="lpanel-bg2" hoe-lpanel-effect="shrink">
+            <c:SideBar />
+<section id="main-content">
+   
+<apex:form >
+<apex:actionFunction name="saveDashbordValue" action="{!saveDashboard}"/>
+<apex:inputHidden id="Logo" value="{!logovalue}"/>
+<apex:inputHidden id="header" value="{!headervalue}"/>
+<apex:inputHidden id="leftpanel" value="{!leftpanelvalue}"/>
+<apex:inputHidden id="navigationpanel" value="{!navigationvalue}"/>
+<apex:inputHidden id="navigationplacement" value="{!navsidevalue}"/>
+<apex:inputHidden id="SidebarPosition" value="{!Sidebar}"/>
+  <div class="row" >
+    <div class="col-md-offset-4  col-md-4" >
+        <h2 style="margin-left: -55px;">{!$Label.Setting_Panel}</h2>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-md-6">
+                <ul >
+                   <!-- <li>
+                        <p class="selector-title">Style Selector</p>
+                    </li> -->
+                    <li class="theme-option">
+                        <span class="sub-title boltext">{!$Label.Header_BG_Color_Option}</span> <br/>
+                        <div id="theme-color">
+                            <a href="#" class="header-bg" hoe-color-type="header-bg1">&nbsp;</a>
+                            <a href="#" class="header-bg" hoe-color-type="header-bg2">&nbsp;</a>
+                            <a href="#" class="header-bg" hoe-color-type="header-bg3">&nbsp;</a>
+                            <a href="#" class="header-bg" hoe-color-type="header-bg4">&nbsp;</a>
+                            <a href="#" class="header-bg" hoe-color-type="header-bg5">&nbsp;</a>
+                            <a href="#" class="header-bg" hoe-color-type="header-bg6">&nbsp;</a>
+                            <a href="#" class="header-bg" hoe-color-type="header-bg7">&nbsp;</a>
+                            <a href="#" class="header-bg" hoe-color-type="header-bg8">&nbsp;</a>
+                            <a href="#" class="header-bg" hoe-color-type="header-bg9">&nbsp;</a>
+                        </div>
+                    </li>
+                    <li class="theme-option"  style="margin-top:10px;">
+                        <span class="sub-title boltext">{!$Label.Left_Panel_BG_Color_Option}</span>
+                        <div id="theme-color">
+                            <a href="#" class="lpanel-bg" hoe-color-type="lpanel-bg1">&nbsp;</a>
+                            <a href="#" class="lpanel-bg" hoe-color-type="lpanel-bg2">&nbsp;</a>
+                            <a href="#" class="lpanel-bg" hoe-color-type="lpanel-bg3">&nbsp;</a>
+                            <a href="#" class="lpanel-bg" hoe-color-type="lpanel-bg4">&nbsp;</a>
+                            <a href="#" class="lpanel-bg" hoe-color-type="lpanel-bg5">&nbsp;</a>
+                            <a href="#" class="lpanel-bg" hoe-color-type="lpanel-bg6">&nbsp;</a>
+                            <a href="#" class="lpanel-bg" hoe-color-type="lpanel-bg7">&nbsp;</a>
+                            <a href="#" class="lpanel-bg" hoe-color-type="lpanel-bg8">&nbsp;</a>
+                            <a href="#" class="lpanel-bg" hoe-color-type="lpanel-bg9">&nbsp;</a>
+                        </div>
+                    </li>
+                    <li class="theme-option"  style="margin-top:10px;">
+                        <span class="sub-title boltext">{!$Label.Logo_Color_BG_Option}</span>
+                        <div id="theme-color">
+                            <a href="#" class="logo-bg" hoe-color-type="logo-bg1">&nbsp;</a>
+                            <a href="#" class="logo-bg" hoe-color-type="logo-bg2">&nbsp;</a>
+                            <a href="#" class="logo-bg" hoe-color-type="logo-bg3">&nbsp;</a>
+                            <a href="#" class="logo-bg" hoe-color-type="logo-bg4">&nbsp;</a>
+                            <a href="#" class="logo-bg" hoe-color-type="logo-bg5">&nbsp;</a>
+                            <a href="#" class="logo-bg" hoe-color-type="logo-bg6">&nbsp;</a>
+                            <a href="#" class="logo-bg" hoe-color-type="logo-bg7">&nbsp;</a>
+                            <a href="#" class="logo-bg" hoe-color-type="logo-bg8">&nbsp;</a>
+                            <a href="#" class="logo-bg" hoe-color-type="logo-bg9">&nbsp;</a>
+                        </div>
+                    </li>
+                   <!-- <li class="theme-option">
+                        <span class="sub-title">SideBar Effect</span>
+                        <select id="leftpanel-effect" class="form-control minimal input-sm">
+                            <option name="lpanel-effect" value="shrink">Default</option>
+                            <option name="lpanel-effect" value="overlay">Overlay</option>
+                            <option name="lpanel-effect" value="push">Push</option>
+                        </select>
+                    </li> -->
+                    <li class="theme-option"  style="margin-top:10px;">
+                        <span class="sub-title boltext">{!$Label.Navigation_Type}</span>
+                        <select id="navigation-type" class="form-control minimal input-sm" style="width: 24%; margin-top:5px;">
+                            <option name="navigation-type" value="vertical">Vertical</option>
+                            <option name="navigation-type" value="vertical-compact">Vertical Compact</option>
+                            <option name="navigation-type" value="horizontal">Horizontal</option>
+                            <option name="navigation-type" value="horizontal-compact">horizontal compact</option>
+                        </select>
+                    </li>
+                    <li class="theme-option"  style="margin-top:10px;">
+                        <span class="sub-title boltext">{!$Label.Navigation_Side}</span>
+                        <select id="navigation-side" class="form-control minimal input-sm" style="width: 24%; margin-top:5px;">
+                            <option name="navigation-side" value="left">Left</option>
+                            <option name="navigation-side" value="right">Right</option>
+                        </select>
+                    </li>
+                    <li class="theme-option"  style="margin-top:10px;">
+                        <span class="sub-title boltext">{!$Label.Sidebar_Position}</span>
+                        <select id="sidebar-position" class="form-control minimal input-sm" style="width: 24%; margin-top:5px;">
+                            <option name="sidebar-position" value="default">Default</option>
+                            <option name="sidebar-position" value="fixed">Fixed</option>
+                        </select>
+                    </li>
+                    <li style="margin-top:10px;">
+                         <label style="display: block; padding-left: 15px;text-indent: -15px;">{!$Label.Double_Booking}</label>
+                         
+                        <apex:inputCheckbox value="{!debuleBooking}" style="margin-left:110px;   width: 15px;  height: 15px; 
+ 
+ 
+ 
+  margin-top: -22px;"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 style="font-weight:bold;">{!$Label.cc_qappt__calender_event_color}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>{!$Label.cc_qappt__upcoming}</label>
+                        <apex:selectList value="{!selectedUpcoming}" multiselect="false" size="1" styleClass="form-control">
+                            <apex:selectOptions value="{!ColorList}"/>
+                        </apex:selectList>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>{!$Label.cc_qappt__running}</label>
+                        <apex:selectList value="{!selectedRunning}" multiselect="false" size="1" styleClass="form-control">
+                            <apex:selectOptions value="{!ColorList}"/>
+                        </apex:selectList>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>{!$Label.cc_qappt__completed}</label>
+                        <apex:selectList value="{!selectedCompleted}" multiselect="false" size="1" styleClass="form-control">
+                            <apex:selectOptions value="{!ColorList}"/>
+                        </apex:selectList>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>{!$Label.cc_qappt__declined}</label>
+                        <apex:selectList value="{!selectedDeclined}" multiselect="false" size="1" styleClass="form-control">
+                            <apex:selectOptions value="{!ColorList}"/>
+                        </apex:selectList>
+                    </div>
+                </div>
+                 
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-md-offset-6 col-md-6">
+                <h3 class="boltext" style="margin-top: -65px;font-size:16px;">{!$Label.cc_qappt__calender_tooltip}</h3>
+                
+                    <table>
+                    <tr>
+                    <td><apex:inputCheckbox value="{!AppName}" style="margin-bottom: 7px;  width: 15px;  height: 15px;"/></td><td><label style="margin-left:10px;">{!$Label.cc_qappt__appointment_name}</label></td>
+                    </tr>
+                    <tr>
+                    <td><apex:inputCheckbox value="{!AppDiscription}" style="margin-bottom: 7px; width: 15px;  height: 15px;"/></td><td><label style="margin-left:10px;">{!$Label.cc_qappt__description}</label></td>
+                    </tr>
+                    <tr>
+                    <td><apex:inputCheckbox value="{!Appstatus}" style="margin-bottom: 7px; width: 15px;  height: 15px;"/></td><td><label style="margin-left:10px;">{!$Label.Status}</label></td>
+                    </tr>
+                    <!-- <tr>
+                    <td><apex:inputCheckbox value="{!AppCapacity}" style="margin-bottom: 7px;"/></td><td><label>Capacity</label></td>
+                    </tr> -->
+                    </table>
+            </div>
+        </div>
+         <br/>
+        <div class="row">
+            <div class="col-md-offset-4 col-md-8">
+                <button class="btn btn-default" variant="primary" onclick="getAllvalues();return false;">{!$Label.Save}</button>
+            </div>
+        </div>
+          <br/>
+</apex:form>
+</section>
+</div>
+</div>  
+</body>
+
+</apex:page>
