@@ -18,7 +18,9 @@ public with sharing class AppointmentHelper{
         return null;
     }
     
+    
     public static list<Service__c> fetchAllServices(){
+        
         if(Schema.sObjectType.Service__c.fields.name.isAccessible() && Schema.sObjectType.Service__c.fields.Description__c.isAccessible() && Schema.sObjectType.Service__c.fields.Duration__c.isAccessible() 
          && Schema.sObjectType.Service__c.fields.Padding_Time__c.isAccessible() && Schema.sObjectType.Service__c.fields.Price__c.isAccessible()){
             return [select name,Description__c,Duration__c,Padding_Time__c,Price__c from Service__c where id != null];

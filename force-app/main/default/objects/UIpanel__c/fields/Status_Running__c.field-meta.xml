@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status_Running__c</fullName>
     <defaultValue>&quot;blue&quot;</defaultValue>
-    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Status Running</label>
     <length>255</length>

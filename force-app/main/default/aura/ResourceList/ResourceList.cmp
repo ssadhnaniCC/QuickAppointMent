@@ -1,0 +1,91 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="ResourceLightningController">
+    <!--@description Boolean Attributes -->
+    <aura:attribute name="openNewResourceModal" type="boolean" default="false"/>
+    <aura:attribute name="showspinner" type="boolean" default="true"/>
+    <aura:attribute name="hideFooter" type="boolean" default="false"/>
+    
+    <!--@description contains resourceStaffId -->
+    <aura:attribute name="resourceStaffId" type="String"/>
+    
+    <!--@description contains List attributes-->
+    <aura:attribute name="paginationData" type="Object[]"/>
+    <aura:attribute name="searchResourceList" type="Object[]" default="[]"/>
+    <aura:attribute name="resourceData" type="Object[]"/>
+    <aura:attribute name="columns" type="Object[]"/>
+    
+    <!--@description These attributes used to empty new modal data-->
+    <aura:attribute name="selectlocation" type="Object[]" default="[]"/>
+    <aura:attribute name="hideServiceList" type="boolean"/>
+    
+    <!--@description This attribute is used to store search keyword--> 
+    <aura:attribute name="searchResourceStaff" type="String"/>
+    
+    <!--@description Attribute to store edited record --> 
+    <aura:attribute name="editresourceRecord" type="sobject"/>
+    
+    <!--@description contains attributes to show Pagination-->
+    <aura:attribute name="totalPages" type="Integer"/>
+    <aura:attribute name="pageNumber" type="Integer" default="1" />
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="dataSize" type="Integer"/>
+    
+    <!--Sorting Attributes -->
+    <aura:attribute name="sortedBy" type="String" default="Name"/>
+    <aura:attribute name="sortedDirection" type="String" default="asc"/>
+    
+    <!--@description contains init handler -->
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <div class="slds-text-heading_medium slds-p-top_x-small slds-p-left_xx-large">Resource Staff Details</div>
+    
+    <!-- Component event Handler-->
+    <aura:handler name="refreshEvent" event="c:ParentListRefresh" action="{!c.parentComponentEvent}"/>
+    
+    <!-- New And Search Component -->
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size--3-of-5 slds-small-size--1-of-3 slds-medium-size--3-of-5 slds-large-size--3-of-5">
+            <lightning:button class="slds-float_right slds-m-right_large" label="New" title="New" onclick="{!c.handleNewResourceCmp}"/>        
+        </div>
+        <div class="slds-col slds-size--1-of-5 slds-small-size--1-of-3 slds-medium-size--1-of-5 slds-large-size--1-of-5">
+            <lightning:input type="search" class="label-hidden"  name="enter-search" placeholder="Resource Staff"  variant="label-hidden" value="{!v.searchResourceStaff}" onchange="{! c.handleSearch}"/>          
+        </div>
+    </div>
+    
+    <c:NewResource aura:id="childCmp" openNewResourceModal="{!v.openNewResourceModal}" editresourceRecordId="{!v.resourceStaffId}" resourceRecord="{!v.editresourceRecord}" selectedLocation="{!v.selectlocation}" disableServiceDualLstBox="{!v.hideServiceList}"/>  
+    <div class="slds-m-top_medium"> 
+        <aura:if isTrue="{!v.showspinner}">
+            <div role="status" class="slds-spinner slds-spinner_medium">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </aura:if>
+        
+        <lightning:datatable aura:id = "ResourceList"
+                             columns = "{!v.columns}"
+                             hideCheckboxColumn = "true"
+                             data = "{!v.paginationData}"
+                             keyField = "Id"
+                             onrowaction="{!c.handleResourceListAction}"
+                             onsort="{!c.updateColumnSorting}"
+                             sortedBy="{!v.sortedBy}"  
+                             sortedDirection="{!v.sortedDirection}"     />
+        <aura:if isTrue="{!v.hideFooter}">
+        <div class="slds-clearfix">
+            <div class="slds-page-header" role="banner">
+                <div class="slds-float_right">            
+                    <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
+                                      onclick="{!c.handlePrev}" disabled="{! v.pageNumber == 1}"/>
+                    <lightning:button label="First"  iconPosition="left"
+                                      onclick="{!c.handleFirst}" disabled="{! v.pageNumber == 1}"/>
+                    <lightning:button  label="Last"  iconPosition="left"
+                                      onclick="{!c.handleLast}" disabled="{! v.pageNumber == v.totalPages }"/>
+                    <lightning:button label="Next" iconName="utility:chevronright" iconPosition="right"
+                                      disabled="{! v.pageNumber == v.totalPages }" onclick="{!c.handleNext}"/>
+                </div>
+                <!-- <p class="slds-page-header__title">Page {!v.pageNumber} | Showing records from {! ((v.pageNumber-1)*v.pageSize)+' to '+((v.pageNumber-1)*v.pageSize+(v.dataSize-1))}</p>-->
+                <p class="slds-page-header__title">Page {!v.pageNumber} </p>
+            </div>
+        </div>
+       </aura:if>
+    </div>
+</aura:component>

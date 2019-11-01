@@ -1,0 +1,60 @@
+<aura:component controller="CustomerLightningComponent">
+    
+    <!--@description contains boolean  to show or hide ModalBox.-->
+    <aura:attribute name="isModalOpen" type="boolean" default="False"/>
+    <!--@description contains field values of customer record.-->
+    <aura:attribute name="customerRecord" type="Contact" default="{'sObjectType':'Contact', 'FirstName':'','LastName':'','MailingStreet':'','MailingCity':'','MailingStreet':'','MailingPostalCode':'','MailingCountry':'','Phone':'','Description':''}"/>
+    <!--@description contains information about event.-->
+    <aura:registerEvent name="refreshEvent" type="c:ParentListRefresh"/>
+    <!--@description init handler.-->
+    <aura:handler name="init" value="{! this}" action="{!c.onInit}"/>
+    <!-- Modal/Popup Box starts here-->
+    <aura:if isTrue="{!v.isModalOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box Header Starts here-->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h3 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Customer</h3>
+                </header>
+                <!--Modal/Popup Box Body Starts here-->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2 ">
+                            <lightning:input label="First Name" aura:id="CustomerFirstName" placeholder="First Name" value="{!v.customerRecord.FirstName}" type="text" required="true" messageWhenValueMissing="Enter First Name" />
+                            <lightning:input type="text" aura:id="CustomerLastName"  label="Last Name" placeholder="LastName" value="{!v.customerRecord.LastName}" required="true" messageWhenValueMissing="Enter First Name" />
+                            <lightning:input type="email" label="Email"  placeholder="Email" value="{!v.customerRecord.Email}" />
+                             <lightning:input type="text" label="Phone"  placeholder="Phone" value="{!v.customerRecord.Phone}" />
+                            <lightning:input type="text" label="Description"  placeholder="Description" value="{!v.customerRecord.Description}"/>
+                        </div>
+                         <div class="slds-col slds-size_1-of-2 slds-p-right_small">                            
+                            <lightning:input type="text" label="Street"  placeholder="Address" value="{!v.customerRecord.MailingStreet}"  />
+                              <lightning:input type="text" label="City"  placeholder="City" value="{!v.customerRecord.MailingCity}" />
+                             <lightning:input type="text" label="State"  placeholder="State" value="{!v.customerRecord.MailingState}" />
+                              <lightning:input type="text" label="PostalCode"  placeholder="PostalCode" value="{!v.customerRecord.MailingPostalCode}"/>
+                             <lightning:input type="text" label="Country"  placeholder="Country" value="{!v.customerRecord.MailingCountry}" />                              
+                        </div>                        
+                    </div>                    
+                </div>               
+                <!--Modal/Popup Box Footer Starts here-->
+                
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Save"
+                                      title="Save"
+                                      onclick="{!c.onCustomerSave}"/>
+                    <lightning:button variant="brand"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{!c.closeModel}"/>
+                </footer>
+          
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

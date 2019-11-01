@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Resource_Service_Alignment__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Resource/Service Alignment</label>
     <referenceTo>Resource_Service_Alignment__c</referenceTo>

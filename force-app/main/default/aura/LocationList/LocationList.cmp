@@ -1,0 +1,69 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="LocationLightningControler">
+    <!-- Boolean Attributes used for open Model Box for new-->
+    <aura:attribute name="newLocationModel" type="Boolean" default="false"/>
+    <!-- Boolean Attributes used for Spinner-->
+    <aura:attribute name="spinerLoaded" type="Boolean" default="false"/>
+    
+    <!--Pagination Attributes -->
+    <!--Integer Attribute used for count Total page-->
+    <aura:attribute name="totalPages" type="Integer"/>
+    <!--Integer Attribute used for hold Current Page-->
+    <aura:attribute name="pageNumber" type="Integer" default="1" />
+    <!--Integer Attribute used for hold Number of recors per page-->
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <!--Integer Attribute used for total size of record-->
+    <aura:attribute name="dataSize" type="Integer"/>
+    
+    <!-- List Attributes -->
+    <aura:attribute name="locationList" type="Location__c[]"/>
+    <aura:attribute name="paginationList" type="Location__c[]"/>
+    <aura:attribute name="dataList" type="Location__c[]"/>
+    
+    <!-- List Attributes used for display cloumns of DataTable-->
+    <aura:attribute name="columns" type="List"/>
+    
+    <!-- Sobject Attributes used for pass editable record to NewLocation component-->
+    <aura:attribute name="editRow" type="Location__c"/>
+    
+    <!-- String Attribute for search input -->
+    <aura:attribute name="searchByAddress" type="String" default=''/>
+    <!-- init Handler -->
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <!-- ParentListRefresh -->
+    <aura:handler name="refreshEvent" event="c:ParentListRefresh" action="{!c.refreshList}"/>
+    
+    <div class="slds-text-heading_large slds-p-top_x-small slds-p-left_xx-large">Location Details</div>
+    
+    <!-- New And Search Component -->
+    <div class="slds-grid slds-gutters slds-grid--pull-padded">
+        <div class="slds-col--padded slds-size_8-of-12 slds-medium-size--8-of-12 slds-large-size--8-of-12 slds-p-right_xx-large">
+            <lightning:button class="slds-float_right" label="New" title="Neutral action" onclick="{!c.handleNew}"/>
+        </div>
+        <div class="slds-col slds-size_3-of-12 slds-medium-size--3-of-12 slds-large-size--3-of-12">
+            <lightning:input type="search" label="Searh" value="{!v.searchByAddress}" variant="label-hidden" placeholder="Location" onchange="{!c.SearchByAddress}" aura:id="SearchBox" autocomplete = "none" />
+        </div>
+    </div>
+    
+    <!-- Model Box -->
+    <c:NewLocation openModal="{!v.newLocationModel}" editLocation="{!v.editRow}" aura:id="newLocation"/>
+    
+    
+    <!--List of  Location-->
+    <div class="slds-m-right_small slds-m-left_small">
+        <aura:if isTrue="{! v.spinerLoaded }">
+            <div class="spinnerHolder">
+                <lightning:spinner alternativeText="Loading" size="large" />
+            </div>
+        </aura:if>
+        <lightning:datatable data = "{!v.locationList}" 
+                             aura:id = "dataTable"
+                             columns = "{!v.columns}"
+                             keyField = "Id"
+                             onrowaction = "{!c.handleRowAction}"
+                             hideCheckboxColumn="true"/>
+        <lightning:button label="First" disabled="{!v.pageNumber == 1}" onclick="{!c.handleStart}"/>
+        <lightning:button label="Previous" disabled="{!v.pageNumber == 1}" onclick="{!c.handlePrevious}"/>
+        <lightning:button label="Next" disabled="{! v.pageNumber == v.totalPages }" onclick="{!c.handleNext}"/>
+        <lightning:button label="Last" disabled="{! v.pageNumber == v.totalPages }" onclick="{!c.handleLast}"/>
+    </div>
+</aura:component>

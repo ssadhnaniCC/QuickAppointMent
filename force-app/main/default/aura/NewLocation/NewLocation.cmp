@@ -1,0 +1,47 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="LocationLightningControler">
+    
+    <!-- Boolean Attribute used to display Model Box-->
+    <aura:attribute name="openModal" type="boolean" default="false"/>
+    
+    <!-- Sobject record used for save or edit record(values passed from parent component) --> 
+    <aura:attribute name="editLocation" type="Location__c" default="{'sObjectType':'CC_QAppt__Location__c', 'Name':'','CC_QAppt__City__c':'',CC_QAppt__Country__c:'',CC_QAppt__Postal_Code__c:'',CC_QAppt__State__c:'',CC_QAppt__Street__c:''}"/>
+    
+    <aura:registerEvent name="refreshEvent" type="c:ParentListRefresh"/>
+    
+   <div class="slds-m-around--xx-large">
+        <aura:if isTrue="{!v.openModal}">
+            <!--Modal Box Start-->
+            <div role="dialog" class="slds-modal slds-fade-in-open ">
+                <div class="slds-modal__container">
+                    <div class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.handleCloseModal }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Location</h2>
+                    </div>
+                    <div class="slds-modal__content slds-p-around--medium">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size--1-of-2 slds-large-size--1-of-2 slds-m-left_small">
+                                <lightning:input name="Location_Name" value="{!v.editLocation.Name}" aura:id="Name" label="Location Name" placeholder="Location Name" required="true" messageWhenValueMissing="Please Enter Name"/>
+                                <lightning:input name="City" value="{!v.editLocation.CC_QAppt__City__c}" label="City" placeholder="City"/>
+                                <lightning:input name="Postal_Code" value="{!v.editLocation.CC_QAppt__Postal_Code__c}" label="Postal Code" placeholder="Postal Code"/>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size--1-of-2 slds-large-size--1-of-2 slds-m-right_medium">
+                                <lightning:input name="Address" value="{!v.editLocation.CC_QAppt__Street__c}" aura:id="Street" label="Address" placeholder="Address" required="true" messageWhenValueMissing="Please Enter Address"/>
+                                <lightning:input name="State" value="{!v.editLocation.CC_QAppt__State__c}" label="State" placeholder="State"/>
+                                <lightning:input name="Country" value="{!v.editLocation.CC_QAppt__Country__c}" label="Country" placeholder="Country"/>
+                            </div>
+                        </div>
+                    <div class="slds-m-top_xxx-small buttonSet">
+                        <button class="slds-button slds-button_neutral btn" onclick="{!c.handleSaveModal}">Save</button>
+                        <button class="slds-button slds-button_neutral btn" onclick="{!c.handleCloseModal}">Cancel</button>
+                    </div>
+                        </div>
+                </div>
+            </div>
+            <div class="slds-backdrop slds-backdrop--open"></div>            
+        </aura:if>
+    </div>
+</aura:component>

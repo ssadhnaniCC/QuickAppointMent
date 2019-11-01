@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Valid__c</fullName>
-    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <formula>AND( Coordinates__Latitude__s != 0, Coordinates__Longitude__s != 0 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

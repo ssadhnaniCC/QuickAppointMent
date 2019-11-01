@@ -1,0 +1,79 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	
+    <!-- Page Header-->
+    <div class="slds-grid slds-wrap ">
+        <div class="slds-col slds-size_1-of-1">
+    
+            <div class="slds-page-header">
+              <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                  <div class="slds-media">
+                    <div class="slds-media__figure">
+                    	<lightning:icon iconName="standard:service_appointment_capacity_usage" size="large" />  
+                    </div>
+                    <div class="slds-media__body">
+                      <div class="slds-page-header__name">
+                        <div class="slds-page-header__name-title">
+                          <h1>
+                            <span class="slds-page-header__title slds-truncate" title="Quick Appointnment">Quick Appointnment</span>
+                          </h1>
+                        </div>
+                      </div>
+                      <p class="slds-page-header__name-meta">HOME</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-border_right">
+            <lightning:verticalNavigation selectedItem="dashboard">
+               <lightning:verticalNavigationSection label="Navigation">
+                    <lightning:verticalNavigationItemIcon
+                                                          label="Dashboard"
+                                                          name="dashboard"
+                                                          iconName="standard:dashboard_ea" />
+                    
+                    <lightning:verticalNavigationItemIcon
+                                                          label="Created by Me"
+                                                          name="reports_usercreated"
+                                                          iconName="utility:user" />
+                    
+                    <lightning:verticalNavigationItemIcon
+                                                          label="Private Reports"
+                                                          name="reports_private"
+                                                          iconName="utility:lock" />
+                    
+                    <lightning:verticalNavigationItemIcon
+                                                          label="Public Reports"
+                                                          name="reports_public"
+                                                          iconName="utility:groups" />
+                    
+                    <lightning:verticalNavigationItem
+                                                      label="All Reports"
+                                                      name="reports_all" />
+                </lightning:verticalNavigationSection>
+                
+                <lightning:verticalNavigationSection label="Folders">
+                    <lightning:verticalNavigationItemIcon
+                                                          label="Created by Me"
+                                                          name="folders_usercreated"
+                                                          iconName="utility:open_folder" />
+                    
+                    <lightning:verticalNavigationItemIcon
+                                                          label="Shared with Me"
+                                                          name="folders_shared"
+                                                          iconName="utility:open_folder" />
+                </lightning:verticalNavigationSection>
+                
+            </lightning:verticalNavigation>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_10-of-12 ">
+            <!-- More lightning-output-field components here -->
+        </div>
+    </div>
+    
+    	
+</aura:component>

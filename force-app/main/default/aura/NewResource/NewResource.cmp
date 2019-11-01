@@ -1,0 +1,149 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="ResourceLightningController" >
+    <aura:attribute name="openNewResourceModal" type="boolean" default="false"/> 
+ 
+    <!--@description This attribute holds the resource record-->   
+    <aura:attribute name="resourceRecord" type="Contact" default="{'sObjectType':'Contact', 'Name':'','MailingStreet':'','MailingCity':'','MailingStreet':'','MailingPostalCode':'','MailingCountry':'','Phone':''}"/>
+        
+    <!--@description This attribute holds the editresource record--> 
+    <aura:attribute name="editresourceRecordId" type="String"/>
+    <aura:attribute name="showSpinner" type="boolean" default="false"/>
+    
+    <!--@description List Attributes for dualistlocation and duallistservice--> 
+    <aura:attribute name="availableLocation" type="Object[]" default="[]"/>
+    <aura:attribute name="selectedLocation" type="Object[]" default="[]"/>
+    <aura:attribute name="availableService" type="Object[]" default="[]"/>
+    <aura:attribute name="selectedService" type="Object[]" default="[]"/>
+    
+    <!--@description Boolean attribute to disable dualservicelist initially--> 
+    <aura:attribute name="disableServiceDualLstBox" type="boolean" default="false"/>
+   
+    <!--@description Init Handler--> 
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+    <!--@description Component Event  Register  --> 
+    <aura:registerEvent name="refreshEvent" type="c:ParentListRefresh"/>
+    
+    <!--@description Aura Method Called  --> 
+    <aura:method name="childMethodCalled" action="{!c.callAction}" description="Sample"> 
+    
+    </aura:method>
+    <aura:if isTrue="{!v.openNewResourceModal}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container">
+                <!-- Header of Modal -->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{!c.closeNewResourceModel}"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Resource Staff</h2>
+                </header>
+                <!--Body of New Resource Modal-->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <lightning:input  aura:id="ResourceName" name="Resource_Name" class="label-hidden" label="Name" placeholder="Name" value="{!v.resourceRecord.Name}" required="true" messageWhenValueMissing="Please Enter Resource staff/name"/>
+                                </div>
+                            </div>                           
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                <lightning:input name="Resource_Address" class="label-hidden" label="Address" placeholder="Address" value="{!v.resourceRecord.MailingStreet}"/>
+                                </div>
+                            </div>                           
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <lightning:input name="Resource_City" class="label-hidden" label="City" placeholder="City" value="{!v.resourceRecord.MailingCity}" />   
+                                </div>                            
+                               </div>
+                            </div>                           
+                          <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <lightning:input name="Resource_State" class="label-hidden" label="State" placeholder="State" value="{!v.resourceRecord.MailingState}"/>   
+                                </div>                            
+                               </div>
+                            </div> 
+                    </div>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <lightning:input name="Resource_PostalCode" class="label-hidden" label="PostalCode"  placeholder="PostalCode" value="{!v.resourceRecord.MailingPostalCode}"/>  
+                                </div>
+                                </div>
+                            </div>                           
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <lightning:input name="Resource_Country" class="label-hidden" label="Country"  placeholder="Country" value="{!v.resourceRecord.MailingCountry}"/>  
+                                </div>
+                            </div>                           
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <lightning:input name="Resource_Phone" class="label-hidden" label="Phone"  placeholder="Phone" value="{!v.resourceRecord.Phone}"/>  
+                                </div>
+                            </div>                           
+                        </div>
+                    </div>                        
+                    <div class="slds-grid slds-gutters" style="postion:relative">
+                        <aura:if isTrue="{!v.showSpinner}">
+                            <div class="slds-spinner_container">
+                                    <div role="status" class="slds-spinner slds-spinner_medium">
+                                        <span class="slds-assistive-text">Loading</span>
+                                        <div class="slds-spinner__dot-a"></div>
+                                        <div class="slds-spinner__dot-b"></div>
+                                    </div>
+                                </div>
+                        </aura:if>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning:dualListbox name="multipleOptions"  
+                                                   sourceLabel="Available Location" 
+                                                   selectedLabel="Selected Location" 
+                                                   options="{!v.availableLocation}" 
+                                                   value="{!v.selectedLocation}" 
+                                                   onchange="{! c.handleOnLocationSelect }"/>                           
+                        </div>
+                        <aura:if isTrue="{!v.disableServiceDualLstBox}">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning:dualListbox name="multipleOptions"  
+                                                   sourceLabel="Available Service" 
+                                                   selectedLabel="Selected Service" 
+                                                   options="{!v.availableService}" 
+                                                   value="{!v.selectedService}" 
+                                                   onchange="{! c.handleOnServiceSelect }"/>                           
+                        </div>
+                        </aura:if>
+                    </div>
+                    
+                    
+                    
+                </div>
+                <!--Footer of New Resource Modal-->
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Save"
+                                      title="Save"
+                                      onclick="{! c.saveNewResource }"/>
+                    <lightning:button variant="Neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{!c.closeNewResourceModel}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

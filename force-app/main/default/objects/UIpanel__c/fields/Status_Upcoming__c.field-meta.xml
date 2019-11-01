@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status_Upcoming__c</fullName>
     <defaultValue>&quot;pink&quot;</defaultValue>
-    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Status Upcoming</label>
     <length>255</length>
