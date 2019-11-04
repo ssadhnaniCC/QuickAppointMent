@@ -1,61 +1,8 @@
 ({
-    /*getColumnAndAction : function(component) {
-        var actions = [
-            {label: 'Edit', name: 'edit'},
-            {label: 'Delete', name: 'delete'},
-            {label: 'View', name: 'view'}
-        ];
-        
-        var columns = component.get('v.columns');
-        console.log('columnsbef==',columns);
-        columns.push({type: 'action', typeAttributes: { rowActions: actions } } );
-        component.set('v.columns',columns);
-        console.log('columns==',component.get('v.columns'));
-        
-    },*/
-    
-    /*getServiceRecords : function(component, helper) {
-        var action = component.get("c.getAllServices");
-        var pageSize = component.get("v.pageSize").toString();
-        var pageNumber = component.get("v.pageNumber").toString();
-         
-        action.setParams({
-            'pageSize' : pageSize,
-            'pageNumber' : pageNumber
-        });
-        action.setCallback(this,function(response) {
-            var state = response.getState();
-            if (state === "SUCCESS") {
-                var resultData = response.getReturnValue();
-                console.log('resultData==',resultData);
-                if(resultData.length < component.get("v.pageSize")){
-                    component.set("v.isLastPage", true);
-                } else{
-                    component.set("v.isLastPage", false);
-                }
-                component.set("v.dataSize", resultData.length);
-                component.set("v.data", resultData);
-                component.set("v.totalRecords", component.get("v.data").length);
-                component.set("v.startPage",0);
-                component.set("v.endPage",pageSize-1);
-                component.set("v.filteredData", resultData);
-                
-            }
-        });
-        $A.enqueueAction(action);
-    },*/
-    
-    viewRecord : function(component, event) {
-        var row = event.getParam('row');
-        var recordId = row.Id;
-        var navEvt = $A.get("event.force:navigateToSObject");
-        navEvt.setParams({
-            "recordId": recordId,
-            "slideDevName": "detail"
-        });
-        navEvt.fire();
-    },
-    
+   
+    /*******************************************************************************************************
+    * @description This is the method which will handle delete service record row
+   */
     deleteRecord : function(component, event) {
         var action = event.getParam('action');
         var row = event.getParam('row');
@@ -91,28 +38,25 @@
         $A.enqueueAction(action);
     },
     
+    /*******************************************************************************************************
+    * @description This is the method which will handle edit functionality for table row
+   */
+    
     editRecord : function(component, event) {
         
-        
-        var data = component.get('v.data');
-        var row = event.getParam('row');
-        component.set('v.dataToBeSend',row);
-        /*component.set('v.serName',row.Name);
-        component.set('v.des',row.CC_QAppt__Description__c);
-        component.set('v.price',row.CC_QAppt__Price__c);*/
-        
-        console.log('row==',row);
-        var recordId = row.Id;
-        alert(recordId);
-        component.set('v.recordId',recordId);
-        component.set('v.isEdit',true);
-        component.set('v.isModelOpen',true);
-        
-        //this.getLocationData(component,event);
-        var childComponent = component.find("childComp");
-        childComponent.getEditMethod();
+        component.set('v.serviceId',' ');
+        var row = event.getParam('row');  
+        console.log('row@',row);
+        component.set("v.isModelOpen",true);   
+        component.set("v.serviceId",row.Id);  
+        var childCmp = component.find("childComp");
+        var retnMsg = childCmp.getEditMethod();   
        
     },    
+    
+    /*******************************************************************************************************
+    * @description This is the method which will handle the records to be show in datatable
+   */
     
     getServiceRecords : function(component) {
        component.set('v.isSpinner',true);
@@ -127,36 +71,41 @@
                 
                 this.getColumnOfServices(component,event,responseData.listOfFieldSets);
                 
-                if(responseData.listOfServices.length > 0) {
-                    component.set('v.data',responseData.listOfServices);
-                    var dataLength = component.get('v.data').length;
-                    var pageSize = component.get('v.pageSize');
-                   component.set("v.totalSize", dataLength);
-
-                    component.set("v.firstPage",0);
-
-                     component.set("v.lastPage",pageSize-1);
-
-                     var paginationList = [];
-                    for(var i=0; i< pageSize; i++)
-                        
-                    {
-                        if(responseData.listOfServices[i])
-                        paginationList.push(responseData.listOfServices[i]);
-                        else{
-                            break;
-                        }
-                        
+                component.set('v.data',responseData.listOfServices);
+                var dataLength = component.get('v.data').length;
+                console.log('dataLength@',dataLength);
+                var pageSize = component.get('v.pageSize');
+                component.set("v.totalSize", dataLength);
+                component.set("v.dataSize", dataLength);
+                var recSize=parseInt(component.get("v.pageSize"));
+                var num=0;
+                var customerRecords=[];
+                for(var i=0;i<dataLength;i++){
+                    if(num>=recSize){
+                        break;
                     }
-                    
-                    component.set('v.filteredData', paginationList);
-                    console.log('filteredData@',component.get('v.filteredData'));
-                    component.set('v.isSpinner',false);
-                    component.set('v.hideFooter',true);
+                    if(component.get("v.data")[i]!='undefined'){
+                        customerRecords.push(component.get("v.data")[i]);
+                        num++;                    
+                    }                
                 }
-                else {
-                    var str = 'No Service Found';
+                
+                component.set("v.paginationList",customerRecords);  
+                console.log(component.get("v.paginationList")); 
+                component.set("v.isSpinner",false);
+                component.set("v.filteredData",component.get("v.paginationList"));
+                component.set("v.hideFooter",true);
+                var pagecount= Math.ceil(dataLength/10);
+                var pgNumber=component.get("v.pageNumber");
+                var totalPages= component.get("v.totalPages");
+                component.set("v.totalPages",pagecount);
+                if(totalPages==pgNumber){
+                    component.set("v.isLastPage", true);
+                } else{
+                    component.set("v.isLastPage", false);
                 }
+                
+               
             }
              else if (state === "ERROR") {
                     var errors = response.getError();
@@ -173,12 +122,16 @@
         });
         $A.enqueueAction(action);
     },
-    
+
+
+/*******************************************************************************************************
+    * @description This is the method which will handle edit, delete functionality for table row
+   */    
     getColumnOfServices : function(component,event,columnList) {
          var actions = [
             {label: 'Edit', name: 'edit'},
             {label: 'Delete', name: 'delete'},
-            {label: 'Appointment', name: 'appointment'},
+            
         ];
              
              var colNames = columnList;
@@ -186,269 +139,12 @@
              component.set('v.columns',colNames);
     },
     
-    /*
-     * Method will be called when use clicks on next button and performs the 
-     * calculation to show the next set of records
-     */
-    next : function(component, event){
-         var searchList = component.get("v.data");
-        var searchServiceList = component.get("v.searchList");
-      if(searchServiceList.length){//null || searchServiceList.length>0){
-          console.log('ghh');
-          searchList = searchServiceList;
-      }
-             console.log("searchServiceList",searchList);
-      var start  = component.get("v.pageNumber")+1;
-      var recordPerPage = component.get("v.pageSize");  
-      var i = start * recordPerPage;
-      component.set("v.pageNumber",start);
-      var listpush =[];
-      for(start = i-recordPerPage;start<i;start++){
-          if(searchList[start] )
-              listpush.push(searchList[start]);
-          else
-              break;
-      }
-      component.set("v.filteredData",listpush); 
-    },
-    /*
-     * Method will be called when use clicks on previous button and performs the 
-     * calculation to show the previous set of records
-     */
-    previous : function(component, event){
-        var searchList = component.get("v.data");
-      var searchServiceList = component.get("v.searchList");
-        if(searchServiceList.length){
-          searchList = searchServiceList;
-      }
-      var start  = component.get("v.pageNumber")-1;
-      var recordPerPage = component.get("v.pageSize")  
-      if(start>=1){
-          var i = start * recordPerPage;
-          component.set("v.pageNumber",start);
-          var listpush =[];
-          for(start = i-recordPerPage;start<i;start++){
-              if(searchList[start] )
-                  listpush.push(searchList[start]);
-              else
-                  break;
-          }
-          component.set("v.filteredData",listpush);   
-      }
-    },
-    
-    startPage : function(component,event,helper) {
-        //alert();
-        var data = component.get("v.data");
-        
-        var pageSize = component.get("v.pageSize");
-        
-        var paginationList = [];
-        
-        for(var i=0; i< pageSize; i++)
-            
-        {
-            if(data[i])
-            paginationList.push(data[i]);
-            else {
-                break;
-            }
-                
-            
-        }
-        
-        component.set('v.filteredData', paginationList);
-    },
-    
-    lastPage : function(component,event,helper){
-        var data = component.get("v.data");
-        
-        var pageSize = component.get("v.pageSize");
-        
-        var totalSize = component.get("v.totalSize");
-        
-        var paginationList = [];
-        
-        for(var i=totalSize-pageSize+1; i< totalSize; i++)
-            
-        {
-            if(data[i])
-            paginationList.push(data[i]);
-            
-            else {
-                break;
-            }
-            
-        }
-        
-        component.set('v.filteredData', paginationList);
-        console.log('filteredData@@',component.get('v.filteredData'));
-    },
-    
-    nextPage : function(component, event, helper)
-
-    {
-        
-        var data = component.get("v.data");
-        
-        var end = component.get("v.lastPage");
-        
-        var start = component.get("v.firstPage");
-        
-        var pageSize = component.get("v.pageSize");
-        
-        var paginationList = [];
-        
-        var counter = 0;
-        
-        for(var i=end+1; i<end+pageSize+1; i++)
-            
-        {
-            
-            if(data.length > end)
-                
-            {
-                if(data[i]) {
-                paginationList.push(data[i]);
-                    
-                counter ++ ;
-                }
-                 else {
-                    break;
-                }
-                
-            }
-            
-        }
-        
-        start = start + counter;
-        
-        end = end + counter;
-        
-        component.set("v.firstPage",start);
-        
-        component.set("v.lastPage",end+1);
-        
-        component.set('v.filteredData', paginationList);
-
-},
-    
-    previousPage : function(component, event, helper)
-    
-    {
-        
-        var data = component.get("v.data");
-        
-        var end = component.get("v.lastPage");
-        
-        var start = component.get("v.firstPage");
-        
-        var pageSize = component.get("v.pageSize");
-        
-        var paginationList = [];
-        
-        var counter = 0;
-        
-        for(var i= start-pageSize; i < start ; i++)
-            
-        {
-            
-            if(i > -1)
-                
-            {
-                if(data[i]) {
-                paginationList.push(data[i]);
-                
-                counter ++;
-                }
-                else {
-                    break;
-                }
-                
-            }
-            
-            else {
-                
-                start++;
-                
-            }
-            
-        }
-        
-        start = start - counter;
-        
-        end = end - counter;
-        
-        component.set("v.firstPage",start);
-        
-        component.set("v.lastPage",end);
-        
-        component.set('v.filteredData', paginationList);
-
-},
-
-    handleFirstLast : function(component,event,helper,pagenumber){
-        debugger;
-       var resourceList = component.get("v.data");
-      var searchResourceList = component.get("v.searchList");
-      if(searchResourceList.length){
-          resourceList = searchResourceList;
-      }
-      var recordPerPage = component.get("v.pageSize");  
-      var i = pagenumber * recordPerPage;
-      var listpush =[];
-      console.log("PageNumber",pagenumber);
-      component.set("v.pageNumber",pagenumber);
-      for(var start = i-recordPerPage;start<i;start++){
-          if(resourceList[start] )
-              listpush.push(resourceList[start]);
-          else
-              break;
-      }
-      component.set("v.filteredData",listpush);   
-        
-    },
-    
-    sortData: function (cmp, fieldName, sortDirection) {
-        var data = cmp.get("v.filteredData");
-        var reverse = sortDirection !== 'asc';
-        data.sort(this.sortBy(fieldName, reverse))
-        cmp.set("v.filteredData", data);
-    },
-    sortBy: function (field, reverse, primer) {
-        var key = primer ?
-            function(x) {return primer(x[field])} :
-            function(x) {return x[field]};
-        reverse = !reverse ? 1 : -1;
-        return function (a, b) {
-            return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
-        }
-    },
-    
-    firstPage : function(component, event){
-        var sObjectList = component.get("v.data");
-        console.log('data==',component.get('v.data'));
-        var end = component.get("v.endPage");
-        var start = component.get("v.startPage");
-        var pageSize = component.get("v.pageSize");
-        console.log('pageSize==',pageSize);
-        var Paginationlist = [];
-        
-        for(var i=1; i<=pageSize; i++){
-            if(sObjectList.length > i){
-                Paginationlist.push(sObjectList[i]);
-            }
-            
-        }
-        start = start + counter;
-        end = end + counter;
-        component.set("v.startPage",start);
-        component.set("v.endPage",end);
-        component.set('v.filteredData', Paginationlist);
-        console.log('filteredData==',component.get('v.filteredData'));
-    },
+   /*******************************************************************************************************
+    * @description This is the method which will handle the pagination functionlity for datatable
+   */
     
     pagination:function(component,event,helper){
+        //alert();
         var allRecords=[];
         var totalPages=0;        
         if(component.get("v.onSearch")){
@@ -489,29 +185,6 @@
         component.set("v.filteredData", tempArray);
     },
     
-    getLocationData:function(component,event){
-        var action = component.get('c.getAllLocation');
-        action.setCallback(this, function(response){
-            var state = response.getState();
-            if(state === 'SUCCESS' && component.isValid()){
-                console.log('response.getReturnValue()',response.getReturnValue());
-                var responseData = response.getReturnValue();
-                component.set('v.locationListWithAllRec',responseData);
-                var recArray = [];
-                for(var i=0;i<responseData.length;i++) {
-                    var item = {
-                         "label": responseData[i].Name,
-                         "value": responseData[i].Name,
-                    }
-                    recArray.push(item);
-                }
-                console.log('recArray==',recArray);
-                
-                component.set('v.locationList',recArray);
-                
-            }
-        });
-        $A.enqueueAction(action);
-    }
+   
     
 })

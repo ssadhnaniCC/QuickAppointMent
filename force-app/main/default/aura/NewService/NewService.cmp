@@ -1,21 +1,28 @@
 <aura:component controller="ServiceLightningController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
     
+     <!--@description this block contain all boolean attribute-->
     <aura:attribute name="isModalOpen" type="boolean" default="false"/>
      <aura:attribute name="isErrorMsg" type="boolean" default="false"/>
     <aura:attribute name="isEdit" type="boolean" default="false"/>
+    
+     <!--@description this block contain all string attribute-->
     <aura:attribute name="serName" type="String"/>
     <aura:attribute name="recId" type="String"/>
     <aura:attribute name="description" type="String"/>
     <aura:attribute name="errorMsg" type="String" default=" "/>
-    <aura:attribute name="locationList" type="List"/>
-    <aura:attribute name="dataToBeSend" type="Service__c" default="{'sObjectType':'CC_QAppt__Service__c', 'Name':'','CC_QAppt__Description__c':'',CC_QAppt__Duration__c:'',CC_QAppt__Price__c:''}"/>
+    <aura:attribute name="serviceRecord" type="Service__c" default="{'sObjectType':'CC_QAppt__Service__c', 'Name':'','CC_QAppt__Description__c':'',CC_QAppt__Duration__c:'',CC_QAppt__Price__c:''}"/>
+    
+    <!--@description this block contain all integer attribute-->
     <aura:attribute name="durInMin" type="Integer"/>
     <aura:attribute name="Price" type="Integer"/>
-    <aura:attribute name="values" type="List" default="[]"/>
-    <aura:attribute name="locValuesList" type="List"/>
-    <aura:attribute name="locationListWithAllRec" type="Object[]"/>
-    <aura:handler name="init" value="{! this }" action="{!c.initialize}"/>
-    <aura:attribute name="options" type="Object"/>
+    
+    <!--@description this block contain all list objects-->
+    <aura:attribute name="selectedLocation" type="Object[]"/>
+    <aura:attribute name="locationList" type="Object[]"/>
+    <aura:attribute name="locValuesList" type="Object[]"/>
+    <aura:attribute name="locationRecord" type="Object[]"/>
+    <aura:handler name="init" value="{! this }" action="{!c.doInit}"/>
+    <aura:attribute name="options" type="Object[]"/>
     
     <!--@description contains information about event.-->
     <aura:registerEvent name="refreshEvent" type="c:ParentListRefresh"/>
@@ -50,13 +57,13 @@
                             </aura:if>
                         <div class="slds-grid slds-gutters">
                             <div class="slds-col slds-size_1-of-2 slds-m-left_small">
-                                <lightning:input aura:id="ServiceName" name="Service_Name" label="Service Name" placeholder="Service Name" value="{!v.dataToBeSend.Name}" type="text" required="true" messageWhenValueMissing="Please Enter Service Name"/>
-                                <lightning:input aura:id="des" name="Description" label="Description" placeholder="Description" value="{!v.dataToBeSend.CC_QAppt__Description__c}" type="text"/>
+                                <lightning:input aura:id="ServiceName" name="Service_Name" label="Service Name" placeholder="Service Name" value="{!v.serviceRecord.Name}" type="text" required="true" messageWhenValueMissing="Please Enter Service Name"/>
+                                <lightning:input aura:id="des" name="Description" label="Description" placeholder="Description" value="{!v.serviceRecord.CC_QAppt__Description__c}" type="text"/>
                                 
                             </div>
                             <div class="slds-col slds-size_1-of-2 slds-p-right_small">
-                                <lightning:input aura:id="Duration" name="Duration in Minutes" label="Duration in Minutes" value="{!v.dataToBeSend.CC_QAppt__Duration__c}" placeholder="Duration in Minutes" type="number" required="true" messageWhenValueMissing="Please Enter Duration"/>
-                                <lightning:input aura:id="Price" name="Price" label="Price" placeholder="Price" value="{!v.dataToBeSend.CC_QAppt__Price__c}" type="currency" required="true" messageWhenValueMissing="Please Enter Price"/>
+                                <lightning:input aura:id="Duration" name="Duration in Minutes" label="Duration in Minutes" value="{!v.serviceRecord.CC_QAppt__Duration__c}" placeholder="Duration in Minutes" type="number" required="true" messageWhenValueMissing="Please Enter Duration"/>
+                                <lightning:input aura:id="Price" name="Price" label="Price" placeholder="Price" value="{!v.serviceRecord.CC_QAppt__Price__c}" type="currency" required="true" messageWhenValueMissing="Please Enter Price"/>
                                 
                             </div>
                         </div>
@@ -67,9 +74,8 @@
                            label= "Select Locations"
                            sourceLabel="Available Location"
                            selectedLabel="Selected Location"
-                           fieldLevelHelp="Select your preferred langsuages"
                            options="{!v.options}"
-                           value="{!v.values}"
+                           value="{!v.selectedLocation}"
                            onchange="{! c.handleChange }"/>
                             </div>
                         

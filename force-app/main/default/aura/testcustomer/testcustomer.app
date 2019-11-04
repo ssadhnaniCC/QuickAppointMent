@@ -1,3 +1,3 @@
 <aura:application extends="force:slds" >
-    <c:CustomerList/>
+    <c:AppointmentCategory/>
 </aura:application>

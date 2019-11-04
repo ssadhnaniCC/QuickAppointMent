@@ -1,3 +1,4 @@
 <aura:application extends="force:slds">
-    <c:ResourceList/>
+  <!-- <c:ResourceList/>-->
+    <c:Calendar/> 
 </aura:application>

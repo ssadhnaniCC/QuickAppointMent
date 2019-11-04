@@ -21,6 +21,12 @@ public class QuickAppointmentSOQLManager {
         
         return [select Id,firstname,lastname,name,email,phone,Description,recordtype.name,MailingStreet,MailingCity,MailingState,MailingCountry,MailingPostalcode from contact where recordtype.name =: 'User' LIMIT 50000];
     }  
+     @AuraEnabled
+    public  static List<CC_QAppt__Appointment_Category__c> getAppointmentCategories(){   
+        
+        return [select Id,CC_QAppt__IsLocationMandatory__c,Name,CC_QAppt__IsAvaliablePublically__c,CC_QAppt__IsServiceMandatory__c,CC_QAppt__IsPricingApplicable__c from CC_QAppt__Appointment_Category__c limit 100];
+    }  
+ 
     
     public static List<CC_QAppt__Resource_Service_Alignment__c> previousResourceServiceAlignemnts(Set<Id> PreviousServices,String contactid){ 
         if(PreviousServices != null) 
@@ -51,12 +57,20 @@ public class QuickAppointmentSOQLManager {
             mapOfLoc.put(ccl.Id, ccl);
         }
         
+        
         List<location__c> locList = new List<location__c>();
+        
         List<Location_Service__c> LocSer = [select location__c, service__c from Location_Service__c where service__c =: serId];
         for(Location_Service__c lsr : LocSer) {
-            locList.add(mapOfLoc.get(lsr.location__c));
+           locList.add(mapOfLoc.get(lsr.location__c));
         }
+       
         system.debug('locList@@'+locList);
+        
         return locList;
+    }
+    public static List<CC_QAppt__Appointment__c> getPreviousAppointments(){
+         List<CC_QAppt__Appointment__c> appointmentList = [select id,name,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c,CC_QAppt__Capacity__c,CC_QAppt__Total_Participants__c,CC_QAppt__Description__c from Appointment__c where Start_Date_Time__c != null];
+        return appointmentList;
     }
 }

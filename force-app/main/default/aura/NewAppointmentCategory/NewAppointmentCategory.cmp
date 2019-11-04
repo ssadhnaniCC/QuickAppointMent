@@ -1,0 +1,98 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="AppointmentCategoryLightningComponent" >
+    <!--@description contains boolean  to show or hide ModalBox.-->
+    <aura:attribute name="isModalOpen" type="boolean" default="False"/>
+    <!--@description contains field values of customer record.-->
+    <aura:attribute name="AppointmentCategoryRecord" type="Appointment_Category__c" default="{'sObjectType':'CC_QAppt__Appointment_Category__c', 'CC_QAppt__IsLocationMandatory__c':'','CC_QAppt__IsPricingApplicable__c':'','CC_QAppt__IsServiceMandatory__c':'','CC_QAppt__IsAvaliablePublically__c':'','Name':''}"/>
+    <!--@description contains information about event.-->
+    <aura:registerEvent name="refreshEvent" type="c:ParentListRefresh"/>
+    <!--@description init handler.-->
+    <aura:handler name="init" value="{! this}" action="{!c.onInit}"/>
+    <!-- Modal/Popup Box starts here-->
+    <aura:if isTrue="{!v.isModalOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box Header Starts here-->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h3 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Appointment Category</h3>
+                </header>
+                <!--Modal/Popup Box Body Starts here-->
+                
+                <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
+                    
+                    <lightning:input type="text" label="Name" name="red" value="{!v.AppointmentCategoryRecord.Name}" />
+                    <div class="slds-grid slds-gutters slds-border_top slds-p-top_medium slds-p-bottom_medium">
+                        <div class="slds-col slds-size_1-of-2 ">
+                            
+                                    <lightning:input type="checkbox" label="Location Mandatory" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsLocationMandatory__c}" />
+                                    <lightning:input type="checkbox" label="Service Mandatory" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsServiceMandatory__c}"/>
+                                    <lightning:input type="checkbox" label="Attendee Mandatory" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAttendeeMandatory__c}"/>
+                                    
+
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 ">
+                            <lightning:input type="checkbox" label="Resource Mandatory" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsResourceMandatory__c}"/>
+                            <lightning:input type="checkbox" label="Asset Mandatory" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAssetMandatory__c}"/>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                    <div class=" slds-grid slds-gutters slds-border_top slds-p-top_medium slds-p-bottom_medium">
+                        
+                        
+                        
+                            <div class="slds-col slds-size_1-of-2 ">
+                                
+                                        
+                                            <lightning:input type="checkbox" label="Multiple Asset Allowed" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleAsset__c}" />
+                                            <lightning:input type="checkbox" label="Multiple Location Allowed" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleLocation__c}"/>
+                                            <lightning:input type="checkbox" label="Multiple Attendee Allowed" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleAttendee__c}"/>
+                                            
+                                       
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 ">
+                                    
+                                            <lightning:input type="checkbox" label="Multiple Service Allowed" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleService__c}"/>
+                                            <lightning:input type="checkbox" label="Multiple Resource Allowed" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleResource__c}"/>
+                                            
+                                      
+                                </div>
+                            
+                            
+                            
+                        </div>  
+                        <div class="slds-grid slds-gutters slds-border_top slds-p-top_medium">
+                            
+                           
+                                <div class="slds-col slds-size_1-of-2 ">
+                                   
+                                            <lightning:input type="checkbox" label="Pricing Applicable" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsPricingApplicable__c}"/>
+                                            <lightning:input type="checkbox" label="Available Publically" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAvaliablePublically__c}"/>                                          
+                                       
+                                </div>
+                            
+                        </div>
+                    </div>
+                  
+            
+                <!--Modal/Popup Box Footer Starts here-->                
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Save"
+                                      title="Save"
+                                      onclick="{!c.onCustomerSave}"/>
+                    <lightning:button variant="brand"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{!c.closeModel}"/>
+                </footer>               
+              </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

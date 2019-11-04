@@ -1,0 +1,18 @@
+.THIS .disable{
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666; 
+}
+.THIS #pop-up {
+    display: none;
+    position: absolute;
+    width: 280px;
+    padding: 10px;
+    color: white;
+    font-size: 90%;
+    z-index: 1000;
+    border-radius: 10px;
+}
+.THIS .custom_button {
+   height : 2rem; 
+}

@@ -1,0 +1,107 @@
+({
+   /*******************************************************************************************************
+    * @description This method fetches the appointment details to show on calendar.
+   */
+    getResponse : function(component,helper) {
+        var action = component.get("c.fetchAppointments");
+        action.setCallback(this, function(response) {
+            var state = response.getState();
+            if (state === "SUCCESS") {
+                var result = response.getReturnValue();
+                console.log("Appointment: \n" + JSON.stringify(result));
+                var eventArr = [];
+                result.forEach(function(key) {
+                    console.log(key)
+                    eventArr.push({
+                        'Name':key.Name,
+                        'id':key.Id,
+                        'start':key.startDate,
+                        'end':key.endDate,
+                        'title':key.Name,
+                        'status':key.Status,
+                        'backgroundColor': key.eventColor
+                    });
+                });
+                this.loadCalendar(eventArr,event,helper);       
+            } else if (state === "INCOMPLETE") {
+            } else if (state === "ERROR") {
+                var errors = response.getError();
+                if (errors) {
+                    if (errors[0] && errors[0].message) {
+                        console.log("Error message: " + errors[0].message);
+                    }
+                } else {
+                    console.log("Unknown error");
+                }
+            }
+        });
+        $A.enqueueAction(action);
+    },
+
+    
+    /*******************************************************************************************************
+    * @description This method loads the calendar with week,day,and month view.
+   */
+    loadCalendar :function(data,event,helper){   
+        var m = moment();
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            defaultDate: m.format(),
+            editable: true,
+            navLinks: true, // can click day/week names to navigate views
+            weekNumbersWithinDays: true,
+            weekNumberCalculation: 'ISO',
+            editable: true,
+            eventLimit: true,
+            timeFormat: 'HH(:mm) a',        
+            events:data,    
+            eventMouseover: function(data,event,helper) {
+                var tooltip = '<div class="tooltipevent slds-popover slds-popover_tooltip slds-popover_medium slds-nubbin_left-top" role="tooltip" style="position:absolute;word-break: break-all;">'
+                +'<div class="slds-popover__body">'
+                +'<label class="slds-form-element__label" style="color:white;" for="unique-id-of-input">'+'Name:'+data.Name+'<label>'+'<br/>'+'<label style="color:white;" class="slds-form-element__label" for="unique-id-of-input">'+'Status:'+data.status+'<label>'
+                +'<br/>'+'<label class="slds-form-element__label" style="color:white;" for="unique-id-of-input">'+'Start:'+data.start.format('MMMM Do YYYY h:mm a')+'<label>' +'<br/>'+'<label class="slds-form-element__label" style="color:white;" for="unique-id-of-input">'
+                +'End:'+data.end.format('MMMM Do YYYY h:mm a')+'<label>'
+                +'</div>'+ '</div>';
+                $("body").append(tooltip);
+                $(this).mouseover(function(e) {
+                    $(this).css('z-index', 10000);
+                    $('.tooltipevent').fadeIn('500');
+                    $('.tooltipevent').fadeTo('10', 1.9);
+                }).mousemove(function(e) {
+                    $('.tooltipevent').css('top', e.pageY + 10 +'px');
+                    $('.tooltipevent').css('left', e.pageX + 20 +'px');
+                });
+            },
+            eventMouseout: function(data,event) {
+                $(this).css('z-index', 8);
+                $('.tooltipevent').remove();
+            }
+        });     
+        //Add Appointment Button for Creating New Appointment
+        $('.fc-left').append('<button class="slds-button slds-button_neutral custom_button" onclick="alert(\'Hello\');">Add Appointment</button>');
+        
+        //Add Agenda Button for Creating New Appointment
+        $('.fc-right').append('<button class="slds-button slds-button_neutral custom_button" onclick="alert(\'Hello\');">Agenda</button>');
+        
+        //On Previous Disable Click
+        $('.fc-past').addClass('disable');
+        
+        //Adding SLDS Style to buttons
+        $('.fc-month-button , .fc-prev-button , .fc-today-button , .fc-agendaWeek-button , .fc-next-button , .fc-agendaDay-button').addClass('slds-button slds-button_neutral custom_button');
+        $('.fc-month-button , .fc-prev-button ,  .fc-today-button , .fc-agendaWeek-button , .fc-next-button , .fc-agendaDay-button').removeClass('fc-button fc-state-default fc-corner-left');
+    
+        //On Previous button Disable Click
+        $('.fc-month-button').click(function(){helper.disableHandler(helper);});
+        $('.fc-agendaWeek-button').click(function(){helper.disableHandler(helper);});
+        $('.fc-prev-button').click(function(){helper.disableHandler(helper);}); 
+        $('.fc-next-button').click(function(){helper.disableHandler(helper);});
+    },
+    disableHandler : function(shelper){
+        $('.fc-past').addClass('disable'); 
+    },    
+    
+})

@@ -1,11 +1,11 @@
-<aura:component controller="CustomerLightningComponent" >
+<aura:component controller="AppointmentCategoryLightningComponent" >
     <!--@description contains boolean field to show or hide datatable footer.-->
     <aura:attribute name="hideFooter" type="boolean" default="False"/>
     <aura:attribute name="showspinner" type="boolean" default="true"/>
      <!--@description contains field values of customer record.-->
-    <aura:attribute name="customerRecord" type="Object" default="{'sObjectType':'Contact', 'Name':'','MailingStreet':'','MailingCity':'','MailingStreet':'','MailingPostalCode':'','MailingCountry':'','Phone':'','Description':''}"/>
+   <aura:attribute name="AppointmentCategoryRecord" type="Appointment_Category__c" default="{'sObjectType':'CC_QAppt__Appointment_Category__c', 'CC_QAppt__IsLocationMandatory__c':'','CC_QAppt__IsPricingApplicable__c':'','CC_QAppt__IsServiceMandatory__c':'','CC_QAppt__IsAvaliablePublically__c':'','Name':''}"/>
     <!--@description contains integer value of total number of pages shown in a datatable.-->
-     <aura:attribute name="totalPages" type="Integer" default="1"/>
+     <aura:attribute name="totalPages" type="Integer" default="0"/>
     <!--@description contains records data to show in lightning datatable.-->
     <aura:attribute name="data" type="List"/>
     <!--@description contains columns to show as headers in lightning datatable.-->
@@ -25,7 +25,7 @@
     <!--@description contains pageSize i.e no of records to show on a page in pagination.-->
     <aura:attribute name="pageSize" type="Integer" default="10"/>
     <!--@description Boolean attribute to check for last page in pagination.-->
-    <aura:attribute name="isLastPage" type="Boolean" default="false"/>
+    <aura:attribute name="isLastPage" type="Boolean" default="true"/>
     <!-- @description contains total number of customer records.-->
     <aura:attribute name="dataSize" type="Integer" default="0"/> 
     <!-- @description contains all records data.-->
@@ -36,12 +36,12 @@
     <aura:attribute name="sortDirection" type="String"/>
     <aura:handler name="init" value="{! this }" action="{! c.init }"/>
     <aura:handler name="refreshEvent" event="c:ParentListRefresh" action="{! c.onSaveAndEdit }"/>
-    <c:NewCustomer isModalOpen="{!v.isModalOpen}" customerRecord="{!v.customerRecord}"/>
-    <div class="slds-text-heading_large ">Customer Details</div>    
+    <c:NewAppointmentCategory isModalOpen="{!v.isModalOpen}" AppointmentCategoryRecord="{!v.AppointmentCategoryRecord}"/>
+    <div class="slds-text-heading_large ">Appointment Category</div>    
     <div class="slds-grid slds-gutters">
         <div class="slds-align_absolute-center" > 
             <div class="slds-col">
-                <span><button class="slds-button slds-button_outline-brand" onclick="{! c.onAddCustomerClick}">Add Customer</button></span>
+                <span><button class="slds-button slds-button_outline-brand" onclick="{! c.onAddCustomerClick}">Add Appointment Category</button></span>
             </div>
             <div class="slds-col">
                 <span><lightning:input type="search" class="label-hidden"  name="enter-search" placeholder="Search"  variant="label-hidden" value="{!v.searchString}" onchange="{!c.onSearch}"/>                    
@@ -71,15 +71,15 @@
         <aura:if  isTrue="{!v.hideFooter}">
         <div class="slds-clearfix">
             <div class="slds-page-header " role="banner">
-                <div class="slds-align_absolute-center">            
+                <div class=" slds-align_absolute-center">            
                     <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
                                       onclick="{!c.onPrev}" disabled="{! v.pageNumber == 1}"/>
                     <lightning:button label="First"  iconPosition="left"
                                       onclick="{!c.onFirst}" disabled="{! v.pageNumber == 1}"/>
                     <lightning:button  label="Last"  iconPosition="left"
-                                      onclick="{!c.onLast}" disabled="{! v.isLastPage }"/>
+                                      onclick="{!c.onLast}" disabled="{! v.pageNumber==v.totalPages}"/>
                     <lightning:button label="Next" iconName="utility:chevronright" iconPosition="right"
-                                      disabled="{!v.isLastPage}" onclick="{!c.onNext}"/>
+                                      disabled="{! v.pageNumber==v.totalPages}" onclick="{!c.onNext}"/>
                 </div>                
             </div>
         </div>

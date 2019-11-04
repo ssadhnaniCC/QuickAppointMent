@@ -1,14 +1,12 @@
 ({
-	openModel: function(component, event, helper) {
-     
-   },
-  
-   closeModel: function(component, event, helper) {
+    
+    /*******************************************************************************************************
+    * @description This is the method which will help in closing model box.
+   */
+	closeModel: function(component, event, helper) {
       // Set isModalOpen attribute to false  
       component.set("v.isModalOpen", false);
-       var refreshEvent = component.getEvent("refreshEvent");
-                console.log(refreshEvent);
-                refreshEvent.fire();
+     
        
    },
   
@@ -18,29 +16,31 @@
       component.set("v.isModalOpen", false);
    },
     
-     initialize: function (component, event, helper) {
-        helper.getLocationData(component, event, helper);
-        console.log('recordId=='+component.get('v.recordId'));
-         //var data = JSON.stringify(component.get('v.dataToBeSend'));
-         //var dataWithParse = JSON.parse(data);
-         console.log('data=='+JSON.stringify(component.get('v.dataToBeSend')));
-         if(component.get('v.recordId')!=undefined) {
-             
-         }
-         /*if(component.get('v.isEdit')) {
-             alert('dsfss');
-         }*/
-         
+   /*******************************************************************************************************
+    * @description This is the init method which will fetch all the available Locations.
+   */
+    doInit : function(component,event,helper){
+        console.log('selLoc@',component.get('v.selectedLocation'));
+        helper.fetchAllLocations(component,helper);
     },
+    
+     
+   /*******************************************************************************************************
+    * @description This is the method which will handle duallistbox change
+   */
+    
     handleChange: function (cmp, event) {
         // Get the list of the "value" attribute on all the selected options
         var selectedOptionsList = event.getParam("value");
-        var locArray = [];
-        locArray.push(selectedOptionsList);
-        console.log('locArray=',locArray);
-        cmp.set('v.locValuesList',locArray);
+        console.log('LocID@',selectedOptionsList);
+        cmp.set('v.selectedLocation',selectedOptionsList);
         
     },
+    
+     
+   /*******************************************************************************************************
+    * @description This is the method which will handle validation in all fields
+   */
     
     saveRecord : function(component, event, helper) {
          var controlAuraIds = ["ServiceName","Duration","Price"];
@@ -56,32 +56,22 @@
         
        if(isAllValid){
            alert();
-       helper.saveServiceRecord(component,event,helper);
+       helper.saveService(component,event,helper);
      }
             
     },
     
     
+     
+   /*******************************************************************************************************
+    * @description This is the method which will handle selected location 
+   */
+    
     getSelectedLocation : function(component,event,helper) {
-        var action = component.get('c.getSelectedLocations');
-        action.setParams({
-            'recId' : component.get('v.recId')
-        });
-        
-        action.setCallback(this, function(response) {
-            var state = response.getState();
-            if (state === "SUCCESS" ) {
-                console.log('response==',response.getReturnValue());
-                var selLocation = [];
-                for(var i=0;i<response.getReturnValue().length;i++) {
-                    selLocation.push(response.getReturnValue()[i].Name);
-                
-                    }
-                component.set('v.values',selLocation);
-                //console.log('values@@',component.get('v.values'));
-            }
-        });
-        $A.enqueueAction(action);
+        alert(component.get('v.recId'));
+        helper.fetchAllLocations(component,event);
+        helper.fetchSelectedLocations(component,event,helper);
+       
     }
     
 })

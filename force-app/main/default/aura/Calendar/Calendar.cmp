@@ -1,0 +1,19 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="CalendarLightningController">
+    <ltng:require scripts="{!join(',', 
+                           $Resource.jquery,
+                           $Resource.calender + '/calender/moment.js',
+                           $Resource.calender + '/calender/jquery.min.js',
+                           $Resource.Semantic + '/semantic/jquery-ui.min.js',
+                           $Resource.calender + '/calender/fullcalendar.min.js')}"
+                  
+                  styles="{!$Resource.calender + '/calender/fullcalendar.css'}"
+                  
+                  
+                  afterScriptsLoaded="{!c.scriptsLoaded}" />
+    <!-- appointment popOver -->
+  
+    <div id='calendar'>
+
+    </div> 
+    
+</aura:component>

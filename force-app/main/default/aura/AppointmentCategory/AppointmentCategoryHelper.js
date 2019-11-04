@@ -1,5 +1,5 @@
 ({
-	/*******************************************************************************************************
+    /*******************************************************************************************************
     * @description This method is used get column headers of datatable.
     * @returns void.
     */
@@ -39,7 +39,7 @@
     * @returns void.
     */
     getCustomers : function(component,helper) {
-        var action = component.get("c.getCustomers");
+        var action = component.get("c.getAppointmentCategories");
         action.setCallback(this,function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
@@ -51,40 +51,35 @@
                 console.log(resultData);             
                 var recSize=parseInt(component.get("v.pageSize"));
                 var num=0;
-                 var pgNumber=0;
+                var pgNumber=0;
                 var pagecount=0;
-        var customerRecords=[];
-        var dataSize=component.get("v.allRecords").length;
-        var recSize=component.get("v.pageSize");
-        for(var i=0;i<dataSize;i++){
-            if(num>=recSize){
-                break;
-            }
-            if(component.get("v.allRecords")[i]!='undefined'){
-                customerRecords.push(component.get("v.allRecords")[i]);
-                num++;                    
-            }                
-        }
-        component.set("v.paginationList",customerRecords);  
-        console.log(component.get("v.paginationList")); 
+                var customerRecords=[];
+                var dataSize=component.get("v.allRecords").length;
+                var recSize=component.get("v.pageSize");
+                for(var i=0;i<dataSize;i++){
+                    if(num>=recSize){
+                        break;
+                    }
+                    if(component.get("v.allRecords")[i]!='undefined'){
+                        customerRecords.push(component.get("v.allRecords")[i]);
+                        num++;                    
+                    }                
+                }
+                component.set("v.paginationList",customerRecords);  
+                console.log(component.get("v.paginationList")); 
                 component.set("v.showspinner",false);
-        component.set("v.data",component.get("v.paginationList"));
+                component.set("v.data",component.get("v.paginationList"));
                 component.set("v.hideFooter",true);
                 if(dataSize>0){
-                    var pagecount= Math.ceil(dataSize/10);
-        var pgNumber=component.get("v.pageNumber");
-        
-        component.set("v.totalPages",pagecount);
+                    pagecount= Math.ceil(dataSize/10);
+                    pgNumber=component.get("v.pageNumber");
+                    component.set("v.totalPages",pagecount);
                 }
                 else{
                     component.set("v.totalPages",1);
                 }
-        var totalPages= component.get("v.totalPages");
-        if(totalPages==pgNumber){
-            component.set("v.isLastPage", true);
-        } else{
-            component.set("v.isLastPage", false);
-        }             
+                var totalPages= component.get("v.totalPages");
+                
             }
             else if (state === "INCOMPLETE") {
                 // do something
@@ -165,7 +160,7 @@
     editRecord : function(component, event) {
         component.set("v.isModalOpen",true);
         var row = event.getParam('row');
-        component.set("v.customerRecord",row);        
+        component.set("v.AppointmentCategoryRecord",row);        
     }, 
     /*******************************************************************************************************
     * @description This method is used  handle pagination in datatable.
@@ -176,7 +171,7 @@
         var totalPages=0;        
         if(component.get("v.onSearch")){
             allRecords=component.get("v.searchList");            
-           
+            
             component.set("v.pageNumber",1);
             totalPages=Math.ceil((allRecords.length)/10);
             component.set("v.onSearch",false);

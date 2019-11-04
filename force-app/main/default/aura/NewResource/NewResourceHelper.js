@@ -4,7 +4,9 @@
    */
 	saveResourceStaff : function(component,event,helper) {
        var resourceRecord = component.get("v.resourceRecord"); 
+        console.log('resourceRecord@@',resourceRecord);
         var selectedLocations = component.get("v.selectedLocation");
+        console.log('selectedLocations@@',selectedLocations);
         var selectedServices = component.get("v.selectedService");
 	    var action = component.get("c.saveNewResources");
         action.setParams({
@@ -55,6 +57,7 @@
                 AvailableLocations.forEach(function(Location){
                     options.push({ value: Location.Id, label: Location.Name ,Id: Location.Id});
                 });
+                console.log('options##',options);
               component.set("v.availableLocation",options);  
             }
             else {
@@ -127,6 +130,7 @@
                component.set("v.availableService",availableServiceoptions);   
                component.set("v.selectedService",options); 
                component.set("v.selectedLocation",listoptions);  
+                 console.log('listoptions@@',listoptions);
             }
             else {
 	                console.log('Failed with state: ' + state);

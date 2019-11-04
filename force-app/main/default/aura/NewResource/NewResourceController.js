@@ -10,6 +10,7 @@
    */
 	closeNewResourceModel : function(component, event, helper) {
 		component.set("v.openNewResourceModal",false);
+        component.set('v.selectedLocation',{});
 	},
     
     /*******************************************************************************************************
@@ -45,6 +46,7 @@
    */
     handleOnServiceSelect : function(component,event,helper){
        var selectedServiceList = event.getParam("value");
+        console.log('selectedServiceList@@',selectedServiceList);
        component.set("v.selectedService",selectedServiceList);
     },
    /*******************************************************************************************************

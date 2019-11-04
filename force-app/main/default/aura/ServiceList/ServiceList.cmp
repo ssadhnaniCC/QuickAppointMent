@@ -1,34 +1,31 @@
 <aura:component controller="ServiceLightningController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
     
     <!--Boolean Type Attributes-->
-    <aura:attribute name="isNew" type="boolean" default="false"/>
-    <aura:attribute name="isEdit" type="boolean" default="false"/>
     <aura:attribute name="isModelOpen" type="boolean" default="false"/>
     <aura:attribute name="isLastPage" type="Boolean" default="false"/>
-    <!--@description contains Boolean value to check if request is coming from onSearch function.-->
     <aura:attribute name="onSearch" type="Boolean" default="false"/>
     <aura:attribute name="isSpinner" type="Boolean" default="false"/>
     <aura:attribute name="hideFooter" type="boolean" default="False"/>
     
     <!--Integer Type Attributes-->
-    <aura:attribute name="firstPage" type="Integer"  default="0"/>
+    <aura:attribute name="firstPage" type="Integer"/>
     <aura:attribute name="lastPage" type="Integer"/>
     <aura:attribute name="totalRecords" type="Integer"/>
     <aura:attribute name="pageNumber" type="Integer" default="1"/>
     <aura:attribute name="pageSize" type="Integer" default="10"/>
     <aura:attribute name="dataSize" type="Integer" default="0"/> 
-     <!--@description contains integer value of total number of pages shown in a datatable.-->
-     <aura:attribute name="totalPages" type="Integer"/>
-     <aura:attribute name="totalSize" type="Integer"/>
+    <aura:attribute name="totalPages" type="Integer"/>
+    <aura:attribute name="totalSize" type="Integer"/>
     
     <!--List and Object type Attributes-->
     <aura:attribute name="data" type="Object[]"/>
     <aura:attribute name="columns" type="Object[]"/>
-    <aura:attribute name="dataToBeSend" type="Service__c" default="{'sObjectType':'CC_QAppt__Service__c', 'Name':'','CC_QAppt__Description__c':'',CC_QAppt__Duration__c:'',CC_QAppt__Price__c:''}"/>
+    <aura:attribute name="serviceRecord" type="Service__c" default="{'sObjectType':'CC_QAppt__Service__c', 'Name':'','CC_QAppt__Description__c':'',CC_QAppt__Duration__c:'',CC_QAppt__Price__c:''}"/>
     <aura:attribute name="filteredData" type="Object[]" />
-    <aura:attribute name="locationList" type="List"/>
+   
+    <aura:attribute name="locationList" type="Object[]"/>
     <aura:attribute name="locationListWithAllRec" type="Location__c[]"/>
-    <aura:attribute name="selectedLocations" type="List"/>
+    <aura:attribute name="selectedLocations" type="Object[]"/>
     <!--@description contains list of records after applying searching.-->
     <aura:attribute name="searchList" type="List"/>
     <!--@description contains list of records after applying pagination.-->
@@ -36,14 +33,8 @@
     
     <!--String type Attributes-->
     <aura:attribute name="filter" type="String" />
-    <aura:attribute name="recordId" type="String"/>
-    <aura:attribute name="serName" type="String" />
-    <aura:attribute name="des" type="String" />
-    <aura:attribute name="price" type="Integer" />
-    <aura:attribute name="duration" type="Integer" />
+    <aura:attribute name="serviceId" type="String"/>
     <aura:attribute name="fltValue" type="String" />
-    <aura:attribute name="sortedBy" type="String"/>
-    <aura:attribute name="sortedDirection" type="String"/>
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:handler name="refreshEvent" event="c:ParentListRefresh" action="{! c.onSaveAndEdit }"/>
     
@@ -65,18 +56,11 @@
     </div>
     
     <!--For Open Model Box With Other Child component-->
-    <aura:if isTrue="{!v.isNew}">
-        <div class='slds-m-horizontal_medium modlBox'>
-        <c:NewService isModalOpen="{!v.isModelOpen}" options="{!v.locationList}" locationListWithAllRec="{!v.locationListWithAllRec}"/>
-            </div>
-    </aura:if>
+   
     
-    
-    <aura:if isTrue="{!v.isEdit}">
-        <div class='slds-m-horizontal_medium modlBox'>
-        <c:NewService aura:id="childComp" isModalOpen="{!v.isModelOpen}" dataToBeSend="{!v.dataToBeSend}" isEdit="{!v.isEdit}" recId="{!v.recordId}" />
-            </div>
-    </aura:if>
+    <c:NewService aura:id = "childComp" isModalOpen="{!v.isModelOpen}" selectedLocation="{!v.selectedLocations}"  serviceRecord="{!v.serviceRecord}" recId="{!v.serviceId}"/>
+          
+   
       
     <!--Lightning:datatable with searching and sorting functionality-->
     <div class="slds-m-around_large">
@@ -92,7 +76,7 @@
                              class="slds-m-horizontal_medium"
                              columns = "{!v.columns}"
                              data = "{!v.filteredData}"
-                             keyField = "Name"
+                             keyField = "Id"
                              onrowaction = "{!c.handleRowAction}"
                              hideCheckboxColumn="true"/>
         
@@ -102,13 +86,13 @@
             <div class="slds-page-header " role="banner">
                 <div class=" slds-align_absolute-center">            
                     <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
-                                      onclick="{!c.handlePrev}" disabled="{!v.firstPage == 0}"/>
+                                      onclick="{!c.onPrev}" disabled="{! v.pageNumber == 1}"/>
                     <lightning:button label="First"  iconPosition="left"
-                                      onclick="{!c.handleFirst}" disabled="{!v.firstPage == 0}"/>
+                                      onclick="{!c.onFirst}" disabled="{! v.pageNumber == 1}"/>
                     <lightning:button  label="Last"  iconPosition="left"
-                                      onclick="{!c.handleLast}" disabled="{!v.lastPage >= v.totalSize}"/>
+                                      onclick="{!c.onLast}" disabled="{! v.isLastPage }"/>
                     <lightning:button label="Next" iconName="utility:chevronright" iconPosition="right"
-                                      disabled="{!v.lastPage >= v.totalSize}" onclick="{!c.handleNext}"/>
+                                      disabled="{!v.isLastPage}" onclick="{!c.onNext}"/>
                 </div>
                 
             </div>
