@@ -1,5 +1,7 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
-	
+   
+    <aura:attribute name="selectedNavigationItem" type="String" default="dashboard"/>
+    
     <!-- Page Header-->
     <div class="slds-grid slds-wrap ">
         <div class="slds-col slds-size_1-of-1">
@@ -29,49 +31,70 @@
     </div>
     <div class="slds-grid slds-wrap">
         <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-border_right">
-            <lightning:verticalNavigation selectedItem="dashboard">
+            <lightning:verticalNavigation selectedItem="{!v.selectedNavigationItem}" onselect="{!c.onNavigationSelection}">
                <lightning:verticalNavigationSection label="Navigation">
                     <lightning:verticalNavigationItemIcon
                                                           label="Dashboard"
                                                           name="dashboard"
-                                                          iconName="standard:dashboard_ea" />
+                                                          iconName="standard:dashboard_ea"/>
                     
                     <lightning:verticalNavigationItemIcon
-                                                          label="Created by Me"
-                                                          name="reports_usercreated"
-                                                          iconName="utility:user" />
+                                                          label="Appointment Category"
+                                                          name="appointmentcategory"
+                                                          iconName="standard:dashboard_ea"/>
+                    
+                   
+                    <lightning:verticalNavigationItemIcon
+                                                          label="Locations"
+                                                          name="locations"
+                                                          iconName="utility:user"/>
                     
                     <lightning:verticalNavigationItemIcon
-                                                          label="Private Reports"
-                                                          name="reports_private"
-                                                          iconName="utility:lock" />
+                                                          label="Services"
+                                                          name="services"
+                                                          iconName="utility:lock"/>
                     
                     <lightning:verticalNavigationItemIcon
-                                                          label="Public Reports"
-                                                          name="reports_public"
-                                                          iconName="utility:groups" />
+                                                          label="Resource Staff"
+                                                          name="resource_staff"
+                                                          iconName="utility:groups"/>
+                   
+                   <lightning:verticalNavigationItemIcon
+                                                          label="Customer"
+                                                          name="customer"
+                                                          iconName="utility:groups"/>
+                   
+                   <lightning:verticalNavigationItemIcon
+                                                          label="Calendar"
+                                                          name="calendar"
+                                                          iconName="utility:groups"/>
                     
-                    <lightning:verticalNavigationItem
-                                                      label="All Reports"
-                                                      name="reports_all" />
                 </lightning:verticalNavigationSection>
-                
-                <lightning:verticalNavigationSection label="Folders">
-                    <lightning:verticalNavigationItemIcon
-                                                          label="Created by Me"
-                                                          name="folders_usercreated"
-                                                          iconName="utility:open_folder" />
-                    
-                    <lightning:verticalNavigationItemIcon
-                                                          label="Shared with Me"
-                                                          name="folders_shared"
-                                                          iconName="utility:open_folder" />
-                </lightning:verticalNavigationSection>
-                
             </lightning:verticalNavigation>
         </div>
         <div class="slds-col slds-size_1-of-1 slds-large-size_10-of-12 ">
-            <!-- More lightning-output-field components here -->
+            <div class="slds-m-around_large">
+            	<aura:if isTrue="{!v.selectedNavigationItem == 'dashboard'}">
+                </aura:if>
+               	<aura:if isTrue="{!v.selectedNavigationItem == 'appointmentcategory'}">
+                	<c:AppointmentCategory/>
+                </aura:if>
+               	<aura:if isTrue="{!v.selectedNavigationItem == 'locations'}">
+                	<c:LocationList/>
+                </aura:if>
+                <aura:if isTrue="{!v.selectedNavigationItem == 'services'}">
+                	<c:ServiceList/>
+                </aura:if>
+                <aura:if isTrue="{!v.selectedNavigationItem == 'resource_staff'}">
+                	<c:ResourceList/>
+                </aura:if>
+                <aura:if isTrue="{!v.selectedNavigationItem == 'customer'}">
+                	<c:CustomerList/>
+                </aura:if>
+                <aura:if isTrue="{!v.selectedNavigationItem == 'calendar'}">
+                	<c:Calendar/>
+                </aura:if>
+            </div>
         </div>
     </div>
     

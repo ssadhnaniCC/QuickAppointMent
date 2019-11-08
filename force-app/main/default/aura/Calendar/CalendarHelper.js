@@ -4,14 +4,18 @@
    */
     getResponse : function(component,helper) {
         var action = component.get("c.fetchAppointments");
+         action.setParams({
+            "ObjectName" : component.get("v.objName"),
+            "recordId" :  component.get("v.recordId")       
+        });
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
                 var result = response.getReturnValue();
-                console.log("Appointment: \n" + JSON.stringify(result));
+                console.log("result"+JSON.stringify(result));
+                component.set("v.RelatedList",result);
                 var eventArr = [];
                 result.forEach(function(key) {
-                    console.log(key)
                     eventArr.push({
                         'Name':key.Name,
                         'id':key.Id,
@@ -22,7 +26,23 @@
                         'backgroundColor': key.eventColor
                     });
                 });
-                this.loadCalendar(eventArr,event,helper);       
+                if(component.get("v.objName") != null && component.get("v.recordId")!= null ){
+                    component.set("v.isRelated",false);
+                    if(eventArr.length){
+                      component.set("v.showToast",false);  
+                      $('#calendar').css("display","");    
+                      this.loadCalendar(eventArr,event,helper,false);    
+                    }
+                    else{
+                        component.set("v.showToast",true);
+                        $('#calendar').css("display","none");
+                    }
+                }
+                else
+                {
+                component.set("v.isRelated",true);
+                this.loadCalendar(eventArr,event,helper,true);
+                }
             } else if (state === "INCOMPLETE") {
             } else if (state === "ERROR") {
                 var errors = response.getError();
@@ -42,7 +62,7 @@
     /*******************************************************************************************************
     * @description This method loads the calendar with week,day,and month view.
    */
-    loadCalendar :function(data,event,helper){   
+    loadCalendar :function(data,event,helper,isRelated){
         var m = moment();
         $('#calendar').fullCalendar({
             header: {
@@ -51,11 +71,11 @@
                 right: 'month,agendaWeek,agendaDay'
             },
             defaultDate: m.format(),
+            eventStartEditable : isRelated,
             editable: true,
             navLinks: true, // can click day/week names to navigate views
             weekNumbersWithinDays: true,
             weekNumberCalculation: 'ISO',
-            editable: true,
             eventLimit: true,
             timeFormat: 'HH(:mm) a',        
             events:data,    
@@ -82,18 +102,16 @@
             }
         });     
         //Add Appointment Button for Creating New Appointment
+        if(isRelated != false){
         $('.fc-left').append('<button class="slds-button slds-button_neutral custom_button" onclick="alert(\'Hello\');">Add Appointment</button>');
-        
-        //Add Agenda Button for Creating New Appointment
-        $('.fc-right').append('<button class="slds-button slds-button_neutral custom_button" onclick="alert(\'Hello\');">Agenda</button>');
-        
+           //Add Agenda Button for Creating New Appointment
+        //  $('.fc-right').append('<button class="slds-button slds-button_neutral custom_button" onclick="alert(\'Hello\');">Agenda</button>');
+        }
         //On Previous Disable Click
-        $('.fc-past').addClass('disable');
-        
+        $('.fc-past').addClass('disable');  
         //Adding SLDS Style to buttons
         $('.fc-month-button , .fc-prev-button , .fc-today-button , .fc-agendaWeek-button , .fc-next-button , .fc-agendaDay-button').addClass('slds-button slds-button_neutral custom_button');
         $('.fc-month-button , .fc-prev-button ,  .fc-today-button , .fc-agendaWeek-button , .fc-next-button , .fc-agendaDay-button').removeClass('fc-button fc-state-default fc-corner-left');
-    
         //On Previous button Disable Click
         $('.fc-month-button').click(function(){helper.disableHandler(helper);});
         $('.fc-agendaWeek-button').click(function(){helper.disableHandler(helper);});
@@ -103,5 +121,4 @@
     disableHandler : function(shelper){
         $('.fc-past').addClass('disable'); 
     },    
-    
 })

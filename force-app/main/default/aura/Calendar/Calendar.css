@@ -16,3 +16,6 @@
 .THIS .custom_button {
    height : 2rem; 
 }
+.THIS .slds-icon-text-default {
+    fill: white;
+}

@@ -3,7 +3,7 @@
 * @date OCTOBER 2019
 * @description This class is used to display, edit & delete Contact records where RecordType is 'USER'. 
 */
-public with sharing class CustomerLightningComponent{
+public with sharing class CustomerLightningController{
     /*******************************************************************************************************
     * @description This method is used to get fields from CustomerListFieldSet .
     * @returns list of object.
@@ -17,8 +17,8 @@ public with sharing class CustomerLightningComponent{
     * @returns list of contact.
     */
     @AuraEnabled
-    public  static List<contact> getCustomers(){
-            return QuickAppointmentSOQLManager.getCustomers();
+    public  static List<contact> getCustomers(Id recordId){
+            return QuickAppointmentSOQLManager.getCustomers(recordId);
         } 
      @AuraEnabled
     public  static void saveCustomer(contact customerRecord){

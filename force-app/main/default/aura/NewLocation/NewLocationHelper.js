@@ -1,4 +1,7 @@
 ({
+    /*******************************************************************************************************
+    * @description This method used for server side calling.
+    */
     saveLocation : function(component) {
         var action = component.get("c.saveLocation");
         var editLocation = component.get("v.editLocation");

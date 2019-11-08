@@ -1,11 +1,11 @@
 <aura:component controller="ServiceLightningController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
     
-     <!--@description this block contain all boolean attribute-->
+    <!--@description this block contain all boolean attribute-->
     <aura:attribute name="isModalOpen" type="boolean" default="false"/>
-     <aura:attribute name="isErrorMsg" type="boolean" default="false"/>
+    <aura:attribute name="isErrorMsg" type="boolean" default="false"/>
     <aura:attribute name="isEdit" type="boolean" default="false"/>
     
-     <!--@description this block contain all string attribute-->
+    <!--@description this block contain all string attribute-->
     <aura:attribute name="serName" type="String"/>
     <aura:attribute name="recId" type="String"/>
     <aura:attribute name="description" type="String"/>
@@ -28,15 +28,14 @@
     <aura:registerEvent name="refreshEvent" type="c:ParentListRefresh"/>
     
     <aura:method name="getEditMethod" action="{!c.getSelectedLocation}" access="PUBLIC">
-      
+        
     </aura:method>
     
-    <div class="slds-m-around_xx-large">
-        
+      <div class="slds-m-around--xx-large">
         <aura:if isTrue="{!v.isModalOpen}">
             
             <!-- Modal/Popup Box starts here-->
-            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
                 <div class="slds-modal__container">
                     <!-- Modal/Popup Box Header Starts here-->
                     <header class="slds-modal__header">
@@ -50,34 +49,68 @@
                     <!--Modal/Popup Box Body Starts here-->
                     <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
                         <aura:if isTrue="{!v.isErrorMsg}">
-                        <div class="slds-m-around_small slds-p-around_small errorBox">
-                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate errHeader">Error:</h2>
-                            <span class="errMsg">{!v.errorMsg}</span>
-                        </div>
-                            </aura:if>
-                        <div class="slds-grid slds-gutters">
-                            <div class="slds-col slds-size_1-of-2 slds-m-left_small">
+                            <div class="slds-m-around_small slds-p-around_small errorBox">
+                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate errHeader">Error:</h2>
+                                <span class="errMsg">{!v.errorMsg}</span>
+                            </div>
+                        </aura:if>
+                        
+                        <div class="slds-grid slds-gutters slds-wrap">
+                             <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
                                 <lightning:input aura:id="ServiceName" name="Service_Name" label="Service Name" placeholder="Service Name" value="{!v.serviceRecord.Name}" type="text" required="true" messageWhenValueMissing="Please Enter Service Name"/>
                                 <lightning:input aura:id="des" name="Description" label="Description" placeholder="Description" value="{!v.serviceRecord.CC_QAppt__Description__c}" type="text"/>
                                 
                             </div>
-                            <div class="slds-col slds-size_1-of-2 slds-p-right_small">
+                             <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
                                 <lightning:input aura:id="Duration" name="Duration in Minutes" label="Duration in Minutes" value="{!v.serviceRecord.CC_QAppt__Duration__c}" placeholder="Duration in Minutes" type="number" required="true" messageWhenValueMissing="Please Enter Duration"/>
                                 <lightning:input aura:id="Price" name="Price" label="Price" placeholder="Price" value="{!v.serviceRecord.CC_QAppt__Price__c}" type="currency" required="true" messageWhenValueMissing="Please Enter Price"/>
                                 
                             </div>
+                            
+                           <!-- <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning:input aura:id="ServiceName" name="Service_Name" label="Service Name" placeholder="Service Name" value="{!v.serviceRecord.Name}" type="text" required="true" messageWhenValueMissing="Please Enter Service Name"/>
+                                    </div>
+                                </div>                           
+                            </div>
+                            
+                            <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning:input aura:id="des" name="Description" label="Description" placeholder="Description" value="{!v.serviceRecord.CC_QAppt__Description__c}" type="text"/>
+                                    </div>
+                                </div>                           
+                            </div>
+                            
+                            <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning:input aura:id="Duration" name="Duration in Minutes" label="Duration in Minutes" value="{!v.serviceRecord.CC_QAppt__Duration__c}" placeholder="Duration in Minutes" type="number" required="true" messageWhenValueMissing="Please Enter Duration"/>
+                                    </div>
+                                </div>                           
+                            </div>
+                            
+                            <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning:input aura:id="Price" name="Price" label="Price" placeholder="Price" value="{!v.serviceRecord.CC_QAppt__Price__c}" type="currency" required="true" messageWhenValueMissing="Please Enter Price"/>
+                                    </div>
+                                </div>                           
+                            </div>-->
+                            
                         </div>
                         
                         <div class="slctOption">
-                       
-    <lightning:dualListbox name="languages"
-                           label= "Select Locations"
-                           sourceLabel="Available Location"
-                           selectedLabel="Selected Location"
-                           options="{!v.options}"
-                           value="{!v.selectedLocation}"
-                           onchange="{! c.handleChange }"/>
-                            </div>
+                            
+                            <lightning:dualListbox name="languages"
+                                                   label= "Select Locations"
+                                                   sourceLabel="Available Location"
+                                                   selectedLabel="Selected Location"
+                                                   options="{!v.options}"
+                                                   value="{!v.selectedLocation}"
+                                                   onchange="{! c.handleChange }"/>
+                        </div>
                         
                     </div>
                     <!--Modal/Popup Box Footer Starts here-->

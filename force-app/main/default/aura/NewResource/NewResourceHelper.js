@@ -4,9 +4,7 @@
    */
 	saveResourceStaff : function(component,event,helper) {
        var resourceRecord = component.get("v.resourceRecord"); 
-        console.log('resourceRecord@@',resourceRecord);
         var selectedLocations = component.get("v.selectedLocation");
-        console.log('selectedLocations@@',selectedLocations);
         var selectedServices = component.get("v.selectedService");
 	    var action = component.get("c.saveNewResources");
         action.setParams({
@@ -51,7 +49,6 @@
         action.setCallback(this,function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
-              console.log("LocationValues",response.getReturnValue());
                 var AvailableLocations = response.getReturnValue();
               var options = [];
                 AvailableLocations.forEach(function(Location){
@@ -126,11 +123,15 @@
                 resourceservice.availableResourceServiceList.forEach(function(AvailableService){
                 availableServiceoptions.push({ value: AvailableService.CC_QAppt__Service__c, label: AvailableService.CC_QAppt__Service__r.Name ,Id: AvailableService.CC_QAppt__Service__c});
                 });
-               component.set("v.disableServiceDualLstBox",true);   
+                 if(availableServiceoptions.length==0){
+                       component.set("v.disableServiceDualLstBox",false);   
+                 }
+                 else{
+                      component.set("v.disableServiceDualLstBox",true);
+                 }
                component.set("v.availableService",availableServiceoptions);   
                component.set("v.selectedService",options); 
                component.set("v.selectedLocation",listoptions);  
-                 console.log('listoptions@@',listoptions);
             }
             else {
 	                console.log('Failed with state: ' + state);

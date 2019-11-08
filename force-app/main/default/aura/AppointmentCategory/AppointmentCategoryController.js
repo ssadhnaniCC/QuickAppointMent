@@ -4,14 +4,15 @@
     * @returns void.
     */
     init: function (component, event, helper) {
+        console.log('apppoinemnt');
         helper.getColumnAndAction(component);
-        helper.getCustomers(component,helper);
+        helper.getCategories(component,helper);
     },
      /*******************************************************************************************************
     * @description This method is used to open ModalBox to fill customer details.
     * @returns void.
     */
-    onAddCustomerClick:function (component, event, helper) {
+    onAddCategoryClick:function (component, event, helper) {
         component.set("v.isModalOpen",true);        
     },
      /*******************************************************************************************************
@@ -63,9 +64,7 @@
             case 'delete':
                 helper.deleteRecord(component, event);
                 break;
-            case 'Appointment':
-                helper.viewRecord(component, event);
-                break;
+           
         }
     },
      /*******************************************************************************************************
@@ -82,13 +81,8 @@
             var tpArray = [];
             var i;        
             for(i=0;i<allRecords.length;i++){
-                if((allRecords[i].Name && allRecords[i].Name.toUpperCase().indexOf(searchFilter.toUpperCase()) != -1)||
-                   (allRecords[i].MailingCity && allRecords[i].MailingCity.toUpperCase().indexOf(searchFilter.toUpperCase()) != -1)||
-                   (allRecords[i].MailingState && allRecords[i].MailingState.toUpperCase().indexOf(searchFilter.toUpperCase()) != -1)||
-                   (allRecords[i].MailingCountry && allRecords[i].MailingCountry.toUpperCase().indexOf(searchFilter.toUpperCase()) != -1)||
-                   (allRecords[i].Phone && allRecords[i].Phone.indexOf(searchFilter) != -1)||
-                   (allRecords[i].email && allRecords[i].email.toUpperCase().indexOf(searchFilter.toUpperCase()) != -1)||
-                   (allRecords[i].Description && allRecords[i].Description.toUpperCase().indexOf(searchFilter.toUpperCase()) != -1))
+                if((allRecords[i].Name && allRecords[i].Name.toUpperCase().indexOf(searchFilter.toUpperCase()) != -1))
+                   
                 {
                     tpArray.push(allRecords[i]);
                 }
@@ -96,7 +90,8 @@
             if(tpArray.length==0){
                  component.set("v.data",null);
                 component.set("v.isLastPage",true);
-               setTimeout(function(){ alert("no record found"); },300);              
+              component.set("v.pageNumber",0);  
+                 component.set("v.totalPages",0);
                 return;
             }
             console.log('tpArray',tpArray);
@@ -107,6 +102,7 @@
         if(strLength<=1){
             component.set("v.onSearch",false);
             component.set("v.pageNumber",1);
+           component.set("v.totalPages", Math.ceil(component.get("v.allRecords").length/10));
             helper.pagination(component,event,helper);
         }
     },
@@ -133,7 +129,7 @@
     onSaveAndEdit: function(component,event,helper){
         component.set("v.pageNumber",1);
         component.set("v.AppointmentCategoryRecord",{});
-        component.set("v.searchString",null);
-        helper.getCustomers(component,helper);
+        component.set("v.searchString",'');
+        helper.getCategories(component,helper);
     }
 })

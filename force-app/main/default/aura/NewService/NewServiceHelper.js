@@ -9,10 +9,9 @@
         
      
 		var serRecord = component.get("v.serviceRecord"); 
-        console.log('serRecord@@',serRecord);
+        
         var selLocations = component.get("v.selectedLocation");
-        console.log('selLocations@@',selLocations);
-        debugger;
+        
         var action = component.get('c.saveServiceRecords');
         action.setParams({
             "serRecord":serRecord,
@@ -22,7 +21,6 @@
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS" ) {
-                alert('SUCCESS');
                 
                  /*  var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
@@ -36,7 +34,7 @@
                 component.set('v.serviceId',' ');
                 component.set("v.isModalOpen", false);
                 var refreshEvent = component.getEvent("refreshEvent");
-                console.log(refreshEvent);
+                
                 refreshEvent.fire();
             }
         });
@@ -55,16 +53,14 @@
         action.setCallback(this, function(response){
             var state = response.getState();
             if(state === 'SUCCESS' && component.isValid()){
-                console.log('response.getReturnValue()Loc',response.getReturnValue());
+                
                 var responseData = response.getReturnValue();
                 var recArray = [];
               
                 responseData.forEach(function(loc){
-                    console.log('loc##',loc);
                     recArray.push({ value: loc.Id, label: loc.Name ,Id: loc.Id});
                 });
              
-                console.log('recArray==',recArray);
                 
                 component.set('v.options',recArray);
                 
@@ -88,8 +84,7 @@
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS" ) {
-                alert('locationList');
-                console.log('response==',response.getReturnValue());
+                
                 var responseData = response.getReturnValue();
                 component.set('v.serviceRecord',responseData.serviceRecord);
                 

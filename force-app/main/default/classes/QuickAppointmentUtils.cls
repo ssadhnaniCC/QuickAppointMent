@@ -33,6 +33,8 @@ public class QuickAppointmentUtils {
         public String fieldName;
         @AuraEnabled
         public String type;
+        @AuraEnabled
+        public Boolean sortable = true;
     }
     
 }

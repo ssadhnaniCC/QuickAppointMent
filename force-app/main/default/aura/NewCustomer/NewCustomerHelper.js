@@ -11,7 +11,6 @@
         action.setCallback(this,function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
-                alert('record inserted');
                  component.set("v.isModalOpen", false);
                 var refreshEvent = component.getEvent("refreshEvent");
                 console.log(refreshEvent);

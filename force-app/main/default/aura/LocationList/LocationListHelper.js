@@ -11,16 +11,21 @@
                 var pageSize = component.get("v.pageSize");
                 if(resultData != null){
                     component.set("v.dataList",resultData);
-                    component.set("v.paginationList",resultData);
+                    component.set("v.locationList",resultData);
                     component.set("v.dataSize",resultData.length);
                     var pagecount= Math.ceil((resultData.length)/10);
                     component.set("v.totalPages",pagecount);
                     
                     this.pagination(component,0,pageSize,resultData);
                     
-                    component.set("v.pageNumber",1);
+                    if(pagecount == 0){
+                        component.set("v.pageNumber",0);
+                    }
+                    else{
+                        component.set("v.pageNumber",1);
+                    }
                     component.set("v.searchByAddress",'');
-                     component.set("v.spinerLoaded",false);
+                    component.set("v.spinerLoaded",false);
                 }
             }else if(state === "ERROR"){
                 /* toastEvent.setParams({
@@ -55,7 +60,7 @@
      * @description This is the method used to search data
     */
     getByAddress : function(component,keyword) {
-        var locationList = component.get("v.dataList");
+        var locationList = component.get("v.locationList");
         var pageSize = component.get("v.pageSize");
         var pagelist=[];
         var tmpList = [];
@@ -76,19 +81,24 @@
         else{
             tmpList = locationList;
         }
-        component.set("v.paginationList",tmpList); 
+        component.set("v.dataList",tmpList); 
         
         this.pagination(component,0,pageSize,tmpList);
         
         var pagecount= Math.ceil((tmpList.length)/10);
         component.set("v.totalPages",pagecount);
-        component.set("v.pageNumber",1);
+        if(pagecount == 0){
+            component.set("v.pageNumber",0);
+        }
+        else{
+            component.set("v.pageNumber",1);
+        }
     },
     /*******************************************************************************************************
      * @description This method contain logic of next button of pagination
     */
     next : function(component,helper){
-        var resourceList = component.get("v.paginationList");
+        var resourceList = component.get("v.dataList");
         var start  = component.get("v.pageNumber")+1;
         var recordPerPage = component.get("v.pageSize")  
         var i = start * recordPerPage;
@@ -100,7 +110,7 @@
      * @description This method contain logic of previous button of pagination
     */
     previous : function(component,helper){
-        var resourceList = component.get("v.paginationList");
+        var resourceList = component.get("v.dataList");
         var start  = component.get("v.pageNumber")-1;
         var recordPerPage = component.get("v.pageSize");  
         if(start>=1){
@@ -114,7 +124,7 @@
      * @description This method contain logic of start button of pagination
     */
     start : function(component,helper){
-        var resourceList = component.get("v.paginationList");
+        var resourceList = component.get("v.dataList");
         var recordPerPage = component.get("v.pageSize")
         component.set("v.pageNumber",1);
         var size = 1 * recordPerPage;
@@ -125,7 +135,7 @@
      * @description This method contain logic of last button of pagination
     */
     last : function(component,helper){
-        var resourceList = component.get("v.paginationList");
+        var resourceList = component.get("v.dataList");
         var lastPage  = component.get("v.totalPages");
         var recordPerPage = component.get("v.pageSize");
         var i = lastPage * recordPerPage;
@@ -156,7 +166,7 @@
             var state = response.getState();
             if(state === 'SUCCESS'){
                 this.getLocation(component);
-            /*var toastEvent = $A.get("e.force:showToast");
+                /*var toastEvent = $A.get("e.force:showToast");
                     toastEvent.setParams({
                         "title": "Success!",
                         "message": "The record has been Deleted successfully."
@@ -172,6 +182,28 @@
         });
         $A.enqueueAction(action);
     },
+    sortData : function(component,fieldName,sortDirection){
+        var data = component.get("v.paginationList");
+        var key = function(a) { return a[fieldName]; }
+        var numkey = function(a){return Number(a[fieldName])};
+        var reverse = sortDirection == 'asc' ? 1: -1;
+        // to handel number/currency type fields 
+        if(fieldName == 'CC_QAppt__Postal_Code__c'){ 
+            data.sort(function(a,b){
+                var a = numkey(a) ? numkey(a) : '';
+                var b = numkey(b) ? numkey(b) : '';
+                return reverse * ((a>b) - (b>a));
+            }); 
+        }
+        else{// to handel text type fields 
+            data.sort(function(a,b){ 
+                var a = key(a) ? key(a).toLowerCase() : '';//To handle null values , uppercase records during sorting
+                var b = key(b) ? key(b).toLowerCase() : '';
+                return reverse * ((a>b) - (b>a));
+            });    
+        }
+        component.set("v.paginationList",data);
+    },
     /*******************************************************************************************************
      * @description This method called by getLocation,getByAddress,next,last,start,previous
     */
@@ -183,6 +215,6 @@
             else
                 break;
         }
-        component.set("v.locationList",pagelist);
+        component.set("v.paginationList",pagelist);
     }
 })

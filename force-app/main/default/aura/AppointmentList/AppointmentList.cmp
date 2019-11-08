@@ -1,0 +1,16 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="AppointmentLightningController">
+    <aura:attribute  name="relatedAppointment" type="Object[]"/>
+    <aura:attribute name="relatedAppointmentColumns" type="Object[]"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:method name="relatedAppointments" action="{!c.getRelatedAppointments}">
+       <aura:attribute name="Id" type="String" />
+    </aura:method> 
+    <hr/>
+  <div class="slds-text-heading_large ">{!v.relatedAppointment[0].ResourceStaffOrCustomer}</div>
+	<lightning:datatable aura:id = "AppointmentList"
+                         columns = "{!v.relatedAppointmentColumns}"
+                         hideCheckboxColumn = "true"
+                         data = "{!v.relatedAppointment}"
+                         keyField = "Id"
+                         />
+</aura:component>

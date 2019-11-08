@@ -7,7 +7,8 @@
         var actions = [
             {label: 'Edit', name: 'edit'},
             {label: 'Delete', name: 'delete'},
-            {label: 'Appointment', name: 'Appointment'}
+            {label: 'Appointment', name: 'appointment'},
+            {label: 'View Calendar', name: 'calendar'},
         ];
         var action = component.get("c.getFields");
         action.setCallback(this,function(response) {
@@ -40,6 +41,7 @@
     */
     getCustomers : function(component,helper) {
         var action = component.get("c.getCustomers");
+        action.setParams({"CustomerId":null});
         action.setCallback(this,function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
@@ -69,15 +71,17 @@
         console.log(component.get("v.paginationList")); 
                 component.set("v.showspinner",false);
         component.set("v.data",component.get("v.paginationList"));
-                component.set("v.hideFooter",true);
+                component.set("v.showFooter",true);
                 if(dataSize>0){
-                    var pagecount= Math.ceil(dataSize/10);
-        var pgNumber=component.get("v.pageNumber");
+                     pagecount= Math.ceil(dataSize/10);
+       
         
         component.set("v.totalPages",pagecount);
+                    component.set("v.pageNumber",1);
+                     pgNumber=component.get("v.pageNumber");
                 }
                 else{
-                    component.set("v.totalPages",1);
+                    component.set("v.totalPages",0);
                 }
         var totalPages= component.get("v.totalPages");
         if(totalPages==pgNumber){
@@ -164,8 +168,11 @@
     */
     editRecord : function(component, event) {
         component.set("v.isModalOpen",true);
-        var row = event.getParam('row');
-        component.set("v.customerRecord",row);        
+        var rowId = event.getParam('row').Id;
+        console.log('rowId',rowId);
+       // component.set("v.customerRecord",row);  
+         var NewCustomerComponent = component.find("NewCustomer");
+        NewCustomerComponent.GetCustomerRecords(rowId);
     }, 
     /*******************************************************************************************************
     * @description This method is used  handle pagination in datatable.
@@ -184,7 +191,10 @@
         }
         else{
             allRecords = component.get("v.allRecords");
-            totalPages= component.get("v.totalPages");}
+            totalPages=Math.ceil((allRecords.length)/10);
+             component.set("v.totalPages",totalPages);
+          //  totalPages= component.get("v.totalPages");
+            }
         var total=allRecords.length;   
         var recSize=parseInt(component.get("v.pageSize"));
         var pgNumber=component.get("v.pageNumber");       
@@ -214,15 +224,16 @@
     },
     /*******************************************************************************************************
     * @description This method is fired on component initialization.
-    * @returns void.
+    * @returns void.*/
     
     sortData : function(component,fieldName,sortDirection){
-        var data = component.get("v.accountData");
+        var data = component.get("v.data");
         //function to return the value stored in the field
         var key = function(a) { return a[fieldName]; }
         var reverse = sortDirection == 'asc' ? 1: -1;      
         // to handel number/currency type fields 
-        if(fieldName == 'NumberOfEmployees'){ 
+         console.log('fieldname',fieldName);
+        if(fieldName == 'Business Phone'){ 
             data.sort(function(a,b){
                 var a = key(a) ? key(a) : '';
                 var b = key(b) ? key(b) : '';
@@ -237,8 +248,8 @@
             });    
         }
         //set sorted data to accountData attribute
-        component.set("v.accountData",data);
-    },*/
+        component.set("v.data",data);
+    },
     /*******************************************************************************************************
     * @description This method is fired on component initialization.
     * @returns void.
@@ -269,5 +280,15 @@
         } else{
             component.set("v.isLastPage", false);
         }
-    }
+    },
+     showRelatedCalendar : function(component,event,helper){
+      var childCmp = component.find("childCalendar");
+         console.log('childCmp',childCmp);
+      var retnMsg = childCmp.relatedcalendar('Contact',component.get("v.CustomerId"));  
+     },
+         showRelatedAppointments : function(component,event,helper){
+      var childCmp = component.find("childAppointment");
+      var retnMsg = childCmp.relatedAppointments(component.get("v.CustomerId"));    
+     }
+       
 })

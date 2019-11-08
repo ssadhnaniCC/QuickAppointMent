@@ -46,7 +46,7 @@
         
         component.set('v.serviceId',' ');
         var row = event.getParam('row');  
-        console.log('row@',row);
+       
         component.set("v.isModelOpen",true);   
         component.set("v.serviceId",row.Id);  
         var childCmp = component.find("childComp");
@@ -66,14 +66,13 @@
             var state = response.getState();
             if(state === 'SUCCESS' && component.isValid()){
               
-                console.log('response@@',response.getReturnValue());
-                var responseData = response.getReturnValue();
+               var responseData = response.getReturnValue();
                 
                 this.getColumnOfServices(component,event,responseData.listOfFieldSets);
                 
                 component.set('v.data',responseData.listOfServices);
                 var dataLength = component.get('v.data').length;
-                console.log('dataLength@',dataLength);
+                
                 var pageSize = component.get('v.pageSize');
                 component.set("v.totalSize", dataLength);
                 component.set("v.dataSize", dataLength);
@@ -91,7 +90,7 @@
                 }
                 
                 component.set("v.paginationList",customerRecords);  
-                console.log(component.get("v.paginationList")); 
+                
                 component.set("v.isSpinner",false);
                 component.set("v.filteredData",component.get("v.paginationList"));
                 component.set("v.hideFooter",true);
@@ -163,7 +162,7 @@
         var start=(parseInt(component.get("v.pageNumber"))-1)*parseInt(component.get("v.pageSize"));       
         var j=0;
         var tempArray=[];
-        console.log('in pagination',allRecords);
+        
         for(var i=start;i<total;i++){
             if(j>=recSize){
                 break;  
@@ -174,17 +173,40 @@
                 j++;               
             }            
         }
-        console.log('in pagination',tempArray);        
+                
         if(pgNumber==totalPages){
             component.set("v.isLastPage", true);
         } else{
             component.set("v.isLastPage", false);
         }
-        console.log('after pagination',tempArray);
+        
         component.set("v.paginationList",tempArray);
         component.set("v.filteredData", tempArray);
     },
-    
+
+    sortData : function(component,fieldName,sortDirection){
+        var data = component.get("v.filteredData");
+        //function to return the value stored in the field
+        var key = function(a) { return a[fieldName]; }
+        var reverse = sortDirection == 'asc' ? 1: -1;      
+        
+        if(fieldName == 'CC_QAppt__Duration__c' || fieldName == 'CC_QAppt__Price__c'){ 
+            data.sort(function(a,b){
+                var a = key(a) ? key(a) : '';
+                var b = key(b) ? key(b) : '';
+                return reverse * ((a>b) - (b>a));
+            }); 
+        }
+        else{// to handel text type fields 
+            data.sort(function(a,b){ 
+                var a = key(a) ? key(a).toLowerCase() : '';//To handle null values , uppercase records during sorting
+                var b = key(b) ? key(b).toLowerCase() : '';
+                return reverse * ((a>b) - (b>a));
+            });    
+        }
+        //set sorted data to accountData attribute
+        component.set("v.filteredData",data);
+    },
    
     
 })

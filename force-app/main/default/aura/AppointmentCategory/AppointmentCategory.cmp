@@ -1,4 +1,4 @@
-<aura:component controller="AppointmentCategoryLightningComponent" >
+<aura:component controller="AppointmentCategoryLightningController" >
     <!--@description contains boolean field to show or hide datatable footer.-->
     <aura:attribute name="hideFooter" type="boolean" default="False"/>
     <aura:attribute name="showspinner" type="boolean" default="true"/>
@@ -21,7 +21,7 @@
     <!--@description contains list of records after applying searching.-->
     <aura:attribute name="searchList" type="List"/>
     <!--@description contains pageNumber of current page.-->
-    <aura:attribute name="pageNumber" type="Integer" default="1"/>
+    <aura:attribute name="pageNumber" type="Integer" default="0"/>
     <!--@description contains pageSize i.e no of records to show on a page in pagination.-->
     <aura:attribute name="pageSize" type="Integer" default="10"/>
     <!--@description Boolean attribute to check for last page in pagination.-->
@@ -36,20 +36,24 @@
     <aura:attribute name="sortDirection" type="String"/>
     <aura:handler name="init" value="{! this }" action="{! c.init }"/>
     <aura:handler name="refreshEvent" event="c:ParentListRefresh" action="{! c.onSaveAndEdit }"/>
-    <c:NewAppointmentCategory isModalOpen="{!v.isModalOpen}" AppointmentCategoryRecord="{!v.AppointmentCategoryRecord}"/>
-    <div class="slds-text-heading_large ">Appointment Category</div>    
-    <div class="slds-grid slds-gutters">
-        <div class="slds-align_absolute-center" > 
-            <div class="slds-col">
-                <span><button class="slds-button slds-button_outline-brand" onclick="{! c.onAddCustomerClick}">Add Appointment Category</button></span>
+    <c:NewAppointmentCategory isModalOpen="{!v.isModalOpen}" AppointmentCategoryRecord="{!v.AppointmentCategoryRecord}"  aura:id="NewAppointmentCategory"/>   
+    <div class="slds-grid slds-gutters slds-p-left_x-small">
+         <div class="slds-col">
+            <div class="slds-text-heading_large ">Appointment Category</div>  
             </div>
+        <div class="slds-align_absolute-center" > 
+            
             <div class="slds-col">
-                <span><lightning:input type="search" class="label-hidden"  name="enter-search" placeholder="Search"  variant="label-hidden" value="{!v.searchString}" onchange="{!c.onSearch}"/>                    
+                <span><button class="slds-button slds-button_neutral" onclick="{! c.onAddCustomerClick}">Add Appointment Category</button></span>
+            </div>
+        </div>
+            <div class="slds-col ">
+                <span class="slds-size_1-of-2 slds-float_right"><lightning:input type="search" class="label-hidden"  name="enter-search" placeholder="Search"  variant="label-hidden" value="{!v.searchString}" onchange="{!c.onSearch}"/>                    
                 </span>
             </div>          
-        </div>
+        
     </div>
-    <div class="slds-m-top--large">
+    <div class="slds-m-top_xx-large ">
         <aura:if isTrue="{!v.showspinner}">
             <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
                 <span class="slds-assistive-text">Loading</span>
@@ -69,19 +73,20 @@
                              sortedDirection="{!v.sortDirection}"
                              onsort="{!c.handleSort}"/>
         <aura:if  isTrue="{!v.hideFooter}">
-        <div class="slds-clearfix">
-            <div class="slds-page-header " role="banner">
-                <div class=" slds-align_absolute-center">            
+        <div class="slds-clearfix slds-p-top_medium slds-p-left_x-small">
+           
+                <div class="slds-float_right">            
                     <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
-                                      onclick="{!c.onPrev}" disabled="{! v.pageNumber == 1}"/>
+                                      onclick="{!c.onPrev}" disabled="{! v.pageNumber == 1|| v.pageNumber == 0}"/>
                     <lightning:button label="First"  iconPosition="left"
-                                      onclick="{!c.onFirst}" disabled="{! v.pageNumber == 1}"/>
+                                      onclick="{!c.onFirst}" disabled="{! v.pageNumber == 1|| v.pageNumber == 0}"/>
                     <lightning:button  label="Last"  iconPosition="left"
                                       onclick="{!c.onLast}" disabled="{! v.pageNumber==v.totalPages}"/>
                     <lightning:button label="Next" iconName="utility:chevronright" iconPosition="right"
                                       disabled="{! v.pageNumber==v.totalPages}" onclick="{!c.onNext}"/>
-                </div>                
-            </div>
+                </div>   
+            <p class="slds-float_left">Page {!v.pageNumber} of {!v.totalPages} </p>
+            
         </div>
         </aura:if>
     </div>

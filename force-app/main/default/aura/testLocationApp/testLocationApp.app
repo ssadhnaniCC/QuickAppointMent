@@ -1,3 +1,3 @@
 <aura:application extends="force:slds">
-    <c:LocationList />
+    <c:Dashboard />
 </aura:application>

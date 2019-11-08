@@ -2,7 +2,7 @@
     /*For creating new Services*/
     createNewService : function(component, event, helper) {
         component.set('v.serviceId','');
-        console.log('selectedLocation@@',component.get('v.selectedLocation'));
+        
         component.set('v.isNew',true);
         component.set('v.isModelOpen',true);
         component.set('v.selectedLocations',{});
@@ -102,7 +102,7 @@
                 setTimeout(function(){ alert("no record found"); },300);              
                 return;
             }
-            console.log('tpArray',tpArray);
+            
             component.set("v.searchList",tpArray);  
             component.set("v.onSearch",true);
             helper.pagination(component,event,helper);
@@ -119,13 +119,17 @@
     /*******************************************************************************************************
     * @description This is the method which will handle the sorting in datatable
    */
-    handleSort : function(component,event,helper){
-        var fieldName = event.getParam('fieldName');
-        var sortDirection = event.getParam('sortDirection');
-        cmp.set("v.sortedBy", fieldName);
-        cmp.set("v.sortedDirection", sortDirection);
-        helper.sortData(cmp, fieldName, sortDirection);
-    },
+     handleSort : function(component,event,helper){
+        //Returns the field which has to be sorted
+        var sortBy = event.getParam("fieldName");
+        //returns the direction of sorting like asc or desc
+        var sortDirection = event.getParam("sortDirection");
+        //Set the sortBy and SortDirection attributes
+        component.set("v.sortBy",sortBy);
+        component.set("v.sortDirection",sortDirection);
+        // call sortData helper function
+        helper.sortData(component,sortBy,sortDirection);
+    } ,
     
     /*******************************************************************************************************
     * @description This is the method which will handle the actions after inserting service

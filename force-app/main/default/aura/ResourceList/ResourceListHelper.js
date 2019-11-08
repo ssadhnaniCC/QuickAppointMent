@@ -8,6 +8,7 @@
             {label: 'Edit', name: 'edit'},
             {label: 'Delete', name: 'delete'},
             {label: 'Appointment', name: 'appointment'},
+            {label: 'View Calendar', name: 'calendar'},
         ];
             var action = component.get("c.getResourceFieldSet");
             action.setCallback(this,function(response) {
@@ -24,7 +25,7 @@
     /*******************************************************************************************************
      * @description This is the method to fetch Resource Staff
     */
-   getResourceStaff : function(component){
+   getResourceStaff : function(component,event,helper){
             var action = component.get("c.getAllResources");
             action.setCallback(this,function(response) {
             var state = response.getState();
@@ -36,16 +37,19 @@
             component.set("v.hideFooter",true);
             component.set("v.pageNumber",1);
             component.set("v.dataSize",resourcedata.length);
+            if(resourcedata != null){
             var pagecount= Math.ceil((resourcedata.length)/10);
+            if(pagecount==0){
+            component.set("v.pageNumber",0);
+            component.set("v.totalPages",0);
+            }
+            else{
+            component.set("v.pageNumber",1);
             component.set("v.totalPages",pagecount);
-            var pagelist=[];
-          for(var i=0;i<pageSize;i++){
-            if(resourcedata[i])
-                pagelist.push(resourcedata[i]);  
-            else
-                break;
-        }
-       component.set("v.paginationData",pagelist); 
+            }
+
+            helper.handleFirstLast(component,event,helper,component.get("v.pageNumber"));
+            }        
     }
    });
    $A.enqueueAction(action);
@@ -54,26 +58,17 @@
     /*******************************************************************************************************
      * @description This is the method to handle next page Pagination
     */
-  next  : function(component,helper){
+  next  : function(component,event,helper){
       var resourceList = component.get("v.resourceData");
-        var searchResourceList = component.get("v.searchResourceList");
-      if(searchResourceList.length){//null || searchResourceList.length>0){
-          console.log('ghh');
+      var searchResourceList = component.get("v.searchResourceList");
+        if(searchResourceList.length){
           resourceList = searchResourceList;
       }
-             console.log("resourceListNext",resourceList);
-      var start  = component.get("v.pageNumber")+1;
-      var recordPerPage = component.get("v.pageSize");  
-      var i = start * recordPerPage;
-      component.set("v.pageNumber",start);
-      var listpush =[];
-      for(start = i-recordPerPage;start<i;start++){
-          if(resourceList[start] )
-              listpush.push(resourceList[start]);
-          else
-              break;
-      }
-      component.set("v.paginationData",listpush);    
+      var startPagination  = component.get("v.pageNumber")+1;
+      component.set("v.pageNumber",startPagination);
+      var recordPerPage = component.get("v.pageSize");
+      var endPagination = startPagination * recordPerPage;
+       helper.handlePagination(component,event,helper,endPagination-recordPerPage,endPagination,resourceList);
   },
       
    /*******************************************************************************************************
@@ -85,43 +80,35 @@
         if(searchResourceList.length){
           resourceList = searchResourceList;
       }
-      var start  = component.get("v.pageNumber")-1;
-      var recordPerPage = component.get("v.pageSize")  
-      if(start>=1){
-          var i = start * recordPerPage;
-          component.set("v.pageNumber",start);
-          var listpush =[];
-          for(start = i-recordPerPage;start<i;start++){
-              if(resourceList[start] )
-                  listpush.push(resourceList[start]);
-              else
-                  break;
-          }
-          component.set("v.paginationData",listpush);   
-      }
+      var startPagination  = component.get("v.pageNumber")-1;
+      component.set("v.pageNumber",startPagination);
+      var recordPerPage = component.get("v.pageSize");
+      var endPagination = startPagination * recordPerPage;
+       helper.handlePagination(component,event,helper,endPagination-recordPerPage,endPagination,resourceList);
   },
       
    /*******************************************************************************************************
      * @description    This is the method to handle first last page Pagination
     */    
   handleFirstLast : function(component,event,helper,pagenumber){
-      var resourceList = component.get("v.resourceData");
-      var searchResourceList = component.get("v.searchResourceList");
-      if(searchResourceList.length){
+      var resourceList = component.get("v.resourceData");   
+       var searchResourceList = component.get("v.searchResourceList");
+        if(searchResourceList.length){
           resourceList = searchResourceList;
       }
-      var recordPerPage = component.get("v.pageSize");  
-      var i = pagenumber * recordPerPage;
-      var listpush =[];
-      console.log("PageNumber",pagenumber);
-      component.set("v.pageNumber",pagenumber);
-      for(var start = i-recordPerPage;start<i;start++){
-          if(resourceList[start] )
-              listpush.push(resourceList[start]);
-          else
-              break;
+       var pagecount= Math.ceil((resourceList.length)/10);
+      if(pagecount==0){
+          component.set("v.pageNumber",0);
+          component.set("v.totalPages",0);
+          component.set("v.paginationData",[]);
       }
-      component.set("v.paginationData",listpush);   
+    else{
+       component.set("v.totalPages",pagecount);
+       component.set("v.pageNumber",pagenumber);
+       var recordPerPage = component.get("v.pageSize");    
+       var endPagination = pagenumber * recordPerPage;
+       helper.handlePagination(component,event,helper,endPagination-recordPerPage,endPagination,resourceList); 
+      }
   },
       
     /*******************************************************************************************************
@@ -154,6 +141,67 @@
              component.set("v.resourceStaffId",row.Id);  
              var childCmp = component.find("childCmp");
              var retnMsg = childCmp.childMethodCalled();           
-       }
+       },
+    sortData : function(component,fieldName,sortDirection){
+        var data = component.get("v.paginationData");
+        var key = function(a) { return a[fieldName]; }
+        var numkey = function(a){return Number(a[fieldName])};
+        var reverse = sortDirection == 'asc' ? 1: -1;
+        // to handel number/currency type fields 
+        if(fieldName == 'Phone' || fieldName=='MailingPostalCode'){ 
+            data.sort(function(a,b){
+                var a = numkey(a) ? numkey(a) : '';
+                var b = numkey(b) ? numkey(b) : '';
+               return reverse * ((a>b) - (b>a));
+            }); 
+        }
+        else{// to handel text type fields 
+            data.sort(function(a,b){ 
+                var a = key(a) ? key(a).toLowerCase() : '';//To handle null values , uppercase records during sorting
+                var b = key(b) ? key(b).toLowerCase() : '';
+                return reverse * ((a>b) - (b>a));
+            });    
+        }
+       component.set("v.paginationData",data);
+    },
+    
+    handlePaginationOnSearch : function(component,event,helper,pagenumber){
+      var searchResourceList = component.get("v.searchResourceList");
+        console.log("searchResourceListIMP"+JSON.stringify(searchResourceList));
+      var pagecount= Math.ceil((searchResourceList.length)/10);
+        console.log("pagecount"+pagecount);
+      if(pagecount==0){
+          component.set("v.pageNumber",0);
+          component.set("v.totalPages",0);
+          component.set("v.paginationData",[]);
+      }
+      else{
+      component.set("v.pageNumber",pagenumber);
+      component.set("v.totalPages",pagecount);
+      var recordPerPage = component.get("v.pageSize");      
+      var endPagination = pagenumber * recordPerPage;
+        helper.handlePagination(component,event,helper,endPagination-recordPerPage,endPagination,searchResourceList);
+      }
+    },
+    
+    handlePagination : function(component,event,helper,startPagination,end,resourceData){
+    var pageData = [];
+    for(var i =startPagination;i<end ;i++){
+     if(resourceData[i] )
+              pageData.push(resourceData[i]);
+          else
+              break;
+      } 
+      component.set("v.paginationData",pageData);
+   },
+     showRelatedCalendar : function(component,event,helper){
+      var childCmp = component.find("childCalendar");
+      var retnMsg = childCmp.relatedcalendar('Contact',component.get("v.resourceStaffId"));  
+     },
+     showRelatedAppointments : function(component,event,helper){
+      var childCmp = component.find("childAppointment");
+      var retnMsg = childCmp.relatedAppointments(component.get("v.resourceStaffId"));    
+     }
+       
        
 })

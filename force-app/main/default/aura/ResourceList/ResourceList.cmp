@@ -3,7 +3,8 @@
     <aura:attribute name="openNewResourceModal" type="boolean" default="false"/>
     <aura:attribute name="showspinner" type="boolean" default="true"/>
     <aura:attribute name="hideFooter" type="boolean" default="false"/>
-    
+    <aura:attribute name="showRelatedAppointment" type="boolean" default="false"/>
+    <aura:attribute name="showCalendar" type="boolean" default="false"/>
     <!--@description contains resourceStaffId -->
     <aura:attribute name="resourceStaffId" type="String"/>
     
@@ -12,6 +13,7 @@
     <aura:attribute name="searchResourceList" type="Object[]" default="[]"/>
     <aura:attribute name="resourceData" type="Object[]"/>
     <aura:attribute name="columns" type="Object[]"/>
+    
     
     <!--@description These attributes used to empty new modal data-->
     <aura:attribute name="selectlocation" type="Object[]" default="[]"/>
@@ -25,28 +27,30 @@
     
     <!--@description contains attributes to show Pagination-->
     <aura:attribute name="totalPages" type="Integer"/>
-    <aura:attribute name="pageNumber" type="Integer" default="1" />
+    <aura:attribute name="pageNumber" type="Integer" default="0" />
     <aura:attribute name="pageSize" type="Integer" default="10"/>
     <aura:attribute name="dataSize" type="Integer"/>
     
     <!--Sorting Attributes -->
-    <aura:attribute name="sortedBy" type="String" default="Name"/>
-    <aura:attribute name="sortedDirection" type="String" default="asc"/>
+    <aura:attribute name="sortBy" type="String" />
+    <aura:attribute name="sortDirection" type="String" />
     
     <!--@description contains init handler -->
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
-    <div class="slds-text-heading_medium slds-p-top_x-small slds-p-left_xx-large">Resource Staff Details</div>
     
     <!-- Component event Handler-->
     <aura:handler name="refreshEvent" event="c:ParentListRefresh" action="{!c.parentComponentEvent}"/>
     
     <!-- New And Search Component -->
-    <div class="slds-grid slds-gutters">
-        <div class="slds-col slds-size--3-of-5 slds-small-size--1-of-3 slds-medium-size--3-of-5 slds-large-size--3-of-5">
-            <lightning:button class="slds-float_right slds-m-right_large" label="New" title="New" onclick="{!c.handleNewResourceCmp}"/>        
+    <div class="slds-grid slds-gutters slds-p-left_x-small">
+         <div class="slds-col">
+            <span class="slds-text-heading_large ">Resource Staff Details</span> 
+         </div>
+        <div class="slds-col">
+            <lightning:button class="slds-m-right_large" label="New" title="New" onclick="{!c.handleNewResourceCmp}"/>        
         </div>
-        <div class="slds-col slds-size--1-of-5 slds-small-size--1-of-3 slds-medium-size--1-of-5 slds-large-size--1-of-5">
-            <lightning:input type="search" class="label-hidden"  name="enter-search" placeholder="Resource Staff"  variant="label-hidden" value="{!v.searchResourceStaff}" onchange="{! c.handleSearch}"/>          
+        <div class="slds-col">
+            <lightning:input type="search" class="label-hidden slds-size_1-of-2 slds-float_right"  name="enter-search" placeholder="Search Resource"  variant="label-hidden" value="{!v.searchResourceStaff}" onchange="{! c.handleSearch}"/>          
         </div>
     </div>
     
@@ -66,26 +70,31 @@
                              data = "{!v.paginationData}"
                              keyField = "Id"
                              onrowaction="{!c.handleResourceListAction}"
-                             onsort="{!c.updateColumnSorting}"
-                             sortedBy="{!v.sortedBy}"  
-                             sortedDirection="{!v.sortedDirection}"     />
+                             onsort="{!c.handleSort}"
+                             sortedBy="{!v.sortBy}"  
+                             sortedDirection="{!v.sortDirection}"     />
         <aura:if isTrue="{!v.hideFooter}">
-        <div class="slds-clearfix">
-            <div class="slds-page-header" role="banner">
-                <div class="slds-float_right">            
-                    <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
-                                      onclick="{!c.handlePrev}" disabled="{! v.pageNumber == 1}"/>
-                    <lightning:button label="First"  iconPosition="left"
-                                      onclick="{!c.handleFirst}" disabled="{! v.pageNumber == 1}"/>
-                    <lightning:button  label="Last"  iconPosition="left"
-                                      onclick="{!c.handleLast}" disabled="{! v.pageNumber == v.totalPages }"/>
-                    <lightning:button label="Next" iconName="utility:chevronright" iconPosition="right"
-                                      disabled="{! v.pageNumber == v.totalPages }" onclick="{!c.handleNext}"/>
-                </div>
-                <!-- <p class="slds-page-header__title">Page {!v.pageNumber} | Showing records from {! ((v.pageNumber-1)*v.pageSize)+' to '+((v.pageNumber-1)*v.pageSize+(v.dataSize-1))}</p>-->
-                <p class="slds-page-header__title">Page {!v.pageNumber} </p>
+            <div class="slds-clearfix slds-p-top_medium slds-p-left_x-small">
+                    <div class="slds-float_right">            
+                        <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
+                                          onclick="{!c.handlePrev}" disabled="{!(v.pageNumber == 1 || v.pageNumber == 0)}"/>
+                        <lightning:button label="First"  iconPosition="left"
+                                          onclick="{!c.handleFirst}" disabled="{!(v.pageNumber == 1 || v.pageNumber == 0)}"/>
+                        <lightning:button  label="Last"  iconPosition="left"
+                                          onclick="{!c.handleLast}" disabled="{! v.pageNumber == v.totalPages }"/>
+                        <lightning:button label="Next" iconName="utility:chevronright" iconPosition="right"
+                                          disabled="{! v.pageNumber == v.totalPages }" onclick="{!c.handleNext}"/>
+                    </div>
+                    <!-- <p class="slds-page-header__title">Page {!v.pageNumber} | Showing records from {! ((v.pageNumber-1)*v.pageSize)+' to '+((v.pageNumber-1)*v.pageSize+(v.dataSize-1))}</p>-->
+                    <p class="slds-float_left">Page {!v.pageNumber} of {!v.totalPages}</p>
             </div>
-        </div>
-       </aura:if>
+        </aura:if>
     </div>
+    
+    <aura:if isTrue ="{!v.showRelatedAppointment}">
+        <c:AppointmentList aura:id="childAppointment" />
+    </aura:if>
+    <aura:if isTrue = "{!v.showCalendar}">
+        <c:Calendar aura:id="childCalendar" />
+    </aura:if>    
 </aura:component>

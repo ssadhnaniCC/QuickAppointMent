@@ -7,7 +7,6 @@
         var actions = [
             {label: 'Edit', name: 'edit'},
             {label: 'Delete', name: 'delete'},
-            {label: 'Appointment', name: 'Appointment'}
         ];
         var action = component.get("c.getFields");
         action.setCallback(this,function(response) {
@@ -38,7 +37,7 @@
     * @description This method is used to get customer data to show in datatable.
     * @returns void.
     */
-    getCustomers : function(component,helper) {
+    getCategories : function(component,helper) {
         var action = component.get("c.getAppointmentCategories");
         action.setCallback(this,function(response) {
             var state = response.getState();
@@ -72,13 +71,14 @@
                 component.set("v.hideFooter",true);
                 if(dataSize>0){
                     pagecount= Math.ceil(dataSize/10);
+                    component.set("v.pageNumber",1);
                     pgNumber=component.get("v.pageNumber");
                     component.set("v.totalPages",pagecount);
                 }
                 else{
-                    component.set("v.totalPages",1);
+                    component.set("v.totalPages",0);
                 }
-                var totalPages= component.get("v.totalPages");
+              
                 
             }
             else if (state === "INCOMPLETE") {
@@ -99,28 +99,14 @@
         $A.enqueueAction(action);
     },
     /*******************************************************************************************************
-    * @description This method is fired on component initialization.
-    * @returns void.
-    
-    viewRecord : function(component, event) {
-        var row = event.getParam('row');       
-        var recordId = row.Id;        
-        var navEvt = $A.get("event.force:navigateToSObject");
-        navEvt.setParams({
-            "recordId": recordId,
-            "slideDevName": "detail"
-        });
-        navEvt.fire();
-    },  */
-    /*******************************************************************************************************
-    * @description This method is used to delete customer record.
+    * @description This method is used to delete appointment categorys record.
     * @returns void.
     */
     deleteRecord : function(component, event,helper) {         
         var action = component.get("c.deleteCustomer");       
         var rowId=event.getParam('row').Id;        
         action.setParams({
-            "customerId":rowId
+            "Id":rowId
         });
         action.setCallback(this, function(response) {
             var state = response.getState();
@@ -134,7 +120,7 @@
                 toastEvent.fire();              
                */
                 component.set("v.pageNumber",1);
-                this.getCustomers(component,helper);
+                this.getCategories(component,helper);
             }
             else if (state === "INCOMPLETE") {
                 // do something
@@ -154,13 +140,16 @@
         $A.enqueueAction(action);
     },  
     /*******************************************************************************************************
-    * @description This method is edit customer record.
+    * @description This method is edit appointment category record.
     * @returns void.
     */
     editRecord : function(component, event) {
         component.set("v.isModalOpen",true);
-        var row = event.getParam('row');
-        component.set("v.AppointmentCategoryRecord",row);        
+        var rowId = event.getParam('row').Id;
+        console.log('row',rowId);
+       // component.set("v.AppointmentCategoryRecord",row); 
+        var NewAppointmentCategoryComponent = component.find("NewAppointmentCategory");
+        NewAppointmentCategoryComponent.GetCategoryRecords(rowId);
     }, 
     /*******************************************************************************************************
     * @description This method is used  handle pagination in datatable.
@@ -207,33 +196,33 @@
         component.set("v.paginationList",tempArray);
         component.set("v.data", tempArray);
     },
-    /*******************************************************************************************************
+    /******************************************************************************************************
     * @description This method is fired on component initialization.
-    * @returns void.
+    * @returns void.*/
     
     sortData : function(component,fieldName,sortDirection){
-        var data = component.get("v.accountData");
+        var data = component.get("v.data");
         //function to return the value stored in the field
         var key = function(a) { return a[fieldName]; }
         var reverse = sortDirection == 'asc' ? 1: -1;      
         // to handel number/currency type fields 
-        if(fieldName == 'NumberOfEmployees'){ 
+       if(fieldName == 'Name'){ 
             data.sort(function(a,b){
                 var a = key(a) ? key(a) : '';
                 var b = key(b) ? key(b) : '';
                 return reverse * ((a>b) - (b>a));
             }); 
         }
-        else{// to handel text type fields 
+      /*  else{// to handel text type fields 
             data.sort(function(a,b){ 
                 var a = key(a) ? key(a).toLowerCase() : '';//To handle null values , uppercase records during sorting
                 var b = key(b) ? key(b).toLowerCase() : '';
                 return reverse * ((a>b) - (b>a));
             });    
-        }
+        }*/
         //set sorted data to accountData attribute
-        component.set("v.accountData",data);
-    },*/
+        component.set("v.data",data);
+    },
     /*******************************************************************************************************
     * @description This method is fired on component initialization.
     * @returns void.
@@ -256,6 +245,7 @@
         console.log(component.get("v.paginationList"));               
         component.set("v.data",component.get("v.paginationList"));
         var pagecount= Math.ceil(dataSize/10);
+        
         var pgNumber=component.get("v.pageNumber");
         var totalPages= component.get("v.totalPages");
         component.set("v.totalPages",pagecount);

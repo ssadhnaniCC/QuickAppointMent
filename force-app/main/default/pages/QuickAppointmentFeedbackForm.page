@@ -31,11 +31,18 @@
     .rating-stars ul > li.star.selected > i.fa {
         color:#FF912C;
     }
+    
+    .pickVal.selectedBox {
+        background : #FFCC36;
+    }
+    
+    
     </style>
     
     <head>
         <script>
         $(document).ready(function(){
+        
         
         /* 1. Visualizing things on Hover - See next part for action on click */
         $('#stars li').on('mouseover', function(){
@@ -75,38 +82,100 @@
             // JUST RESPONSE (Not needed)
             var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
             getRatingValue(ratingValue);
-            var msg = "";
-            if (ratingValue > 1) {
-                msg = "Thanks! You rated this " + ratingValue + " stars.";
-            }
-            else {
-                msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
-            }
             
             
         });
         
         
+        $('div.pickVal').on('click', function(){
+            var text = $(this).text();
+            
+            $('.pickVal').each(function(i,o){
+                
+                var pick = $(o, this).text();
+                var $this = $(this);
+                if(text == pick) {
+                    $this.data('bgcolor', $this.css('background-color')).css('background-color', '#FFCC36');
+                    
+                }
+                else {
+                    $this.data('bgcolor', $this.css('background-color')).css('background-color', '');
+                }    
+                
+                
+                //can get the name of the element here in a variety of ways, 
+                //sp
+            });
+            
+            passCategory(text);
+            
+        });
+        
+        $('.pickVal').hover(
+            function(){
+                var $this = $(this);
+                $this.data('bgcolor', $this.css('background-color')).css('background-color', '#FFCC36');
+                $this.data('curs',$(this).css('cursor')).css('cursor','pointer');
+            },
+            function(){
+                var $this = $(this);
+                $this.css('background-color', $this.data('bgcolor'));
+                $this.css('cursor', $this.data('curs'));
+            }
+        );   
+        
+        $("[id$=newDesc]").val('');
+        $("[id$=titleVal]").val('');
     });
     
+    
     function getRatingValue(data) {
-      passToController(data);
+        passToController(data);
     }
+    
+  
     
     </script>
 </head>
 <apex:form id="frm">
+    <apex:outputPanel id="msg">
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
+            <span class="slds-assistive-text">info</span>
+            
+            <h2>Feedback Form Submit Successfully
+            </h2>
+            
+        </div>
+    </apex:outputPanel>
     
-   <apex:actionFunction action="{!saveFeedback}" name="passToController" rerender="false">
-<apex:param value="" assignto="{!ratingNumber}" name="inpval"/>
-</apex:actionFunction>
+   
     
-    <div class="slds-panel slds-size_medium slds-panel_docked slds-panel_docked-left slds-is-open slds-align_absolute-center slds-m-top_x-large" style="width: 40%; background:#ecebea;" aria-hidden="false">
+    <apex:actionFunction action="{!getRating}" name="passToController" rerender="false">
+        <apex:param value="" name="inpval"/>
+    </apex:actionFunction>
+    
+    <apex:actionFunction action="{!getCategory}" name="passCategory" rerender="false">
+        <apex:param value="" name="categoryValue"/>
+    </apex:actionFunction>
+    
+    
+   
+    <div class="slds-panel slds-size_medium slds-panel_docked slds-panel_docked-left slds-is-open slds-align_absolute-center slds-m-top_x-large" style="width: 40%; background: #ecebea; position: absolute; margin-left: 30%; height: 93%;" aria-hidden="false">
         <div class="slds-panel__header">
             <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate slds-align_absolute-center" title="Panel Header">Quick Appointment Feedback</h2>
         </div>
         <div class="slds-panel__body">
             <div class="slds-grid slds-grid_vertical">
+                
+                <div class="slds-col slds-border_bottom slds-p-vertical_medium">
+                    
+                    <apex:outputLabel >Title : </apex:outputLabel>
+                    
+                    <div>
+                       <apex:inputField styleClass="slds-input" value="{!qaf.Name}" id="titleVal"/>
+                    </div>
+                </div>
+                
                 <div class="slds-col slds-border_bottom">
                     <span>We would like your feedback to improve our app.<br/>
                         What is your opinion of this app?
@@ -140,8 +209,8 @@
                     <div class="slds-grid slds-gutters">
                         
                         <apex:repeat value="{!pickListValuesList}" var="pickValue" id="theRepeat">
-                            <div class="slds-col ">
-                                <div class="slds-box slds-m-top_x-small">
+                            <div class="slds-col" id="fedBox">
+                                <div class="slds-box slds-m-top_x-small pickVal" id="box" value="{!pickValue}">
                                     <p>{!pickValue}</p>
                                 </div>
                             </div>
@@ -154,14 +223,18 @@
                     <p>Please leave your feedback below:</p>
                     <div class="slds-m-top_x-small">
                         
-                        <apex:inputTextarea id="newDesc" value="{!qaf.name}" style="width: 100%;height:72px;"/><p/>
+                        <apex:inputTextarea id="newDesc" value="{!qaf.Comments__c}" style="width: 100%;height:72px;"/><p/>
                     </div>
+                    
+                </div>
+                <div class="slds-col slds-p-vertical_medium">
+                    <apex:commandButton styleclass="slds-button slds-button_brand slds-align_absolute-center slds-m-top_small" value="Submit" action="{!saveFeedback}" reRender="msg"/>
                     
                 </div>
             </div>
         </div>
     </div>
-    <button class="slds-button slds-button_brand slds-align_absolute-center slds-m-top_small" onclick="passToController(); return false;">Submit</button>
+    
    
 </apex:form>
 </apex:page>

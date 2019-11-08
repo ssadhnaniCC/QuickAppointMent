@@ -56,6 +56,8 @@
     handleRowAction: function (component, event, helper) {
         var action = event.getParam('action');
        // alert(action.name);
+          var row = event.getParam('row');  
+         component.set("v.CustomerId",row.Id);
         switch (action.name) {
             case 'edit':
                 helper.editRecord(component, event);
@@ -63,9 +65,14 @@
             case 'delete':
                 helper.deleteRecord(component, event);
                 break;
-            case 'Appointment':
-                helper.viewRecord(component, event);
+            case 'appointment':
+                component.set("v.showRelatedAppointment",true);
+                helper.showRelatedAppointments(component,event,helper);
                 break;
+            case 'calendar':
+                component.set("v.showCalendar",true);
+                helper.showRelatedCalendar(component,event,helper);
+                break;  
         }
     },
      /*******************************************************************************************************
@@ -95,8 +102,11 @@
             }
             if(tpArray.length==0){
                  component.set("v.data",null);
-                component.set("v.isLastPage",true);
-               setTimeout(function(){ alert("no record found"); },300);              
+                component.set("v.isLastPage",true);                
+                 component.set("v.pageNumber",0);
+                 component.set("v.totalPages",0);
+                
+           //    setTimeout(function(){ alert("no record found"); },300);              
                 return;
             }
             console.log('tpArray',tpArray);
@@ -107,6 +117,7 @@
         if(strLength<=1){
             component.set("v.onSearch",false);
             component.set("v.pageNumber",1);
+              component.set("v.totalPages", Math.ceil(component.get("v.allRecords").length/10));
             helper.pagination(component,event,helper);
         }
     },

@@ -37,22 +37,28 @@
     <aura:attribute name="fltValue" type="String" />
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:handler name="refreshEvent" event="c:ParentListRefresh" action="{! c.onSaveAndEdit }"/>
+     <!-- @description contains name of field name to apply sorting.-->
+    <aura:attribute name="sortBy" type="String"/>
+    <!-- @description contains sorting direction i.e ascending or descending.-->
+    <aura:attribute name="sortDirection" type="String"/>
     
-    
-    <div class="slds-text-heading_large slds-p-top_x-small slds-p-left_xx-large">Service Details</div>
-    
-    <div class="slds-grid slds-gutters">
+    <div class="slds-grid slds-gutters slds-p-left_x-small">
+        <div class="slds-col">
+            <span class="slds-text-heading_large ">Service Details</span> 
+        </div>
         <div class="slds-align_absolute-center" > 
             <div class="slds-col">
-                <lightning:button class="slds-float--right" variant="brand" label="New" title="New" onclick="{!c.createNewService}"/>
+                <span><button class="slds-button slds-button_neutral" onclick="{!c.createNewService}">Add Service</button></span>
             </div>
-            <div class="slds-col">
-                <span><lightning:input type="search" class="label-hidden" value="{!v.fltValue}"  name="enter-search" placeholder="Search"  variant="label-hidden" onchange="{!c.searchTable}"/>
-                    
-                </span>
-            </div>
+        </div>    
+        <div class="slds-col">
             
-        </div>
+            <span><lightning:input type="search" class="label-hidden slds-size_1-of-2 slds-float_right" value="{!v.fltValue}"  name="enter-search" placeholder="Search"  variant="label-hidden" onchange="{!c.searchTable}"/>
+                
+                
+            </span>
+        </div>          
+        
     </div>
     
     <!--For Open Model Box With Other Child component-->
@@ -63,7 +69,7 @@
    
       
     <!--Lightning:datatable with searching and sorting functionality-->
-    <div class="slds-m-around_large">
+    <div class="slds-m-top_xx-large">
          <aura:if isTrue="{!v.isSpinner}">
             <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
                 <span class="slds-assistive-text">Loading</span>
@@ -78,13 +84,17 @@
                              data = "{!v.filteredData}"
                              keyField = "Id"
                              onrowaction = "{!c.handleRowAction}"
-                             hideCheckboxColumn="true"/>
+                             hideCheckboxColumn="true"
+                             onsort="{!c.handleSort}"
+                             sortedBy="{!v.sortBy}"  
+                             sortedDirection="{!v.sortDirection}"
+                             />
         
         <aura:if  isTrue="{!v.hideFooter}">
         
         <div class="slds-clearfix">
-            <div class="slds-page-header " role="banner">
-                <div class=" slds-align_absolute-center">            
+           
+                <div class="slds-float_right">            
                     <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
                                       onclick="{!c.onPrev}" disabled="{! v.pageNumber == 1}"/>
                     <lightning:button label="First"  iconPosition="left"
@@ -95,7 +105,7 @@
                                       disabled="{!v.isLastPage}" onclick="{!c.onNext}"/>
                 </div>
                 
-            </div>
+         <p class="  slds-float_left slds-badge slds-badge_lightest">Page {!v.pageNumber} of {!v.totalPages} </p>
             </div></aura:if>
     </div>
     

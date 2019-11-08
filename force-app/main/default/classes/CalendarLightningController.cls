@@ -10,8 +10,10 @@ public class CalendarLightningController {
 * @returns Returns Wrapper List with Appointments details.
 */
     @AuraEnabled
-    public static List<calendarWrapper> fetchAppointments(){
+    public static List<calendarWrapper> fetchAppointments(String ObjectName, String recordId){
+        List<CC_QAppt__Appointment__c> previousAppointments  = new List<CC_QAppt__Appointment__c>();
         List<calendarWrapper> calWrapp = new List<calendarWrapper>();
+        List<contact> customerList = new List<contact>();  
         //Get User Time Zone
         TimeZone tz = UserInfo.getTimeZone();
         String currentTimeZone =  tz.getID();
@@ -21,12 +23,24 @@ public class CalendarLightningController {
         String  StatusRunning = UIPanelData.Status_Running__c;
         String  StatusCompleted = UIPanelData.Status_Completed__c;
         String  StatusDeclined = UIPanelData.Status_Declined__c;
-        List<CC_QAppt__Appointment__c> previousAppointments  = QuickAppointmentSOQLManager.getPreviousAppointments();
+        
+        List<contact> con = [SELECT RecordType.Name,RecordType.DeveloperName FROM contact where Id =: recordId];
+        String recordTypeName = con[0].RecordType.Name;
+        if(recordTypeName == 'Resource'){
+            previousAppointments = QuickAppointmentSOQLManager.getPreviousAppointments('contact',recordId);
+        }
+        if(recordTypeName == 'User'){
+            customerList = QuickAppointmentSOQLManager.getCustomers(recordId);
+            previousAppointments = QuickAppointmentSOQLManager.getPreviousAppointmentsForCustomers(recordId);
+        }
+  
+  //      List<CC_QAppt__Appointment__c> previousAppointments  = QuickAppointmentSOQLManager.getPreviousAppointments(ObjectName,recordId);
         for(CC_QAppt__Appointment__c prevApp : previousAppointments){
             calendarWrapper obj = new calendarWrapper();
             obj.Id = prevApp.Id;
             obj.startDate = prevApp.CC_QAppt__Start_Date_Time__c.format('MM/dd/yyyy HH:mm:ss',currentTimeZone);
             obj.endDate = prevApp.CC_QAppt__End_Date_Time__c.format('MM/dd/yyyy HH:mm:ss',currentTimeZone);
+            obj.RelatedListName = prevApp.CC_QAppt__Resource_Service_Alignment__r.CC_QAppt__Service__r.Name;
             obj.Name = prevApp.Name;
             obj.Description = prevApp.CC_QAppt__Description__c;
             obj.Status = prevApp.CC_QAppt__Status__c;
@@ -57,6 +71,7 @@ public class CalendarLightningController {
         @AuraEnabled   public String startDate;
         @AuraEnabled   public String endDate;
         @AuraEnabled   public String Name;
+        @AuraEnabled   public String RelatedListName;
         @AuraEnabled   public String Description;
         @AuraEnabled   public String Status;
         @AuraEnabled   public String eventColor; 

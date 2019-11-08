@@ -1,6 +1,13 @@
-<aura:component controller="CustomerLightningComponent" >
+<aura:component controller="CustomerLightningController" >   
+     <!--Sorting Attributes -->
+    <aura:attribute name="sortedBy" type="String" default="Name"/>
+    <aura:attribute name="sortedDirection" type="String" default="asc"/>
+      <!--@description contains boolean variable to show related appointment list  -->
+      <aura:attribute name="showRelatedAppointment" type="boolean" default="false"/>
+     <!--@description contains CustomerId -->
+    <aura:attribute name="CustomerId" type="String"/>
     <!--@description contains boolean field to show or hide datatable footer.-->
-    <aura:attribute name="hideFooter" type="boolean" default="False"/>
+    <aura:attribute name="showFooter" type="boolean" default="False"/>
     <aura:attribute name="showspinner" type="boolean" default="true"/>
      <!--@description contains field values of customer record.-->
     <aura:attribute name="customerRecord" type="Object" default="{'sObjectType':'Contact', 'Name':'','MailingStreet':'','MailingCity':'','MailingStreet':'','MailingPostalCode':'','MailingCountry':'','Phone':'','Description':''}"/>
@@ -21,7 +28,7 @@
     <!--@description contains list of records after applying searching.-->
     <aura:attribute name="searchList" type="List"/>
     <!--@description contains pageNumber of current page.-->
-    <aura:attribute name="pageNumber" type="Integer" default="1"/>
+    <aura:attribute name="pageNumber" type="Integer" default="0"/>
     <!--@description contains pageSize i.e no of records to show on a page in pagination.-->
     <aura:attribute name="pageSize" type="Integer" default="10"/>
     <!--@description Boolean attribute to check for last page in pagination.-->
@@ -33,23 +40,28 @@
     <!-- @description contains name of field name to apply sorting.-->
     <aura:attribute name="sortBy" type="String"/>
     <!-- @description contains sorting direction i.e ascending or descending.-->
-    <aura:attribute name="sortDirection" type="String"/>
+    <aura:attribute name="sortDirection" type="String"/>    
+    <aura:attribute name="showCalendar" type="boolean"/>    
     <aura:handler name="init" value="{! this }" action="{! c.init }"/>
     <aura:handler name="refreshEvent" event="c:ParentListRefresh" action="{! c.onSaveAndEdit }"/>
-    <c:NewCustomer isModalOpen="{!v.isModalOpen}" customerRecord="{!v.customerRecord}"/>
-    <div class="slds-text-heading_large ">Customer Details</div>    
-    <div class="slds-grid slds-gutters">
+    <c:NewCustomer isModalOpen="{!v.isModalOpen}" customerRecord="{!v.customerRecord}" aura:id="NewCustomer"/>
+        
+    <div class="slds-grid slds-gutters slds-p-left_x-small">
+         <div class="slds-col">
+            <span class="slds-text-heading_large ">Customer Details</span> 
+            </div>
         <div class="slds-align_absolute-center" > 
             <div class="slds-col">
-                <span><button class="slds-button slds-button_outline-brand" onclick="{! c.onAddCustomerClick}">Add Customer</button></span>
+                <span><button class="slds-button slds-button_neutral" onclick="{! c.onAddCustomerClick}">Add Customer</button></span>
             </div>
+        </div>    
             <div class="slds-col">
-                <span><lightning:input type="search" class="label-hidden"  name="enter-search" placeholder="Search"  variant="label-hidden" value="{!v.searchString}" onchange="{!c.onSearch}"/>                    
+                <span><lightning:input type="search" class="label-hidden slds-size_1-of-2 slds-float_right"  name="enter-search" placeholder="Search Customer"  variant="label-hidden" value="{!v.searchString}" onchange="{!c.onSearch}"/>                    
                 </span>
             </div>          
-        </div>
+        
     </div>
-    <div class="slds-m-top--large">
+    <div class="slds-m-top_xx-large">
         <aura:if isTrue="{!v.showspinner}">
             <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
                 <span class="slds-assistive-text">Loading</span>
@@ -68,21 +80,29 @@
                              sortedBy="{!v.sortBy}"
                              sortedDirection="{!v.sortDirection}"
                              onsort="{!c.handleSort}"/>
-        <aura:if  isTrue="{!v.hideFooter}">
-        <div class="slds-clearfix">
-            <div class="slds-page-header " role="banner">
-                <div class="slds-align_absolute-center">            
+       
+        <div class="slds-clearfix slds-p-top_medium slds-p-left_x-small">
+          
+                <div class="slds-float_right">            
                     <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
-                                      onclick="{!c.onPrev}" disabled="{! v.pageNumber == 1}"/>
+                                      onclick="{!c.onPrev}" disabled="{! v.pageNumber == 1|| v.pageNumber == 0}"/>
                     <lightning:button label="First"  iconPosition="left"
-                                      onclick="{!c.onFirst}" disabled="{! v.pageNumber == 1}"/>
+                                      onclick="{!c.onFirst}" disabled="{! v.pageNumber == 1|| v.pageNumber == 0}"/>
                     <lightning:button  label="Last"  iconPosition="left"
                                       onclick="{!c.onLast}" disabled="{! v.isLastPage }"/>
                     <lightning:button label="Next" iconName="utility:chevronright" iconPosition="right"
                                       disabled="{!v.isLastPage}" onclick="{!c.onNext}"/>
                 </div>                
-            </div>
+            
+              <p class="slds-float_left">Page {!v.pageNumber} of {!v.totalPages} </p>
         </div>
-        </aura:if>
+        
+   <aura:if isTrue ="{!v.showRelatedAppointment}">
+        <c:AppointmentList recordId="{!v.CustomerId}" aura:id="childAppointment"/>
+    </aura:if>    
+    <aura:if isTrue = "{!v.showCalendar}">
+        <c:Calendar aura:id="childCalendar" />
+    </aura:if>    
+
     </div>
 </aura:component>

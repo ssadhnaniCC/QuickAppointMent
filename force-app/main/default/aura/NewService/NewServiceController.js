@@ -20,7 +20,6 @@
     * @description This is the init method which will fetch all the available Locations.
    */
     doInit : function(component,event,helper){
-        console.log('selLoc@',component.get('v.selectedLocation'));
         helper.fetchAllLocations(component,helper);
     },
     
@@ -32,7 +31,7 @@
     handleChange: function (cmp, event) {
         // Get the list of the "value" attribute on all the selected options
         var selectedOptionsList = event.getParam("value");
-        console.log('LocID@',selectedOptionsList);
+        
         cmp.set('v.selectedLocation',selectedOptionsList);
         
     },
@@ -55,7 +54,7 @@
         },true);
         
        if(isAllValid){
-           alert();
+          
        helper.saveService(component,event,helper);
      }
             
@@ -68,7 +67,7 @@
    */
     
     getSelectedLocation : function(component,event,helper) {
-        alert(component.get('v.recId'));
+        
         helper.fetchAllLocations(component,event);
         helper.fetchSelectedLocations(component,event,helper);
        

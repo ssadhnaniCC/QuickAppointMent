@@ -1,4 +1,6 @@
-<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="AppointmentCategoryLightningComponent" >
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="AppointmentCategoryLightningController" >
+   
+    
     <!--@description contains boolean  to show or hide ModalBox.-->
     <aura:attribute name="isModalOpen" type="boolean" default="False"/>
     <!--@description contains field values of customer record.-->
@@ -7,9 +9,14 @@
     <aura:registerEvent name="refreshEvent" type="c:ParentListRefresh"/>
     <!--@description init handler.-->
     <aura:handler name="init" value="{! this}" action="{!c.onInit}"/>
+    <!--@description method to be called by the parent component.-->
+    <aura:method name="GetCategoryRecords" action="{!c.getRecord}"
+                 access="public">
+        <aura:attribute name="recordId" type="String" />
+    </aura:method>
     <!-- Modal/Popup Box starts here-->
     <aura:if isTrue="{!v.isModalOpen}">
-        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
             <div class="slds-modal__container">
                 <!-- Modal/Popup Box Header Starts here-->
                 <header class="slds-modal__header">
@@ -24,44 +31,45 @@
                 
                 <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
                     
-                    <lightning:input type="text" label="Name" name="red" value="{!v.AppointmentCategoryRecord.Name}" />
+                    <lightning:input  class="slds-m-bottom_small"  type="text" label="Name" name="red" value="{!v.AppointmentCategoryRecord.Name}" />
                     <div class="slds-grid slds-gutters slds-border_top slds-p-top_medium slds-p-bottom_medium">
-                        <div class="slds-col slds-size_1-of-2 ">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
                             
-                                    <lightning:input type="checkbox" label="Location Mandatory" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsLocationMandatory__c}" />
-                                    <lightning:input type="checkbox" label="Service Mandatory" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsServiceMandatory__c}"/>
-                                    <lightning:input type="checkbox" label="Attendee Mandatory" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAttendeeMandatory__c}"/>
-                                    
+                                    <lightning:input type="checkbox" aura:id="locationMandatory" label="Location Mandatory"   checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsLocationMandatory__c}" onchange="{!c.onLocationCheckBoxChange}" />
+                                    <lightning:input type="checkbox"  aura:id="serviceMandatory" label="Service Mandatory" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsServiceMandatory__c}" onchange="{!c.onServiceCheckBoxChange}"/>
+                                    <lightning:input type="checkbox" aura:id="attendeeMandatory" label="Attendee Mandatory"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAttendeeMandatory__c}" onchange="{!c.onAttendeeCheckBoxChange}"/>
+                                    <lightning:input type="checkbox"  aura:id="assetMandatory" label="Asset Mandatory" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAssetMandatory__c}" onchange="{!c.onAssetCheckBoxChange}"/>
+                            <lightning:input type="checkbox" aura:id="resourceMandatory" label="Resource Mandatory" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsResourceMandatory__c}" onchange="{!c.onResourceCheckBoxChange}"/>
 
                         </div>
-                        <div class="slds-col slds-size_1-of-2 ">
-                            <lightning:input type="checkbox" label="Resource Mandatory" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsResourceMandatory__c}"/>
-                            <lightning:input type="checkbox" label="Asset Mandatory" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAssetMandatory__c}"/>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                           <lightning:input type="checkbox" aura:id="multipleLocation" disabled="true" label="Multiple Location Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleLocation__c}" />
+                             <lightning:input type="checkbox"  aura:id="multipleService" disabled="true" label="Multiple Service Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleService__c}" />
+                            <lightning:input type="checkbox" aura:id="multipleAttendee" disabled="true" label="Multiple Attendee Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleAttendee__c}"/>
+                               <lightning:input type="checkbox"  aura:id="multipleAsset" disabled="true" label="Multiple Asset Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleAsset__c}" />
+                            
+                            
+                            <lightning:input type="checkbox" aura:id="multipleResource" disabled="true" label="Multiple Resource Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleResource__c}"/>
                             
                             
                             
                         </div>
+                        
                     </div>
                     <div class=" slds-grid slds-gutters slds-border_top slds-p-top_medium slds-p-bottom_medium">
                         
                         
                         
-                            <div class="slds-col slds-size_1-of-2 ">
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 ">
                                 
                                         
-                                            <lightning:input type="checkbox" label="Multiple Asset Allowed" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleAsset__c}" />
-                                            <lightning:input type="checkbox" label="Multiple Location Allowed" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleLocation__c}"/>
-                                            <lightning:input type="checkbox" label="Multiple Attendee Allowed" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleAttendee__c}"/>
+                                         
+                                            
+                                            <lightning:input type="checkbox" label="Pricing Applicable"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsPricingApplicable__c}"/>
                                             
                                        
                                 </div>
-                                <div class="slds-col slds-size_1-of-2 ">
-                                    
-                                            <lightning:input type="checkbox" label="Multiple Service Allowed" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleService__c}"/>
-                                            <lightning:input type="checkbox" label="Multiple Resource Allowed" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleResource__c}"/>
-                                            
-                                      
-                                </div>
+                               
                             
                             
                             
@@ -69,10 +77,10 @@
                         <div class="slds-grid slds-gutters slds-border_top slds-p-top_medium">
                             
                            
-                                <div class="slds-col slds-size_1-of-2 ">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 ">
                                    
-                                            <lightning:input type="checkbox" label="Pricing Applicable" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsPricingApplicable__c}"/>
-                                            <lightning:input type="checkbox" label="Available Publically" name="red" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAvaliablePublically__c}"/>                                          
+                                            
+                                            <lightning:input type="checkbox" label="Available Publically"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAvaliablePublically__c}"/>                                          
                                        
                                 </div>
                             
@@ -82,11 +90,11 @@
             
                 <!--Modal/Popup Box Footer Starts here-->                
                 <footer class="slds-modal__footer">
-                    <lightning:button variant="neutral"
+                    <lightning:button variant="brand"
                                       label="Save"
                                       title="Save"
                                       onclick="{!c.onCustomerSave}"/>
-                    <lightning:button variant="brand"
+                    <lightning:button variant="neutral"
                                       label="Cancel"
                                       title="Cancel"
                                       onclick="{!c.closeModel}"/>

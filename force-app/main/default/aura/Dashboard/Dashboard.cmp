@@ -1,0 +1,6 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="DashboardControler">
+	<ltng:require scripts="{!$Resource.Chart}" afterScriptsLoaded="{!c.generateChart}"/>
+     <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--3-of-4">
+        <canvas aura:id="barChart" />
+    </div>
+</aura:component>

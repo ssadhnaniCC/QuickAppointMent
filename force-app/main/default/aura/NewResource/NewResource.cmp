@@ -41,15 +41,15 @@
                 </header>
                 <!--Body of New Resource Modal-->
                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                    <div class="slds-grid slds-gutters">
-                        <div class="slds-col slds-size_1-of-2">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
                             <div class="slds-form-element">
                                 <div class="slds-form-element__control">
                                     <lightning:input  aura:id="ResourceName" name="Resource_Name" class="label-hidden" label="Name" placeholder="Name" value="{!v.resourceRecord.Name}" required="true" messageWhenValueMissing="Please Enter Resource staff/name"/>
                                 </div>
                             </div>                           
                         </div>
-                        <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
                             <div class="slds-form-element">
                                 <div class="slds-form-element__control">
                                 <lightning:input name="Resource_Address" class="label-hidden" label="Address" placeholder="Address" value="{!v.resourceRecord.MailingStreet}"/>
@@ -57,15 +57,15 @@
                             </div>                           
                         </div>
                     </div>
-                    <div class="slds-grid slds-gutters">
-                        <div class="slds-col slds-size_1-of-2">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col  slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
                             <div class="slds-form-element">
                                 <div class="slds-form-element__control">
                                     <lightning:input name="Resource_City" class="label-hidden" label="City" placeholder="City" value="{!v.resourceRecord.MailingCity}" />   
                                 </div>                            
                                </div>
                             </div>                           
-                          <div class="slds-col slds-size_1-of-2">
+                          <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
                             <div class="slds-form-element">
                                 <div class="slds-form-element__control">
                                     <lightning:input name="Resource_State" class="label-hidden" label="State" placeholder="State" value="{!v.resourceRecord.MailingState}"/>   
@@ -73,15 +73,15 @@
                                </div>
                             </div> 
                     </div>
-                    <div class="slds-grid slds-gutters">
-                        <div class="slds-col slds-size_1-of-2">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
                             <div class="slds-form-element">
                                 <div class="slds-form-element__control">
                                     <lightning:input name="Resource_PostalCode" class="label-hidden" label="PostalCode"  placeholder="PostalCode" value="{!v.resourceRecord.MailingPostalCode}"/>  
                                 </div>
                                 </div>
                             </div>                           
-                        <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
                             <div class="slds-form-element">
                                 <div class="slds-form-element__control">
                                     <lightning:input name="Resource_Country" class="label-hidden" label="Country"  placeholder="Country" value="{!v.resourceRecord.MailingCountry}"/>  
@@ -89,8 +89,8 @@
                             </div>                           
                         </div>
                     </div>
-                    <div class="slds-grid slds-gutters">
-                        <div class="slds-col slds-size_1-of-2">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
                             <div class="slds-form-element">
                                 <div class="slds-form-element__control">
                                     <lightning:input name="Resource_Phone" class="label-hidden" label="Phone"  placeholder="Phone" value="{!v.resourceRecord.Phone}"/>  
@@ -98,7 +98,7 @@
                             </div>                           
                         </div>
                     </div>                        
-                    <div class="slds-grid slds-gutters" style="postion:relative">
+                    <div class="slds-grid slds-gutters slds-wrap" style="postion:relative">
                         <aura:if isTrue="{!v.showSpinner}">
                             <div class="slds-spinner_container">
                                     <div role="status" class="slds-spinner slds-spinner_medium">
@@ -108,7 +108,7 @@
                                     </div>
                                 </div>
                         </aura:if>
-                        <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
                             <lightning:dualListbox name="multipleOptions"  
                                                    sourceLabel="Available Location" 
                                                    selectedLabel="Selected Location" 
@@ -117,7 +117,7 @@
                                                    onchange="{! c.handleOnLocationSelect }"/>                           
                         </div>
                         <aura:if isTrue="{!v.disableServiceDualLstBox}">
-                        <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
                             <lightning:dualListbox name="multipleOptions"  
                                                    sourceLabel="Available Service" 
                                                    selectedLabel="Selected Service" 
@@ -133,7 +133,7 @@
                 </div>
                 <!--Footer of New Resource Modal-->
                 <footer class="slds-modal__footer">
-                    <lightning:button variant="neutral"
+                    <lightning:button variant="brand"
                                       label="Save"
                                       title="Save"
                                       onclick="{! c.saveNewResource }"/>

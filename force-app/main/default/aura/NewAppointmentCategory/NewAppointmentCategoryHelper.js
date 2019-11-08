@@ -39,5 +39,14 @@
                 }
         });
         $A.enqueueAction(action);
+    },
+    hideOrShowCheckbox : function(component, event, helper,reference,BoolVal) {
+    var value=component.find(reference);      
+    if(BoolVal){
+    value.set("v.disabled",false);
     }
+ else{
+    value.set("v.disabled",true);
+}
+}
 })
