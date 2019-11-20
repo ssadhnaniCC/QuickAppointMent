@@ -1,0 +1,30 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="iconName" type="String"/>
+    <aura:attribute name="iconSize" type="String"/>
+    <aura:attribute name="fontsize" type="String"/>
+    <aura:attribute name="headerName" type="String"/>
+    
+    <!--@description It is resusable header component--> 
+    <div class="slds-page-header">
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <lightning:icon iconName="{!v.iconName}" size="{!v.iconSize}" />  
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span class="slds-page-header__title slds-truncate slds-m-left_small slds-grid–vertical-align-center" title="Calendar View">{!v.headerName}</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+</aura:component>

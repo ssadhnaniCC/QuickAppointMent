@@ -12,8 +12,7 @@
             var state = response.getState();
             if (state === "SUCCESS") {
                  component.set("v.isModalOpen", false);
-                var refreshEvent = component.getEvent("refreshEvent");
-                console.log(refreshEvent);
+                var refreshEvent = component.getEvent("refreshEvent");               
                 refreshEvent.fire();
                /*var toastEvent = $A.get("e.force:showToast");
     toastEvent.setParams({

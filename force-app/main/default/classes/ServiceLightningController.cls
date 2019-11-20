@@ -72,6 +72,7 @@ public class ServiceLightningController {
         if(locServiceList.size()>0){
            try{
                 UPSERT locServiceList;
+               system.debug('locServiceList=='+locServiceList[0].id);
              }
             catch(Exception e){
                 system.debug('Exception'+e);

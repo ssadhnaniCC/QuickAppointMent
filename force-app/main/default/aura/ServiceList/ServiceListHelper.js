@@ -14,6 +14,8 @@
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS" ) {
+                component.set("v.showRelatedAppointment",false);
+                component.set("v.showCalendar",false);
                 component.set("v.pageNumber",1);
                 this.getServiceRecords(component);
                 
@@ -43,7 +45,8 @@
    */
     
     editRecord : function(component, event) {
-        
+        component.set("v.showCalendar",false);
+        component.set("v.showRelatedAppointment",false);
         component.set('v.serviceId',' ');
         var row = event.getParam('row');  
        
@@ -58,7 +61,7 @@
     * @description This is the method which will handle the records to be show in datatable
    */
     
-    getServiceRecords : function(component) {
+    getServiceRecords : function(component,event,helper) {
        component.set('v.isSpinner',true);
         var action = component.get('c.getAllServices');
         action.setCallback(this, function(response){
@@ -72,12 +75,14 @@
                 
                 component.set('v.data',responseData.listOfServices);
                 var dataLength = component.get('v.data').length;
-                
                 var pageSize = component.get('v.pageSize');
+               
                 component.set("v.totalSize", dataLength);
                 component.set("v.dataSize", dataLength);
                 var recSize=parseInt(component.get("v.pageSize"));
                 var num=0;
+                var pgNumber=0;
+                var pagecount=0;
                 var customerRecords=[];
                 for(var i=0;i<dataLength;i++){
                     if(num>=recSize){
@@ -95,14 +100,32 @@
                 component.set("v.filteredData",component.get("v.paginationList"));
                 component.set("v.hideFooter",true);
                 var pagecount= Math.ceil(dataLength/10);
-                var pgNumber=component.get("v.pageNumber");
+                /*ar pgNumber=component.get("v.pageNumber");
                 var totalPages= component.get("v.totalPages");
                 component.set("v.totalPages",pagecount);
+                
                 if(totalPages==pgNumber){
                     component.set("v.isLastPage", true);
                 } else{
                     component.set("v.isLastPage", false);
+                }*/
+                if(dataLength>0){
+                    pagecount= Math.ceil(dataLength/10);
+                    
+                    
+                    component.set("v.totalPages",pagecount);
+                    component.set("v.pageNumber",1);
+                    pgNumber=component.get("v.pageNumber");
                 }
+                else{
+                    component.set("v.totalPages",0);
+                }
+                var totalPages= component.get("v.totalPages");
+                if(totalPages==pgNumber){
+                    component.set("v.isLastPage", true);
+                } else{
+                    component.set("v.isLastPage", false);
+                }          
                 
                
             }
@@ -130,7 +153,8 @@
          var actions = [
             {label: 'Edit', name: 'edit'},
             {label: 'Delete', name: 'delete'},
-            
+            {label: 'Appointment', name: 'appointment'},
+            {label: 'View Calendar', name: 'calendar'}, 
         ];
              
              var colNames = columnList;
@@ -183,6 +207,8 @@
         component.set("v.paginationList",tempArray);
         component.set("v.filteredData", tempArray);
     },
+    
+    
 
     sortData : function(component,fieldName,sortDirection){
         var data = component.get("v.filteredData");
@@ -207,6 +233,18 @@
         //set sorted data to accountData attribute
         component.set("v.filteredData",data);
     },
+     showRelatedAppointments : function(component,event,helper){
+        component.set("v.showCalendar",false);
+        var recordId = event.getParam('row').Id;
+        var childCmp = component.find("childAppointment");
+        var retnMsg = childCmp.relatedAppointments('Service',recordId);    
+    },
+      showRelatedCalendar : function(component,event,helper){
+            component.set("v.showRelatedAppointment",false);
+           var recordId = event.getParam('row').Id;
+           var childCmp = component.find("childCalendar");
+           var retnMsg = childCmp.relatedcalendar('Service',recordId);  
+       },
    
     
 })

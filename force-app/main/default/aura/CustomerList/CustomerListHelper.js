@@ -7,7 +7,7 @@
         var actions = [
             {label: 'Edit', name: 'edit'},
             {label: 'Delete', name: 'delete'},
-            {label: 'Appointment', name: 'appointment'},
+            {label: 'View Appointments', name: 'appointment'},
             {label: 'View Calendar', name: 'calendar'},
         ];
         var action = component.get("c.getFields");
@@ -82,6 +82,7 @@
                 }
                 else{
                     component.set("v.totalPages",0);
+                    component.set("v.pageNumber",0);
                 }
         var totalPages= component.get("v.totalPages");
         if(totalPages==pgNumber){
@@ -134,7 +135,9 @@
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS" ) {
-                alert('record deleted');                         
+              component.set("v.showRelatedAppointment",false);
+              component.set("v.showCalendar",false);
+               // alert('record deleted');                         
                 /*var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     "title": "Success!",
@@ -142,7 +145,7 @@
                 });
                 toastEvent.fire();              
                */
-                component.set("v.pageNumber",1);
+                //component.set("v.pageNumber",1);
                 this.getCustomers(component,helper);
             }
             else if (state === "INCOMPLETE") {
@@ -167,6 +170,8 @@
     * @returns void.
     */
     editRecord : function(component, event) {
+        component.set("v.showCalendar",false);
+        component.set("v.showRelatedAppointment",false);
         component.set("v.isModalOpen",true);
         var rowId = event.getParam('row').Id;
         console.log('rowId',rowId);
@@ -254,7 +259,7 @@
     * @description This method is fired on component initialization.
     * @returns void.
     */
-    assignRecordsToList:function(component,event,helper){
+   /* assignRecordsToList:function(component,event,helper){
         var num=0;
         var customerRecords=[];
         var dataSize=component.get("v.allRecords").length;
@@ -280,15 +285,17 @@
         } else{
             component.set("v.isLastPage", false);
         }
-    },
+    },*/
+        
      showRelatedCalendar : function(component,event,helper){
+      component.set("v.showRelatedAppointment",false);
       var childCmp = component.find("childCalendar");
-         console.log('childCmp',childCmp);
       var retnMsg = childCmp.relatedcalendar('Contact',component.get("v.CustomerId"));  
      },
-         showRelatedAppointments : function(component,event,helper){
+     showRelatedAppointments : function(component,event,helper){
+        component.set("v.showCalendar",false);
       var childCmp = component.find("childAppointment");
-      var retnMsg = childCmp.relatedAppointments(component.get("v.CustomerId"));    
+      var retnMsg = childCmp.relatedAppointments('Contact',component.get("v.CustomerId"));    
      }
        
 })

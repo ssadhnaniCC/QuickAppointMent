@@ -1,0 +1,38 @@
+<aura:component controller="NewEditAppointmentController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="recordId" type="String" default=""/>
+    <aura:attribute name="showModal" type="Boolean" default="false"/>
+    <aura:attribute name="apppointmentCatList" type="Object[]"/>
+    <aura:attribute name="selectedApppointmentCat" type="String" default=""/>
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeModal}">
+                    <lightning:icon iconName="utility:close" alternativeText="Close"/>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Appointment Details</h2>
+            </header>
+        	<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div class="slds-grid slds-wrap">
+  					<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <lightning:select name="AppointmentCat" value="{!v.selectedApppointmentCat}" label="Appointment Category" required="true" onchange="{!c.onCategorySelect}">
+                            
+                            <option value="">--None--</option>
+                            <aura:iteration items="{!v.apppointmentCatList}" var="category">
+                            	<option value="{!category.Id}">{!category.Name}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </div>
+        	</div>
+        	<footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick="{!c.closeModal}">Cancel</button>
+                <button class="slds-button slds-button_brand">Save</button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</aura:component>

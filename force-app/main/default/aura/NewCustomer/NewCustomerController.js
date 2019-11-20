@@ -40,8 +40,7 @@
             param1 = params.recordId;
         }
         var action = component.get("c.getCustomers");       
-        //var rowId=event.getParam('row').Id; 
-        console.log('param1',param1);       
+        //var rowId=event.getParam('row').Id;              
         action.setParams({
             "recordId":param1
         });

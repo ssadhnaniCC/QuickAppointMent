@@ -21,15 +21,17 @@ public with sharing class CustomerLightningController{
             return QuickAppointmentSOQLManager.getCustomers(recordId);
         } 
      @AuraEnabled
-    public  static void saveCustomer(contact customerRecord){
-        system.debug('in save Customer');
+    public  static boolean saveCustomer(contact customerRecord){
             Contact conObj=new Contact(Id=customerRecord.Id,FirstName=customerRecord.FirstName,LastName=customerRecord.LastName,Email=customerRecord.Email,Phone=customerRecord.Phone,MailingStreet=customerRecord.MailingStreet,MailingCity=customerRecord.MailingCity,MailingState=customerRecord.MailingState,MailingPostalCode=customerRecord.MailingPostalCode,MailingCountry=customerRecord.MailingCountry,Description=customerRecord.Description);
         Id recordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByName().get('User').getRecordTypeId();
         conObj.RecordtypeId=recordTypeId;
-        upsert conObj;
+        
+        Database.UpsertResult ur=database.upsert (conObj,false);
+        return ur.isSuccess();
         } 
     @AuraEnabled
-    public  static void deleteCustomer(Id customerId ){
-        Database.delete(customerId,false);
+    public  static boolean deleteCustomer(Id customerId ){
+       Database.deleteResult dr= Database.delete(customerId,false);
+        return dr.isSuccess();
         } 
 }

@@ -18,6 +18,7 @@ public class ResourceLightningController {
    */
     @AuraEnabled
     public static void saveNewResources(Contact resourceObj,List<Id> selectedLocationList,List<Id> selectedServiceList){
+        system.debug('newResourceCon');
        Set<id> alignmentIds = new Set<Id>();
        List<Resource_Service_Alignment__c> saveResourceAlignment = new List<Resource_Service_Alignment__c>(); 
        String selectedType = 'Resource';

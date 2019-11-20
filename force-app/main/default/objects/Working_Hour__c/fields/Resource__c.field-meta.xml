@@ -4,7 +4,7 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
     <label>Resource</label>
-    <referenceTo>Resource_Service_Alignment__c</referenceTo>
+    <referenceTo>Contact</referenceTo>
     <relationshipLabel>Working Hours</relationshipLabel>
     <relationshipName>Working_Hours</relationshipName>
     <required>false</required>

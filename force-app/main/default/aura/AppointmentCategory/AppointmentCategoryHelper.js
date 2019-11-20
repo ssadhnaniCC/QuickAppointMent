@@ -7,6 +7,8 @@
         var actions = [
             {label: 'Edit', name: 'edit'},
             {label: 'Delete', name: 'delete'},
+            {label: 'Appointment', name: 'appointment'},
+            {label: 'View Calendar', name: 'calendar'},
         ];
         var action = component.get("c.getFields");
         action.setCallback(this,function(response) {
@@ -77,6 +79,7 @@
                 }
                 else{
                     component.set("v.totalPages",0);
+                    component.set("v.pageNumber",0);
                 }
               
                 
@@ -103,15 +106,16 @@
     * @returns void.
     */
     deleteRecord : function(component, event,helper) {         
-        var action = component.get("c.deleteCustomer");       
+        var action = component.get("c.deleteCategory");       
         var rowId=event.getParam('row').Id;        
         action.setParams({
             "Id":rowId
         });
         action.setCallback(this, function(response) {
             var state = response.getState();
-            if (state === "SUCCESS" ) {
-                alert('record deleted');                         
+            if (state === "SUCCESS" ) {     
+              component.set("v.showRelatedAppointment",false);
+              component.set("v.showCalendar",false);
                 /*var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     "title": "Success!",
@@ -144,6 +148,9 @@
     * @returns void.
     */
     editRecord : function(component, event) {
+        
+        component.set("v.showCalendar",false);
+        component.set("v.showRelatedAppointment",false);
         component.set("v.isModalOpen",true);
         var rowId = event.getParam('row').Id;
         console.log('row',rowId);
@@ -254,5 +261,17 @@
         } else{
             component.set("v.isLastPage", false);
         }
-    }
+    },
+   showRelatedAppointments : function(component,event,helper){
+        component.set("v.showCalendar",false);
+        var recordId = event.getParam('row').Id;
+        var childCmp = component.find("childAppointment");
+        var retnMsg = childCmp.relatedAppointments('AppointmentCategory',recordId);    
+    },
+   showRelatedCalendar : function(component,event,helper){
+        component.set("v.showRelatedAppointment",false);
+        var recordId = event.getParam('row').Id;        
+        var childCmp = component.find("childCalendar");
+        var retnMsg = childCmp.relatedcalendar('AppointmentCategory',recordId);  
+    },
 })

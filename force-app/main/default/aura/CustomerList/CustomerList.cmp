@@ -12,7 +12,7 @@
      <!--@description contains field values of customer record.-->
     <aura:attribute name="customerRecord" type="Object" default="{'sObjectType':'Contact', 'Name':'','MailingStreet':'','MailingCity':'','MailingStreet':'','MailingPostalCode':'','MailingCountry':'','Phone':'','Description':''}"/>
     <!--@description contains integer value of total number of pages shown in a datatable.-->
-     <aura:attribute name="totalPages" type="Integer" default="1"/>
+     <aura:attribute name="totalPages" type="Integer" default="0"/>
     <!--@description contains records data to show in lightning datatable.-->
     <aura:attribute name="data" type="List"/>
     <!--@description contains columns to show as headers in lightning datatable.-->
@@ -40,7 +40,8 @@
     <!-- @description contains name of field name to apply sorting.-->
     <aura:attribute name="sortBy" type="String"/>
     <!-- @description contains sorting direction i.e ascending or descending.-->
-    <aura:attribute name="sortDirection" type="String"/>    
+    <aura:attribute name="sortDirection" type="String"/>   
+    
     <aura:attribute name="showCalendar" type="boolean"/>    
     <aura:handler name="init" value="{! this }" action="{! c.init }"/>
     <aura:handler name="refreshEvent" event="c:ParentListRefresh" action="{! c.onSaveAndEdit }"/>
@@ -52,7 +53,7 @@
             </div>
         <div class="slds-align_absolute-center" > 
             <div class="slds-col">
-                <span><button class="slds-button slds-button_neutral" onclick="{! c.onAddCustomerClick}">Add Customer</button></span>
+                <span><button class="slds-button slds-button_neutral" onclick="{! c.onAddCustomerClick}">New</button></span>
             </div>
         </div>    
             <div class="slds-col">

@@ -1,3 +1,4 @@
 <aura:application extends="force:slds" >
-    <!--c:AppointmentCategory/-->
+   <!-- <c:PublicHolidayList/> -->
+    <c:PublicHolidayLocationSelector/>
 </aura:application>

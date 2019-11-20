@@ -32,7 +32,7 @@
                 <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
                     
                     <lightning:input  class="slds-m-bottom_small"  type="text" label="Name" name="red" value="{!v.AppointmentCategoryRecord.Name}" />
-                    <div class="slds-grid slds-gutters slds-border_top slds-p-top_medium slds-p-bottom_medium">
+                    <div class="slds-grid slds-gutters slds-wrap slds-border_top slds-p-top_medium slds-p-bottom_medium">
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
                             
                                     <lightning:input type="checkbox" aura:id="locationMandatory" label="Location Mandatory"   checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsLocationMandatory__c}" onchange="{!c.onLocationCheckBoxChange}" />
@@ -93,7 +93,7 @@
                     <lightning:button variant="brand"
                                       label="Save"
                                       title="Save"
-                                      onclick="{!c.onCustomerSave}"/>
+                                      onclick="{!c.onCategorySave}"/>
                     <lightning:button variant="neutral"
                                       label="Cancel"
                                       title="Cancel"

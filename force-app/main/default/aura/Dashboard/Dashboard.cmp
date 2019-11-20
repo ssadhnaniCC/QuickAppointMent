@@ -1,6 +1,68 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="DashboardControler">
-	<ltng:require scripts="{!$Resource.Chart}" afterScriptsLoaded="{!c.generateChart}"/>
-     <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--3-of-4">
-        <canvas aura:id="barChart" />
-    </div>
+    <aura:attribute name="upcomingAppointment" type="Object"/>
+     <aura:attribute name="upcomingAppointmentCustomer" type="Object"/>
+    <aura:attribute name="appointmentColumns" type="List"/>
+    <aura:attribute name="servicesColumns" type="List"/>
+     <aura:attribute name="locationColumns" type="List"/>
+     <aura:attribute name="customerColumns" type="List"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+    <ltng:require scripts="{!$Resource.Chart}" afterScriptsLoaded="{!c.generateChart}"/>
+    <lightning:tabset selectedTabId="Dashboard">
+        <lightning:tab label="Dashboard" id="Dashboard">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <canvas aura:id="dailyBarChart" />
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <canvas aura:id="monthlyBarChart" />
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <canvas aura:id="ratingBarChart" />
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <canvas aura:id="categoryDoughnutChart" />
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                    <canvas aura:id="customerDoughnutChart" />
+                </div>
+            </div>
+        </lightning:tab>
+        <lightning:tab label="Reports" id="Reports">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-m-bottom_small slds-m-top_x-small">
+                    <div class="slds-text-heading_medium slds-text-align_center">Upcoming Appointment List</div>
+                    <lightning:datatable
+                                         keyField="id"
+                                         data="{! v.upcomingAppointment }"
+                                         columns="{! v.appointmentColumns }"
+                                         hideCheckboxColumn="true"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-m-bottom_small slds-m-top_x-small">
+                    <div class="slds-text-heading_medium slds-text-align_center">Appointments By Service Type</div>
+                    <lightning:datatable
+                                         keyField="id1"
+                                         data="{! v.upcomingAppointment }"
+                                         columns="{! v.servicesColumns }"
+                                         hideCheckboxColumn="true"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-m-bottom_small slds-m-top_x-small">
+                    <div class="slds-text-heading_medium slds-text-align_center">Appointments By Location</div>
+                    <lightning:datatable
+                                         keyField="id1"
+                                         data="{! v.upcomingAppointment }"
+                                         columns="{! v.locationColumns }"
+                                         hideCheckboxColumn="true"/>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-m-bottom_small slds-m-top_x-small">
+                    <div class="slds-text-heading_medium slds-text-align_center">Appointments By Customer</div>
+                    <lightning:datatable
+                                         keyField="id1"
+                                         data="{! v.upcomingAppointmentCustomer }"
+                                         columns="{! v.customerColumns }"
+                                         hideCheckboxColumn="true"/>
+                </div>
+            </div>
+        </lightning:tab>
+    </lightning:tabset>
 </aura:component>

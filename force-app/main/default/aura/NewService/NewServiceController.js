@@ -42,7 +42,7 @@
    */
     
     saveRecord : function(component, event, helper) {
-         var controlAuraIds = ["ServiceName","Duration","Price"];
+         var controlAuraIds = ["ServiceName","Duration","Price","AvailableLocation"];
        //reducer function iterates over the array and return false if any of the field is invalid otherwise true.
         let isAllValid = controlAuraIds.reduce(function(isValidSoFar, controlAuraId){
            //fetches the component details from the auraId

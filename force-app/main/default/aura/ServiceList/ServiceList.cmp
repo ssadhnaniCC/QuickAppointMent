@@ -6,6 +6,8 @@
     <aura:attribute name="onSearch" type="Boolean" default="false"/>
     <aura:attribute name="isSpinner" type="Boolean" default="false"/>
     <aura:attribute name="hideFooter" type="boolean" default="False"/>
+    <aura:attribute name="showCalendar" type="boolean" default="false"/>
+    <aura:attribute name="showRelatedAppointment" type="Boolean" default="false"/>
     
     <!--Integer Type Attributes-->
     <aura:attribute name="firstPage" type="Integer"/>
@@ -108,5 +110,10 @@
          <p class="  slds-float_left slds-badge slds-badge_lightest">Page {!v.pageNumber} of {!v.totalPages} </p>
             </div></aura:if>
     </div>
-    
+    <aura:if isTrue = "{!v.showCalendar}">
+        <c:Calendar aura:id="childCalendar" />
+    </aura:if>
+    <aura:if isTrue ="{!v.showRelatedAppointment}">
+        <c:AppointmentList aura:id="childAppointment" />
+    </aura:if>
 </aura:component>

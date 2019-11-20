@@ -3,6 +3,8 @@
     * @description This method fetches the appointment details to show on calendar.
    */
     getResponse : function(component,helper) {
+        console.log("objname",component.get("v.objName"));
+        console.log("recordId",component.get("v.recordId"));
         var action = component.get("c.fetchAppointments");
          action.setParams({
             "ObjectName" : component.get("v.objName"),
@@ -12,7 +14,7 @@
             var state = response.getState();
             if (state === "SUCCESS") {
                 var result = response.getReturnValue();
-                console.log("result"+JSON.stringify(result));
+                console.log("result"+ JSON.stringify(result));
                 component.set("v.RelatedList",result);
                 var eventArr = [];
                 result.forEach(function(key) {
@@ -30,7 +32,13 @@
                     component.set("v.isRelated",false);
                     if(eventArr.length){
                       component.set("v.showToast",false);  
-                      $('#calendar').css("display","");    
+                      $('#calendar').fullCalendar('destroy');  
+                      $('#calendar').css("display","");  
+                    /*  $('#calendar').fullCalendar('removeEvents');
+                      $("#calendar").fullCalendar('addEventSource', eventArr);
+                      $('#calendar').fullCalendar('rerenderEvents');   
+                      $('#calendar').fullCalendar( 'refetchResources' );    
+                    */
                       this.loadCalendar(eventArr,event,helper,false);    
                     }
                     else{
@@ -101,22 +109,13 @@
                 $('.tooltipevent').remove();
             }
         });     
-        //Add Appointment Button for Creating New Appointment
-        if(isRelated != false){
-        $('.fc-left').append('<button class="slds-button slds-button_neutral custom_button" onclick="alert(\'Hello\');">Add Appointment</button>');
-           //Add Agenda Button for Creating New Appointment
-        //  $('.fc-right').append('<button class="slds-button slds-button_neutral custom_button" onclick="alert(\'Hello\');">Agenda</button>');
-        }
         //On Previous Disable Click
         $('.fc-past').addClass('disable');  
         //Adding SLDS Style to buttons
         $('.fc-month-button , .fc-prev-button , .fc-today-button , .fc-agendaWeek-button , .fc-next-button , .fc-agendaDay-button').addClass('slds-button slds-button_neutral custom_button');
         $('.fc-month-button , .fc-prev-button ,  .fc-today-button , .fc-agendaWeek-button , .fc-next-button , .fc-agendaDay-button').removeClass('fc-button fc-state-default fc-corner-left');
         //On Previous button Disable Click
-        $('.fc-month-button').click(function(){helper.disableHandler(helper);});
-        $('.fc-agendaWeek-button').click(function(){helper.disableHandler(helper);});
-        $('.fc-prev-button').click(function(){helper.disableHandler(helper);}); 
-        $('.fc-next-button').click(function(){helper.disableHandler(helper);});
+        $('.fc-month-button , .fc-agendaWeek-button , .fc-prev-button , .fc-prev-button').click(function(){helper.disableHandler(helper);});
     },
     disableHandler : function(shelper){
         $('.fc-past').addClass('disable'); 

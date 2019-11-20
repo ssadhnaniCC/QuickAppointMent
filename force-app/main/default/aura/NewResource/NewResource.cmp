@@ -109,11 +109,14 @@
                                 </div>
                         </aura:if>
                         <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
-                            <lightning:dualListbox name="multipleOptions"  
+                            <lightning:dualListbox aura:id="AvailableLocation"
+                                                   name="multipleOptions"  
+                                                   label="Select Location"
                                                    sourceLabel="Available Location" 
                                                    selectedLabel="Selected Location" 
                                                    options="{!v.availableLocation}" 
                                                    value="{!v.selectedLocation}" 
+                                                   required="true"
                                                    onchange="{! c.handleOnLocationSelect }"/>                           
                         </div>
                         <aura:if isTrue="{!v.disableServiceDualLstBox}">

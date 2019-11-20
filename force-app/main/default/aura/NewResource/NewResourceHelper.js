@@ -3,9 +3,15 @@
     @description This method is used to save Resource staff and its alignment  
    */
 	saveResourceStaff : function(component,event,helper) {
-       var resourceRecord = component.get("v.resourceRecord"); 
+        var resourceRecord = component.get("v.resourceRecord"); 
         var selectedLocations = component.get("v.selectedLocation");
         var selectedServices = component.get("v.selectedService");
+        if(selectedLocations.length == 1){
+            //If array contains [{}] then we have to empty the array
+            if (Object.keys(selectedLocations[0]).length == 0){
+                selectedLocations = [];
+            }
+        }
 	    var action = component.get("c.saveNewResources");
         action.setParams({
             "resourceObj" :  resourceRecord,
@@ -14,6 +20,7 @@
         });
       action.setCallback(this,function(response) {
             var state = response.getState();
+            console.log("state"+state);
             if (state === "SUCCESS") {
             /*  var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
@@ -28,6 +35,9 @@
                 refreshEvent.fire();             
             }
           else{
+              var errors = response.getError();                      
+                            console.log("error",errors[0].message);
+
                /*  var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                 title : 'Error Message',
@@ -54,7 +64,6 @@
                 AvailableLocations.forEach(function(Location){
                     options.push({ value: Location.Id, label: Location.Name ,Id: Location.Id});
                 });
-                console.log('options##',options);
               component.set("v.availableLocation",options);  
             }
             else {

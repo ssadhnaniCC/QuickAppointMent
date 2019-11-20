@@ -4,7 +4,6 @@
     * @returns void.
     */
     init: function (component, event, helper) {
-        console.log('apppoinemnt');
         helper.getColumnAndAction(component);
         helper.getCategories(component,helper);
     },
@@ -63,6 +62,14 @@
                 break;
             case 'delete':
                 helper.deleteRecord(component, event);
+                break;
+            case 'appointment':
+                component.set("v.showRelatedAppointment",true);
+                helper.showRelatedAppointments(component,event,helper);
+                break;
+            case 'calendar':
+                component.set("v.showCalendar",true);
+                helper.showRelatedCalendar(component,event,helper);
                 break;
            
         }

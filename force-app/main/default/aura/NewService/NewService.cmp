@@ -103,8 +103,10 @@
                         
                         <div class="slctOption">
                             
-                            <lightning:dualListbox name="languages"
+                            <lightning:dualListbox aura:id="AvailableLocation"
+                                                   name="languages"
                                                    label= "Select Locations"
+                                                   required="true"
                                                    sourceLabel="Available Location"
                                                    selectedLabel="Selected Location"
                                                    options="{!v.options}"

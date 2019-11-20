@@ -2,6 +2,7 @@
     <!--@description contains boolean field to show or hide datatable footer.-->
     <aura:attribute name="hideFooter" type="boolean" default="False"/>
     <aura:attribute name="showspinner" type="boolean" default="true"/>
+    <aura:attribute name="showRelatedAppointment" type="Boolean" default="false"/>
      <!--@description contains field values of customer record.-->
    <aura:attribute name="AppointmentCategoryRecord" type="Appointment_Category__c" default="{'sObjectType':'CC_QAppt__Appointment_Category__c', 'CC_QAppt__IsLocationMandatory__c':'','CC_QAppt__IsPricingApplicable__c':'','CC_QAppt__IsServiceMandatory__c':'','CC_QAppt__IsAvaliablePublically__c':'','Name':''}"/>
     <!--@description contains integer value of total number of pages shown in a datatable.-->
@@ -14,6 +15,7 @@
     <aura:attribute name="isModalOpen" type="boolean" default="False"/>
     <!--@description contains string value to search in lightning datatable.-->
     <aura:attribute name="searchString" type="String"/>
+    <aura:attribute name="showCalendar" type="boolean" default="false"/>
     <!--@description contains Boolean value to check if request is coming from onSearch function.-->
     <aura:attribute name="onSearch" type="Boolean" default="false"/>
     <!--@description contains list of records after applying pagination.-->
@@ -44,7 +46,7 @@
         <div class="slds-align_absolute-center" > 
             
             <div class="slds-col">
-                <span><button class="slds-button slds-button_neutral" onclick="{! c.onAddCustomerClick}">Add Appointment Category</button></span>
+                <span><button class="slds-button slds-button_neutral" onclick="{! c.onAddCategoryClick}">New</button></span>
             </div>
         </div>
             <div class="slds-col ">
@@ -90,4 +92,10 @@
         </div>
         </aura:if>
     </div>
+    <aura:if isTrue = "{!v.showCalendar}">
+        <c:Calendar aura:id="childCalendar" />
+    </aura:if>
+    <aura:if isTrue ="{!v.showRelatedAppointment}">
+        <c:AppointmentList aura:id="childAppointment" />
+    </aura:if>
 </aura:component>

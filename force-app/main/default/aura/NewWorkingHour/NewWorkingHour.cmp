@@ -1,0 +1,127 @@
+<aura:component controller="WorkingHourController">
+    
+    <aura:attribute name="isModelOpen" type="boolean" default="False"/>
+    <aura:attribute name="monday" type="boolean" default="False"/>
+    <aura:attribute name="tuesday" type="boolean" default="False"/>
+    <aura:attribute name="wednesday" type="boolean" default="False"/>
+    <aura:attribute name="thursday" type="boolean" default="False"/>
+    <aura:attribute name="friday" type="boolean" default="False"/>
+    <aura:attribute name="saturday" type="boolean" default="False"/>
+    <aura:attribute name="isActive" type="boolean" default="False"/>
+    <aura:attribute name="startDate" type="date" />
+    <aura:attribute name="endDate" type="date" />
+    <aura:attribute name="startDateTime" type="string" />
+    <aura:attribute name="endDateTime" type="string" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <!--@description contains field values of customer record.-->
+    <aura:attribute name="workingRecord" type="Working_Hour__c" default="{'sObjectType':'CC_QAppt__Working_Hour__c', 'CC_QAppt__Start_Date__c':'','CC_QAppt__End_Date__c':'','CC_QAppt__Active__c':'','CC_QAppt__End_Time__c':'','CC_QAppt__Start_Time__c':''}"/>
+    <aura:method name="GetWorkingHourRecords" action="{!c.getRecord}"
+                 access="public">
+        <aura:attribute name="recordId" type="String" />
+        
+    </aura:method>
+    <aura:attribute name="resourceRecord" type="Contact" default=""/>
+    <!--@description contains information about event.-->
+    <aura:registerEvent name="refreshEvent" type="c:ParentListRefresh"/>
+    <div class="slds-m-around--xx-large">
+        
+        <aura:if isTrue="{!v.isModelOpen}">
+            <!-- Modal/Popup Box starts here-->
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                <div class="slds-modal__container">
+                    <!-- Modal/Popup Box Header Starts here-->
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModel }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Working Hour</h2>
+                    </header>
+                    <!--Modal/Popup Box Body Starts here-->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <aura:if isTrue="{!v.isErrorMsg}">
+                            <div class="slds-m-around_small slds-p-around_small errorBox">
+                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate errHeader">Error:</h2>
+                                <span class="errMsg">{!v.errorMsg}</span>
+                            </div>
+                        </aura:if>
+                        
+                        <div class="slds-grid slds-gutters slds-wrap wrpClass">
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning:input aura:id="StartDate" name="Start Date" label="Start Date" value="{!v.workingRecord.CC_QAppt__Start_Date__c}" type="date" required="true" messageWhenValueMissing="Please Enter Start Date"/>
+                                
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning:input aura:id="EndDate" name="End Date" label="End Date" value="{!v.workingRecord.CC_QAppt__End_Date__c}" type="date" required="true" messageWhenValueMissing="Please Enter End Date"/>
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters slds-wrap wrpClass">
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning:input aura:id="StartTime" name="Start Time" label="Start Time" value="{!v.workingRecord.CC_QAppt__Start_Time__c}" type="datetime" required="true" messageWhenValueMissing="Please Enter Start Date/Time"/>
+                                
+                                
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning:input aura:id="EndTime" name="End Time" label="End Time" value="{!v.workingRecord.CC_QAppt__End_Time__c}" type="datetime" required="true" messageWhenValueMissing="Please Enter End Date/Time"/>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        <div class="slds-grid slds-gutters slds-wrap resourceName">
+                            <lightning:input type="text" label="Resource Name" value="{!v.resourceRecord.Name}" name="Resource Name" disabled="true"/>
+                        </div>
+                        
+                        <fieldset class="slds-form-element checkBoxForDays">
+                            <legend class="slds-form-element__legend slds-form-element__label daysLabel">
+                                Days Of Appointment</legend>
+                            <div class="slds-form-element__control">
+                                <div class="slds-grid slds-gutters slds-wrap">
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                        
+                                            
+                                            <lightning:input type="checkbox" aura:id="monId" label="Monday" checked="{!v.monday}" onchange="{!c.onchangeMonday}"/>
+                                            
+                                        </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                       <lightning:input type="checkbox" label="Tuesday" checked="{!v.tuesday}"/></div>
+                                    
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                       <lightning:input type="checkbox" label="Wednesday" checked="{!v.wednesday}"/></div>
+                                    
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                        <lightning:input type="checkbox" label="Thursday" checked="{!v.thursday}"/></div>
+                                    
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                       <lightning:input type="checkbox" label="Friday" checked="{!v.friday}"/></div>
+                                    
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                        <lightning:input type="checkbox" label="Saturday" checked="{!v.saturday}"/></div>
+                                    
+                                    </div>
+                            </div>
+                        </fieldset>
+                        <div class="slds-grid slds-gutters slds-wrap resourceName">
+                           
+                                <lightning:input type="checkbox" label="IsActive" checked="{!v.isActive}"/></div>
+                        
+                    </div>
+                    <!--Modal/Popup Box Footer Starts here-->
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="neutral"
+                                          label="Cancel"
+                                          title="Cancel"
+                                          onclick="{! c.closeModel }"/>
+                        <lightning:button variant="brand"
+                                          label="Save"
+                                          title="Save"
+                                          onclick="{!c.saveWorkingHourRecord}"/>
+                    </footer>
+                    
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
+    </div>
+</aura:component>

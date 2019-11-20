@@ -66,6 +66,14 @@
             case 'delete':
                 helper.deleteRecord(component, event);
                 break;
+            case 'appointment':
+                component.set("v.showRelatedAppointment",true);
+                helper.showRelatedAppointments(component,event,helper);
+                break;  
+            case 'calendar':
+                component.set("v.showCalendar",true);
+                helper.showRelatedCalendar(component,event,helper);
+                break;
         }
     },
     handleSort : function(component,event,helper){
@@ -77,5 +85,8 @@
         component.set("v.sortDirection",sortDirection);
         // call sortData helper function
         helper.sortData(component,sortBy,sortDirection);
+    },
+    AddPublicHoliday : function(component,event,helper){
+        
     }
 })

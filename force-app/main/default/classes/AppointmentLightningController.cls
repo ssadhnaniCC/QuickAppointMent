@@ -10,25 +10,35 @@ public class AppointmentLightningController {
    * @returns Returns List of Contact resources on PageLoad.
    */
     @AuraEnabled
-    public static List<AppointmentWrapper> relatedAppointment(String recordId){
+    public static List<AppointmentWrapper> relatedAppointment(String ObjectName,String recordId){
         List<AppointmentWrapper> appWrapp = new List<AppointmentWrapper>();
         List<CC_QAppt__Appointment__c> relatedAppointments = new List<CC_QAppt__Appointment__c>();
         List<contact> customerList = new List<contact>();  
         //Get User Time Zone
         TimeZone tz = UserInfo.getTimeZone();
         String currentTimeZone =  tz.getID();
+         String recordTypeName;
         
          // Get Recordtype name for knowing whether record is of resourcestaff or customer
         List<contact> con = [SELECT RecordType.Name,RecordType.DeveloperName FROM contact where Id =: recordId];
-        String recordTypeName = con[0].RecordType.Name;
-  
+        
+       if(con.size()>0){
+        recordTypeName = con[0].RecordType.Name;
+       } 
         if(recordTypeName == 'Resource'){
+            system.debug('Resource');
             relatedAppointments = QuickAppointmentSOQLManager.getPreviousAppointments('contact',recordId);
         }
         if(recordTypeName == 'User'){
             customerList = QuickAppointmentSOQLManager.getCustomers(recordId);
             relatedAppointments = QuickAppointmentSOQLManager.getPreviousAppointmentsForCustomers(recordId);
         }
+        if((recordTypeName == '' || recordTypeName == null ) && (ObjectName == '' || ObjectName == null )){
+            relatedAppointments = QuickAppointmentSOQLManager.getPreviousAppointments('','');
+        }
+        if((recordTypeName == '' || recordTypeName == null ) && (ObjectName != '' || ObjectName != null )){
+           relatedAppointments = QuickAppointmentSOQLManager.getPreviousAppointments(ObjectName,recordId);
+       }
         for(CC_QAppt__Appointment__c applist : relatedAppointments){
             AppointmentWrapper obj = new AppointmentWrapper();
             obj.Name = applist.Name;
@@ -37,6 +47,15 @@ public class AppointmentLightningController {
             if(recordTypeName == 'Resource'){
             obj.ResourceStaffOrCustomer =  applist.CC_QAppt__Resource_Service_Alignment__r.CC_QAppt__Resource_Staff__r.Name ;
             }
+           if(ObjectName == 'AppointmentCategory'){
+              obj.ResourceStaffOrCustomer = applist.CC_QAppt__Appointment_Category__r.Name;  
+            }     
+            if(ObjectName == 'Location'){
+            obj.ResourceStaffOrCustomer = applist.CC_QAppt__Resource_Service_Alignment__r.Location__r.Name;  
+            }
+            if(ObjectName == 'Service'){
+            obj.ResourceStaffOrCustomer = applist.CC_QAppt__Resource_Service_Alignment__r.Service__r.Name;  
+            } 
             if(recordTypeName == 'User'){
             obj.ResourceStaffOrCustomer = customerList[0].Name;
             }
@@ -48,6 +67,9 @@ public class AppointmentLightningController {
         }
         return appWrapp;
     }
+   /*******************************************************************************************************
+    * @description Wrapper Class for storing appointment related datas.
+   */
     public class AppointmentWrapper{
         @AuraEnabled   public String Name;
         @AuraEnabled   public String Location;

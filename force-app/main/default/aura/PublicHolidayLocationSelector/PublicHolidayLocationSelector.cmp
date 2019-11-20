@@ -1,0 +1,52 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="PublicHolidayLocationSelectorController" >
+    <aura:attribute name="locationList" type="List" default="[]"/>
+      <aura:attribute name="isModalOpen" type="Boolean"/>
+     <aura:attribute name="showPublicHolidayModal" type="Boolean"/>
+     <aura:attribute name="LocationObj" type="Object" />
+    <aura:handler name="init" action="{!c.init}" value="{!this}"/>
+     <aura:if isTrue="{!v.isModalOpen}">
+	<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box Header Starts here-->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h3 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Location</h3>
+                </header>
+                <!--Modal/Popup Box Body Starts here-->
+                <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 ">
+                            <lightning:select name="select1"   onchange="{!c.onValueChange}" aura:id="Location">
+        <option value="">choose one...</option>
+                  <aura:iteration items="{!v.locationList}" var="item" >
+         <option  value="{!item.Id}">{!item.Name}</option>
+    </aura:iteration>                           
+    </lightning:select>
+                           
+                        </div>
+                                        
+                    </div>                    
+                </div>               
+                <!--Modal/Popup Box Footer Starts here-->
+                
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="brand"
+                                      label="Next"
+                                      title="Next"
+                                      onclick="{!c.NextClick}"/>
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{!c.closeModel}"/>
+                </footer>          
+            </div>
+        </section>
+    </aura:if>
+    <aura:if isTrue="{!v.showPublicHolidayModal}">
+        <c:PublicHolidayModifier LocationObj="{!v.LocationObj}"/>        
+    </aura:if>
+</aura:component>

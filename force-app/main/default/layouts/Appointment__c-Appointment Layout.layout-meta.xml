@@ -36,6 +36,10 @@
                 <behavior>Edit</behavior>
                 <field>Custom_Recur__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Appointment_Category__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

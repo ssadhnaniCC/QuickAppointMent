@@ -38,7 +38,11 @@
             case 'calendar':
                 component.set("v.showCalendar",true);
                 helper.showRelatedCalendar(component,event,helper);
-                break;  
+                break;
+            case 'Working Hours':
+                component.set('v.showWorkingHoursList',true);
+                helper.workingHourRecords(component,event,helper);
+                break; 
         }
     },
     /*******************************************************************************************************

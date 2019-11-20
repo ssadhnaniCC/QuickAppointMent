@@ -2,6 +2,7 @@
     <apex:slds />
     <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    
     <style type="text/css">
         /* Rating Star Widgets Style */
         .rating-stars ul {
@@ -35,6 +36,9 @@
     .pickVal.selectedBox {
         background : #FFCC36;
     }
+    
+    
+    .messageClass{color: red; margin: 3px;font-size:11px;}
     
     
     </style>
@@ -81,7 +85,15 @@
             
             // JUST RESPONSE (Not needed)
             var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-            getRatingValue(ratingValue);
+            $("[id$=ratingId]").val(ratingValue);
+            
+            if(ratingValue>0 ) {
+                setTimeout(function() {
+                    $("[id$=starsId]").next(".messageClass").remove();
+                }, 100);
+                
+                
+            }
             
             
         });
@@ -107,7 +119,16 @@
                 //sp
             });
             
-            passCategory(text);
+            $("[id$=categoryId]").val(text);
+            
+            if($("[id$=categoryId]").val().length>0) {
+                
+                setTimeout(function() {
+                    $("[id$=catgry]").next(".messageClass").remove();
+                }, 100);
+                
+                
+            }
             
         });
         
@@ -126,115 +147,256 @@
         
         $("[id$=newDesc]").val('');
         $("[id$=titleVal]").val('');
+        
+        $('#formSubmit').submit(function(e) {
+            e.preventDefault();
+            
+            var title = $("[id$=titleVal]").val();
+            var comment = $("[id$=newDesc]").val();
+            var rating = $("[id$=ratingId]").val();
+            var category = $("[id$=categoryId]").val();
+            
+            $(".messageClass").remove();
+            
+            if (first_name.length < 1) {
+                $("[id$=titleVal]").after('<span class="messageClass">Please add title</span>');
+                isValidate = true;
+            }
+            else {
+                isValidate = false;
+            }
+            if (comment.length < 1) {
+                $("[id$=newDesc]").after('<span class="messageClass">Please fill some comment</span>');
+                isValidate = true;
+            }
+            else {
+                isValidate = false;
+            }
+            if (rating.length < 1) {
+                $("[id$=starsId]").after('<span class="messageClass">Please Select Rating</span>');
+                isValidate = true;
+            } 
+            else {
+                isValidate = false;
+            }
+            if (category.length < 1) {
+                $("[id$=catgry]").after('<span class="messageClass">Please Select atleast one category </span>');
+                isValidate = true;
+            }
+            else {
+                isValidate = false;
+            }
+            
+            if(isValidate) {
+                saveNow();
+            }
+        });
+        
     });
+    
     
     
     function getRatingValue(data) {
         passToController(data);
     }
     
-  
+    var isValidate = true;
+    function validateForm() {
+        
+        validateRequiredFields();
+        
+        if(isValidate)
+        {
+            saveNow();
+        }
+    }
+    
+    function validateRequiredFields(){
+        
+        var rating =  $("[id$=ratingId]").val();
+        var category =  $("[id$=categoryId]").val();
+        var title = $("[id$=titleVal]").val();
+        var comment = $("[id$=newDesc]").val();
+        
+        $(".messageClass").remove();
+        
+        if (title.length < 1) {
+            $("[id$=titleVal]").after('<span class="messageClass">Please add title</span>');
+            isValidate = false;
+        }
+        else {
+            $("[id$=titleVal]").next(".messageClass").remove();
+            isValidate = true;
+        }
+        
+        if (comment.length < 1) {
+            $("[id$=newDesc]").after('<span class="messageClass">Please add Comment</span>');
+            isValidate = false;
+        }
+        else {
+            $("[id$=newDesc]").next(".messageClass").remove();
+            isValidate = true;
+        }
+        
+        if (rating.length < 1) {
+            $("[id$=starsId]").after('<span class="messageClass">Please Select Rating</span>');
+            isValidate = false;
+        }
+        else {
+            $("[id$=starsId]").next(".messageClass").remove();
+            isValidate = true;
+        }
+        
+        if (category.length < 1) {
+            $("[id$=catgry]").after('<span class="messageClass">Please select category</span>');
+            isValidate = false;
+        }
+        else {
+            $("[id$=catgry]").next(".messageClass").remove();
+            isValidate = true;
+        }
+        
+        if(category.length<1 || rating.length<1 || title.length<1 || comment.length<1) {
+            isValidate = false;
+        }
+    }
+    
+    function checkTitle() {
+        var title = $("[id$=titleVal]");
+        console.log('title==',title.val());
+        if(title.val().length>0) {
+            title.next(".messageClass").remove();
+        }
+        else {
+            title.next(".messageClass").remove();
+            title.after("<p class='messageClass' id="+'__'+title+"> This is Required Field</p>");
+        }
+    }
+    function checkCommentValue() {
+        var comment = $("[id$=newDesc]");
+        if(comment.val().length>0) {
+            comment.next(".messageClass").remove();
+        }
+    }
+    
+    
     
     </script>
+    
+    
+    
+    
 </head>
 <apex:form id="frm">
-    <apex:outputPanel id="msg">
-        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
+    <apex:outputPanel id="msg" rendered="{!showSuccess}">
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" style="background: green;" role="alert">
             <span class="slds-assistive-text">info</span>
             
-            <h2>Feedback Form Submit Successfully
+            <h2>Thanks for submitting your feedback!
             </h2>
             
         </div>
     </apex:outputPanel>
     
-   
-    
-    <apex:actionFunction action="{!getRating}" name="passToController" rerender="false">
-        <apex:param value="" name="inpval"/>
-    </apex:actionFunction>
-    
-    <apex:actionFunction action="{!getCategory}" name="passCategory" rerender="false">
-        <apex:param value="" name="categoryValue"/>
-    </apex:actionFunction>
     
     
-   
-    <div class="slds-panel slds-size_medium slds-panel_docked slds-panel_docked-left slds-is-open slds-align_absolute-center slds-m-top_x-large" style="width: 40%; background: #ecebea; position: absolute; margin-left: 30%; height: 93%;" aria-hidden="false">
-        <div class="slds-panel__header">
-            <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate slds-align_absolute-center" title="Panel Header">Quick Appointment Feedback</h2>
-        </div>
-        <div class="slds-panel__body">
-            <div class="slds-grid slds-grid_vertical">
-                
-                <div class="slds-col slds-border_bottom slds-p-vertical_medium">
+    <!--<apex:actionFunction 
+="{!getRating}" name="passToController" rerender="false">
+<apex:param value="" name="inpval"/>
+</apex:actionFunction>
+
+<apex:actionFunction action="{!getCategory}" name="passCategory" rerender="false">
+<apex:param value="" name="categoryValue"/>
+</apex:actionFunction>-->
+    
+    <apex:actionFunction action="{!saveFeedback}" name="saveNow" rerender="frm"/>
+    
+    <apex:inputHidden id="ratingId" value="{!ratingNumber}" required="true"/>
+    <apex:inputHidden id="categoryId" value="{!category}" required="true"/>
+    
+    <apex:outputPanel rendered="{!showForm}">
+        <div class="slds-panel slds-size_medium slds-panel_docked slds-panel_docked-left slds-is-open slds-align_absolute-center slds-m-top_x-large" style="width: 40%; background: #ecebea; position: absolute; margin-left: 30%; height: 93%;" aria-hidden="false">
+            <div class="slds-panel__header">
+                <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate slds-align_absolute-center" title="Panel Header">Quick Appointment Feedback</h2>
+            </div>
+            <div class="slds-panel__body">
+                <div class="slds-grid slds-grid_vertical">
                     
-                    <apex:outputLabel >Title : </apex:outputLabel>
-                    
-                    <div>
-                       <apex:inputField styleClass="slds-input" value="{!qaf.Name}" id="titleVal"/>
+                    <div class="slds-col slds-border_bottom slds-p-vertical_medium">
+                        
+                        <apex:outputLabel >Title : </apex:outputLabel>
+                        
+                        <div>
+                            <apex:inputField styleClass="slds-input" value="{!qaf.Name}" id="titleVal" onblur="checkTitle();return false;" />
+                            
+                            
+                        </div>
+                        
                     </div>
-                </div>
-                
-                <div class="slds-col slds-border_bottom">
-                    <span>We would like your feedback to improve our app.<br/>
-                        What is your opinion of this app?
-                        
-                        <section class='rating-widget slds-align_absolute-center slds-m-top_small slds-m-bottom_x-small'>
-                            <!-- Rating Stars Box -->
-                            <div class='rating-stars text-center'>
-                                <ul id='stars'>
-                                    <li class='star' title='Poor' data-value='1'>
-                                        <i class='fa fa-star fa-fw'></i>
-                                    </li>
-                                    <li class='star' title='Fair' data-value='2'>
-                                        <i class='fa fa-star fa-fw'></i>
-                                    </li>
-                                    <li class='star' title='Good' data-value='3'>
-                                        <i class='fa fa-star fa-fw'></i>
-                                    </li>
-                                    <li class='star' title='Excellent' data-value='4'>
-                                        <i class='fa fa-star fa-fw'></i>
-                                    </li>
-                                    <li class='star' title='WOW!!!' data-value='5'>
-                                        <i class='fa fa-star fa-fw'></i>
-                                    </li>
-                                </ul>
-                            </div></section>                    </span>
-                </div>
-                <div class = "slds-col slds-border_bottom slds-p-vertical_medium">
                     
-                    <span class="slds-m-top_small">Please select your feedback category below.</span>
-                    
-                    <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-border_bottom">
+                        <span>We would like your feedback to improve our app.<br/>
+                            What is your opinion of this app?
+                            
+                            <section class='rating-widget slds-align_absolute-center slds-m-top_small slds-m-bottom_x-small' id="starsId">
+                                <!-- Rating Stars Box -->
+                                <div class='rating-stars text-center' >
+                                    <ul id='stars'>
+                                        <li class='star' title='Poor' data-value='1'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Fair' data-value='2'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Good' data-value='3'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Excellent' data-value='4'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='WOW!!!' data-value='5'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    </ul>
+                                </div></section>                    </span>
                         
-                        <apex:repeat value="{!pickListValuesList}" var="pickValue" id="theRepeat">
-                            <div class="slds-col" id="fedBox">
-                                <div class="slds-box slds-m-top_x-small pickVal" id="box" value="{!pickValue}">
-                                    <p>{!pickValue}</p>
+                    </div>
+                    <div class = "slds-col slds-border_bottom slds-p-vertical_medium">
+                        
+                        <span class="slds-m-top_small">Please select your feedback category below.</span>
+                        
+                        <div class="slds-grid slds-gutters" id="catgry">
+                            
+                            <apex:repeat value="{!pickListValuesList}" var="pickValue" id="theRepeat">
+                                <div class="slds-col" id="fedBox">
+                                    <div class="slds-box slds-m-top_x-small pickVal" id="box" value="{!pickValue}">
+                                        <p>{!pickValue}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </apex:repeat>
-                        
+                            </apex:repeat>
+                            
+                            
+                        </div>
                         
                     </div>
-                </div>
-                <div class="slds-col slds-p-vertical_medium">
-                    <p>Please leave your feedback below:</p>
-                    <div class="slds-m-top_x-small">
+                    <div class="slds-col slds-p-vertical_medium">
+                        <p>Please leave your feedback below:</p>
+                        <div class="slds-m-top_x-small">
+                            
+                            <apex:inputTextarea id="newDesc" value="{!qaf.Comments__c}" style="width: 100%;" onblur="checkCommentValue();return false;"/><p/>
+                            
+                        </div>
                         
-                        <apex:inputTextarea id="newDesc" value="{!qaf.Comments__c}" style="width: 100%;height:72px;"/><p/>
                     </div>
-                    
-                </div>
-                <div class="slds-col slds-p-vertical_medium">
-                    <apex:commandButton styleclass="slds-button slds-button_brand slds-align_absolute-center slds-m-top_small" value="Submit" action="{!saveFeedback}" reRender="msg"/>
-                    
+                    <div class="slds-col slds-p-vertical_medium">
+                        
+                        <apex:commandButton styleclass="slds-button slds-button_brand slds-align_absolute-center" onclick="validateForm();return false;" value="Submit"/>
+                        
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </apex:outputPanel>
     
-   
 </apex:form>
 </apex:page>

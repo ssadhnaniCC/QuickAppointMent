@@ -3,6 +3,9 @@
     <aura:attribute name="openNewResourceModal" type="boolean" default="false"/>
     <aura:attribute name="showspinner" type="boolean" default="true"/>
     <aura:attribute name="hideFooter" type="boolean" default="false"/>
+    <aura:attribute name="workingHours" type="boolean" default="false"/>
+    
+    <aura:attribute name="showWorkingHoursList" type="boolean" default="false"/>
     <aura:attribute name="showRelatedAppointment" type="boolean" default="false"/>
     <aura:attribute name="showCalendar" type="boolean" default="false"/>
     <!--@description contains resourceStaffId -->
@@ -34,6 +37,7 @@
     <!--Sorting Attributes -->
     <aura:attribute name="sortBy" type="String" />
     <aura:attribute name="sortDirection" type="String" />
+    <aura:attribute name="ResourceName" type="String" default=" "/>
     
     <!--@description contains init handler -->
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
@@ -97,4 +101,10 @@
     <aura:if isTrue = "{!v.showCalendar}">
         <c:Calendar aura:id="childCalendar" />
     </aura:if>    
+    <aura:if isTrue="{!v.workingHours}">
+        <c:NewWorkingHour/>
+    </aura:if>
+     <aura:if isTrue="{!v.showWorkingHoursList}">
+        <c:WorkingHourList aura:id="workHour" resourceStaffId="{!v.resourceStaffId}"/>
+    </aura:if>
 </aura:component>

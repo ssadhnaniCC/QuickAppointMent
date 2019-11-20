@@ -11,7 +11,13 @@
 		var serRecord = component.get("v.serviceRecord"); 
         
         var selLocations = component.get("v.selectedLocation");
-        
+        console.log(selLocations);
+        if(selLocations.length == 1){
+            //If array contains [{}] then we have to empty the array
+            if (Object.keys(selLocations[0]).length == 0){
+                selLocations = [];
+            }
+        }
         var action = component.get('c.saveServiceRecords');
         action.setParams({
             "serRecord":serRecord,
@@ -20,6 +26,7 @@
         
         action.setCallback(this, function(response) {
             var state = response.getState();
+            console.log("state"+state);
             if (state === "SUCCESS" ) {
                 
                  /*  var toastEvent = $A.get("e.force:showToast");
@@ -65,6 +72,24 @@
                 component.set('v.options',recArray);
                 
             }
+           
+            else if (state === "INCOMPLETE") {
+                alert('INCOMPLETE');
+                // do something
+            }
+                else if (state === "ERROR") {
+                    alert('ERROR');
+                    var errors = response.getError();
+                    if (errors) {
+                        if (errors[0] && errors[0].message) {
+                            console.log("Error message: " + 
+                                        errors[0].message);
+                        }
+                    } else {
+                        console.log("Unknown error");
+                    }
+                }
+            
         });
         $A.enqueueAction(action);
     },

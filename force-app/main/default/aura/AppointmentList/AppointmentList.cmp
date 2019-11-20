@@ -1,16 +1,75 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="AppointmentLightningController">
+  <!--@description contains attributes for Storing Pagination Data-->
+    <aura:attribute name="paginationData" type="Object[]"/>
+  
+  <!--@description contains attributes for Storing Appointment Data-->
     <aura:attribute  name="relatedAppointment" type="Object[]"/>
+
+  <!--@description contains attributes for showing columns of Data Table-->   
     <aura:attribute name="relatedAppointmentColumns" type="Object[]"/>
+    
+  <!--@description contains attributes for storing recordId-->  
     <aura:attribute name="recordId" type="String"/>
+  
+  <!--@description contains attributes for storing objectDetails-->    
+    <aura:attribute name="objName" type="String"/>
+    <aura:attribute name="showToast" type="boolean" default="false"/>
+    
+  <!--@description contains attributes to show Pagination-->
+    <aura:attribute name="totalPages" type="Integer"/>
+    <aura:attribute name="pageNumber" type="Integer" default="0" />
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="dataSize" type="Integer"/>
+    
+  <!--@description contains attributes for Sorting-->
+    <aura:attribute name="sortBy" type="String" />
+    <aura:attribute name="sortDirection" type="String" />
+    
+  <!--@description hanldes Aura Method-->  
     <aura:method name="relatedAppointments" action="{!c.getRelatedAppointments}">
-       <aura:attribute name="Id" type="String" />
+        <aura:attribute name="objectName" type="String" />
+        <aura:attribute name="Id" type="String" />
     </aura:method> 
     <hr/>
-  <div class="slds-text-heading_large ">{!v.relatedAppointment[0].ResourceStaffOrCustomer}</div>
-	<lightning:datatable aura:id = "AppointmentList"
-                         columns = "{!v.relatedAppointmentColumns}"
-                         hideCheckboxColumn = "true"
-                         data = "{!v.relatedAppointment}"
-                         keyField = "Id"
-                         />
+    
+    <aura:if isTrue = "{!v.relatedAppointment.length > 0}">
+        <!-- Calling Header PageHeader to show header -->
+        <c:pageHeader headerName="{!v.relatedAppointment[0].ResourceStaffOrCustomer + ' ' +'Appointments'}" iconName="standard:related_list" iconSize="medium"/>   
+        <div class="slds-m-top_x-small">
+            <lightning:datatable aura:id = "AppointmentList"
+                                 columns = "{!v.relatedAppointmentColumns}"
+                                 hideCheckboxColumn = "true"
+                                 data = "{!v.paginationData}"
+                                 keyField = "Id"
+                                 onsort="{!c.handleSort}"
+                                 sortedBy = "{!v.sortBy}"  
+                                 sortedDirection = "{!v.sortDirection}"
+                                 />
+        </div>   
+         <div class="slds-clearfix slds-p-top_medium slds-p-left_x-small">
+                    <div class="slds-float_right">            
+                        <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
+                                          onclick="{!c.handlePrev}" disabled="{!(v.pageNumber == 1 || v.pageNumber == 0)}"/>
+                        <lightning:button label="First"  iconPosition="left"
+                                          onclick="{!c.handleFirst}" disabled="{!(v.pageNumber == 1 || v.pageNumber == 0)}"/>
+                        <lightning:button  label="Last"  iconPosition="left"
+                                          onclick="{!c.handleLast}" disabled="{! v.pageNumber == v.totalPages }"/>
+                        <lightning:button label="Next" iconName="utility:chevronright" iconPosition="right"
+                                          disabled="{! v.pageNumber == v.totalPages }" onclick="{!c.handleNext}"/>
+                    </div>
+                    <!-- <p class="slds-page-header__title">Page {!v.pageNumber} | Showing records from {! ((v.pageNumber-1)*v.pageSize)+' to '+((v.pageNumber-1)*v.pageSize+(v.dataSize-1))}</p>-->
+                    <p class="slds-float_left">Page {!v.pageNumber} of {!v.totalPages}</p>
+            </div>
+        
+    </aura:if>
+    <aura:if isTrue="{!v.showToast}">
+        <div class=" slds-m-top_x-small slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
+            <h2>There is no Appointment</h2>
+            <div class="slds-notify__close">
+                <button class="slds-button slds-button_icon slds-button_icon-small" title="Close" onclick="{!c.closeAlert}">
+                    <lightning:icon iconName="utility:close" alternativeText="close" size="small" />
+                </button>
+            </div>
+        </div> 
+    </aura:if>
 </aura:component>

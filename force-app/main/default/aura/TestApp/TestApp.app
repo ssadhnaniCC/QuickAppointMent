@@ -1,4 +1,4 @@
 <aura:application extends="force:slds">
-    <c:ServiceList/>
+    <c:WorkingHourList/>
 	
 </aura:application>

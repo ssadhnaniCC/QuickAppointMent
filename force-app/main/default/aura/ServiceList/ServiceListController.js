@@ -12,7 +12,7 @@
     
     /*Initialise method*/
     doInit : function(component, event, helper) {    
-        helper.getServiceRecords(component, helper);
+        helper.getServiceRecords(component,event,helper);
         
         
     },
@@ -71,6 +71,14 @@
             case 'view':
                 helper.viewRecord(component, event);
                 break;
+            case 'appointment':
+                component.set("v.showRelatedAppointment",true);
+                helper.showRelatedAppointments(component,event,helper);
+                break;
+            case 'calendar':
+                component.set("v.showCalendar",true);
+                helper.showRelatedCalendar(component,event,helper);
+            break;
         }
     },
     
@@ -98,8 +106,11 @@
             }
             if(tpArray.length==0){
                 component.set("v.filteredData",null);
-                component.set("v.isLastPage",true);
-                setTimeout(function(){ alert("no record found"); },300);              
+                component.set("v.isLastPage",true);                
+                component.set("v.pageNumber",0);
+                component.set("v.totalPages",0);
+                
+                //    setTimeout(function(){ alert("no record found"); },300);              
                 return;
             }
             
@@ -110,6 +121,7 @@
         if(strLength<=1){
             component.set("v.onSearch",false);
             component.set("v.pageNumber",1);
+            component.set("v.totalPages", Math.ceil(component.get("v.data").length/10));
             helper.pagination(component,event,helper);
         }
         
@@ -140,7 +152,7 @@
         component.set("v.serviceRecord",{});
         component.set('v.selectedLocations',{});
         component.set('v.fltValue',null);
-        helper.getServiceRecords(component);
+        helper.getServiceRecords(component,event,helper);
         
     },
     

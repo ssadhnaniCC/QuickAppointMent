@@ -1,0 +1,94 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="PublicHolidayLightningController" >
+	 
+      <!--@description contains boolean field to show or hide datatable footer.-->
+    <aura:attribute name="hideFooter" type="boolean" default="False"/>
+    <aura:attribute name="showspinner" type="boolean" default="true"/>
+     <!--@description contains field values of customer record.-->
+   <aura:attribute name="AppointmentCategoryRecord" type="Appointment_Category__c" default="{'sObjectType':'CC_QAppt__Appointment_Category__c', 'CC_QAppt__IsLocationMandatory__c':'','CC_QAppt__IsPricingApplicable__c':'','CC_QAppt__IsServiceMandatory__c':'','CC_QAppt__IsAvaliablePublically__c':'','Name':''}"/>
+    <!--@description contains integer value of total number of pages shown in a datatable.-->
+     <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <!--@description contains records data to show in lightning datatable.-->
+    <aura:attribute name="data" type="Object[]"/>
+    <!--@description contains columns to show as headers in lightning datatable.-->
+    <aura:attribute name="columns" type="List"/>
+    <!--@description contains Boolean variable to show and hide modal.-->
+    <aura:attribute name="isModalOpen" type="boolean" default="False"/>
+    <!--@description contains string value to search in lightning datatable.-->
+    <aura:attribute name="searchString" type="String"/>
+    <!--@description contains Boolean value to check if request is coming from onSearch function.-->
+    <aura:attribute name="onSearch" type="Boolean" default="false"/>
+    <!--@description contains list of records after applying pagination.-->
+    <aura:attribute name="paginationList" type="List" default="[]"/>
+    <!--@description contains list of records after applying searching.-->
+    <aura:attribute name="searchList" type="List"/>
+    <!--@description contains pageNumber of current page.-->
+    <aura:attribute name="pageNumber" type="Integer" default="0"/>
+    <!--@description contains pageSize i.e no of records to show on a page in pagination.-->
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <!--@description Boolean attribute to check for last page in pagination.-->
+    <aura:attribute name="isLastPage" type="Boolean" default="true"/>
+    <!-- @description contains total number of customer records.-->
+    <aura:attribute name="dataSize" type="Integer" default="0"/> 
+    <!-- @description contains all records data.-->
+    <aura:attribute name="allRecords" type="Object[]"/>
+    <!-- @description contains name of field name to apply sorting.-->
+    <aura:attribute name="sortBy" type="String"/>
+    <!-- @description contains sorting direction i.e ascending or descending.-->
+    <aura:attribute name="sortDirection" type="String"/>
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <aura:handler name="refreshEvent" event="c:ParentListRefresh" action="{! c.onSaveAndEdit }"/>
+    <c:NewPublicHoliday isModalOpen="{!v.isModalOpen}" PublicHolidayRecord="{!v.AppointmentCategoryRecord}"  aura:id="NewAppointmentCategory"/>   
+    <div class="slds-grid slds-gutters slds-p-left_x-small">
+         <div class="slds-col">
+            <div class="slds-text-heading_large ">Appointment Category</div>  
+            </div>
+        <div class="slds-align_absolute-center" > 
+            
+            <div class="slds-col">
+                <span><button class="slds-button slds-button_neutral" onclick="{! c.onAddCategoryClick}">Add Public Holiday</button></span>
+            </div>
+        </div>
+            <div class="slds-col ">
+                <span class="slds-size_1-of-2 slds-float_right"><lightning:input type="search" class="label-hidden"  name="enter-search" placeholder="Search"  variant="label-hidden" value="{!v.searchString}" onchange="{!c.onSearch}"/>                    
+                </span>
+            </div>          
+        
+    </div>
+    <div class="slds-m-top_xx-large ">
+        <aura:if isTrue="{!v.showspinner}">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </aura:if>
+        <lightning:datatable aura:id = "accDT"
+                             columns = "{!v.columns}"
+                             maxRowSelection="{!v.maxRowSelection}"
+                             data = "{!v.data}"
+                             keyField = "Id"
+                             selectedRows = "{!v.selectedRowList}"
+                             onrowaction="{!c.handleRowAction}"
+                             hideCheckboxColumn="true"
+                             sortedBy="{!v.sortBy}"
+                             sortedDirection="{!v.sortDirection}"
+                             onsort="{!c.handleSort}"/>
+        <aura:if  isTrue="{!v.hideFooter}">
+        <div class="slds-clearfix slds-p-top_medium slds-p-left_x-small">
+           
+                <div class="slds-float_right">            
+                    <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
+                                      onclick="{!c.onPrev}" disabled="{! v.pageNumber == 1|| v.pageNumber == 0}"/>
+                    <lightning:button label="First"  iconPosition="left"
+                                      onclick="{!c.onFirst}" disabled="{! v.pageNumber == 1|| v.pageNumber == 0}"/>
+                    <lightning:button  label="Last"  iconPosition="left"
+                                      onclick="{!c.onLast}" disabled="{! v.pageNumber==v.totalPages}"/>
+                    <lightning:button label="Next" iconName="utility:chevronright" iconPosition="right"
+                                      disabled="{! v.pageNumber==v.totalPages}" onclick="{!c.onNext}"/>
+                </div>   
+            <p class="slds-float_left">Page {!v.pageNumber} of {!v.totalPages} </p>
+            
+        </div>
+        </aura:if>
+    </div>
+</aura:component>

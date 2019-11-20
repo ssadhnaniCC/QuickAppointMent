@@ -9,8 +9,12 @@ public class FeedbackFormController {
     public CC_QAppt__Appointment_Feedback__c qaf {get;set;} 
     public string ratingNumber {get;set;}
     public string category {get;set;}
+   
+    public boolean showForm {get;set;}
+    public boolean showSuccess {get;set;}
+    
     public Id appointmentId {get;set;}
-    public  List<String> pickListValuesList{get;set;}
+    public List<String> pickListValuesList{get;set;}
     
     /*Initialise method (Constructor) */
     public FeedbackFormController() {
@@ -26,30 +30,19 @@ public class FeedbackFormController {
         }     
         system.debug('pickListValuesList=='+pickListValuesList);
         
-    }
-    
-    
-    /* Method for getting rating from UI */
-    public void getRating() {
+        showForm = true;
         
-        ratingNumber = apexpages.currentPage().getParameters().get('inpval');
-        system.debug('ratingNumber=='+ratingNumber);
         
     }
     
-    /* Method for getting category from UI */
-    public void getCategory() {
-        
-        category = apexpages.currentPage().getParameters().get('categoryValue');
-        system.debug('category=='+category);
-        
-    }
+    
     
     /* Method to save feedback record */
     public PageReference saveFeedback() {
-        
+        system.debug('name=='+qaf.Name);
+        system.debug('comment=='+qaf.CC_QAppt__Comments__c);
         system.debug('ratingNumber=='+ratingNumber);
-        
+        system.debug('category=='+category);
         if(!string.isEmpty(ratingNumber))
             qaf.CC_QAppt__Rating__c = ratingNumber;
         
@@ -60,14 +53,33 @@ public class FeedbackFormController {
         
         try{
             UPSERT qaf;
-            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.CONFIRM,'Feedback submit successfully'));  
+            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.CONFIRM,'Feedback submit successfully')); 
+            
+            
         }
         catch(Exception e) {
             system.debug(e);
         }
         
+        
         system.debug('qafId=='+qaf.Id);
-       return null;
+        if(qaf.Id!=null) {
+            showForm = false;
+            showSuccess = true;
+            Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+            message.toAddresses = new String[] { 'shivam0611.cloud@gmail.com' };
+                message.subject = 'Quick Appointment Feedback Form';
+            message.plainTextBody = 'Thanks for Submitting feedback form';
+            Messaging.SingleEmailMessage[] messages =   new List<Messaging.SingleEmailMessage> {message};
+                Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
+            
+            if (results[0].success) {
+                System.debug('The email was sent successfully.');
+            } else {
+                System.debug('The email failed to send: ' + results[0].errors[0].message);
+            }
+        }
+        return null;
     }
     
 }

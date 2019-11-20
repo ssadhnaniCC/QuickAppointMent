@@ -44,7 +44,9 @@
     getColumnAndAction : function(component) {
         var actions = [
             {label: 'Edit', name: 'edit'},
-            {label: 'Delete', name: 'delete'}
+            {label: 'Delete', name: 'delete'},
+            {label: 'Appointment', name: 'appointment'},
+            {label: 'View Calendar', name: 'calendar'},
         ];
         var action = component.get("c.getLocationFieldSet");
         action.setCallback(this,function(response){
@@ -147,6 +149,8 @@
      * @description This method called on edit
     */
     editRecord : function(component,event){
+        component.set("v.showCalendar",false);
+        component.set("v.showRelatedAppointment",false);
         var row = event.getParam('row');
         console.log(JSON.stringify(row));
         component.set('v.editRow',row);
@@ -165,6 +169,8 @@
         action.setCallback(this,function(response){
             var state = response.getState();
             if(state === 'SUCCESS'){
+              component.set("v.showRelatedAppointment",false);
+              component.set("v.showCalendar",false);
                 this.getLocation(component);
                 /*var toastEvent = $A.get("e.force:showToast");
                     toastEvent.setParams({
@@ -216,5 +222,17 @@
                 break;
         }
         component.set("v.paginationList",pagelist);
-    }
+    },
+    showRelatedAppointments : function(component,event,helper){
+        component.set("v.showCalendar",false);
+        var recordId = event.getParam('row').Id;
+        var childCmp = component.find("childAppointment");
+        var retnMsg = childCmp.relatedAppointments('Location',recordId);    
+    },
+       showRelatedCalendar : function(component,event,helper){
+            component.set("v.showRelatedAppointment",false);
+            var recordId = event.getParam('row').Id;
+           var childCmp = component.find("childCalendar");
+           var retnMsg = childCmp.relatedcalendar('Location',recordId);  
+       },
 })

@@ -18,20 +18,31 @@ public class QuickAppointmentSOQLManager {
     }
     @AuraEnabled
     public  static List<contact> getCustomers(string CustomerId){   
-          if(CustomerId != null){
-        return [select Id,firstname,lastname,name,email,phone,Description,recordtype.name,MailingStreet,MailingCity,MailingState,MailingCountry,MailingPostalcode from contact where recordtype.name =: 'User' and id =:CustomerId];
-    }  
-         else{
+        if(CustomerId != null){
+            return [select Id,firstname,lastname,name,email,phone,Description,recordtype.name,MailingStreet,MailingCity,MailingState,MailingCountry,MailingPostalcode from contact where recordtype.name =: 'User' and id =:CustomerId];
+        }  
+        else{
             return [select Id,firstname,lastname,name,email,phone,Description,recordtype.name,MailingStreet,MailingCity,MailingState,MailingCountry,MailingPostalcode from contact where recordtype.name =: 'User' LIMIT 50000]; 
         }
     }
-     @AuraEnabled
+    @AuraEnabled
     public  static List<CC_QAppt__Appointment_Category__c> getAppointmentCategories(Id appointmentId){   
         if(appointmentId!=null){
             return [select Id,Name,CC_QAppt__IsAssetMandatory__c,CC_QAppt__IsAttendeeMandatory__c,CC_QAppt__IsMultipleAsset__c,CC_QAppt__IsMultipleAttendee__c,	CC_QAppt__IsMultipleLocation__c,	CC_QAppt__IsMultipleResource__c,CC_QAppt__IsMultipleService__c,CC_QAppt__IsResourceMandatory__c,CC_QAppt__IsLocationMandatory__c,CC_QAppt__IsAvaliablePublically__c,CC_QAppt__IsServiceMandatory__c,CC_QAppt__IsPricingApplicable__c from CC_QAppt__Appointment_Category__c where id=:appointmentId];
         }
         else{
             return [select Id,CC_QAppt__IsLocationMandatory__c,Name,CC_QAppt__IsAvaliablePublically__c,CC_QAppt__IsServiceMandatory__c,CC_QAppt__IsPricingApplicable__c from CC_QAppt__Appointment_Category__c limit 100];
+        }
+        
+    }  
+    
+    @AuraEnabled
+    public  static List<CC_QAppt__Public_Holidays__c> getPublicHolidays(Id recordId){   
+        if(recordId!=null){
+            return [select Id,Name,CC_QAppt__Holiday_Date__c,CC_QAppt__Location__r.Name from CC_QAppt__Public_Holidays__c where id=:recordId ];
+        }
+        else{
+            return [select Id,Name,CC_QAppt__Holiday_Date__c,CC_QAppt__Location__r.Name from CC_QAppt__Public_Holidays__c  order by lastmodifieddate desc limit 1000];
         }
         
     }  
@@ -78,19 +89,31 @@ public class QuickAppointmentSOQLManager {
         return locList;
     }
     public static List<CC_QAppt__Appointment__c> getPreviousAppointments(String objName, String RecordId){
+        system.debug('recordId'+RecordId);
         if(RecordId != '' && objName != '' ){
-           String query = 'select id,name,CC_QAppt__Resource_Service_Alignment__r.Location__r.street__c,CC_QAppt__Resource_Service_Alignment__r.Service__r.Name,CC_QAppt__Resource_Service_Alignment__r.Resource_Staff__r.name,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c,CC_QAppt__Capacity__c,CC_QAppt__Total_Participants__c,CC_QAppt__Description__c from Appointment__c ';
+            String query = 'select id,name,CC_QAppt__Appointment_Category__r.Name,CC_QAppt__Resource_Service_Alignment__r.Location__r.Name,CC_QAppt__Resource_Service_Alignment__r.Location__r.street__c,CC_QAppt__Resource_Service_Alignment__r.Service__r.Name,CC_QAppt__Resource_Service_Alignment__r.Resource_Staff__r.name,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c,CC_QAppt__Capacity__c,CC_QAppt__Total_Participants__c,CC_QAppt__Description__c from Appointment__c';
             if(objName == 'Contact'){
-               query += ' where Start_Date_Time__c != null And Resource_Service_Alignment__r.Resource_Staff__c =:  RecordId';      
+                query += ' where Start_Date_Time__c != null And Resource_Service_Alignment__r.Resource_Staff__c =:  RecordId';      
             }
-           List<CC_QAppt__Appointment__c> applist = Database.query(query);
+            if(objName == 'Location'){
+                system.debug('Location');
+                query += ' where Start_Date_Time__c != null And Resource_Service_Alignment__r.CC_QAppt__Location__c =:  RecordId';       
+            }
+            if(objName == 'Service'){
+                query += ' where Start_Date_Time__c != null And Resource_Service_Alignment__r.CC_QAppt__Service__c =:  RecordId';       
+            }
+            if(objName == 'AppointmentCategory'){
+                query += ' where Start_Date_Time__c != null And CC_QAppt__Appointment_Category__c =:  RecordId';          
+            }
+            List<CC_QAppt__Appointment__c> applist = Database.query(query);
             return applist;
         }
-     else{
-       return  [select id,name,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c,CC_QAppt__Capacity__c,CC_QAppt__Total_Participants__c,CC_QAppt__Description__c from Appointment__c where Start_Date_Time__c != null];     
+        else{
+            system.debug('Else');
+            return  [select id,name,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Resource_Service_Alignment__r.Service__r.Name,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c,CC_QAppt__Capacity__c,CC_QAppt__Total_Participants__c,CC_QAppt__Description__c from Appointment__c where Start_Date_Time__c != null];     
         }
     }
-     public static List<CC_QAppt__Appointment__c> getPreviousAppointmentsForCustomers(String customerId){
+    public static List<CC_QAppt__Appointment__c> getPreviousAppointmentsForCustomers(String customerId){
         List<Participant__c> PartLIst = new List<Participant__c>();   
         set<string> appIds = new set<string>();
         if(customerId != null){
@@ -98,14 +121,103 @@ public class QuickAppointmentSOQLManager {
             for(Participant__c p : PartList){
                 appIds.add(p.Appointment__c);
             }
-        
+            
             return  [select name,Status__c,Resource_Service_Alignment__r.Location__r.street__c,Resource_Service_Alignment__r.Location__r.city__c,Resource_Service_Alignment__r.Service__r.name,Resource_Service_Alignment__r.Service__r.Price__c,Discount__c,
-                                           Resource_Service_Alignment__r.Resource_Staff__r.name,Description__c,Start_Date_Time__c,End_Date_Time__c
-                                           from Appointment__c where id in :appIds];
+                     Resource_Service_Alignment__r.Resource_Staff__r.name,Description__c,Start_Date_Time__c,End_Date_Time__c
+                     from Appointment__c where id in :appIds];
         }
         else{
-       return  [select id,name,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c,CC_QAppt__Capacity__c,CC_QAppt__Total_Participants__c,CC_QAppt__Description__c from Appointment__c where Start_Date_Time__c != null];     
+            return  [select id,name,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c,CC_QAppt__Capacity__c,CC_QAppt__Total_Participants__c,CC_QAppt__Description__c from Appointment__c where Start_Date_Time__c != null];     
         }
     }
     
+    /*
+     fetch working Hours
+    */
+    
+    @AuraEnabled
+    public static List<CC_QAppt__Working_Hour__c> getWorkingHours(string appId) {
+        
+        return [SELECT CC_QAppt__Resource__r.name,CC_QAppt__Start_Date__c,CC_QAppt__End_Date__c,CC_QAppt__Active__c,CC_QAppt__End_Time__c,CC_QAppt__Start_Time__c FROM CC_QAppt__Working_Hour__c where CC_QAppt__Resource__c =: appId];
+        
+    }
+    
+    /*******************************************************************************************************
+    * @description This method is used for getting data of Appointment sObject according month.
+    * @returns Map<String,Integer>  key is name month and value is total number of appointment of that month .
+    */
+    public static Map<String,Integer> monthlyAppointment(){
+        Map<String,Integer> monthlyAppointment = new Map<String,Integer>();
+        String [] month = new String[] {'January','February','March','April','May','June','July','August','September','October','Novemeber','Decemeber'};
+            for(AggregateResult result : [select count(id) total,calendar_month(CC_QAppt__Start_Date_Time__c) month from CC_QAppt__Appointment__c where CC_QAppt__Status__c = 'Completed' GROUP BY calendar_month(CC_QAppt__Start_Date_Time__c)]){
+                Integer m = (Integer)result.get('month') - 1;
+                monthlyAppointment.put(month[m],(Integer)result.get('total'));
+            }
+        return monthlyAppointment;
+    }
+    
+    /*******************************************************************************************************
+    * @description This method is used for getting data of Appointment sObject on daily basis.
+    * @returns List<CC_QAppt__Appointment__c> .
+    */
+    public static List<CC_QAppt__Appointment__c> dailyAppointment(){
+        return [select id, CC_QAppt__Start_Date_Time__c from CC_QAppt__Appointment__c where CC_QAppt__Start_Date_Time__c = TODAY order By CC_QAppt__Start_Date_Time__c];
+    }
+    
+    /*******************************************************************************************************
+    * @description This method is used for getting data of rating from Appiontment Feedback sObject.
+    * @returns Map<String,Integer>  key is name of rate like '5*' and value is total number of rating of that rate .
+    */
+    public static Map<String,Integer> getRating(){
+       Map<String,Integer> ratingMap = new Map<String,Integer>();
+        for(AggregateResult result : [select count(id) total, CC_QAppt__Rating__c from CC_QAppt__Appointment_Feedback__c Group By CC_QAppt__Rating__c]){
+            if(result.get('CC_QAppt__Rating__c') != null){
+                ratingMap.put((String)result.get('CC_QAppt__Rating__c'),(Integer)result.get('total'));
+            }
+        }
+        return ratingMap;
+    }
+    
+     /*******************************************************************************************************
+    * @description This method is used for getting data of top ten Category.
+    * @returns Map<String,Integer>  key is name of Category and value is total number of Appointment of that category .
+    */
+    public static Map<String,Integer> getTopCategory(){
+       Map<String,Integer> categoryMap = new Map<String,Integer>();
+        for(AggregateResult result : [select count(id) total, CC_QAppt__Appointment_Category__r.Name name from CC_QAppt__Appointment__c Group by CC_QAppt__Appointment_Category__r.Name order by count(id) DESC limit 10]){
+            if(result.get('name') != Null)
+                categoryMap.put((String)result.get('name'),(Integer)result.get('total'));
+        }
+        return categoryMap;
+    }
+    
+     /*******************************************************************************************************
+    * @description This method is used for getting data of top ten Customer.
+    * @returns Map<String,Integer>  key is name of Customer and value is total number of Appointment of that Customer .
+    */
+    public static Map<String,Integer> getTopCustomer(){
+        Map<String,Integer> customerMap = new Map<String,Integer>();
+        for(AggregateResult result : [select count(CC_QAppt__Appointment__c) total,CC_QAppt__Participant_Name__r.Name name from CC_QAppt__Participant__c WHERE CC_QAppt__Appointment__r.CC_QAppt__Status__c = 'Completed' group by CC_QAppt__Participant_Name__r.Name order by count(CC_QAppt__Appointment__c) DESC LIMIT 10]){
+            if(result.get('name') != Null)
+                customerMap.put((String)result.get('name'),(Integer)result.get('total'));
+            System.debug(customerMap);
+        }
+        return customerMap;
+    }
+    
+    /*******************************************************************************************************
+    * @description This method is used for getting data of upcoming Appointment.
+    * @returns List<CC_QAppt__Appointment__c> .
+    */
+    public static List<CC_QAppt__Appointment__c> getUpcomingAppointment(){
+        return[SELECT Name,Resource_Service_Alignment__r.Location__r.name,Resource_Service_Alignment__r.Service__r.name,CC_QAppt__Start_Date_Time__c FROM CC_QAppt__Appointment__c WHERE CC_QAppt__Start_Date_Time__c >= TODAY];
+    }
+    
+   /*******************************************************************************************************
+    * @description This method is used for getting data of Customer of upcoming Appointment.
+    * @returns List<CC_QAppt__Participant__c> .
+    */
+    public static List<CC_QAppt__Participant__c> getUpcomingCustomer(){
+        return[select CC_QAppt__Appointment__r.Name ,CC_QAppt__Participant_Name__r.Name, CC_QAppt__Appointment__r.CC_QAppt__Start_Date_Time__c from CC_QAppt__Participant__c WHERE CC_QAppt__Appointment__r.CC_QAppt__Start_Date_Time__c >= TODAY];
+    }
 }
