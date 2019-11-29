@@ -32,16 +32,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default",
             "isDirectory": true,
-            "size": 576,
-            "modifiedTime": 1573195477650,
-            "changeTime": 1573195477650,
-            "contentHash": "5ddc04df33326a318e9204272c025fb5c07a231d",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 704,
+            "modifiedTime": 1575006161944,
+            "changeTime": 1575006161944,
+            "contentHash": "262b14358145bf0ff9d30c3bf22fb2da254b7ce9"
         }
     ],
     [
@@ -62,14 +60,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura",
             "isDirectory": true,
+            "size": 1056,
+            "modifiedTime": 1574854662296,
+            "changeTime": 1574854662296,
+            "contentHash": "820589c627940c73ebe69c2c3c866b65a455671c",
             "isMetadataFile": false,
-            "size": 1024,
-            "modifiedTime": 1573820593210,
-            "changeTime": 1573820593210,
-            "contentHash": "906a2f629976e19e56e83780fecc99976c6b8477"
+            "state": "u"
         }
     ],
     [
@@ -78,7 +76,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentCategory",
             "isDirectory": true,
             "size": 192,
-            "modifiedTime": 1573195476976,
+            "modifiedTime": 1574854662082,
             "changeTime": 1573195476976,
             "contentHash": "834e11443de29c3fea1b453703925a2a094c0405",
             "isMetadataFile": false,
@@ -94,10 +92,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentCategory/AppointmentCategory.cmp",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 6451,
-            "modifiedTime": 1573820592942,
-            "changeTime": 1573820592942,
-            "contentHash": "3ca67ad67bb0518baf3361be07daf3a7f93a42a4"
+            "size": 6510,
+            "modifiedTime": 1575006161157,
+            "changeTime": 1575006161157,
+            "contentHash": "bdfe48a872d6a4bebf9a54823e11ee5b1980372c"
         }
     ],
     [
@@ -118,14 +116,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentCategory/AppointmentCategoryController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentCategory/AppointmentCategoryController.js",
             "isDirectory": false,
+            "size": 6258,
+            "modifiedTime": 1574854662075,
+            "changeTime": 1574854662075,
+            "contentHash": "b4b8e5f849c562f9929c42c7ca4155e1d7d7a657",
             "isMetadataFile": false,
-            "size": 6301,
-            "modifiedTime": 1573820592933,
-            "changeTime": 1573820592933,
-            "contentHash": "52b7071f2a0b9cee693a7b09ab3f6fdc97a25f30"
+            "state": "u"
         }
     ],
     [
@@ -135,23 +133,23 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentCategory/AppointmentCategoryHelper.js",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 11922,
-            "modifiedTime": 1573820592938,
-            "changeTime": 1573820592938,
-            "contentHash": "869fc28d4f96e9222c2f4625cf84f663c85afeaf"
+            "size": 11610,
+            "modifiedTime": 1575006161153,
+            "changeTime": 1575006161153,
+            "contentHash": "e5b2b6f7de1653fc9aa7333c4a89b172ad5010d4"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentList",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentList",
             "isDirectory": true,
-            "isMetadataFile": false,
             "size": 224,
-            "modifiedTime": 1573820593130,
+            "modifiedTime": 1574854662216,
             "changeTime": 1573820593130,
-            "contentHash": "68053e58087d944a00eff63f6de9d31170d5a3da"
+            "contentHash": "68053e58087d944a00eff63f6de9d31170d5a3da",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -161,10 +159,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentList/AppointmentList.cmp",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 4427,
-            "modifiedTime": 1573820593121,
-            "changeTime": 1573820593121,
-            "contentHash": "16112e75ddeefcb7fe119226fa7f1ba16b82c1de"
+            "size": 4738,
+            "modifiedTime": 1575006161246,
+            "changeTime": 1575006161246,
+            "contentHash": "b5267b4c24acff6325a7143f3713be970bed8cc9"
         }
     ],
     [
@@ -189,38 +187,36 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentList/AppointmentListController.js",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 2695,
-            "modifiedTime": 1573820593125,
-            "changeTime": 1573820593125,
-            "contentHash": "3ae3c23e7347d0f7dda9685dbd22f989e234c144"
+            "size": 2914,
+            "modifiedTime": 1575006161250,
+            "changeTime": 1575006161250,
+            "contentHash": "70074c12f42aec23ec9e9e6befddaaff905f23f1"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentList/AppointmentListHelper.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentList/AppointmentListHelper.js",
             "isDirectory": false,
+            "size": 5778,
+            "modifiedTime": 1574854662216,
+            "changeTime": 1574854662216,
+            "contentHash": "fda9d27c5423a768d97b67011887b9177d2e787d",
             "isMetadataFile": false,
-            "size": 6122,
-            "modifiedTime": 1573820593129,
-            "changeTime": 1573820593129,
-            "contentHash": "dcee275e3fbf6eb00b19b530ca00eac04ff684b6"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Calendar",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Calendar",
             "isDirectory": true,
-            "size": 224,
-            "modifiedTime": 1573195476994,
-            "changeTime": 1573195476994,
-            "contentHash": "ebe1187861dbb807fc4304295bdedbcb3339c34b",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 256,
+            "modifiedTime": 1575006161222,
+            "changeTime": 1575006161222,
+            "contentHash": "714d593b5b8c697eae0c9cc9c412652e60c8c694"
         }
     ],
     [
@@ -230,10 +226,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Calendar/Calendar.cmp",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 3107,
-            "modifiedTime": 1573820593016,
-            "changeTime": 1573820593016,
-            "contentHash": "2eb35c9b3f415703ed95c8cfe154c94fa76d693d"
+            "size": 3457,
+            "modifiedTime": 1575006161218,
+            "changeTime": 1575006161218,
+            "contentHash": "0059bee1723e6404dace01619b3f49a4a9b774b7"
         }
     ],
     [
@@ -273,10 +269,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Calendar/CalendarController.js",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 1459,
-            "modifiedTime": 1573820593017,
-            "changeTime": 1573820593017,
-            "contentHash": "045823d03fd9f94ceaa67f2f0a2a01d9359f2b31"
+            "size": 1708,
+            "modifiedTime": 1575006161222,
+            "changeTime": 1575006161222,
+            "contentHash": "f37c93b327b7ea169acc063909913e6a16b825a0"
         }
     ],
     [
@@ -286,10 +282,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Calendar/CalendarHelper.js",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 6249,
-            "modifiedTime": 1573820593011,
-            "changeTime": 1573820593011,
-            "contentHash": "3628564b62a9f3153efbd6ce3b3b40d55f5be31d"
+            "size": 6681,
+            "modifiedTime": 1575006161211,
+            "changeTime": 1575006161211,
+            "contentHash": "db741b2585225e46b5dba76a645f9b92e6da35d5"
         }
     ],
     [
@@ -298,7 +294,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/CustomerList",
             "isDirectory": true,
             "size": 224,
-            "modifiedTime": 1573195477025,
+            "modifiedTime": 1574854662236,
             "changeTime": 1573195477025,
             "contentHash": "1f57c9cc045354f1643ea28d170a368f029f1e73",
             "isMetadataFile": false,
@@ -314,10 +310,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/CustomerList/CustomerList.cmp",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 6643,
-            "modifiedTime": 1573820593176,
-            "changeTime": 1573820593176,
-            "contentHash": "386ba95b7526d363581f9f9dea9cb3f494169fff"
+            "size": 6706,
+            "modifiedTime": 1575006161272,
+            "changeTime": 1575006161272,
+            "contentHash": "c6dc16929f3f440b6407454705270ce41c1954fb"
         }
     ],
     [
@@ -355,14 +351,12 @@
         {
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/CustomerList/CustomerListController.js",
             "isDirectory": false,
-            "size": 7237,
-            "modifiedTime": 1573195477024,
-            "changeTime": 1573195477024,
-            "contentHash": "8340e4ea1f448ea65fc4584479591a40187b491d",
+            "size": 7112,
+            "modifiedTime": 1574854662236,
+            "changeTime": 1574854662236,
+            "contentHash": "17d50837e4505cce81535c7c184dfd1db1a5bdc9",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "state": "u"
         }
     ],
     [
@@ -372,10 +366,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/CustomerList/CustomerListHelper.js",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 12682,
-            "modifiedTime": 1573820593168,
-            "changeTime": 1573820593168,
-            "contentHash": "03d48f896850ddd9ac6380f7f9b723c0ec8c3079"
+            "size": 10891,
+            "modifiedTime": 1575006161265,
+            "changeTime": 1575006161265,
+            "contentHash": "061990ca7000aa7e0c1d991b715929b37f58136a"
         }
     ],
     [
@@ -384,7 +378,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Dashboard",
             "isDirectory": true,
             "size": 192,
-            "modifiedTime": 1573195477099,
+            "modifiedTime": 1574854662149,
             "changeTime": 1573195477099,
             "contentHash": "6968e2e51d53846e42e901e0ea1fd92184aeff7d",
             "isMetadataFile": false,
@@ -396,14 +390,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Dashboard/Dashboard.cmp",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Dashboard/Dashboard.cmp",
             "isDirectory": false,
+            "size": 9260,
+            "modifiedTime": 1574854662141,
+            "changeTime": 1574854662141,
+            "contentHash": "86ed493ac96ee8dc1c9ae0f372a02ace767d1e96",
             "isMetadataFile": false,
-            "size": 4159,
-            "modifiedTime": 1573820592994,
-            "changeTime": 1573820592994,
-            "contentHash": "9c6b5bf0690902fcb7b895630ca8f207d7629776"
+            "state": "u"
         }
     ],
     [
@@ -424,14 +418,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Dashboard/DashboardController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Dashboard/DashboardController.js",
             "isDirectory": false,
+            "size": 1587,
+            "modifiedTime": 1574854662145,
+            "changeTime": 1574854662145,
+            "contentHash": "647fd59895f8b15b97caae0c756a00c0785e29d6",
             "isMetadataFile": false,
-            "size": 1375,
-            "modifiedTime": 1573820592996,
-            "changeTime": 1573820592996,
-            "contentHash": "5f2f14d232d8430cd476beb4816c0293c8ba370d"
+            "state": "u"
         }
     ],
     [
@@ -441,10 +435,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Dashboard/DashboardHelper.js",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 6478,
-            "modifiedTime": 1573820592997,
-            "changeTime": 1573820592997,
-            "contentHash": "4c822b77d116bf1fbf431720dc747800f0a16a31"
+            "size": 6667,
+            "modifiedTime": 1575006161173,
+            "changeTime": 1575006161173,
+            "contentHash": "74a13bc1ab51ed3e48ecf92a826c6cc0c21029ac"
         }
     ],
     [
@@ -453,7 +447,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/LocationList",
             "isDirectory": true,
             "size": 224,
-            "modifiedTime": 1573195477134,
+            "modifiedTime": 1574854662133,
             "changeTime": 1573195477134,
             "contentHash": "5b140e455bf72344f64fbb5239f8feef39e4587a",
             "isMetadataFile": false,
@@ -469,10 +463,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/LocationList/LocationList.cmp",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 5630,
-            "modifiedTime": 1573820592988,
-            "changeTime": 1573820592988,
-            "contentHash": "18f1eaee3ecc61dbb053931c4ad68e5b1ea0cfd2"
+            "size": 6096,
+            "modifiedTime": 1575006161183,
+            "changeTime": 1575006161183,
+            "contentHash": "a2aff60b096a5b38c52b76bac833ed0c1858cc4b"
         }
     ],
     [
@@ -508,14 +502,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/LocationList/LocationListController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/LocationList/LocationListController.js",
             "isDirectory": false,
+            "size": 4258,
+            "modifiedTime": 1574854662133,
+            "changeTime": 1574854662133,
+            "contentHash": "76c6929ba5ec8baff58c2a03cf51dc38c9f89815",
             "isMetadataFile": false,
-            "size": 4031,
-            "modifiedTime": 1573820592990,
-            "changeTime": 1573820592990,
-            "contentHash": "c17a2a8d93eea7222ea902e47ec63c8ed0b21742"
+            "state": "u"
         }
     ],
     [
@@ -525,10 +519,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/LocationList/LocationListHelper.js",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 10718,
-            "modifiedTime": 1573820592981,
-            "changeTime": 1573820592981,
-            "contentHash": "3fe125f31cf2859558008e379b3830afed81ba94"
+            "size": 11128,
+            "modifiedTime": 1575006161178,
+            "changeTime": 1575006161178,
+            "contentHash": "f959ffc187127cfd0bed0cc2a3c70021e09bae93"
         }
     ],
     [
@@ -582,7 +576,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewAppointmentCategory",
             "isDirectory": true,
             "size": 224,
-            "modifiedTime": 1573195477039,
+            "modifiedTime": 1574854662098,
             "changeTime": 1573195477039,
             "contentHash": "6b8c5b10d94b291586f23c7d1a81eebcf92c1899",
             "isMetadataFile": false,
@@ -594,14 +588,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewAppointmentCategory/NewAppointmentCategory.cmp",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewAppointmentCategory/NewAppointmentCategory.cmp",
             "isDirectory": false,
+            "size": 7556,
+            "modifiedTime": 1574854662094,
+            "changeTime": 1574854662094,
+            "contentHash": "28911b4a7074275d280a177fd1f149a24cf54d72",
             "isMetadataFile": false,
-            "size": 7781,
-            "modifiedTime": 1573820592958,
-            "changeTime": 1573820592958,
-            "contentHash": "7a6f266c63d441a134fed45e11e9f813b59e7c0d"
+            "state": "u"
         }
     ],
     [
@@ -639,27 +633,25 @@
         {
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewAppointmentCategory/NewAppointmentCategoryController.js",
             "isDirectory": false,
-            "size": 6641,
-            "modifiedTime": 1573195477039,
-            "changeTime": 1573195477039,
-            "contentHash": "0db4397e16e8d9f563cd386d7a85305076668ed7",
+            "size": 6351,
+            "modifiedTime": 1574854662098,
+            "changeTime": 1574854662098,
+            "contentHash": "4998e8da884f875127765211f4d07f2019e44216",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewAppointmentCategory/NewAppointmentCategoryHelper.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewAppointmentCategory/NewAppointmentCategoryHelper.js",
             "isDirectory": false,
+            "size": 1877,
+            "modifiedTime": 1574854662090,
+            "changeTime": 1574854662090,
+            "contentHash": "e87085d94aa40d604d9c18a210846736cc92311c",
             "isMetadataFile": false,
-            "size": 1909,
-            "modifiedTime": 1573820592950,
-            "changeTime": 1573820592950,
-            "contentHash": "175edb8dc80558a2942e72e3f8ddd02386528951"
+            "state": "u"
         }
     ],
     [
@@ -668,7 +660,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewCustomer",
             "isDirectory": true,
             "size": 224,
-            "modifiedTime": 1573195477007,
+            "modifiedTime": 1574854662248,
             "changeTime": 1573195477007,
             "contentHash": "4e1dce1e59285ccb96cd6e8b8bcac897a4031ab5",
             "isMetadataFile": false,
@@ -725,27 +717,27 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewCustomer/NewCustomerController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewCustomer/NewCustomerController.js",
             "isDirectory": false,
+            "size": 3431,
+            "modifiedTime": 1574854662248,
+            "changeTime": 1574854662248,
+            "contentHash": "2c9d78e64dbb406a6594c0f505732a99878d1df2",
             "isMetadataFile": false,
-            "size": 3464,
-            "modifiedTime": 1573820593191,
-            "changeTime": 1573820593191,
-            "contentHash": "022c41c9bc443864e9e3a8480fff115d6803a665"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewCustomer/NewCustomerHelper.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewCustomer/NewCustomerHelper.js",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 1623,
             "modifiedTime": 1573820593195,
             "changeTime": 1573820593195,
-            "contentHash": "77f495a9b7dc41a35aaaa94b58d111259f3676c3"
+            "contentHash": "77f495a9b7dc41a35aaaa94b58d111259f3676c3",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -844,7 +836,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewResource",
             "isDirectory": true,
             "size": 224,
-            "modifiedTime": 1573195477087,
+            "modifiedTime": 1574854662052,
             "changeTime": 1573195477087,
             "contentHash": "ada47bee3d4b4cf038c38f501666263d4887bd16",
             "isMetadataFile": false,
@@ -860,10 +852,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewResource/NewResource.cmp",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 10608,
-            "modifiedTime": 1573820592911,
-            "changeTime": 1573820592911,
-            "contentHash": "4d194cee1e19e06e20035391b9eaafc1642ec232"
+            "size": 10682,
+            "modifiedTime": 1575006161119,
+            "changeTime": 1575006161119,
+            "contentHash": "0628a60985d6ad9b039e6523c987a3afe5667a03"
         }
     ],
     [
@@ -903,10 +895,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewResource/NewResourceController.js",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 2870,
-            "modifiedTime": 1573820592921,
-            "changeTime": 1573820592921,
-            "contentHash": "89e32bbd6063b4d0176bd77a0d125afc89d53446"
+            "size": 2984,
+            "modifiedTime": 1575006161124,
+            "changeTime": 1575006161124,
+            "contentHash": "6f7cf567f5617861189bc0d39cb1db841c403a20"
         }
     ],
     [
@@ -916,10 +908,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewResource/NewResourceHelper.js",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 6955,
-            "modifiedTime": 1573820592926,
-            "changeTime": 1573820592926,
-            "contentHash": "ac2adc2bbd99529af4870a37e01e2c55d775cd23"
+            "size": 7220,
+            "modifiedTime": 1575006161132,
+            "changeTime": 1575006161132,
+            "contentHash": "02be45dcea42277b8855025e4442e92fb0dc8e2e"
         }
     ],
     [
@@ -928,7 +920,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewService",
             "isDirectory": true,
             "size": 224,
-            "modifiedTime": 1573195477113,
+            "modifiedTime": 1573820593070,
             "changeTime": 1573195477113,
             "contentHash": "9b328c473d70b36662ec90cd96f6e8762942047d",
             "isMetadataFile": false,
@@ -940,14 +932,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewService/NewService.cmp",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewService/NewService.cmp",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 9422,
             "modifiedTime": 1573820593067,
             "changeTime": 1573820593067,
-            "contentHash": "6896ee5b212fa0d2b36599620cf4bae1c9868b5d"
+            "contentHash": "6896ee5b212fa0d2b36599620cf4bae1c9868b5d",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -983,27 +975,27 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewService/NewServiceController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewService/NewServiceController.js",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 2842,
             "modifiedTime": 1573820593071,
             "changeTime": 1573820593071,
-            "contentHash": "8a0f51cbec2170eae07def0949b397fe2a6cbf4d"
+            "contentHash": "8a0f51cbec2170eae07def0949b397fe2a6cbf4d",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewService/NewServiceHelper.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewService/NewServiceHelper.js",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 4427,
             "modifiedTime": 1573820593062,
             "changeTime": 1573820593062,
-            "contentHash": "49c67de1cab35c0f5069c6899842baed17443807"
+            "contentHash": "49c67de1cab35c0f5069c6899842baed17443807",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -1057,7 +1049,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/QuickAppointmentHome",
             "isDirectory": true,
             "size": 160,
-            "modifiedTime": 1573195477105,
+            "modifiedTime": 1574854662063,
             "changeTime": 1573195477105,
             "contentHash": "60bf604f5cd9d24c65e3aba69830b6e8ab4f4132",
             "isMetadataFile": false,
@@ -1069,16 +1061,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/QuickAppointmentHome/QuickAppointmentHome.cmp",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/QuickAppointmentHome/QuickAppointmentHome.cmp",
             "isDirectory": false,
-            "size": 5256,
-            "modifiedTime": 1573195477105,
-            "changeTime": 1573195477105,
-            "contentHash": "c07e948e39770420121ecdabefed9bf556bb1e5e",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 5309,
+            "modifiedTime": 1575006161141,
+            "changeTime": 1575006161141,
+            "contentHash": "525f068553a6643a6a20794ef8b5aa4d2658a538"
         }
     ],
     [
@@ -1177,7 +1167,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ResourceList",
             "isDirectory": true,
             "size": 224,
-            "modifiedTime": 1573195477031,
+            "modifiedTime": 1573820593235,
             "changeTime": 1573195477031,
             "contentHash": "1a4bb173a6efa0e899675207c26343371a094409",
             "isMetadataFile": false,
@@ -1193,10 +1183,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ResourceList/ResourceList.cmp",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 6220,
-            "modifiedTime": 1573820593231,
-            "changeTime": 1573820593231,
-            "contentHash": "821513bef242d2f426f84b4b0f3087d46d293dc0"
+            "size": 6374,
+            "modifiedTime": 1575006161296,
+            "changeTime": 1575006161296,
+            "contentHash": "af377963efbbb22b7c8adb107049096991aa791e"
         }
     ],
     [
@@ -1232,14 +1222,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ResourceList/ResourceListController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ResourceList/ResourceListController.js",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 5917,
             "modifiedTime": 1573820593235,
             "changeTime": 1573820593235,
-            "contentHash": "65ee408ac06be40e5943b47bb74dd3b7d0660c56"
+            "contentHash": "65ee408ac06be40e5943b47bb74dd3b7d0660c56",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -1249,10 +1239,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ResourceList/ResourceListHelper.js",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 10648,
-            "modifiedTime": 1573820593223,
-            "changeTime": 1573820593223,
-            "contentHash": "c686c9fcde43d75bbcbd32a0b8cef769fe3a85f6"
+            "size": 10950,
+            "modifiedTime": 1575006161288,
+            "changeTime": 1575006161288,
+            "contentHash": "710df4e0de42afe8d7ff104036f7cbb22d5f669c"
         }
     ],
     [
@@ -1261,7 +1251,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ResourceListApplication",
             "isDirectory": true,
             "size": 128,
-            "modifiedTime": 1573195477149,
+            "modifiedTime": 1573820593136,
             "changeTime": 1573195477149,
             "contentHash": "3d37f9cee528a481583d2c7708d7ce5ab7ef1f00",
             "isMetadataFile": false,
@@ -1273,14 +1263,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ResourceListApplication/ResourceListApplication.app",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ResourceListApplication/ResourceListApplication.app",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 132,
             "modifiedTime": 1573820593136,
             "changeTime": 1573820593136,
-            "contentHash": "a311691fb5cdaca988adc4c2ea6009b436b1d0b3"
+            "contentHash": "a311691fb5cdaca988adc4c2ea6009b436b1d0b3",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -1304,7 +1294,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ServiceList",
             "isDirectory": true,
             "size": 224,
-            "modifiedTime": 1573195477071,
+            "modifiedTime": 1574854662197,
             "changeTime": 1573195477071,
             "contentHash": "d411c0a275d2c60fdb35b4023cfeb5914a3e9b30",
             "isMetadataFile": false,
@@ -1320,10 +1310,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ServiceList/ServiceList.cmp",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 6285,
-            "modifiedTime": 1573820593110,
-            "changeTime": 1573820593110,
-            "contentHash": "c70b7008e23066e3fb055ffe22c3f0169ec22758"
+            "size": 6358,
+            "modifiedTime": 1575006161238,
+            "changeTime": 1575006161238,
+            "contentHash": "8ade8b4daafae274cb52974ec8e776025e133ac5"
         }
     ],
     [
@@ -1359,14 +1349,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ServiceList/ServiceListController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ServiceList/ServiceListController.js",
             "isDirectory": false,
+            "size": 6659,
+            "modifiedTime": 1574854662189,
+            "changeTime": 1574854662189,
+            "contentHash": "195ae45a11d4eb65f8588b7f32941047a7a33daa",
             "isMetadataFile": false,
-            "size": 6656,
-            "modifiedTime": 1573820593091,
-            "changeTime": 1573820593091,
-            "contentHash": "fe691a8b82433c4e6e8ad04eae5b863325fc4505"
+            "state": "u"
         }
     ],
     [
@@ -1376,10 +1366,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/ServiceList/ServiceListHelper.js",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 9888,
-            "modifiedTime": 1573820593106,
-            "changeTime": 1573820593106,
-            "contentHash": "0a82d49ab9709ed82e0f95bdfc122cba2131dc0d"
+            "size": 10209,
+            "modifiedTime": 1575006161234,
+            "changeTime": 1575006161234,
+            "contentHash": "a7c38c5ebf922f65371768c0ac4bee8d4131312a"
         }
     ],
     [
@@ -1388,7 +1378,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/TestApp",
             "isDirectory": true,
             "size": 128,
-            "modifiedTime": 1571735241100,
+            "modifiedTime": 1573820592973,
             "changeTime": 1572591405748,
             "contentHash": "8cde4e21dd1ce433e8e23bf6da87ab393b0c8fa7",
             "isMetadataFile": false,
@@ -1400,14 +1390,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/TestApp/TestApp.app",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/TestApp/TestApp.app",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 86,
             "modifiedTime": 1573820592973,
             "changeTime": 1573820592973,
-            "contentHash": "7eab2ab54d90125afdce6e257a64ba573e5c078b"
+            "contentHash": "7eab2ab54d90125afdce6e257a64ba573e5c078b",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -1476,7 +1466,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/testLocationApp",
             "isDirectory": true,
             "size": 128,
-            "modifiedTime": 1573195477165,
+            "modifiedTime": 1573820593153,
             "changeTime": 1573195477165,
             "contentHash": "743078110a53ba1af2ff994b2d3d0857911cc174",
             "isMetadataFile": false,
@@ -1488,14 +1478,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/testLocationApp/testLocationApp.app",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/testLocationApp/testLocationApp.app",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 108,
             "modifiedTime": 1573820593153,
             "changeTime": 1573820593153,
-            "contentHash": "13a2f92689622c4d70aacd640cb084ee359dcb8b"
+            "contentHash": "13a2f92689622c4d70aacd640cb084ee359dcb8b",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -1519,7 +1509,7 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/testcustomer",
             "isDirectory": true,
             "size": 160,
-            "modifiedTime": 1573195477157,
+            "modifiedTime": 1573820593079,
             "changeTime": 1573195477157,
             "contentHash": "e285e3930b80d600f1198cac4449248ee093b445",
             "isMetadataFile": false,
@@ -1531,14 +1521,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/testcustomer/testcustomer.app",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/testcustomer/testcustomer.app",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 134,
             "modifiedTime": 1573820593079,
             "changeTime": 1573820593079,
-            "contentHash": "129b1fa0ade2aac12bceb884d4dc2e2c2c884ef2"
+            "contentHash": "129b1fa0ade2aac12bceb884d4dc2e2c2c884ef2",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -1578,10 +1568,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes",
             "isDirectory": true,
             "isMetadataFile": false,
-            "size": 4288,
-            "modifiedTime": 1573820593455,
-            "changeTime": 1573820593455,
-            "contentHash": "c26d016d371234929c30da1cf63e4d933f929a91"
+            "size": 4736,
+            "modifiedTime": 1575006161688,
+            "changeTime": 1575006161688,
+            "contentHash": "388a4593c89ec5e951d40927212cb7b52038072a"
         }
     ],
     [
@@ -1617,14 +1607,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentCategoryLightningController.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentCategoryLightningController.cls",
             "isDirectory": false,
+            "size": 2587,
+            "modifiedTime": 1574854662427,
+            "changeTime": 1574854662427,
+            "contentHash": "cae6d958ecfb1c71e48285d9e8177700985197d7",
             "isMetadataFile": false,
-            "size": 2573,
-            "modifiedTime": 1573820593357,
-            "changeTime": 1573820593357,
-            "contentHash": "a68026b664ae570d5db72862ec86215e697963c0"
+            "state": "u"
         }
     ],
     [
@@ -1647,14 +1637,12 @@
         {
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentCtrl.cls",
             "isDirectory": false,
-            "size": 52390,
-            "modifiedTime": 1571735241456,
-            "changeTime": 1572591406197,
-            "contentHash": "dbd39000281af8ef92dd395cbc78eb633c20cbf3",
+            "size": 55116,
+            "modifiedTime": 1574854662503,
+            "changeTime": 1574854662503,
+            "contentHash": "7570728a18cd15b325dd549466f73fe1b3d59f04",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "state": "u"
         }
     ],
     [
@@ -1677,14 +1665,12 @@
         {
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentHelper.cls",
             "isDirectory": false,
-            "size": 4984,
-            "modifiedTime": 1571735241471,
-            "changeTime": 1572591406191,
-            "contentHash": "3212859685932b5d3f59f1e12618a0645eb6af04",
+            "size": 4988,
+            "modifiedTime": 1574854662514,
+            "changeTime": 1574854662514,
+            "contentHash": "8204c86870327da58a1fc256b1b762d3dddecab9",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "state": "u"
         }
     ],
     [
@@ -1709,10 +1695,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentLightningController.cls",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 4445,
-            "modifiedTime": 1573820593455,
-            "changeTime": 1573820593455,
-            "contentHash": "4aaa0fb9381c7073cd2532e5c4013df1e0ea7f8c"
+            "size": 7728,
+            "modifiedTime": 1575006161681,
+            "changeTime": 1575006161681,
+            "contentHash": "5947957aa0cedcf13916776729b62ac9c22a132a"
         }
     ],
     [
@@ -1797,10 +1783,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/CalendarLightningController.cls",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 5084,
-            "modifiedTime": 1573820593324,
-            "changeTime": 1573820593324,
-            "contentHash": "15629bf408775033b088049a9efac1afadb6ea6b"
+            "size": 6006,
+            "modifiedTime": 1575006161629,
+            "changeTime": 1575006161629,
+            "contentHash": "f773db258d86902d1c9d25ee456edcd016a2173e"
         }
     ],
     [
@@ -1941,14 +1927,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/CustomerLightningController.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/CustomerLightningController.cls",
             "isDirectory": false,
+            "size": 2237,
+            "modifiedTime": 1574854662545,
+            "changeTime": 1574854662545,
+            "contentHash": "d3c265b5cecb8c0d400956f8377c8e61603ba3d9",
             "isMetadataFile": false,
-            "size": 2008,
-            "modifiedTime": 1573820593380,
-            "changeTime": 1573820593380,
-            "contentHash": "6176b6e2eb3f4a3c730485aa5e472495693795a8"
+            "state": "u"
         }
     ],
     [
@@ -1973,10 +1959,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/DashboardControler.cls",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 7672,
-            "modifiedTime": 1573820593395,
-            "changeTime": 1573820593395,
-            "contentHash": "91fdae2de7e2c254f225d91f3c37ed17de27d8a1"
+            "size": 12177,
+            "modifiedTime": 1575006161688,
+            "changeTime": 1575006161688,
+            "contentHash": "8201a6fe14c8e94886d1a73e146681e123975766"
         }
     ],
     [
@@ -2061,10 +2047,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/FeedbackFormController.cls",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 2982,
-            "modifiedTime": 1573820593407,
-            "changeTime": 1573820593407,
-            "contentHash": "185c78e8c91963c3d2718739d9a29bc149594b06"
+            "size": 3092,
+            "modifiedTime": 1575006161621,
+            "changeTime": 1575006161621,
+            "contentHash": "41af6279087992962519f40375be08cd5aa1e747"
         }
     ],
     [
@@ -2205,16 +2191,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/LocationLightningControler.cls",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/LocationLightningControler.cls",
             "isDirectory": false,
-            "size": 3193,
-            "modifiedTime": 1571735241419,
-            "changeTime": 1572591406199,
-            "contentHash": "b283af25724800f5173e9087e7924e743c7df008",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 3154,
+            "modifiedTime": 1575006161641,
+            "changeTime": 1575006161641,
+            "contentHash": "6cb133e49fbd68c937c150f7f9f623fe266df980"
         }
     ],
     [
@@ -2359,10 +2343,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/QuickAppointmentSOQLManager.cls",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 14272,
-            "modifiedTime": 1573820593434,
-            "changeTime": 1573820593434,
-            "contentHash": "ff01172a97f7d8b188fafa009a0314e09b20f983"
+            "size": 20372,
+            "modifiedTime": 1575006161655,
+            "changeTime": 1575006161655,
+            "contentHash": "b001c345c67b7cbf8b6e26e82f48f0e3f1374aaa"
         }
     ],
     [
@@ -2417,10 +2401,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/ResourceLightningController.cls",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 7673,
-            "modifiedTime": 1573820593447,
-            "changeTime": 1573820593447,
-            "contentHash": "b6314d2df9cadb675453eba3e2cbc67fef98d355"
+            "size": 7984,
+            "modifiedTime": 1575006161666,
+            "changeTime": 1575006161666,
+            "contentHash": "8dbf793b2d6bea830477e844ce95c0ae43f9b193"
         }
     ],
     [
@@ -2561,14 +2545,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/ServiceLightningController.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/ServiceLightningController.cls",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 4344,
             "modifiedTime": 1573820593332,
             "changeTime": 1573820593332,
-            "contentHash": "d4ac3916f9c1751270d5063d011d0b9ad322103b"
+            "contentHash": "d4ac3916f9c1751270d5063d011d0b9ad322103b",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -2741,14 +2725,12 @@
         {
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestAppointmentCtrl.cls",
             "isDirectory": false,
-            "size": 3536,
-            "modifiedTime": 1571735241380,
-            "changeTime": 1572591406225,
-            "contentHash": "709c3eacbd332ef124aae2707fd05565cff5ee1d",
+            "size": 8548,
+            "modifiedTime": 1574854662450,
+            "changeTime": 1574854662450,
+            "contentHash": "11dccecb28ae5c682fca2e81196b0853fe0645b9",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "state": "u"
         }
     ],
     [
@@ -3011,14 +2993,12 @@
         {
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestResourceStaffTimeAllocation.cls",
             "isDirectory": false,
-            "size": 1589,
-            "modifiedTime": 1571735241509,
-            "changeTime": 1572591406206,
-            "contentHash": "da88bd9f1c78dbfeef758231a6e6c1f5bbcf42a7",
+            "size": 1927,
+            "modifiedTime": 1574854662478,
+            "changeTime": 1574854662478,
+            "contentHash": "b086e97c7e2a600815dd4eb83390ff6e094455c6",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "state": "u"
         }
     ],
     [
@@ -3157,48 +3137,16 @@
         }
     ],
     [
-        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/soqlClone.cls",
-        {
-            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/soqlClone.cls",
-            "isDirectory": false,
-            "size": 7459,
-            "modifiedTime": 1573195477454,
-            "changeTime": 1573195477454,
-            "contentHash": "baf591b1f7a83275ce5468a689155a44eef04d9c",
-            "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
-        }
-    ],
-    [
-        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/soqlClone.cls-meta.xml",
-        {
-            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/soqlClone.cls-meta.xml",
-            "isDirectory": false,
-            "size": 174,
-            "modifiedTime": 1573195477452,
-            "changeTime": 1573195477452,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
-            "isMetadataFile": true,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
-        }
-    ],
-    [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/components",
         {
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/components",
             "isDirectory": true,
-            "size": 1088,
-            "modifiedTime": 1571735241213,
-            "changeTime": 1572591406368,
-            "contentHash": "83805d809944f55d3ea107d6b64ac5fc4768db5c",
+            "size": 1152,
+            "modifiedTime": 1574854662300,
+            "changeTime": 1574854662300,
+            "contentHash": "92d62c424a611733154ff1a11c405e264fb3edde",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "state": "u"
         }
     ],
     [
@@ -3701,14 +3649,12 @@
         {
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/documents/Quick_Appointment_Images",
             "isDirectory": true,
-            "size": 64,
-            "modifiedTime": 1572844871037,
-            "changeTime": 1572844871037,
-            "contentHash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+            "size": 128,
+            "modifiedTime": 1574854662395,
+            "changeTime": 1574854662395,
+            "contentHash": "d78eaf9091cfdcf985c02641a75f32ff86be88a8",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "state": "u"
         }
     ],
     [
@@ -3759,16 +3705,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/layouts",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/layouts",
             "isDirectory": true,
-            "size": 768,
-            "modifiedTime": 1573197743809,
-            "changeTime": 1573197743809,
-            "contentHash": "91b783efbf5bc9dbf3eca11faf8748cf3639d31f",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 864,
+            "modifiedTime": 1575006161569,
+            "changeTime": 1575006161569,
+            "contentHash": "9ed2ecde5d61a8d4d4302cdc5d40a4ddaa699758"
         }
     ],
     [
@@ -3819,14 +3763,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/layouts/Appointment__c-Appointment Layout.layout-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/layouts/Appointment__c-Appointment Layout.layout-meta.xml",
             "isDirectory": false,
+            "size": 5086,
+            "modifiedTime": 1574854662389,
+            "changeTime": 1574854662389,
+            "contentHash": "1c2697ef0a73e140b2006dc166cd8999ed6b242f",
             "isMetadataFile": true,
-            "size": 4117,
-            "modifiedTime": 1573820593311,
-            "changeTime": 1573820593311,
-            "contentHash": "28b1afa52d26273f0423c3d9f606e327d0523960"
+            "state": "u"
         }
     ],
     [
@@ -4087,29 +4031,27 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/layouts/Working_Hour__c-Working Hour Layout.layout-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/layouts/Working_Hour__c-Working Hour Layout.layout-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 4535,
             "modifiedTime": 1573820593301,
             "changeTime": 1573820593301,
-            "contentHash": "add18923677844b743a2f6549cd50a7d0c2114d8"
+            "contentHash": "add18923677844b743a2f6549cd50a7d0c2114d8",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects",
             "isDirectory": true,
-            "size": 2272,
-            "modifiedTime": 1571735817097,
-            "changeTime": 1572591408858,
-            "contentHash": "cdb816ea486ea4c04f3afd75e707a7d3a3ada625",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 2368,
+            "modifiedTime": 1575006161414,
+            "changeTime": 1575006161414,
+            "contentHash": "186438ba743507109e5557cd893031261409cdf2"
         }
     ],
     [
@@ -4880,16 +4822,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Category__c/Appointment_Category__c.object-meta.xml",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Category__c/Appointment_Category__c.object-meta.xml",
             "isDirectory": false,
-            "size": 5184,
-            "modifiedTime": 1571735817098,
-            "changeTime": 1572591407490,
-            "contentHash": "353fe99de143e099a607ab390c6f6fc80b230205",
             "isMetadataFile": true,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 5403,
+            "modifiedTime": 1575006161513,
+            "changeTime": 1575006161513,
+            "contentHash": "edd94ca1d95e3f2400bbfc6ff8b712246ba70b37"
         }
     ],
     [
@@ -5315,14 +5255,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields",
             "isDirectory": true,
+            "size": 672,
+            "modifiedTime": 1574854662333,
+            "changeTime": 1574854662333,
+            "contentHash": "429b70eebc6e12a39cac1d2848a6811eb7a0f37e",
             "isMetadataFile": false,
-            "size": 448,
-            "modifiedTime": 1573820593256,
-            "changeTime": 1573820593256,
-            "contentHash": "b1c05641787d6a2053d615b528b9546eb022ac99"
+            "state": "u"
         }
     ],
     [
@@ -11328,16 +11268,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Location__c/Location__c.object-meta.xml",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Location__c/Location__c.object-meta.xml",
             "isDirectory": false,
-            "size": 5103,
-            "modifiedTime": 1571735816205,
-            "changeTime": 1572591408471,
-            "contentHash": "3f86f349ed694019d7bfda4191bed467978b6ddc",
             "isMetadataFile": true,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 5321,
+            "modifiedTime": 1575006161355,
+            "changeTime": 1575006161355,
+            "contentHash": "8518b973e96f34743c4f717fce2853214480bf75"
         }
     ],
     [
@@ -14268,14 +14206,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Public_Holidays__c",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Public_Holidays__c",
             "isDirectory": true,
-            "isMetadataFile": false,
             "size": 160,
             "modifiedTime": 1573820593260,
             "changeTime": 1573820593260,
-            "contentHash": "77088d5d6fb6b84ee178426c6707f88026e5874a"
+            "contentHash": "77088d5d6fb6b84ee178426c6707f88026e5874a",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -15556,16 +15494,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Service__c/Service__c.object-meta.xml",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Service__c/Service__c.object-meta.xml",
             "isDirectory": false,
-            "size": 5105,
-            "modifiedTime": 1571735815097,
-            "changeTime": 1572591407442,
-            "contentHash": "3458955cd00a666f92ce53b9f70987a584b4d664",
             "isMetadataFile": true,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 5322,
+            "modifiedTime": 1575006161452,
+            "changeTime": 1575006161452,
+            "contentHash": "2306a70478a225959a703913cdc9a77ea9b54b02"
         }
     ],
     [
@@ -17236,14 +17172,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Working_Hour__c",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Working_Hour__c",
             "isDirectory": true,
-            "isMetadataFile": false,
             "size": 160,
             "modifiedTime": 1573820593279,
             "changeTime": 1573820593279,
-            "contentHash": "0cded0c0180e796d693fee8b31897c8aca62d7d4"
+            "contentHash": "0cded0c0180e796d693fee8b31897c8aca62d7d4",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -17264,14 +17200,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Working_Hour__c/fields",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Working_Hour__c/fields",
             "isDirectory": true,
-            "isMetadataFile": false,
             "size": 480,
             "modifiedTime": 1573820593283,
             "changeTime": 1573820593283,
-            "contentHash": "c2813029e8039901d05520e4a2bc65b2e63b3ec3"
+            "contentHash": "c2813029e8039901d05520e4a2bc65b2e63b3ec3",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -17397,14 +17333,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Working_Hour__c/fields/Resource__c.field-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Working_Hour__c/fields/Resource__c.field-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 512,
             "modifiedTime": 1573820593275,
             "changeTime": 1573820593275,
-            "contentHash": "f3f9ff78f2ebfa4cf797d1b32194603cdb962757"
+            "contentHash": "f3f9ff78f2ebfa4cf797d1b32194603cdb962757",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
@@ -17455,16 +17391,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/pages",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/pages",
             "isDirectory": true,
-            "size": 2432,
-            "modifiedTime": 1573195477189,
-            "changeTime": 1573195477189,
-            "contentHash": "01d02a3ba28726437b010d60e4cdb9ac7d6d9c31",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 2560,
+            "modifiedTime": 1575006161325,
+            "changeTime": 1575006161325,
+            "contentHash": "2fd5d8151085b87aacfc6cf67561a2e771e48aa7"
         }
     ],
     [
@@ -18015,22 +17949,22 @@
             "isDirectory": false,
             "isMetadataFile": false,
             "size": 14675,
-            "modifiedTime": 1573820593250,
-            "changeTime": 1573820593250,
-            "contentHash": "0e7b93fcf7c764836d8db6b88c401950abbe3e74"
+            "modifiedTime": 1575006161315,
+            "changeTime": 1575006161315,
+            "contentHash": "8e81243ba2b5f99b71cc1531d54aa4ef3e64ed1b"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/pages/QuickAppointmentFeedbackForm.page-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/pages/QuickAppointmentFeedbackForm.page-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 304,
             "modifiedTime": 1573820593247,
             "changeTime": 1573820593247,
-            "contentHash": "e9f4d234159e84d7de6093081f059cd5fed23819"
+            "contentHash": "e9f4d234159e84d7de6093081f059cd5fed23819",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
@@ -18576,29 +18510,27 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/permissionsets",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/permissionsets",
             "isDirectory": true,
-            "size": 96,
-            "modifiedTime": 1573820570033,
-            "changeTime": 1572512763317,
-            "contentHash": "1f5d6971ede1bde4c809e4ad36da42298a4a313a",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 128,
+            "modifiedTime": 1575006161943,
+            "changeTime": 1575006161943,
+            "contentHash": "a8949ff146c55ecca8d6820af7c0c6cd0aaf73d4"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/permissionsets/Garage_Developer.permissionset-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/permissionsets/Garage_Developer.permissionset-meta.xml",
             "isDirectory": false,
+            "size": 29021,
+            "modifiedTime": 1574854662800,
+            "changeTime": 1574854662800,
+            "contentHash": "240284e89f3279a37e3da419e3a3a16f12000e9e",
             "isMetadataFile": true,
-            "size": 24080,
-            "modifiedTime": 1573820593604,
-            "changeTime": 1573820593604,
-            "contentHash": "83f614b35de2d421f4955c9c8b6c60e3f71c8139"
+            "state": "u"
         }
     ],
     [
@@ -18608,10 +18540,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/profiles",
             "isDirectory": true,
             "isMetadataFile": false,
-            "size": 192,
-            "modifiedTime": 1573820593591,
-            "changeTime": 1573820593591,
-            "contentHash": "9c367b0e719eb8c48c5b0d9cbfb5f580a4bd6717"
+            "size": 224,
+            "modifiedTime": 1575006161941,
+            "changeTime": 1575006161941,
+            "contentHash": "f89baab4cc249166843b6c0f6e165424420db435"
         }
     ],
     [
@@ -19292,29 +19224,27 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/settings/Security.settings-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/settings/Security.settings-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 3337,
             "modifiedTime": 1573820593609,
             "changeTime": 1573820593609,
-            "contentHash": "9bb59c57f957a25071d3138707dd4454b24c192b"
+            "contentHash": "9bb59c57f957a25071d3138707dd4454b24c192b",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/staticresources",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/staticresources",
             "isDirectory": true,
-            "size": 1536,
-            "modifiedTime": 1573195476961,
-            "changeTime": 1573195476961,
-            "contentHash": "764338d2dd7bb6166a4cd39d0df40452d1432601",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 1664,
+            "modifiedTime": 1575006161107,
+            "changeTime": 1575006161107,
+            "contentHash": "f436331638b9e6fd22b985121b476ec776f539b5"
         }
     ],
     [
@@ -23164,10 +23094,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/tabs",
             "isDirectory": true,
             "isMetadataFile": false,
-            "size": 480,
-            "modifiedTime": 1573820593318,
-            "changeTime": 1573820593318,
-            "contentHash": "3eb74515c24a7101c9b4aa1148f3acc838299c7f"
+            "size": 512,
+            "modifiedTime": 1575006161604,
+            "changeTime": 1575006161604,
+            "contentHash": "2fa0d437a941df170e5337ce1fa042c69529078f"
         }
     ],
     [
@@ -23353,16 +23283,14 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/triggers/DeleteNotificationOfAppointment.trigger",
         {
+            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/triggers/DeleteNotificationOfAppointment.trigger",
             "isDirectory": false,
-            "size": 442,
-            "modifiedTime": 1571735241512,
-            "changeTime": 1572591409826,
-            "contentHash": "91f6ab76bbc901cf63b026b99b307e1787c6c205",
             "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
+            "size": 1173,
+            "modifiedTime": 1575006161696,
+            "changeTime": 1575006161696,
+            "contentHash": "230440786d526bf8e70313b7c77129bedee007ff"
         }
     ],
     [
@@ -23471,36 +23399,6 @@
         }
     ],
     [
-        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/triggers/EmailCase.trigger",
-        {
-            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/triggers/EmailCase.trigger",
-            "isDirectory": false,
-            "size": 610,
-            "modifiedTime": 1572844871129,
-            "changeTime": 1572844871129,
-            "contentHash": "c4f8a3fdc9713298386505697a678442ebf1f0c7",
-            "isMetadataFile": false,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
-        }
-    ],
-    [
-        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/triggers/EmailCase.trigger-meta.xml",
-        {
-            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/triggers/EmailCase.trigger-meta.xml",
-            "isDirectory": false,
-            "size": 178,
-            "modifiedTime": 1572844871127,
-            "changeTime": 1572844871127,
-            "contentHash": "016e4fce40a2a732b539f57f7da127ae55c24c7b",
-            "isMetadataFile": true,
-            "state": "u",
-            "isWorkspace": false,
-            "isArtifactRoot": false
-        }
-    ],
-    [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent",
         {
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent",
@@ -23518,300 +23416,300 @@
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayList/PublicHolidayList.cmp-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayList/PublicHolidayList.cmp-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 228,
             "modifiedTime": 1573820592890,
             "changeTime": 1573820592890,
-            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22"
+            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayList/PublicHolidayList.cmp",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayList/PublicHolidayList.cmp",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 6276,
             "modifiedTime": 1573820592893,
             "changeTime": 1573820592893,
-            "contentHash": "3c65cdfd3f70ffd139d72aafeea5ce4f6c9b6e3f"
+            "contentHash": "3c65cdfd3f70ffd139d72aafeea5ce4f6c9b6e3f",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayList/PublicHolidayListHelper.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayList/PublicHolidayListHelper.js",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 11551,
             "modifiedTime": 1573820592894,
             "changeTime": 1573820592894,
-            "contentHash": "2300d9ca3636cda598e4d060b39a01a3aba2db75"
+            "contentHash": "2300d9ca3636cda598e4d060b39a01a3aba2db75",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayList/PublicHolidayListController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayList/PublicHolidayListController.js",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 5974,
             "modifiedTime": 1573820592894,
             "changeTime": 1573820592894,
-            "contentHash": "351cb79ae0a22cbcea8549383828559e5348fc38"
+            "contentHash": "351cb79ae0a22cbcea8549383828559e5348fc38",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayModifier/PublicHolidayModifier.cmp-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayModifier/PublicHolidayModifier.cmp-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 228,
             "modifiedTime": 1573820592961,
             "changeTime": 1573820592961,
-            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22"
+            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayModifier/PublicHolidayModifier.cmp",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayModifier/PublicHolidayModifier.cmp",
             "isDirectory": false,
+            "size": 7203,
+            "modifiedTime": 1574854662105,
+            "changeTime": 1574854662105,
+            "contentHash": "15612ec352fe1e45dbd5fe9e4a7f70797efea15e",
             "isMetadataFile": false,
-            "size": 6115,
-            "modifiedTime": 1573820592962,
-            "changeTime": 1573820592962,
-            "contentHash": "39f8bb2b3486634f1a04e718d9459a9bfd50fc2d"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayModifier/PublicHolidayModifierController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayModifier/PublicHolidayModifierController.js",
             "isDirectory": false,
+            "size": 6592,
+            "modifiedTime": 1574854662109,
+            "changeTime": 1574854662109,
+            "contentHash": "34c4bcd14510aa80fa0d303dcf14e7c10087a61e",
             "isMetadataFile": false,
-            "size": 3722,
-            "modifiedTime": 1573820592963,
-            "changeTime": 1573820592963,
-            "contentHash": "c64126d65b5b8c65fa8e80472d075c2a4cf64dc1"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayModifier/PublicHolidayModifierHelper.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayModifier/PublicHolidayModifierHelper.js",
             "isDirectory": false,
+            "size": 3482,
+            "modifiedTime": 1574854662113,
+            "changeTime": 1574854662113,
+            "contentHash": "fbe9de088738005b4c927b6d7e565de01df8a33b",
             "isMetadataFile": false,
-            "size": 2370,
-            "modifiedTime": 1573820592964,
-            "changeTime": 1573820592964,
-            "contentHash": "66b279fb0408c852dbebc763d7e4a2101dfdc4bb"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayLocationSelector/PublicHolidayLocationSelector.cmp-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayLocationSelector/PublicHolidayLocationSelector.cmp-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 228,
             "modifiedTime": 1573820593032,
             "changeTime": 1573820593032,
-            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22"
+            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayLocationSelector/PublicHolidayLocationSelector.cmp",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayLocationSelector/PublicHolidayLocationSelector.cmp",
             "isDirectory": false,
+            "size": 3566,
+            "modifiedTime": 1574854662174,
+            "changeTime": 1574854662174,
+            "contentHash": "884d561c30de017a333693e8f1e50c49505dd0af",
             "isMetadataFile": false,
-            "size": 3125,
-            "modifiedTime": 1573820593037,
-            "changeTime": 1573820593037,
-            "contentHash": "987a833568c854452f860a9852424410d7397a19"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayLocationSelector/PublicHolidayLocationSelectorController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayLocationSelector/PublicHolidayLocationSelectorController.js",
             "isDirectory": false,
+            "size": 2568,
+            "modifiedTime": 1574854662178,
+            "changeTime": 1574854662178,
+            "contentHash": "07daf0467d7376e21998732ed2e289ba2b78e119",
             "isMetadataFile": false,
-            "size": 1909,
-            "modifiedTime": 1573820593038,
-            "changeTime": 1573820593038,
-            "contentHash": "c788e23a5b91d7b6b1b2c191024f41d61d792b43"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayLocationSelector/PublicHolidayLocationSelectorHelper.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayLocationSelector/PublicHolidayLocationSelectorHelper.js",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 40,
             "modifiedTime": 1573820593053,
             "changeTime": 1573820593053,
-            "contentHash": "c3c6efda41de64b759982510d6a2c72226aa087f"
+            "contentHash": "c3c6efda41de64b759982510d6a2c72226aa087f",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentList/AppointmentList.css",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/AppointmentList/AppointmentList.css",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 50,
             "modifiedTime": 1573820593130,
             "changeTime": 1573820593130,
-            "contentHash": "4a9a6e8b4542a67ff90d2a9f71fbe71346b0c1ab"
+            "contentHash": "4a9a6e8b4542a67ff90d2a9f71fbe71346b0c1ab",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewPublicHoliday/NewPublicHoliday.cmp-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewPublicHoliday/NewPublicHoliday.cmp-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 228,
             "modifiedTime": 1573820593140,
             "changeTime": 1573820593140,
-            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22"
+            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewPublicHoliday/NewPublicHoliday.cmp",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewPublicHoliday/NewPublicHoliday.cmp",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 4170,
             "modifiedTime": 1573820593141,
             "changeTime": 1573820593141,
-            "contentHash": "bb651a2c0da555ec79b506cd0704d473eb1bfef2"
+            "contentHash": "bb651a2c0da555ec79b506cd0704d473eb1bfef2",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewPublicHoliday/NewPublicHolidayHelper.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewPublicHoliday/NewPublicHolidayHelper.js",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 1621,
             "modifiedTime": 1573820593142,
             "changeTime": 1573820593142,
-            "contentHash": "e357e33f32fdc173cd2f5919a77551815982e016"
+            "contentHash": "e357e33f32fdc173cd2f5919a77551815982e016",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewPublicHoliday/NewPublicHolidayController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewPublicHoliday/NewPublicHolidayController.js",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 3469,
             "modifiedTime": 1573820593143,
             "changeTime": 1573820593143,
-            "contentHash": "79bb8e8fb60fd40a3aeb1b384aafd18828885b72"
+            "contentHash": "79bb8e8fb60fd40a3aeb1b384aafd18828885b72",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewWorkingHour/NewWorkingHour.cmp-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewWorkingHour/NewWorkingHour.cmp-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 228,
             "modifiedTime": 1573820593155,
             "changeTime": 1573820593155,
-            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22"
+            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewWorkingHour/NewWorkingHourController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewWorkingHour/NewWorkingHourController.js",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 2788,
             "modifiedTime": 1573820593156,
             "changeTime": 1573820593156,
-            "contentHash": "ad6153576e368dbbe76c986a1cc24de32d2eaf64"
+            "contentHash": "ad6153576e368dbbe76c986a1cc24de32d2eaf64",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewWorkingHour/NewWorkingHour.css",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewWorkingHour/NewWorkingHour.css",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 209,
             "modifiedTime": 1573820593157,
             "changeTime": 1573820593157,
-            "contentHash": "05bb0580eb3799f2a32d8e0e19fd249fe61e43cd"
+            "contentHash": "05bb0580eb3799f2a32d8e0e19fd249fe61e43cd",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewWorkingHour/NewWorkingHourHelper.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewWorkingHour/NewWorkingHourHelper.js",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 2416,
             "modifiedTime": 1573820593160,
             "changeTime": 1573820593160,
-            "contentHash": "602f218594c0de2b175b9887bb1f6a1e21ae6302"
+            "contentHash": "602f218594c0de2b175b9887bb1f6a1e21ae6302",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewWorkingHour/NewWorkingHour.cmp",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewWorkingHour/NewWorkingHour.cmp",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 8697,
             "modifiedTime": 1573820593160,
             "changeTime": 1573820593160,
-            "contentHash": "8fa85a55920be6b3e253e1216731b70e848356eb"
+            "contentHash": "8fa85a55920be6b3e253e1216731b70e848356eb",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewEditAppointment/NewEditAppointment.cmp-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewEditAppointment/NewEditAppointment.cmp-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 228,
             "modifiedTime": 1573820593200,
             "changeTime": 1573820593200,
-            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22"
+            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
@@ -23821,10 +23719,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewEditAppointment/NewEditAppointmentController.js",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 640,
-            "modifiedTime": 1573820593202,
-            "changeTime": 1573820593202,
-            "contentHash": "19ccd11814dd0b6de6abfd67c09c8773d721dd97"
+            "size": 14873,
+            "modifiedTime": 1575006161196,
+            "changeTime": 1575006161196,
+            "contentHash": "d0a6772b7795a74519d257b05c126f34df1951db"
         }
     ],
     [
@@ -23834,257 +23732,231 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewEditAppointment/NewEditAppointment.cmp",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 2500,
-            "modifiedTime": 1573820593203,
-            "changeTime": 1573820593203,
-            "contentHash": "1f20c8f26569f4e33d2f1f8deab408c8c6bbf82d"
+            "size": 21109,
+            "modifiedTime": 1575006161199,
+            "changeTime": 1575006161199,
+            "contentHash": "7c509a9bb938259cedf9dd273f6c89a76fc2823e"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/pageHeader/pageHeader.cmp-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/pageHeader/pageHeader.cmp-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 228,
             "modifiedTime": 1573820593207,
             "changeTime": 1573820593207,
-            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22"
+            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/pageHeader/pageHeader.cmp",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/pageHeader/pageHeader.cmp",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 1349,
             "modifiedTime": 1573820593208,
             "changeTime": 1573820593208,
-            "contentHash": "b07c6a92ef967d17d55eb9a9a31e33f5796eed38"
+            "contentHash": "b07c6a92ef967d17d55eb9a9a31e33f5796eed38",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/WorkingHourList/WorkingHourList.cmp-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/WorkingHourList/WorkingHourList.cmp-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 228,
             "modifiedTime": 1573820593211,
             "changeTime": 1573820593211,
-            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22"
+            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/WorkingHourList/WorkingHourListController.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/WorkingHourList/WorkingHourListController.js",
             "isDirectory": false,
+            "size": 2936,
+            "modifiedTime": 1574854662275,
+            "changeTime": 1574854662275,
+            "contentHash": "5abaaf5ebb4d153fbee03fad6474e19b7ccb001c",
             "isMetadataFile": false,
-            "size": 1992,
-            "modifiedTime": 1573820593212,
-            "changeTime": 1573820593212,
-            "contentHash": "55df564e529748276222d829adcc035ff0594efe"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/WorkingHourList/WorkingHourListHelper.js",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/WorkingHourList/WorkingHourListHelper.js",
             "isDirectory": false,
+            "size": 9738,
+            "modifiedTime": 1574854662279,
+            "changeTime": 1574854662279,
+            "contentHash": "a0986d52d061be03069e15bea23e137c4baf5833",
             "isMetadataFile": false,
-            "size": 11449,
-            "modifiedTime": 1573820593215,
-            "changeTime": 1573820593215,
-            "contentHash": "e201e6524e2bf7b63b678f643113b55dc9c1c246"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/WorkingHourList/WorkingHourList.cmp",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/WorkingHourList/WorkingHourList.cmp",
             "isDirectory": false,
+            "size": 5874,
+            "modifiedTime": 1574854662294,
+            "changeTime": 1574854662294,
+            "contentHash": "9623964d03770782344cdc52de6e4b593b7a4f55",
             "isMetadataFile": false,
-            "size": 5861,
-            "modifiedTime": 1573820593215,
-            "changeTime": 1573820593215,
-            "contentHash": "f6561d15204e9c69a49a47efb9669870e2691514"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Appointment_Category__c.field-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Appointment_Category__c.field-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 550,
             "modifiedTime": 1573820593256,
             "changeTime": 1573820593256,
-            "contentHash": "098c92186c8c618868211ae781194b6916b0c971"
+            "contentHash": "098c92186c8c618868211ae781194b6916b0c971",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Public_Holidays__c/fieldSets/PublicHolidayFieldset.fieldSet-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Public_Holidays__c/fieldSets/PublicHolidayFieldset.fieldSet-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 780,
             "modifiedTime": 1573820593261,
             "changeTime": 1573820593261,
-            "contentHash": "8c54ca55b5a398d13bf621140bbbda9610a9878d"
+            "contentHash": "8c54ca55b5a398d13bf621140bbbda9610a9878d",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Working_Hour__c/fieldSets/WorkingHourFieldSet.fieldSet-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Working_Hour__c/fieldSets/WorkingHourFieldSet.fieldSet-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 1082,
             "modifiedTime": 1573820593279,
             "changeTime": 1573820593279,
-            "contentHash": "d6c42072f64ad11e96d3f5062d50c2499a28ada5"
+            "contentHash": "d6c42072f64ad11e96d3f5062d50c2499a28ada5",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Working_Hour__c/fields/Active__c.field-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Working_Hour__c/fields/Active__c.field-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 318,
             "modifiedTime": 1573820593283,
             "changeTime": 1573820593283,
-            "contentHash": "cf0bf4ca0117341e4599b0b70fdebd9633918894"
+            "contentHash": "cf0bf4ca0117341e4599b0b70fdebd9633918894",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/tabs/Working_Hour__c.tab-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/tabs/Working_Hour__c.tab-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 188,
             "modifiedTime": 1573820593316,
             "changeTime": 1573820593316,
-            "contentHash": "4806917c821eb8f859f71c888c35a433b3d4bdcc"
+            "contentHash": "4806917c821eb8f859f71c888c35a433b3d4bdcc",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/tabs/Public_Holidays__c.tab-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/tabs/Public_Holidays__c.tab-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 185,
             "modifiedTime": 1573820593318,
             "changeTime": 1573820593318,
-            "contentHash": "f17c748812d980247915c529febf7d9846bd7860"
-        }
-    ],
-    [
-        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestResourceLightnngController.cls-meta.xml",
-        {
-            "state": "u",
-            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestResourceLightnngController.cls-meta.xml",
-            "isDirectory": false,
+            "contentHash": "f17c748812d980247915c529febf7d9846bd7860",
             "isMetadataFile": true,
-            "size": 174,
-            "modifiedTime": 1573820593335,
-            "changeTime": 1573820593335,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
-        }
-    ],
-    [
-        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestResourceLightnngController.cls",
-        {
-            "state": "u",
-            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestResourceLightnngController.cls",
-            "isDirectory": false,
-            "isMetadataFile": false,
-            "size": 4249,
-            "modifiedTime": 1573820593339,
-            "changeTime": 1573820593339,
-            "contentHash": "b46e21b4c2294bf0ac605b8736e31f319f2aa695"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/PublicHolidayLocationSelectorController.cls-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/PublicHolidayLocationSelectorController.cls-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 174,
             "modifiedTime": 1573820593343,
             "changeTime": 1573820593343,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/PublicHolidayLocationSelectorController.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/PublicHolidayLocationSelectorController.cls",
             "isDirectory": false,
+            "size": 308,
+            "modifiedTime": 1574854662417,
+            "changeTime": 1574854662417,
+            "contentHash": "ca9da8705545ebee492b83b3e93ab09cf8815ad9",
             "isMetadataFile": false,
-            "size": 203,
-            "modifiedTime": 1573820593347,
-            "changeTime": 1573820593347,
-            "contentHash": "1389059e6851afd7b161adb1eaf8b82e26065718"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestWorkingHourController.cls-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestWorkingHourController.cls-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 174,
             "modifiedTime": 1573820593360,
             "changeTime": 1573820593360,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestWorkingHourController.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestWorkingHourController.cls",
             "isDirectory": false,
+            "size": 3950,
+            "modifiedTime": 1574854662439,
+            "changeTime": 1574854662439,
+            "contentHash": "1bde8ece2e8ed5a08bb11c20482dcd9f5f087251",
             "isMetadataFile": false,
-            "size": 2023,
-            "modifiedTime": 1573820593364,
-            "changeTime": 1573820593364,
-            "contentHash": "b38339d133b6316e85b21ef5ed541d8aefc1f6c1"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/NewEditAppointmentController.cls-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/NewEditAppointmentController.cls-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 174,
             "modifiedTime": 1573820593367,
             "changeTime": 1573820593367,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
@@ -24094,218 +23966,218 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/NewEditAppointmentController.cls",
             "isDirectory": false,
             "isMetadataFile": false,
-            "size": 222,
-            "modifiedTime": 1573820593372,
-            "changeTime": 1573820593372,
-            "contentHash": "cd1461ae73e1c46e43fcccc0fe01e970b58d4778"
+            "size": 11833,
+            "modifiedTime": 1575006161673,
+            "changeTime": 1575006161673,
+            "contentHash": "ea80c01fb0679b959e437746f8408125ddc8983d"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestAppointmentLightningController.cls-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestAppointmentLightningController.cls-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 174,
             "modifiedTime": 1573820593383,
             "changeTime": 1573820593383,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestAppointmentLightningController.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestAppointmentLightningController.cls",
             "isDirectory": false,
+            "size": 4820,
+            "modifiedTime": 1574854662552,
+            "changeTime": 1574854662552,
+            "contentHash": "d5970281311ea076d9d4e4d98db7ba7782d1ccb9",
             "isMetadataFile": false,
-            "size": 3602,
-            "modifiedTime": 1573820593387,
-            "changeTime": 1573820593387,
-            "contentHash": "0402e2b2bc47db679cd60d5addccc8d5f1efc5f0"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/WorkingHourController.cls-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/WorkingHourController.cls-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 174,
             "modifiedTime": 1573820593397,
             "changeTime": 1573820593397,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/WorkingHourController.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/WorkingHourController.cls",
             "isDirectory": false,
+            "size": 2380,
+            "modifiedTime": 1574854662460,
+            "changeTime": 1574854662460,
+            "contentHash": "5cc44d9c01db13113985a82594b8f2ab01dfdebe",
             "isMetadataFile": false,
-            "size": 2514,
-            "modifiedTime": 1573820593398,
-            "changeTime": 1573820593398,
-            "contentHash": "2740fc4f8bfbfd12add63b9dc7c384633ba3e1ef"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestCalendarLightningController.cls-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestCalendarLightningController.cls-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 174,
             "modifiedTime": 1573820593408,
             "changeTime": 1573820593408,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestCalendarLightningController.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestCalendarLightningController.cls",
             "isDirectory": false,
+            "size": 5774,
+            "modifiedTime": 1574854662470,
+            "changeTime": 1574854662470,
+            "contentHash": "839dd98a125fcda71d65f01be21b71852e2a3ca8",
             "isMetadataFile": false,
-            "size": 3558,
-            "modifiedTime": 1573820593409,
-            "changeTime": 1573820593409,
-            "contentHash": "f047cfd75022ff39a37a410b76efc8f01a0d513a"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestDataFactory.cls-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestDataFactory.cls-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 174,
             "modifiedTime": 1573820593411,
             "changeTime": 1573820593411,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestDataFactory.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestDataFactory.cls",
             "isDirectory": false,
+            "size": 8883,
+            "modifiedTime": 1574854662576,
+            "changeTime": 1574854662576,
+            "contentHash": "aa9c9a11cac00b4ec4381fffe120d493ec301031",
             "isMetadataFile": false,
-            "size": 6600,
-            "modifiedTime": 1573820593411,
-            "changeTime": 1573820593411,
-            "contentHash": "d1a96f496d7fceaf4cd89cf1da67d7a10aee2b73"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/PublicHolidayLightningController.cls-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/PublicHolidayLightningController.cls-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 174,
             "modifiedTime": 1573820593414,
             "changeTime": 1573820593414,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/PublicHolidayLightningController.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/PublicHolidayLightningController.cls",
             "isDirectory": false,
+            "size": 1531,
+            "modifiedTime": 1574854662485,
+            "changeTime": 1574854662485,
+            "contentHash": "43ea2373d042d6a4000a6af3077832594298ef4b",
             "isMetadataFile": false,
-            "size": 1511,
-            "modifiedTime": 1573820593417,
-            "changeTime": 1573820593417,
-            "contentHash": "45c5c08af0ab100ba20856067b843c6f34a6fb87"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/testCustomerLightningController.cls-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/testCustomerLightningController.cls-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 174,
             "modifiedTime": 1573820593419,
             "changeTime": 1573820593419,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/testCustomerLightningController.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/testCustomerLightningController.cls",
             "isDirectory": false,
+            "size": 2870,
+            "modifiedTime": 1574854662491,
+            "changeTime": 1574854662491,
+            "contentHash": "3d931a54d752c01c1aebdc3ddc73c3e0053b733d",
             "isMetadataFile": false,
-            "size": 2847,
-            "modifiedTime": 1573820593422,
-            "changeTime": 1573820593422,
-            "contentHash": "d4cb9432a7849b2d8e86b60bc18826355a226e2a"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestAppointmentCategoryLightningCtrl.cls-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestAppointmentCategoryLightningCtrl.cls-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 174,
             "modifiedTime": 1573820593426,
             "changeTime": 1573820593426,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestAppointmentCategoryLightningCtrl.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestAppointmentCategoryLightningCtrl.cls",
             "isDirectory": false,
+            "size": 6017,
+            "modifiedTime": 1574854662583,
+            "changeTime": 1574854662583,
+            "contentHash": "225c4e2578d63501d2184db5fedd114c6085b1ec",
             "isMetadataFile": false,
-            "size": 5497,
-            "modifiedTime": 1573820593427,
-            "changeTime": 1573820593427,
-            "contentHash": "08a7fc9412d15fd087efee191ac564027175e3e6"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestServiceLightningController.cls-meta.xml",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestServiceLightningController.cls-meta.xml",
             "isDirectory": false,
-            "isMetadataFile": true,
             "size": 174,
             "modifiedTime": 1573820593436,
             "changeTime": 1573820593436,
-            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestServiceLightningController.cls",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestServiceLightningController.cls",
             "isDirectory": false,
-            "isMetadataFile": false,
             "size": 3275,
             "modifiedTime": 1573820593438,
             "changeTime": 1573820593438,
-            "contentHash": "6c0330851d8cb6af717a6ad43c07398a8fffe599"
+            "contentHash": "6c0330851d8cb6af717a6ad43c07398a8fffe599",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
@@ -24315,10 +24187,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/profiles/Custom%3A Support Profile.profile-meta.xml",
             "isDirectory": false,
             "isMetadataFile": true,
-            "size": 39902,
-            "modifiedTime": 1573820593487,
-            "changeTime": 1573820593487,
-            "contentHash": "2634bc1f551a6ab7846b48243eb0c36492acdad2"
+            "size": 47662,
+            "modifiedTime": 1575006161759,
+            "changeTime": 1575006161759,
+            "contentHash": "2eaa35ceac6904bee2d8f1d74a697822bda4bd24"
         }
     ],
     [
@@ -24328,10 +24200,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/profiles/Admin.profile-meta.xml",
             "isDirectory": false,
             "isMetadataFile": true,
-            "size": 58657,
-            "modifiedTime": 1573820593569,
-            "changeTime": 1573820593569,
-            "contentHash": "220d8b6fa5f95619bc6ff7db5ff324200af99c02"
+            "size": 67547,
+            "modifiedTime": 1575006161845,
+            "changeTime": 1575006161845,
+            "contentHash": "e08fd78e6a0aed8ce01dcc342f2c1f4171f5ee90"
         }
     ],
     [
@@ -24341,10 +24213,10 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/profiles/Custom%3A Sales Profile.profile-meta.xml",
             "isDirectory": false,
             "isMetadataFile": true,
-            "size": 39564,
-            "modifiedTime": 1573820593580,
-            "changeTime": 1573820593580,
-            "contentHash": "e4209f20d00d47b6dbb48e71bfc9bebbf4802f42"
+            "size": 47324,
+            "modifiedTime": 1575006161886,
+            "changeTime": 1575006161886,
+            "contentHash": "6718b3bdab5938c862c594e01da6ad5fb3ba9777"
         }
     ],
     [
@@ -24354,140 +24226,1167 @@
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/profiles/Custom%3A Marketing Profile.profile-meta.xml",
             "isDirectory": false,
             "isMetadataFile": true,
-            "size": 39564,
-            "modifiedTime": 1573820593591,
-            "changeTime": 1573820593591,
-            "contentHash": "e4209f20d00d47b6dbb48e71bfc9bebbf4802f42"
+            "size": 47324,
+            "modifiedTime": 1575006161927,
+            "changeTime": 1575006161927,
+            "contentHash": "6718b3bdab5938c862c594e01da6ad5fb3ba9777"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayList",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayList",
             "isDirectory": true,
-            "isMetadataFile": false,
             "size": 192,
             "modifiedTime": 1573820592894,
             "changeTime": 1573820592894,
-            "contentHash": "e3ec4bc68283c5cdec9e22161e821ad472b01c8a"
+            "contentHash": "e3ec4bc68283c5cdec9e22161e821ad472b01c8a",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayModifier",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayModifier",
             "isDirectory": true,
+            "size": 224,
+            "modifiedTime": 1574854662113,
+            "changeTime": 1574854662113,
+            "contentHash": "b13d3d0f4fb785fc028e5fb037797aa29c733269",
             "isMetadataFile": false,
-            "size": 192,
-            "modifiedTime": 1573820592963,
-            "changeTime": 1573820592963,
-            "contentHash": "5bff3d39f0e1ac7cc9caff49dc2fe6f5e5fbcfa1"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayLocationSelector",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayLocationSelector",
             "isDirectory": true,
-            "isMetadataFile": false,
             "size": 192,
-            "modifiedTime": 1573820593053,
+            "modifiedTime": 1574854662178,
             "changeTime": 1573820593053,
-            "contentHash": "bd8ebb62a8047f7891fefa926605ffede84506ed"
+            "contentHash": "bd8ebb62a8047f7891fefa926605ffede84506ed",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewPublicHoliday",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewPublicHoliday",
             "isDirectory": true,
-            "isMetadataFile": false,
             "size": 192,
             "modifiedTime": 1573820593143,
             "changeTime": 1573820593143,
-            "contentHash": "91147e8eef947f1d54fb75c6dc669e3b6d9ab326"
+            "contentHash": "91147e8eef947f1d54fb75c6dc669e3b6d9ab326",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewWorkingHour",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewWorkingHour",
             "isDirectory": true,
-            "isMetadataFile": false,
             "size": 224,
             "modifiedTime": 1573820593160,
             "changeTime": 1573820593160,
-            "contentHash": "d056a2e95e1199d049b204f7a2e74d15969806d0"
+            "contentHash": "d056a2e95e1199d049b204f7a2e74d15969806d0",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewEditAppointment",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewEditAppointment",
             "isDirectory": true,
+            "size": 224,
+            "modifiedTime": 1574854662267,
+            "changeTime": 1574854662267,
+            "contentHash": "300088084579015c1eac110cf55eb131b6478fe3",
             "isMetadataFile": false,
-            "size": 160,
-            "modifiedTime": 1573820593203,
-            "changeTime": 1573820593203,
-            "contentHash": "3f8616a664181aff53018cf0db33c2a2676d6491"
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/pageHeader",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/pageHeader",
             "isDirectory": true,
-            "isMetadataFile": false,
             "size": 128,
             "modifiedTime": 1573820593207,
             "changeTime": 1573820593207,
-            "contentHash": "97505882241a2f181024c61de2ddbd8db33bd54b"
+            "contentHash": "97505882241a2f181024c61de2ddbd8db33bd54b",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/WorkingHourList",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/WorkingHourList",
             "isDirectory": true,
-            "isMetadataFile": false,
             "size": 192,
-            "modifiedTime": 1573820593215,
+            "modifiedTime": 1574854662294,
             "changeTime": 1573820593215,
-            "contentHash": "582ac08620d8cbe07ed13b45ba31825d900baecd"
+            "contentHash": "582ac08620d8cbe07ed13b45ba31825d900baecd",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Public_Holidays__c/fieldSets",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Public_Holidays__c/fieldSets",
             "isDirectory": true,
-            "isMetadataFile": false,
             "size": 96,
             "modifiedTime": 1573820593261,
             "changeTime": 1573820593261,
-            "contentHash": "d37bdfc617bc05ee2cf7e8f7ba185a9b7226def0"
+            "contentHash": "d37bdfc617bc05ee2cf7e8f7ba185a9b7226def0",
+            "isMetadataFile": false,
+            "state": "u"
         }
     ],
     [
         "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Working_Hour__c/fieldSets",
         {
-            "state": "u",
             "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Working_Hour__c/fieldSets",
             "isDirectory": true,
-            "isMetadataFile": false,
             "size": 96,
             "modifiedTime": 1573820593279,
             "changeTime": 1573820593279,
-            "contentHash": "0382e5fc8517dc32359b74b92b84ca4fe3b019da"
+            "contentHash": "0382e5fc8517dc32359b74b92b84ca4fe3b019da",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayModifier/PublicHolidayModifier.css",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/PublicHolidayModifier/PublicHolidayModifier.css",
+            "isDirectory": false,
+            "size": 268,
+            "modifiedTime": 1574854662106,
+            "changeTime": 1574854662106,
+            "contentHash": "3c4ea7aabbb9e023bc5da522b3be4f5465074cc9",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewEditAppointment/NewEditAppointmentHelper.js",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewEditAppointment/NewEditAppointmentHelper.js",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 25962,
+            "modifiedTime": 1575006161204,
+            "changeTime": 1575006161204,
+            "contentHash": "9fae16b9d7c62ab4af930bed4a4ff66eb15f958f"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewEditAppointment/NewEditAppointment.css",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/NewEditAppointment/NewEditAppointment.css",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 58,
+            "modifiedTime": 1575006161192,
+            "changeTime": 1575006161192,
+            "contentHash": "4c3cae4aa0a6836088783f14fe232c566a2c1e20"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/compEvent/compEvent.evt-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/compEvent/compEvent.evt-meta.xml",
+            "isDirectory": false,
+            "size": 228,
+            "modifiedTime": 1574854662296,
+            "changeTime": 1574854662296,
+            "contentHash": "8bbd56bd8c8d2fb525cdb2eb2e1e6afb922b7f22",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/compEvent/compEvent.evt",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/compEvent/compEvent.evt",
+            "isDirectory": false,
+            "size": 60,
+            "modifiedTime": 1574854662297,
+            "changeTime": 1574854662297,
+            "contentHash": "0ddc754b37200df1baf7f143a74501e58a108645",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/components/AppointmentEmailTemplateComponent.component-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/components/AppointmentEmailTemplateComponent.component-meta.xml",
+            "isDirectory": false,
+            "size": 207,
+            "modifiedTime": 1574854662299,
+            "changeTime": 1574854662299,
+            "contentHash": "22532e230c36bf64b4db460da7954e7e5ae6563f",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/components/AppointmentEmailTemplateComponent.component",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/components/AppointmentEmailTemplateComponent.component",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 3232,
+            "modifiedTime": 1575006161307,
+            "changeTime": 1575006161307,
+            "contentHash": "3b044975f719f584460f8b325da3722bb9e6ab90"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Assets__c.field-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Assets__c.field-meta.xml",
+            "isDirectory": false,
+            "size": 310,
+            "modifiedTime": 1574854662329,
+            "changeTime": 1574854662329,
+            "contentHash": "173045927a830bd0dfd224d0f32ddb7094f3be2a",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Attendees__c.field-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Attendees__c.field-meta.xml",
+            "isDirectory": false,
+            "size": 316,
+            "modifiedTime": 1574854662331,
+            "changeTime": 1574854662331,
+            "contentHash": "f870b46fdf6a736607d8949a251542dc18817c91",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Duration__c.field-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Duration__c.field-meta.xml",
+            "isDirectory": false,
+            "size": 390,
+            "modifiedTime": 1574854662332,
+            "changeTime": 1574854662332,
+            "contentHash": "9bc2ab72a4bfdef293fba9c603bdfeb58ae44e6c",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Locations__c.field-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Locations__c.field-meta.xml",
+            "isDirectory": false,
+            "size": 316,
+            "modifiedTime": 1574854662332,
+            "changeTime": 1574854662332,
+            "contentHash": "a01cd8fad0b51f2030130b3c0bf011b00cf034bf",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Resources__c.field-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Resources__c.field-meta.xml",
+            "isDirectory": false,
+            "size": 316,
+            "modifiedTime": 1574854662333,
+            "changeTime": 1574854662333,
+            "contentHash": "e6baa0da54900c60e6257a4e70dcc041126ed9c6",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Services__c.field-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/Services__c.field-meta.xml",
+            "isDirectory": false,
+            "size": 314,
+            "modifiedTime": 1574854662333,
+            "changeTime": 1574854662333,
+            "contentHash": "9386823846ebc68743590fcc79e85f6fbeacce80",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/TotalPrice__c.field-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment__c/fields/TotalPrice__c.field-meta.xml",
+            "isDirectory": false,
+            "size": 394,
+            "modifiedTime": 1574854662333,
+            "changeTime": 1574854662333,
+            "contentHash": "e2030ef338a111c137eb3ebbe8c10ed1b47c5123",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Asset__c/Asset__c.object-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Asset__c/Asset__c.object-meta.xml",
+            "isDirectory": false,
+            "size": 5134,
+            "modifiedTime": 1574854662356,
+            "changeTime": 1574854662356,
+            "contentHash": "6770841c55b3173dd0a236fe84b6685bd24f639b",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Attendee__c/Attendee__c.object-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Attendee__c/Attendee__c.object-meta.xml",
+            "isDirectory": false,
+            "size": 5143,
+            "modifiedTime": 1574854662374,
+            "changeTime": 1574854662374,
+            "contentHash": "91748d96c34ccc7c0199de9ae72fd6bcfa8764e0",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/layouts/Asset__c-Asset Layout.layout-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/layouts/Asset__c-Asset Layout.layout-meta.xml",
+            "isDirectory": false,
+            "size": 2654,
+            "modifiedTime": 1574854662379,
+            "changeTime": 1574854662379,
+            "contentHash": "559282d979186f6eb3c3f07b16e85488229a9db6",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/layouts/Attendee__c-Attendee Layout.layout-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/layouts/Attendee__c-Attendee Layout.layout-meta.xml",
+            "isDirectory": false,
+            "size": 2654,
+            "modifiedTime": 1574854662381,
+            "changeTime": 1574854662381,
+            "contentHash": "559282d979186f6eb3c3f07b16e85488229a9db6",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/documents/Quick_Appointment_Images/Company_Logo.document-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/documents/Quick_Appointment_Images/Company_Logo.document-meta.xml",
+            "isDirectory": false,
+            "size": 212,
+            "modifiedTime": 1574854662391,
+            "changeTime": 1574854662391,
+            "contentHash": "b23c0ecd4c02f5df8ae915488d646f55ae720af6",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/documents/Quick_Appointment_Images/Company_Logo.png",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/documents/Quick_Appointment_Images/Company_Logo.png",
+            "isDirectory": false,
+            "size": 3844,
+            "modifiedTime": 1574854662395,
+            "changeTime": 1574854662395,
+            "contentHash": "90cdf16ec13d047ff3731a952c2056d777e8c9aa",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/email/unfiled$public/Appointment_Email_Template.email-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/email/unfiled$public/Appointment_Email_Template.email-meta.xml",
+            "isDirectory": false,
+            "size": 352,
+            "modifiedTime": 1574854662403,
+            "changeTime": 1574854662403,
+            "contentHash": "32fc3c6670474241d9d9be1bad545236630290dc",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/email/unfiled$public/Appointment_Email_Template.email",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/email/unfiled$public/Appointment_Email_Template.email",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 1754,
+            "modifiedTime": 1575006161588,
+            "changeTime": 1575006161588,
+            "contentHash": "17da350d5c643480f950225eab0ecb489ddfc681"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestResourceLightningController.cls-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestResourceLightningController.cls-meta.xml",
+            "isDirectory": false,
+            "size": 174,
+            "modifiedTime": 1574854662407,
+            "changeTime": 1574854662407,
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestResourceLightningController.cls",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestResourceLightningController.cls",
+            "isDirectory": false,
+            "size": 4332,
+            "modifiedTime": 1574854662409,
+            "changeTime": 1574854662409,
+            "contentHash": "702f7165f16760efb061cc3044caf27845dd46ed",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestLocationLightningController.cls-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestLocationLightningController.cls-meta.xml",
+            "isDirectory": false,
+            "size": 174,
+            "modifiedTime": 1574854662462,
+            "changeTime": 1574854662462,
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestLocationLightningController.cls",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestLocationLightningController.cls",
+            "isDirectory": false,
+            "size": 2070,
+            "modifiedTime": 1574854662463,
+            "changeTime": 1574854662463,
+            "contentHash": "bc5a43a19b88b3b971cabae424c32b4223843e9c",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestDashboardLightningControler.cls-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestDashboardLightningControler.cls-meta.xml",
+            "isDirectory": false,
+            "size": 174,
+            "modifiedTime": 1574854662493,
+            "changeTime": 1574854662493,
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestDashboardLightningControler.cls",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestDashboardLightningControler.cls",
+            "isDirectory": false,
+            "size": 4564,
+            "modifiedTime": 1574854662494,
+            "changeTime": 1574854662494,
+            "contentHash": "25475b4051d78bbf66a64cd940e0f044d62500aa",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestFeedbackFormController.cls-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestFeedbackFormController.cls-meta.xml",
+            "isDirectory": false,
+            "size": 174,
+            "modifiedTime": 1574854662505,
+            "changeTime": 1574854662505,
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestFeedbackFormController.cls",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestFeedbackFormController.cls",
+            "isDirectory": false,
+            "size": 1271,
+            "modifiedTime": 1574854662507,
+            "changeTime": 1574854662507,
+            "contentHash": "96cc1e5f6b1cd1248a50cb58b3339912b7f0340d",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestPublicHolidayLightningController.cls-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestPublicHolidayLightningController.cls-meta.xml",
+            "isDirectory": false,
+            "size": 174,
+            "modifiedTime": 1574854662523,
+            "changeTime": 1574854662523,
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestPublicHolidayLightningController.cls",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestPublicHolidayLightningController.cls",
+            "isDirectory": false,
+            "size": 1794,
+            "modifiedTime": 1574854662524,
+            "changeTime": 1574854662524,
+            "contentHash": "33635b1eca196039134935ff917195294a697eeb",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentEmailTemplateController.cls-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentEmailTemplateController.cls-meta.xml",
+            "isDirectory": false,
+            "size": 174,
+            "modifiedTime": 1574854662525,
+            "changeTime": 1574854662525,
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentEmailTemplateController.cls",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentEmailTemplateController.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 1399,
+            "modifiedTime": 1575006161614,
+            "changeTime": 1575006161614,
+            "contentHash": "069df9c6147bb545e46466e23f91e7ecd25282d9"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestPublicHolidayLocationSelectorCtrl.cls-meta.xml",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestPublicHolidayLocationSelectorCtrl.cls-meta.xml",
+            "isDirectory": false,
+            "size": 174,
+            "modifiedTime": 1574854662534,
+            "changeTime": 1574854662534,
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0",
+            "isMetadataFile": true,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestPublicHolidayLocationSelectorCtrl.cls",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/TestPublicHolidayLocationSelectorCtrl.cls",
+            "isDirectory": false,
+            "size": 482,
+            "modifiedTime": 1574854662535,
+            "changeTime": 1574854662535,
+            "contentHash": "e7bf3917b7d2da40326edd7be7ceb4869ac2e9a7",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/compEvent",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/compEvent",
+            "isDirectory": true,
+            "size": 128,
+            "modifiedTime": 1574854662297,
+            "changeTime": 1574854662297,
+            "contentHash": "6d67647650cb00f3cf246126ff46e2ed572e478e",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Asset__c",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Asset__c",
+            "isDirectory": true,
+            "size": 96,
+            "modifiedTime": 1574854662356,
+            "changeTime": 1574854662356,
+            "contentHash": "5c4922d949f984667560622e0660996dc070178c",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Attendee__c",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Attendee__c",
+            "isDirectory": true,
+            "size": 96,
+            "modifiedTime": 1574854662374,
+            "changeTime": 1574854662374,
+            "contentHash": "f7dcfffe472ce465fc6863dc08f23ada29a6991a",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/email/unfiled$public",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/email/unfiled$public",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 192,
+            "modifiedTime": 1575006161591,
+            "changeTime": 1575006161591,
+            "contentHash": "30c129734ad80b697c0f3b2ab9d8493ea1112441"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/email",
+        {
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/email",
+            "isDirectory": true,
+            "size": 96,
+            "modifiedTime": 1574854662400,
+            "changeTime": 1574854662400,
+            "contentHash": "36b4ca4c5731877fa01de2265bc0e080036f21b0",
+            "isMetadataFile": false,
+            "state": "u"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/staticresources/cssforappointment.resource-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/staticresources/cssforappointment.resource-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 202,
+            "modifiedTime": 1575006161101,
+            "changeTime": 1575006161101,
+            "contentHash": "685dbf4de5497a270ef119672a6f2f9aa4074ff2"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/staticresources/cssforappointment.css",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/staticresources/cssforappointment.css",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 31000,
+            "modifiedTime": 1575006161104,
+            "changeTime": 1575006161104,
+            "contentHash": "512c7d79033e3028a9be61b540cf1a6870c896f8"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/staticresources/companylogo.resource-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/staticresources/companylogo.resource-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 203,
+            "modifiedTime": 1575006161106,
+            "changeTime": 1575006161106,
+            "contentHash": "8f4e4ea531152330068e2049b8a042b6aa3381ea"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/staticresources/companylogo.png",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/staticresources/companylogo.png",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 3844,
+            "modifiedTime": 1575006161107,
+            "changeTime": 1575006161107,
+            "contentHash": "90cdf16ec13d047ff3731a952c2056d777e8c9aa"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Calendar/Calendar.design",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/aura/Calendar/Calendar.design",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 79,
+            "modifiedTime": 1575006161222,
+            "changeTime": 1575006161222,
+            "contentHash": "687a73857765ebe336d8a469d5868ea4eabea0a6"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/pages/ToBeDeleted.page-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/pages/ToBeDeleted.page-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 287,
+            "modifiedTime": 1575006161318,
+            "changeTime": 1575006161318,
+            "contentHash": "ceeec1c79d5d87ae692f69bf94e6536e5a902632"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/pages/ToBeDeleted.page",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/pages/ToBeDeleted.page",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 71,
+            "modifiedTime": 1575006161320,
+            "changeTime": 1575006161320,
+            "contentHash": "b53cedf26d3a9c754e0305abf0dd211b5272b572"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/pages/PublicAppointmentBooking.page-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/pages/PublicAppointmentBooking.page-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 299,
+            "modifiedTime": 1575006161323,
+            "changeTime": 1575006161323,
+            "contentHash": "6c6fc1d2ac0660c6e7ed342790f0bdb25f2e8578"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/pages/PublicAppointmentBooking.page",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/pages/PublicAppointmentBooking.page",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 895,
+            "modifiedTime": 1575006161325,
+            "changeTime": 1575006161325,
+            "contentHash": "59a30fde361bca4c6db207381451768bb23c2c86"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/Appointment_Detail__c.object-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/Appointment_Detail__c.object-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 5138,
+            "modifiedTime": 1575006161415,
+            "changeTime": 1575006161415,
+            "contentHash": "542743961d3cb927d5279d8705589f1d5d868ddf"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields/Appointment__c.field-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields/Appointment__c.field-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 537,
+            "modifiedTime": 1575006161420,
+            "changeTime": 1575006161420,
+            "contentHash": "931ad1dea3d8cfa404b562562eb7e2f827f09316"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields/Asset__c.field-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields/Asset__c.field-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 519,
+            "modifiedTime": 1575006161421,
+            "changeTime": 1575006161421,
+            "contentHash": "91cded9af761959a89e628aa89c57e41a3aa566b"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields/Attendee__c.field-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields/Attendee__c.field-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 528,
+            "modifiedTime": 1575006161421,
+            "changeTime": 1575006161421,
+            "contentHash": "593d8390e88a485cc7f156ec4781b396df8041b6"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields/Location__c.field-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields/Location__c.field-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 528,
+            "modifiedTime": 1575006161421,
+            "changeTime": 1575006161421,
+            "contentHash": "7be1a2aba4505e3a913b8c1d03840610899d9c44"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields/Resource__c.field-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields/Resource__c.field-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 524,
+            "modifiedTime": 1575006161422,
+            "changeTime": 1575006161422,
+            "contentHash": "e8bd0022e66715c008e812a8ec9f769c63c4d8d5"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields/Service__c.field-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields/Service__c.field-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 525,
+            "modifiedTime": 1575006161422,
+            "changeTime": 1575006161422,
+            "contentHash": "f1e8499a7945ca4b32991eeaaa270053042adfc5"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/listViews/All.listView-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/listViews/All.listView-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 204,
+            "modifiedTime": 1575006161423,
+            "changeTime": 1575006161423,
+            "contentHash": "a09136a1a46c72265bcd1de0f4a07ba06ec1e9bd"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/layouts/Appointment_Detail__c-Appointment Detail Layout.layout-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/layouts/Appointment_Detail__c-Appointment Detail Layout.layout-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 2774,
+            "modifiedTime": 1575006161569,
+            "changeTime": 1575006161569,
+            "contentHash": "9fafc109dbf40e0499b7377284f5708e95fca531"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/email/unfiled$public/Test_Sagar.email-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/email/unfiled$public/Test_Sagar.email-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 337,
+            "modifiedTime": 1575006161590,
+            "changeTime": 1575006161590,
+            "contentHash": "8529db8b724d6ecb110f93fa640a132b2643aae0"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/email/unfiled$public/Test_Sagar.email",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/email/unfiled$public/Test_Sagar.email",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 1710,
+            "modifiedTime": 1575006161591,
+            "changeTime": 1575006161591,
+            "contentHash": "ae0c1cfb29dc43147359a42b6c1465adb0d43867"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/flexipages/QuickAppointmentContactRecordPage.flexipage-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/flexipages/QuickAppointmentContactRecordPage.flexipage-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 7399,
+            "modifiedTime": 1575006161595,
+            "changeTime": 1575006161595,
+            "contentHash": "819eb430997681fe92bc139b93f06646ab9048e6"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/flexipages/QuickAppointmentAppointmentCategory.flexipage-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/flexipages/QuickAppointmentAppointmentCategory.flexipage-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 5655,
+            "modifiedTime": 1575006161597,
+            "changeTime": 1575006161597,
+            "contentHash": "2fc15c51b78c74c8e23bde5e5f6e436ace6cae79"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/flexipages/QuickAppointmentLocationRecordPage.flexipage-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/flexipages/QuickAppointmentLocationRecordPage.flexipage-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 4326,
+            "modifiedTime": 1575006161599,
+            "changeTime": 1575006161599,
+            "contentHash": "6c23762a60ee84d5cfb6a2f11c8a700a641d0b6d"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/flexipages/Contact_Record_Page.flexipage-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/flexipages/Contact_Record_Page.flexipage-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 7385,
+            "modifiedTime": 1575006161602,
+            "changeTime": 1575006161602,
+            "contentHash": "93c7ae979f68cbcf0c0b50c52d8356abc77ddef2"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/flexipages/QuickAppointmentServiceRecordPage.flexipage-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/flexipages/QuickAppointmentServiceRecordPage.flexipage-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 4324,
+            "modifiedTime": 1575006161603,
+            "changeTime": 1575006161603,
+            "contentHash": "c06ca191d1d0232402788d5d1ff205de0ce3719d"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/tabs/Appointment_Detail__c.tab-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/tabs/Appointment_Detail__c.tab-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 185,
+            "modifiedTime": 1575006161604,
+            "changeTime": 1575006161604,
+            "contentHash": "b09f6d23e19ef8547f279bb47d7c2b1ca826e7a6"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/EmailManager.cls-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/EmailManager.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1575006161643,
+            "changeTime": 1575006161643,
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/EmailManager.cls",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/EmailManager.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 30,
+            "modifiedTime": 1575006161645,
+            "changeTime": 1575006161645,
+            "contentHash": "d7ded33b97481c7c33805ee88f3b9b8752a79d28"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentTriggerHelper.cls-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentTriggerHelper.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1575006161657,
+            "changeTime": 1575006161657,
+            "contentHash": "50701282159e2679109ad6da2dfbb354eca50ce0"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentTriggerHelper.cls",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/classes/AppointmentTriggerHelper.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 10211,
+            "modifiedTime": 1575006161658,
+            "changeTime": 1575006161658,
+            "contentHash": "ebba1985124bbdc8e8932394b715196ce0764f82"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/profiles/Quick Appointment Profile.profile-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/profiles/Quick Appointment Profile.profile-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 43045,
+            "modifiedTime": 1575006161941,
+            "changeTime": 1575006161941,
+            "contentHash": "e4a6706cf50422ca506e986dc9f6b664257d411f"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/permissionsets/QuickAppointmentSitePermissionSet.permissionset-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/permissionsets/QuickAppointmentSitePermissionSet.permissionset-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 7222,
+            "modifiedTime": 1575006161943,
+            "changeTime": 1575006161943,
+            "contentHash": "81f8962adf8f3bc5510eabcb78da499861c83415"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/sites/Quick_Appointment.site-meta.xml",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/sites/Quick_Appointment.site-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 1643,
+            "modifiedTime": 1575006161946,
+            "changeTime": 1575006161946,
+            "contentHash": "9d99a1d0643432d118c2738b0e67ef98fb1f65d3"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 160,
+            "modifiedTime": 1575006161422,
+            "changeTime": 1575006161422,
+            "contentHash": "08cffdfcd635b34871b7132f592450248c11a56e"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/fields",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 256,
+            "modifiedTime": 1575006161422,
+            "changeTime": 1575006161422,
+            "contentHash": "6c1a56a70362eab771d8307c0246060a915ddff4"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/listViews",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/objects/Appointment_Detail__c/listViews",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 96,
+            "modifiedTime": 1575006161423,
+            "changeTime": 1575006161423,
+            "contentHash": "0b3931647b535802350a588b8bf16d4ae6cc2ed6"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/flexipages",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/flexipages",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 224,
+            "modifiedTime": 1575006161603,
+            "changeTime": 1575006161603,
+            "contentHash": "bc8a4fb29c0a4ce3549b1b55fb1528d6d599c703"
+        }
+    ],
+    [
+        "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/sites",
+        {
+            "state": "u",
+            "sourcePath": "/Volumes/Work/QuickAppointmentGitHub/QuickAppointMent/force-app/main/default/sites",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 96,
+            "modifiedTime": 1575006161946,
+            "changeTime": 1575006161946,
+            "contentHash": "09c5cc1375c97edd48d3042764889c9222e043e2"
         }
     ]
 ]

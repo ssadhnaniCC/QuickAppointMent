@@ -17,7 +17,7 @@ public class TestWorkingHourController {
         insert resourceList;
         insert locationList;
         insert serviceList;
-        
+        insert workHourList;
         
         List<CC_QAppt__Location__c> locationRecord =   [select id from CC_QAppt__Location__c limit 1];
         List<CC_QAppt__Service__c> serviceRecord =   [select id from CC_QAppt__Service__c limit 1];
@@ -37,9 +37,62 @@ public class TestWorkingHourController {
     static void testWorkingHourListRecords(){
         Contact resourceRecordId = [select id from contact limit 1];
         Test.startTest();
+        WorkingHourController.getWorkingHourFieldSet();
         List<CC_QAppt__Working_Hour__c> workList = WorkingHourController.getWorkingHour(resourceRecordId.id);
         Test.stopTest();
         system.assertEquals(workList.size(),10,'error while fetching record on component initialization');
     }
+    
+    @isTest
+    static void testGetWorkingHourRecord(){
+        
+        CC_QAppt__Working_Hour__c cqas = [select id from CC_QAppt__Working_Hour__c Limit 1];
+        
+        Test.startTest();
+       CC_QAppt__Working_Hour__c cqw =  WorkingHourController.getWorkingHourRecord(cqas.id);
+                Test.stopTest();
+        
+        system.assert(!string.isEmpty(cqw.id));
+    }
+    
+    @isTest
+    static void testGetResourceName(){
+        
+        Contact resourceRecordId = [select id from contact limit 1];
+        Test.startTest();
+       contact con =  WorkingHourController.getResourceName(resourceRecordId.id);
+                Test.stopTest();
+        
+        system.assert(!string.isEmpty(con.id));
+        
+    }
+    
+    @isTest
+    static void testSaveWorkingHourRecord(){
+        
+        Contact resourceRecordId = [select id from contact limit 1];
+        CC_QAppt__Working_Hour__c cqas = [select id,CC_QAppt__Start_Date__c,CC_QAppt__End_Date__c,CC_QAppt__Active__c,CC_QAppt__End_Time__c,CC_QAppt__Start_Time__c from CC_QAppt__Working_Hour__c Limit 1];
+        cqas.CC_QAppt__Start_Date__c = Date.newInstance(2019, 9, 9);
+        cqas.CC_QAppt__End_Date__c = Date.newInstance(2019, 10, 9);
+        cqas.CC_QAppt__Start_Time__c = datetime.newInstance(2019, 9, 9);
+        cqas.CC_QAppt__End_Time__c = datetime.newInstance(2019, 10, 9);
+        
+        Boolean monday = false;
+        Boolean tuesday = false;
+        Boolean wednesday = false;
+        Boolean thursday = false;
+        Boolean friday = true;
+        Boolean saturday = false;
+        Boolean isActive = true;
+        
+        Test.startTest();
+        WorkingHourController.saveWorkingHour(cqas, monday,tuesday, wednesday,thursday, friday, saturday,isActive, resourceRecordId.Id);
+                Test.stopTest();
+        
+         
+        
+    }
+    
+    
     
 }

@@ -12,8 +12,8 @@ public class AppointmentCategoryLightningController {
     * @returns list of contact.
     */
     @AuraEnabled
-    public  static List<CC_QAppt__Appointment_Category__c> getAppointmentCategories(Id appointmentId){
-            return QuickAppointmentSOQLManager.getAppointmentCategories(appointmentId);
+    public  static List<CC_QAppt__Appointment_Category__c> getAppointmentCategories(Id appointmentCategoryId){
+            return QuickAppointmentSOQLManager.getAppointmentCategories(appointmentCategoryId);
         } 
      @AuraEnabled
     public  static Boolean saveCategory(CC_QAppt__Appointment_Category__c rec){  
@@ -24,8 +24,8 @@ public class AppointmentCategoryLightningController {
             
         }
         catch(Exception e){
-            system.debug('error'+e.getMessage());  
-            return false;
+            system.debug(e.getMessage());  
+            
         }         
        return ur.isSuccess();
         } 
@@ -37,7 +37,8 @@ public class AppointmentCategoryLightningController {
              
         }
         catch(DMLException e){
-            e.getMessage();        
+           system.debug(e.getMessage()) ; 
+           
         }
            return dr.isSuccess();    
         } 

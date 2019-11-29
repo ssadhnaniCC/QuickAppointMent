@@ -78,7 +78,7 @@
             case 'calendar':
                 component.set("v.showCalendar",true);
                 helper.showRelatedCalendar(component,event,helper);
-            break;
+                break;
         }
     },
     
@@ -131,7 +131,7 @@
     /*******************************************************************************************************
     * @description This is the method which will handle the sorting in datatable
    */
-     handleSort : function(component,event,helper){
+    handleSort : function(component,event,helper){
         //Returns the field which has to be sorted
         var sortBy = event.getParam("fieldName");
         //returns the direction of sorting like asc or desc

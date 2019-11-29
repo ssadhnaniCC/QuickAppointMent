@@ -28,7 +28,7 @@ public class FeedbackFormController {
         for( Schema.PicklistEntry pickListVal : ple){
             pickListValuesList.add(pickListVal.getLabel());
         }     
-        system.debug('pickListValuesList=='+pickListValuesList);
+        
         
         showForm = true;
         
@@ -39,10 +39,9 @@ public class FeedbackFormController {
     
     /* Method to save feedback record */
     public PageReference saveFeedback() {
-        system.debug('name=='+qaf.Name);
-        system.debug('comment=='+qaf.CC_QAppt__Comments__c);
-        system.debug('ratingNumber=='+ratingNumber);
-        system.debug('category=='+category);
+       
+       
+       
         if(!string.isEmpty(ratingNumber))
             qaf.CC_QAppt__Rating__c = ratingNumber;
         
@@ -52,7 +51,7 @@ public class FeedbackFormController {
             qaf.CC_QAppt__Feedback_Category__c = category;
         
         try{
-            UPSERT qaf;
+            INSERT qaf;
             ApexPages.addmessage(new ApexPages.message(ApexPages.severity.CONFIRM,'Feedback submit successfully')); 
             
             
@@ -61,13 +60,14 @@ public class FeedbackFormController {
             system.debug(e);
         }
         
+        List<CC_QAppt__Participant__c> fetchContactEMail = [select id, CC_QAppt__Participant_Name__r.email from CC_QAppt__Participant__c WHERE CC_QAppt__Appointment__c=:appointmentId Limit 1];
         
-        system.debug('qafId=='+qaf.Id);
         if(qaf.Id!=null) {
             showForm = false;
             showSuccess = true;
+            if(fetchContactEMail.size()>0 && fetchContactEMail[0].CC_QAppt__Participant_Name__r.email!=null) {
             Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
-            message.toAddresses = new String[] { 'shivam0611.cloud@gmail.com' };
+            message.toAddresses = new String[] { fetchContactEMail[0].CC_QAppt__Participant_Name__r.email };
                 message.subject = 'Quick Appointment Feedback Form';
             message.plainTextBody = 'Thanks for Submitting feedback form';
             Messaging.SingleEmailMessage[] messages =   new List<Messaging.SingleEmailMessage> {message};
@@ -75,11 +75,15 @@ public class FeedbackFormController {
             
             if (results[0].success) {
                 System.debug('The email was sent successfully.');
-            } else {
+            } 
+            else {
                 System.debug('The email failed to send: ' + results[0].errors[0].message);
             }
+        } 
         }
+            
         return null;
+            
     }
     
 }

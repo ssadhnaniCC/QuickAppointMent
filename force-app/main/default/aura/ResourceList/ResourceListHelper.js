@@ -16,6 +16,7 @@
             var state = response.getState();
             if (state === "SUCCESS") {
                 var resourceFields = response.getReturnValue();
+                resourceFields.splice(0, 1,{label: 'Resource', fieldName: 'linkName',sortable: true, type: 'url', typeAttributes: {label: { fieldName: 'Name' }, target: '_blank'}});
                 resourceFields.push({type: 'action', typeAttributes: { rowActions: actions }});
                 component.set("v.columns",resourceFields);
             }
@@ -33,7 +34,10 @@
             var pageSize = component.get("v.pageSize");
             if (state === "SUCCESS") {
                 var resourcedata = response.getReturnValue();
-                component.set("v.resourceData",response.getReturnValue());
+                resourcedata.forEach(function(resource){
+                    resource.linkName = '/'+resource.Id;
+                })
+                component.set("v.resourceData",resourcedata);
                 component.set("v.showspinner",false);
                 component.set("v.hideFooter",true);
                 component.set("v.pageNumber",1);

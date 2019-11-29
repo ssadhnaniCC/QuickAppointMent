@@ -1,11 +1,14 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="PublicHolidayLocationSelectorController" >
-    <aura:attribute name="locationList" type="List" default="[]"/>
-      <aura:attribute name="isModalOpen" type="Boolean"/>
-     <aura:attribute name="showPublicHolidayModal" type="Boolean"/>
+   <!--@description contains list of all locations.-->
+    <aura:attribute name="locationList" type="List" default="Object[]"/>
+    <!--@description contains boolean attribute to hide or show modals.-->
+      <aura:attribute name="showPublicHolidayLocationSelectorModal" type="Boolean" default="false"/>
+     <aura:attribute name="showPublicHolidayModal" type="Boolean" default="false"/>
+    <!--@description contains location object reference.-->
      <aura:attribute name="LocationObj" type="Object" />
+     <!--@description handler of init event.-->
     <aura:handler name="init" action="{!c.init}" value="{!this}"/>
-     <aura:if isTrue="{!v.isModalOpen}">
-	<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
             <div class="slds-modal__container">
                 <!-- Modal/Popup Box Header Starts here-->
                 <header class="slds-modal__header">
@@ -14,7 +17,7 @@
                                           alternativeText="close"
                                           variant="bare-inverse"
                                           class="slds-modal__close"/>
-                    <h3 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Location</h3>
+                    <h3 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Locations</h3>
                 </header>
                 <!--Modal/Popup Box Body Starts here-->
                 <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
@@ -45,8 +48,8 @@
                 </footer>          
             </div>
         </section>
-    </aura:if>
-    <aura:if isTrue="{!v.showPublicHolidayModal}">
-        <c:PublicHolidayModifier LocationObj="{!v.LocationObj}"/>        
+          <div class="slds-backdrop slds-backdrop_open"></div>
+     <aura:if isTrue="{!v.showPublicHolidayModal}">
+        <c:PublicHolidayModifier  showHolidayLocationSelectorModal="{v.showPublicHolidayLocationSelectorModal}" showHolidayModal="{!v.showPublicHolidayModal}" LocationObj="{!v.LocationObj}"/>        
     </aura:if>
 </aura:component>

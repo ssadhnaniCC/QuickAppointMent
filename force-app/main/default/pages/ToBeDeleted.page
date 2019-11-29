@@ -1,0 +1,4 @@
+<apex:page >
+     <c:AppointmentEmailTemplateComponent />
+
+</apex:page>

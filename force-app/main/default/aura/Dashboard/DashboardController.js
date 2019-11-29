@@ -1,7 +1,14 @@
 ({
+    /*This function called after script is loaded
+     * It will load all chart
+     */
     generateChart : function(component, event, helper) {
+        component.set("v.scriptLoaded",true);
         helper.createGraph(component, event, helper);
     },
+    /* This function called on oninit
+     * It will load all reports
+     */
     doInit : function(component, event, helper){
         component.set('v.appointmentColumns',[
              {label: 'Appointment name', fieldName: 'Name', type: 'text'},

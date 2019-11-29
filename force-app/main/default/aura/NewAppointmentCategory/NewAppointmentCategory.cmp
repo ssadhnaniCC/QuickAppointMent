@@ -1,6 +1,4 @@
-<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="AppointmentCategoryLightningController" >
-   
-    
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="AppointmentCategoryLightningController" >   
     <!--@description contains boolean  to show or hide ModalBox.-->
     <aura:attribute name="isModalOpen" type="boolean" default="False"/>
     <!--@description contains field values of customer record.-->
@@ -35,18 +33,18 @@
                     <div class="slds-grid slds-gutters slds-wrap slds-border_top slds-p-top_medium slds-p-bottom_medium">
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
                             
-                                    <lightning:input type="checkbox" aura:id="locationMandatory" label="Location Mandatory"   checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsLocationMandatory__c}" onchange="{!c.onLocationCheckBoxChange}" />
-                                    <lightning:input type="checkbox"  aura:id="serviceMandatory" label="Service Mandatory" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsServiceMandatory__c}" onchange="{!c.onServiceCheckBoxChange}"/>
-                                    <lightning:input type="checkbox" aura:id="attendeeMandatory" label="Attendee Mandatory"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAttendeeMandatory__c}" onchange="{!c.onAttendeeCheckBoxChange}"/>
-                                    <lightning:input type="checkbox"  aura:id="assetMandatory" label="Asset Mandatory" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAssetMandatory__c}" onchange="{!c.onAssetCheckBoxChange}"/>
+                            <lightning:input type="checkbox" aura:id="locationMandatory" label="Location Mandatory"   checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsLocationMandatory__c}" onchange="{!c.onLocationCheckBoxChange}" />
+                            <lightning:input type="checkbox"  aura:id="serviceMandatory" label="Service Mandatory" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsServiceMandatory__c}" onchange="{!c.onServiceCheckBoxChange}"/>
+                            <lightning:input type="checkbox" aura:id="attendeeMandatory" label="Attendee Mandatory"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAttendeeMandatory__c}" onchange="{!c.onAttendeeCheckBoxChange}"/>
+                            <lightning:input type="checkbox"  aura:id="assetMandatory" label="Asset Mandatory" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAssetMandatory__c}" onchange="{!c.onAssetCheckBoxChange}"/>
                             <lightning:input type="checkbox" aura:id="resourceMandatory" label="Resource Mandatory" checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsResourceMandatory__c}" onchange="{!c.onResourceCheckBoxChange}"/>
-
+                            
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                           <lightning:input type="checkbox" aura:id="multipleLocation" disabled="true" label="Multiple Location Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleLocation__c}" />
-                             <lightning:input type="checkbox"  aura:id="multipleService" disabled="true" label="Multiple Service Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleService__c}" />
+                            <lightning:input type="checkbox" aura:id="multipleLocation" disabled="true" label="Multiple Location Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleLocation__c}" />
+                            <lightning:input type="checkbox"  aura:id="multipleService" disabled="true" label="Multiple Service Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleService__c}" />
                             <lightning:input type="checkbox" aura:id="multipleAttendee" disabled="true" label="Multiple Attendee Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleAttendee__c}"/>
-                               <lightning:input type="checkbox"  aura:id="multipleAsset" disabled="true" label="Multiple Asset Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleAsset__c}" />
+                            <lightning:input type="checkbox"  aura:id="multipleAsset" disabled="true" label="Multiple Asset Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleAsset__c}" />
                             
                             
                             <lightning:input type="checkbox" aura:id="multipleResource" disabled="true" label="Multiple Resource Allowed"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsMultipleResource__c}"/>
@@ -60,34 +58,34 @@
                         
                         
                         
-                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 ">
-                                
-                                        
-                                         
-                                            
-                                            <lightning:input type="checkbox" label="Pricing Applicable"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsPricingApplicable__c}"/>
-                                            
-                                       
-                                </div>
-                               
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 ">
                             
                             
                             
-                        </div>  
-                        <div class="slds-grid slds-gutters slds-border_top slds-p-top_medium">
                             
-                           
-                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 ">
-                                   
-                                            
-                                            <lightning:input type="checkbox" label="Available Publically"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAvaliablePublically__c}"/>                                          
-                                       
-                                </div>
+                            <lightning:input type="checkbox" label="Pricing Applicable"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsPricingApplicable__c}"/>
+                            
                             
                         </div>
+                        
+                        
+                        
+                        
+                    </div>  
+                    <div class="slds-grid slds-gutters slds-border_top slds-p-top_medium">
+                        
+                        
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 ">
+                            
+                            
+                            <lightning:input type="checkbox" label="Available Publically"  checked="{!v.AppointmentCategoryRecord.CC_QAppt__IsAvaliablePublically__c}"/>                                          
+                            
+                        </div>
+                        
                     </div>
-                  
-            
+                </div>
+                
+                
                 <!--Modal/Popup Box Footer Starts here-->                
                 <footer class="slds-modal__footer">
                     <lightning:button variant="brand"
@@ -99,7 +97,7 @@
                                       title="Cancel"
                                       onclick="{!c.closeModel}"/>
                 </footer>               
-              </div>
+            </div>
         </section>
         <div class="slds-backdrop slds-backdrop_open"></div>
     </aura:if>

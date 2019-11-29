@@ -1,5 +1,5 @@
 ({
-     /*******************************************************************************************************
+    /*******************************************************************************************************
     * @description This method is fired on component initialization.
     * @returns void.
     */
@@ -7,14 +7,14 @@
         helper.getColumnAndAction(component);
         helper.getCategories(component,helper);
     },
-     /*******************************************************************************************************
-    * @description This method is used to open ModalBox to fill customer details.
+    /*******************************************************************************************************
+    * @description This method is used to open ModalBox to fill appointment category details.
     * @returns void.
     */
     onAddCategoryClick:function (component, event, helper) {
         component.set("v.isModalOpen",true);        
     },
-     /*******************************************************************************************************
+    /*******************************************************************************************************
     * @description This method is used to view previous page in datatable.
     * @returns void.
     */
@@ -23,7 +23,7 @@
         component.set("v.pageNumber", pageNumber-1);
         helper.pagination(component,event, helper);
     },
-     /*******************************************************************************************************
+    /*******************************************************************************************************
     * @description This method is used to view first page in datatable.
     * @returns void.
     */
@@ -31,7 +31,7 @@
         component.set("v.pageNumber", 1);        
         helper.pagination(component,event,helper);
     },
-     /*******************************************************************************************************
+    /*******************************************************************************************************
     * @description This method is used to view next page in datatable.
     * @returns void.
     */
@@ -40,7 +40,7 @@
         component.set("v.pageNumber", pageNumber+1);
         helper.pagination(component,event,helper);
     },
-     /*******************************************************************************************************
+    /*******************************************************************************************************
     * @description This method is used to view last page in datatable.
     * @returns void.
     */
@@ -49,13 +49,13 @@
         component.set("v.pageNumber",pgNumber);
         helper.pagination(component,event,helper);
     },   
-     /*******************************************************************************************************
+    /*******************************************************************************************************
     * @description This method is used to handle row action.
     * @returns void.
     */
     handleRowAction: function (component, event, helper) {
         var action = event.getParam('action');
-       // alert(action.name);
+        
         switch (action.name) {
             case 'edit':
                 helper.editRecord(component, event);
@@ -71,10 +71,10 @@
                 component.set("v.showCalendar",true);
                 helper.showRelatedCalendar(component,event,helper);
                 break;
-           
+                
         }
     },
-     /*******************************************************************************************************
+    /*******************************************************************************************************
     * @description This method is used to handle search functionality in datatable.
     * @returns void.
     */
@@ -89,35 +89,35 @@
             var i;        
             for(i=0;i<allRecords.length;i++){
                 if((allRecords[i].Name && allRecords[i].Name.toUpperCase().indexOf(searchFilter.toUpperCase()) != -1))
-                   
+                    
                 {
                     tpArray.push(allRecords[i]);
                 }
             }
             if(tpArray.length==0){
-                 component.set("v.data",null);
+                component.set("v.data",null);
                 component.set("v.isLastPage",true);
-              component.set("v.pageNumber",0);  
-                 component.set("v.totalPages",0);
+                component.set("v.pageNumber",0);  
+                component.set("v.totalPages",0);
                 return;
             }
-            console.log('tpArray',tpArray);
-             component.set("v.searchList",tpArray);  
+            
+            component.set("v.searchList",tpArray);  
             component.set("v.onSearch",true);
             helper.pagination(component,event,helper);
         }  
         if(strLength<=1){
             component.set("v.onSearch",false);
             component.set("v.pageNumber",1);
-           component.set("v.totalPages", Math.ceil(component.get("v.allRecords").length/10));
+            component.set("v.totalPages", Math.ceil(component.get("v.allRecords").length/10));
             helper.pagination(component,event,helper);
         }
     },
-     /*******************************************************************************************************
+    /*******************************************************************************************************
     * @description This method is used to handle sorting in each column of datatable.
     * @returns void.
     */
-   
+    
     handleSort : function(component,event,helper){
         //Returns the field which has to be sorted
         var sortBy = event.getParam("fieldName");
@@ -129,7 +129,7 @@
         // call sortData helper function
         helper.sortData(component,sortBy,sortDirection);
     } ,
-     /*******************************************************************************************************
+    /*******************************************************************************************************
     * @description This method is used to refresh datatable after save or edit of customer record.
     * @returns void.
     */

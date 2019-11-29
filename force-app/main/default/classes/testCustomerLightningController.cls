@@ -1,28 +1,15 @@
 @isTest
 public class testCustomerLightningController {
 
+    /*method to prepare dummy  customer records*/
     @testSetup
     static void setup(){
         list<contact> customerList=TestDataFactory.customerList(20);
         insert customerList;
     }
-    /*@isTest
-    static void testCustomer(){
-       list<contact> custList=[select id,firstName,lastName,email,phone,mailingstreet,mailingCountry,mailingState,MailingCity,description,MailingpostalCode from contact] ;
-        CustomerLightningController.getFields();
-        CustomerLightningController.getCustomers(custList[0].id);
-         CustomerLightningController.getCustomers(null);
-        for(contact con:custList){
-            CustomerLightningController.saveCustomer(con);
-             boolean result=CustomerLightningController.deleteCustomer(con.Id);
-            system.assertequals(result,false,'error while deleting');
-        }
-        
-        
-    }*/
     /* method to test if records are available to edit*/
     @istest
-    static void getCustomerRecordWhileEditing(){
+    static void getCustomerRecordForEditing(){
           contact con=[select id,firstName,lastName,email,phone,mailingstreet,mailingCountry,mailingState,MailingCity,description,MailingpostalCode from contact limit 1] ;
         Test.startTest();
         CustomerLightningController.getFields();
@@ -45,10 +32,26 @@ public class testCustomerLightningController {
     @isTest
     static void saveCustomerRecord(){
          contact con=[select id,firstName,lastName,email,phone,mailingstreet,mailingCountry,mailingState,MailingCity,description,MailingpostalCode from contact limit 1] ;
-        Test.startTest();
-        boolean result=CustomerLightningController.saveCustomer(con);
+        Test.startTest();        
+            boolean result=CustomerLightningController.saveCustomer(con);
+        system.assert(result,'error while inserting cutomer records');
         Test.stopTest();
-        system.assert(result,'error while inserting records');
+    }
+     /*method to test  error while insertion of records on clicking on save button*/
+    @isTest
+    static void neagativeSaveCustomerRecord(){
+         contact con=[select id,firstName,lastName,email,phone,mailingstreet,mailingCountry,mailingState,MailingCity,description,MailingpostalCode from contact limit 1] ;
+        con.lastname='';
+        Test.startTest();
+        try{ 
+            boolean result=CustomerLightningController.saveCustomer(con);
+           }
+        catch(DMLException e){
+            system.assertEquals(e.getMessage(),e.getmessage());
+        }
+       
+        Test.stopTest();
+        
     }
     /* method to test deletion of records while clicking of delete button*/
     @isTest
@@ -59,6 +62,7 @@ public class testCustomerLightningController {
         Test.stopTest();
         system.assert(result,'error while delete records');
     }
+    
     
     
     

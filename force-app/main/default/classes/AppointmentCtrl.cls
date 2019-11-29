@@ -211,7 +211,7 @@ public with sharing class AppointmentCtrl{
                                                                    ser.Duration__c = ali.service__r.Duration__c;
                                                                    serviceMap.put(ali.service__c, ser);
                                                                }                                                              
-                                                     }
+                                                           }
                }
             if(serviceMap.size() == 0){            
                 providerMap = new Map<string,contact>();           
@@ -257,7 +257,7 @@ public with sharing class AppointmentCtrl{
         if(serviceMap != null){
             for(string str: serviceMap.keyset()){
                 if(serviceMap.containskey(str)){
-                options.add(new SelectOption(str,serviceMap.get(str).name));
+                    options.add(new SelectOption(str,serviceMap.get(str).name));
                 }
             }
         }
@@ -321,10 +321,10 @@ return 0;
                     totalprice = ((serviceMap.get(selectedService).Price__c) - Integer.valueOf(((serviceMap.get(selectedService).Price__c) * (newAppointment.Discount__c)/100)));
                 } 
                 else{
-                errorDiv = true;  
-                ApexPages.addmessage(new ApexPages.message(ApexPages.Severity.Error,'Please Enter Valid Value for Discount/Price'));
-              //  ApexPages.Message requirereasonMessage = new ApexPages.Message(ApexPages.Severity.Error,'Discount/Price cant be negative');
-               //  ApexPages.addMessage(requirereasonMessage);
+                    errorDiv = true;  
+                    ApexPages.addmessage(new ApexPages.message(ApexPages.Severity.Error,'Please Enter Valid Value for Discount/Price'));
+                    //  ApexPages.Message requirereasonMessage = new ApexPages.Message(ApexPages.Severity.Error,'Discount/Price cant be negative');
+                    //  ApexPages.addMessage(requirereasonMessage);
                     totalprice = (serviceMap.get(selectedService).Price__c);
                 }
             }else{
@@ -379,26 +379,26 @@ return 0;
             return null;
         }
         else if(newAppointment.status__c != 'Upcoming'){
-                Date todaydate = System.now().date();   
-                 String start;      
-                    if(startDate.contains('/')){
-                    start = startDate.replaceAll('/','-');
-                    }       
-                    else{
-                    start = startDate;
-                    }
-             list<string> dtList = start.split('-');
-             system.debug('datelist'+dtList);
-             date startdt = Date.newInstance(Integer.valueOf(dtList[0]),Integer.valueOf(dtList[1]),Integer.valueOf(dtList[2].trim()));
-             system.debug('startdate'+startdt.format());
-             system.debug('todaydates'+todaydate.format());                       
-             if(startdt.format() > todaydate.format()){
-      //       system.debug('Greaterdate');
-             errorDiv = true;
-            ApexPages.Message requirereasonMessage = new ApexPages.Message(ApexPages.Severity.Error,'For future date please choose upcoming as status');
-            ApexPages.addMessage(requirereasonMessage);
-             return null;
-             }          
+            Date todaydate = System.now().date();   
+            String start;      
+            if(startDate.contains('/')){
+                start = startDate.replaceAll('/','-');
+            }       
+            else{
+                start = startDate;
+            }
+            list<string> dtList = start.split('-');
+            system.debug('datelist'+dtList);
+            date startdt = Date.newInstance(Integer.valueOf(dtList[0]),Integer.valueOf(dtList[1]),Integer.valueOf(dtList[2].trim()));
+            system.debug('startdate'+startdt.format());
+            system.debug('todaydates'+todaydate.format());                       
+            if(startdt.format() > todaydate.format()){
+                //       system.debug('Greaterdate');
+                errorDiv = true;
+                ApexPages.Message requirereasonMessage = new ApexPages.Message(ApexPages.Severity.Error,'For future date please choose upcoming as status');
+                ApexPages.addMessage(requirereasonMessage);
+                return null;
+            }          
         }
         else{
             errorDiv = false;
@@ -409,22 +409,22 @@ return 0;
             System.debug('save duration---'+duration);
             list<string> timeList = startTime.split(':');
             string getTime = timeList[0].trim()+':'+timeList[1].trim()+' '+timeList[2].trim();
-             String start;      
-                    if(startDate.contains('/')){
-                    start = startDate.replaceAll('/','-');
-                    }       
-                    else{
-                    start = startDate;
-                    }           
+            String start;      
+            if(startDate.contains('/')){
+                start = startDate.replaceAll('/','-');
+            }       
+            else{
+                start = startDate;
+            }           
             list<string> dtList = start.split('-');
             System.debug('dtList -- '+dtList);
-           // System.debug('dtList[0] -- '+dtList[0]);
-          //  System.debug('dtList[2] -- '+dtList[1]);
+            // System.debug('dtList[0] -- '+dtList[0]);
+            //  System.debug('dtList[2] -- '+dtList[1]);
             //System.debug('dtList[2] -- '+dtList[2]);
             
-           // System.debug('dtList[0] -- '+Integer.valueOf(dtList[0]));
-           // System.debug('dtList[2] -- '+Integer.valueOf(dtList[1]));
-           // System.debug('dtList[2] -- '+Integer.valueOf(dtList[2].trim()));
+            // System.debug('dtList[0] -- '+Integer.valueOf(dtList[0]));
+            // System.debug('dtList[2] -- '+Integer.valueOf(dtList[1]));
+            // System.debug('dtList[2] -- '+Integer.valueOf(dtList[2].trim()));
             
             date startdt = Date.newInstance(Integer.valueOf(dtList[0]),Integer.valueOf(dtList[1]),Integer.valueOf(dtList[2].trim()));
             
@@ -435,7 +435,7 @@ return 0;
             newAppointment.Start_Date_Time__c = datetime.newInstance(startdt,myTime);
             newAppointment.end_Date_Time__c = datetime.newInstance(startdt,myTime).addMinutes(duration);
             if(serviceMap.containsKey(selectedService) && providerMap.containsKey(selectedProvider) && LocationMap.containsKey(selectedLocation))   {         
-            newAppointment.name = serviceMap.get(selectedService).name +'---'+ providerMap.get(selectedProvider).lastname+'---'+ LocationMap.get(selectedLocation).name ;
+                newAppointment.name = serviceMap.get(selectedService).name +'---'+ providerMap.get(selectedProvider).lastname+'---'+ LocationMap.get(selectedLocation).name ;
             }
             
             Resource_Service_Alignment__c alignment = new Resource_Service_Alignment__c();
@@ -443,12 +443,12 @@ return 0;
             if(Schema.sObjectType.Resource_Service_Alignment__c.fields.name.isAccessible() && Schema.sObjectType.Resource_Service_Alignment__c.fields.Service__c.isAccessible()
                && Schema.sObjectType.Resource_Service_Alignment__c.fields.Resource_Staff__c.isAccessible() && Schema.sObjectType.Resource_Service_Alignment__c.fields.location__c.isAccessible() ){
                    try{
-                   alignment = [select id,name,location__c,service__c,Resource_Staff__c from Resource_Service_Alignment__c where service__c =: selectedService and Resource_Staff__c =: selectedProvider and location__c =: selectedLocation];
+                       alignment = [select id,name,location__c,service__c,Resource_Staff__c from Resource_Service_Alignment__c where service__c =: selectedService and Resource_Staff__c =: selectedProvider and location__c =: selectedLocation];
                    }
                    catch(Exception e){                       
                    }
                    if(alignment != null){
-                   newAppointment.Resource_Service_Alignment__c = alignment.id;
+                       newAppointment.Resource_Service_Alignment__c = alignment.id;
                    }
                }
             
@@ -551,7 +551,7 @@ return 0;
                        && Schema.sObjectType.Appointment__c.fields.End_Date_Time__c.isUpdateable() 
                        && Schema.sObjectType.Resource_Service_Alignment__c.fields.location__c.isUpdateable())){
                            try{ 
-                           upsert newAppointment;
+                               upsert newAppointment;
                            }
                            catch(Exception e){
                                
@@ -594,7 +594,7 @@ return 0;
             if(PList.size()>0){
                 System.debug('----Particpent'+ Plist);
                 if ((Schema.sObjectType.Participant__c.fields.Participant_Name__c.isCreateable() && Schema.sObjectType.Participant__c.fields.Appointment__c.isCreateable()) ){
-                  
+                    
                     insert PList;
                 }
             }
@@ -608,54 +608,54 @@ return 0;
     }
     
     public PageReference  cloneExistingRecord(){
-    
-             
+        
+        
         cloneApp = newAppointment.clone(false,false,false,false);
         errorDiv=false;
         
         System.debug('---- in  clone method'+cloneApp);
         list<string> timeList = startTime.split(':');
-string getTime = timeList[0].trim()+':'+timeList[1].trim()+' '+timeList[2].trim();
-
-list<string> dtList = startDate.split('-');
-date startdt = Date.newInstance(Integer.valueOf(dtList[0]),Integer.valueOf(dtList[1]),Integer.valueOf(dtList[2]));
-Time myTime = Time.newInstance(Integer.valueOf(timeList[0].trim()),Integer.valueOf(timeList[1].trim()),0,0);
-
-
-cloneApp.Start_Date_Time__c = datetime.newInstance(startdt,myTime);
-cloneApp.end_Date_Time__c = datetime.newInstance(startdt,myTime).addMinutes(duration);
-if(selectedService == ' ' || selectedService == null){
-
-  errorDiv = true;  
+        string getTime = timeList[0].trim()+':'+timeList[1].trim()+' '+timeList[2].trim();
+        
+        list<string> dtList = startDate.split('-');
+        date startdt = Date.newInstance(Integer.valueOf(dtList[0]),Integer.valueOf(dtList[1]),Integer.valueOf(dtList[2]));
+        Time myTime = Time.newInstance(Integer.valueOf(timeList[0].trim()),Integer.valueOf(timeList[1].trim()),0,0);
+        
+        
+        cloneApp.Start_Date_Time__c = datetime.newInstance(startdt,myTime);
+        cloneApp.end_Date_Time__c = datetime.newInstance(startdt,myTime).addMinutes(duration);
+        if(selectedService == ' ' || selectedService == null){
+            
+            errorDiv = true;  
             ApexPages.Message requirereasonMessage = new ApexPages.Message(ApexPages.Severity.Error,'Please select  service.');
             ApexPages.addMessage(requirereasonMessage);
             return null;
-
-}
-
-if(selectedProvider == ' ' || selectedProvider == null){
+            
+        }
+        
+        if(selectedProvider == ' ' || selectedProvider == null){
             errorDiv = true;  
             ApexPages.Message requirereasonMessage = new ApexPages.Message(ApexPages.Severity.Error,'Please Select resource/staff');
             ApexPages.addMessage(requirereasonMessage);
             return null;
-            }
-
-if(checkDobuleBooking == false){
-for(appointment__c app: [select name,Resource_Service_Alignment__c,Resource_Service_Alignment__r.Location__c,Resource_Service_Alignment__r.Service__c,
-Resource_Service_Alignment__r.Resource_Staff__c,Start_Date_Time__c,End_Date_Time__c
-from Appointment__c where Resource_Service_Alignment__c != null]){
-
-if(selectedProvider == app.Resource_Service_Alignment__r.Resource_Staff__c && newAppointment.Start_Date_Time__c == app.Start_Date_Time__c){
-errorDiv = true;
-
-ApexPages.Message requirereasonMessage = new ApexPages.Message(ApexPages.Severity.Error,'Dobule Booking is not allow');
-ApexPages.addMessage(requirereasonMessage);
-
-}
-}
-}
-
-
+        }
+        
+        if(checkDobuleBooking == false){
+            for(appointment__c app: [select name,Resource_Service_Alignment__c,Resource_Service_Alignment__r.Location__c,Resource_Service_Alignment__r.Service__c,
+                                     Resource_Service_Alignment__r.Resource_Staff__c,Start_Date_Time__c,End_Date_Time__c
+                                     from Appointment__c where Resource_Service_Alignment__c != null]){
+                                         
+                                         if(selectedProvider == app.Resource_Service_Alignment__r.Resource_Staff__c && newAppointment.Start_Date_Time__c == app.Start_Date_Time__c){
+                                             errorDiv = true;
+                                             
+                                             ApexPages.Message requirereasonMessage = new ApexPages.Message(ApexPages.Severity.Error,'Dobule Booking is not allow');
+                                             ApexPages.addMessage(requirereasonMessage);
+                                             
+                                         }
+                                     }
+        }
+        
+        
         if(errorDiv == false){
             cloneButtonShowHide = false;
             fromCloneButton = true;
@@ -695,8 +695,8 @@ ApexPages.addMessage(requirereasonMessage);
     
     // fetch Participant (Contact of users)
     public void fetchParticipant(){  
-    containts = true; 
-    warningDiv = false;
+        containts = true; 
+        warningDiv = false;
         ContactUser = new List<ContactUserModel>();
         set<string> insertedParticipentContactIds = new set<string>();
         
@@ -729,27 +729,27 @@ ApexPages.addMessage(requirereasonMessage);
     } 
     
     public void addParticipant(){
-           warningDiv = false;
+        warningDiv = false;
         Map<Id,ContactUserModel> comparemap = new Map<Id,ContactUserModel>();
         for(ContactUserModel c : ContactUser){
-         if(!comparemap.containskey(c.con.id)){
-            comparemap.put(c.con.id,c); 
-         }   
+            if(!comparemap.containskey(c.con.id)){
+                comparemap.put(c.con.id,c); 
+            }   
         }
         if(addedParticipantList != null)
         {
-        for(ContactUserModel c : addedParticipantList){
-                 if(!comparemap.containskey(c.con.id)){
-                   comparemap.put(c.con.id,c); 
-                 }
-        }
+            for(ContactUserModel c : addedParticipantList){
+                if(!comparemap.containskey(c.con.id)){
+                    comparemap.put(c.con.id,c); 
+                }
+            }
         }
         ContactUser = new List<ContactUserModel>();
         for(Id ids : comparemap.keyset()){
-        ContactUser.add(comparemap.get(ids));
+            ContactUser.add(comparemap.get(ids));
         }
-       addedParticipantList = new List<ContactUserModel>();
-      
+        addedParticipantList = new List<ContactUserModel>();
+        
         System.debug('---addedParticipantListNew'+ addedParticipantList);
         for(ContactUserModel cModel: ContactUser){
             if(cModel.isCheck == true){
@@ -759,19 +759,19 @@ ApexPages.addMessage(requirereasonMessage);
         }
         System.debug('---addedParticipantListNew'+ addedParticipantList);
         if(addedParticipantList.size()>0){
-           containtselement = true;
-           
+            containtselement = true;
+            
         }
-       if(addedParticipantList.size()==0)
-       {
+        if(addedParticipantList.size()==0)
+        {
             containtselement = false;
-             warningDiv = true;
-           ApexPages.Message requirereasonMessage = new ApexPages.Message(ApexPages.Severity.Warning,'Select Customer before Adding');
-         ApexPages.addMessage(requirereasonMessage);
+            warningDiv = true;
+            ApexPages.Message requirereasonMessage = new ApexPages.Message(ApexPages.Severity.Warning,'Select Customer before Adding');
+            ApexPages.addMessage(requirereasonMessage);
         }
         system.debug('--- list'+ addedParticipantList);
         
-       
+        
     }
     
     public void removeParticipant(){
@@ -811,26 +811,26 @@ upsert PList;
 }*/
     
     public PageReference  search(){
-    system.debug('ContactUser'+ContactUser);
-    system.debug('ContactUserLength'+ContactUser.size());
-    system.debug('beforeaddedParticipantList'+addedParticipantList);
-    List<ContactUserModel> listbefore = new List<ContactUserModel>();
-    if(addedParticipantList!=null){
-    listbefore.addall(addedParticipantList); 
-    }
-    addedParticipantList = new List<ContactUserModel>();
-       if(ContactUser.size()>0){
-      for(ContactUserModel con : ContactUser){
-            if(con.isCheck == true){
-            addedParticipantList.add(con);
+        system.debug('ContactUser'+ContactUser);
+        system.debug('ContactUserLength'+ContactUser.size());
+        system.debug('beforeaddedParticipantList'+addedParticipantList);
+        List<ContactUserModel> listbefore = new List<ContactUserModel>();
+        if(addedParticipantList!=null){
+            listbefore.addall(addedParticipantList); 
+        }
+        addedParticipantList = new List<ContactUserModel>();
+        if(ContactUser.size()>0){
+            for(ContactUserModel con : ContactUser){
+                if(con.isCheck == true){
+                    addedParticipantList.add(con);
+                }
             }
-      }
-     }
-     if(listbefore.size()>0){
-      addedParticipantList.addall(listbefore);
-     }
-      system.debug('New addedParticipantList'+addedParticipantList);
-  ContactUser = new List<ContactUserModel>();
+        }
+        if(listbefore.size()>0){
+            addedParticipantList.addall(listbefore);
+        }
+        system.debug('New addedParticipantList'+addedParticipantList);
+        ContactUser = new List<ContactUserModel>();
         set<string> insertedParticipentContactIds = new set<string>();
         if(addedParticipantList != null){
             for(ContactUserModel cModel: addedParticipantList){
@@ -856,15 +856,15 @@ upsert PList;
                    }
                    ContactUser.add(CU);
                }
-            if(ContactUser.size()==0){
-               containts = false;
+               if(ContactUser.size()==0){
+                   containts = false;
                }
                else{
-               containts = true;
-
+                   containts = true;
+                   
                }
-              
-             system.debug('ContactUserNew'+ContactUser);
+               
+               system.debug('ContactUserNew'+ContactUser);
            }
         return null;
     }
@@ -873,9 +873,9 @@ upsert PList;
         public boolean isCheck{get;set;}
     }
     public void addCustomerFromAppointment(){
-      errorDiv = false;
+        errorDiv = false;
         con = new contact();
-         
+        
     }
     public void saveCustomer(){
         errorDiv = false;
@@ -886,28 +886,28 @@ upsert PList;
             
         }
         
-      else if(String.isNotBlank(con.email)){
+        else if(String.isNotBlank(con.email)){
             String emailRegex = '^[a-zA-Z0-9._|\\\\%#~`=?&/$^*!}{+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'; 
             Pattern MyPattern = Pattern.compile(emailRegex);
-             Matcher MyMatcher = MyPattern.matcher(con.email);
-
-             if (!MyMatcher.matches()){
-                 ApexPages.addmessage(new ApexPages.message(ApexPages.severity.FATAL,'Please Enter Valid Email'));
-              errorDiv =true;
-             
-             }
-
+            Matcher MyMatcher = MyPattern.matcher(con.email);
+            
+            if (!MyMatcher.matches()){
+                ApexPages.addmessage(new ApexPages.message(ApexPages.severity.FATAL,'Please Enter Valid Email'));
+                errorDiv =true;
+                
+            }
+            
             // return null;
             
-            }
+        }
         
         else{
             
-             errorDiv = false;
+            errorDiv = false;
         }     
         
         if( errorDiv == false){
-        Id TypeRecordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByName().get('User').getRecordTypeId();
+            Id TypeRecordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByName().get('User').getRecordTypeId();
             con.RecordTypeId = TypeRecordTypeId;
             system.debug('<<<<<<<>>>>>>>>><<<<<<>>>>>>>');
             if((Schema.sObjectType.contact.fields.firstname.isCreateable() && Schema.sObjectType.contact.fields.lastname.isCreateable() && Schema.sObjectType.contact.fields.Capacity__c.isCreateable()
@@ -915,18 +915,18 @@ upsert PList;
                 && Schema.sObjectType.contact.fields.MailingCity.isCreateable() && Schema.sObjectType.contact.fields.MailingCountry.isCreateable() && Schema.sObjectType.contact.fields.MailingState.isCreateable()
                 && Schema.sObjectType.contact.fields.MailingStreet.isCreateable() && Schema.sObjectType.contact.fields.MailingPostalCode.isCreateable() && Schema.sObjectType.contact.fields.Description.isCreateable()) && (Schema.sObjectType.contact.fields.firstname.isCreateable() && Schema.sObjectType.contact.fields.lastname.isCreateable() && Schema.sObjectType.contact.fields.Capacity__c.isUpdateable()
                                                                                                                                                                                                                              && Schema.sObjectType.contact.fields.email.isUpdateable() && Schema.sObjectType.contact.fields.Level__c.isUpdateable() && Schema.sObjectType.contact.fields.Phone.isUpdateable()                                                                                                                                                                                                                  && Schema.sObjectType.contact.fields.MailingCity.isUpdateable() && Schema.sObjectType.contact.fields.MailingCountry.isUpdateable() && Schema.sObjectType.contact.fields.MailingState.isUpdateable()
-                                                                                                                                                                                                              && Schema.sObjectType.contact.fields.MailingStreet.isUpdateable() && Schema.sObjectType.contact.fields.MailingPostalCode.isUpdateable() && Schema.sObjectType.contact.fields.Description.isUpdateable())){
-               try{    
-                   upsert con;    
-                   con=null;
-    
-                 }
-              catch(DmlException e) {
-                errorDiv = true;
-                                                                                                                                                                                                                                             
-                }    
-              }
-     
+                                                                                                                                                                                                                             && Schema.sObjectType.contact.fields.MailingStreet.isUpdateable() && Schema.sObjectType.contact.fields.MailingPostalCode.isUpdateable() && Schema.sObjectType.contact.fields.Description.isUpdateable())){
+                                                                                                                                                                                                                                 try{    
+                                                                                                                                                                                                                                     upsert con;    
+                                                                                                                                                                                                                                     con=null;
+                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                 }
+                                                                                                                                                                                                                                 catch(DmlException e) {
+                                                                                                                                                                                                                                     errorDiv = true;
+                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                 }    
+                                                                                                                                                                                                                             }
+            
             
         }
     }

@@ -1,61 +1,127 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="DashboardControler">
     <aura:attribute name="upcomingAppointment" type="Object"/>
-     <aura:attribute name="upcomingAppointmentCustomer" type="Object"/>
+    <aura:attribute name="upcomingAppointmentCustomer" type="Object"/>
     <aura:attribute name="appointmentColumns" type="List"/>
     <aura:attribute name="servicesColumns" type="List"/>
-     <aura:attribute name="locationColumns" type="List"/>
-     <aura:attribute name="customerColumns" type="List"/>
+    <aura:attribute name="locationColumns" type="List"/>
+    <aura:attribute name="customerColumns" type="List"/>
+    <aura:attribute name="scriptLoaded" type="Boolean" default="false"/>
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     
     <ltng:require scripts="{!$Resource.Chart}" afterScriptsLoaded="{!c.generateChart}"/>
+    <!--using tabset for tabs(Dashboard and Reports) -->
     <lightning:tabset selectedTabId="Dashboard">
+        <!--this tab used for Dashboard -->
         <lightning:tab label="Dashboard" id="Dashboard">
-            <div class="slds-grid slds-gutters slds-wrap">
-                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                    <canvas aura:id="dailyBarChart" />
+            <aura:if isTrue = "{!v.scriptLoaded}">
+                <!--this div will loaded after script file loaded  -->
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-7 slds-m-left_xx-large slds-m-bottom--xx-large slds-p-around_medium slds-border_top slds-border_bottom slds-border_right slds-border_left">
+                        <div class="slds-page-header" style="background-color: white">
+                            <h1>
+                                <span class="slds-page-header__title slds-truncate">
+                                    <lightning:icon iconName="utility:date_time" alternativeText="Click to Call" size="meduim"/>
+                                    Today Appointment</span>
+                            </h1>
+                        </div>
+                        <canvas aura:id="dailyBarChart" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-7 slds-m-left_xx-large slds-m-bottom--xx-large slds-p-around_medium slds-border_top slds-border_bottom slds-border_right slds-border_left">
+                        <div class="slds-page-header" style="background-color: white">
+                            <h1>
+                                <span class="slds-page-header__title slds-truncate">
+                                    <lightning:icon iconName="utility:metrics" alternativeText="Click to Call" size="meduim"/>
+                                    Yearly Appointment</span>
+                            </h1>
+                        </div>
+                        <canvas aura:id="monthlyBarChart" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-7 slds-m-left_xx-large slds-m-bottom--xx-large slds-p-around_medium slds-border_top slds-border_bottom slds-border_right slds-border_left">
+                        <div class="slds-page-header" style="background-color: white">
+                            <h1>
+                                <span class="slds-page-header__title slds-truncate">
+                                    <lightning:icon iconName="utility:topic" alternativeText="Click to Call" size="meduim"/>
+                                    Appointment Rating Percentage</span>
+                            </h1>
+                        </div>
+                        <canvas aura:id="ratingBarChart" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-7 slds-m-left_xx-large slds-m-bottom--xx-large slds-p-around_medium slds-border_top slds-border_bottom slds-border_right slds-border_left">
+                        <div class="slds-page-header" style="background-color: white">
+                            <h1>
+                                <span class="slds-page-header__title slds-truncate">
+                                    <lightning:icon iconName="utility:chart" alternativeText="Click to Call" size="meduim"/>
+                                    Top 10 Category</span>
+                            </h1>
+                        </div>
+                        <canvas aura:id="categoryDoughnutChart" />
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-7 slds-m-left_xx-large slds-m-bottom--xx-large slds-p-around_medium slds-border_top slds-border_bottom slds-border_right slds-border_left">
+                        <div class="slds-page-header " style="background-color: white">
+                            <h1>
+                                <span class="slds-page-header__title slds-truncate">
+                                    <lightning:icon iconName="utility:chart" alternativeText="Click to Call" size="meduim"/>
+                                    Top 10 Customer</span>
+                            </h1>
+                        </div>
+                        <canvas aura:id="customerDoughnutChart" />
+                    </div>
                 </div>
-                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                    <canvas aura:id="monthlyBarChart" />
-                </div>
-                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                    <canvas aura:id="ratingBarChart" />
-                </div>
-                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                    <canvas aura:id="categoryDoughnutChart" />
-                </div>
-                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                    <canvas aura:id="customerDoughnutChart" />
-                </div>
-            </div>
+            </aura:if>
+            <!--this tab used for Report -->
         </lightning:tab>
         <lightning:tab label="Reports" id="Reports">
             <div class="slds-grid slds-gutters slds-wrap">
-                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-m-bottom_small slds-m-top_x-small">
-                    <div class="slds-text-heading_medium slds-text-align_center">Upcoming Appointment List</div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-7 slds-m-left_xx-large slds-m-bottom--xx-large slds-p-around_small slds-border_top slds-border_bottom slds-border_right slds-border_left">
+                    <div class="slds-page-header " style="background-color: white">
+                        <h1>
+                            <span class="slds-page-header__title slds-truncate">
+                                <lightning:icon iconName="utility:date_time" alternativeText="Click to Call" size="meduim"/>
+                                Upcoming Appointment List</span>
+                        </h1>
+                    </div>
                     <lightning:datatable
                                          keyField="id"
                                          data="{! v.upcomingAppointment }"
                                          columns="{! v.appointmentColumns }"
                                          hideCheckboxColumn="true"/>
                 </div>
-                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-m-bottom_small slds-m-top_x-small">
-                    <div class="slds-text-heading_medium slds-text-align_center">Appointments By Service Type</div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-7 slds-m-left_xx-large slds-m-bottom--xx-large slds-p-around_small slds-border_top slds-border_bottom slds-border_right slds-border_left">
+                    <div class="slds-page-header " style="background-color: white">
+                        <h1>
+                            <span class="slds-page-header__title slds-truncate">
+                                <lightning:icon iconName="utility:date_time" alternativeText="Click to Call" size="meduim"/>
+                                Appointments By Service Type</span>
+                        </h1>
+                    </div>
                     <lightning:datatable
                                          keyField="id1"
                                          data="{! v.upcomingAppointment }"
                                          columns="{! v.servicesColumns }"
                                          hideCheckboxColumn="true"/>
                 </div>
-                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-m-bottom_small slds-m-top_x-small">
-                    <div class="slds-text-heading_medium slds-text-align_center">Appointments By Location</div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-7 slds-m-left_xx-large slds-m-bottom--xx-large slds-p-around_small slds-border_top slds-border_bottom slds-border_right slds-border_left">
+                    <div class="slds-page-header " style="background-color: white">
+                        <h1>
+                            <span class="slds-page-header__title slds-truncate">
+                                <lightning:icon iconName="utility:date_time" alternativeText="Click to Call" size="meduim"/>
+                                Appointments By Location</span>
+                        </h1>
+                    </div>
                     <lightning:datatable
                                          keyField="id1"
                                          data="{! v.upcomingAppointment }"
                                          columns="{! v.locationColumns }"
                                          hideCheckboxColumn="true"/>
                 </div>
-                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-m-bottom_small slds-m-top_x-small">
-                    <div class="slds-text-heading_medium slds-text-align_center">Appointments By Customer</div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-7 slds-m-left_xx-large slds-m-bottom--xx-large slds-p-around_small slds-border_top slds-border_bottom slds-border_right slds-border_left">
+                    <div class="slds-page-header " style="background-color: white">
+                        <h1>
+                            <span class="slds-page-header__title slds-truncate">
+                                <lightning:icon iconName="utility:date_time" alternativeText="Click to Call" size="meduim"/>
+                                Appointments By Customer</span>
+                        </h1>
+                    </div>
                     <lightning:datatable
                                          keyField="id1"
                                          data="{! v.upcomingAppointmentCustomer }"

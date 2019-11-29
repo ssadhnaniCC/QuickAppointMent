@@ -48,7 +48,6 @@ public class LocationLightningControler {
                                                                               CC_QAppt__State__c = location.CC_QAppt__State__c,
                                                                               CC_QAppt__Street__c = location.CC_QAppt__Street__c);
                 Upsert newLocation;
-            System.debug(newLocation);
         }
         catch(exception e){
             throw new AuraHandledException(e.getMessage()); 

@@ -1,13 +1,85 @@
 <aura:component controller="NewEditAppointmentController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
     <aura:attribute name="recordId" type="String" default=""/>
     <aura:attribute name="showModal" type="Boolean" default="false"/>
-    <aura:attribute name="apppointmentCatList" type="Object[]"/>
+    <aura:attribute name="selectedAppointmentCategory" type="Object"/>
+    <aura:attribute name="appointmentCatList" type="Object[]"/>
+    
+    <aura:attribute name="availableLocationList" type="Object[]"/>
+    <aura:attribute name="availableServiceList" type="Object[]"/>
+    <aura:attribute name="availableAttendeeList" type="Object[]"/>
+    <aura:attribute name="availableAssetList" type="Object[]"/>
+    <aura:attribute name="availableResourceList" type="Object[]"/>
+    <aura:attribute name="availableCustomerList" type="Object[]"/>
+    <aura:attribute name="statusList" type="Object[]"/>
+    <aura:attribute name="columns" type="Object[]"/>
+    
+    
+    <!--Pagination Attributes -->
+    <aura:attribute name="paginationData" type="Object[]"/>
+    <aura:attribute name="selectedRowList" type="Object[]"/>
+    
+    <aura:attribute name="totalPages" type="Integer"/>
+    <aura:attribute name="pageNumber" type="Integer" default="0" />
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="dataSize" type="Integer"/>
+    
+    
+    <aura:attribute name="selectedLocation" type="Object[]"/>
+    <aura:attribute name="selectedService" type="Object[]"/>
+    <aura:attribute name="selectedAttendeeList" type="Object[]"/>
+    <aura:attribute name="selectedAssetList" type="Object[]"/>
+    <aura:attribute name="selectedResourceList" type="Object[]"/>
+    <aura:attribute name="selectedCustomers" type="Object[]"/>
+    <aura:attribute name="searchCustomerList" type="Object[]"/>
+    <aura:attribute name="selectedStatus" type="String"/>
+    
     <aura:attribute name="selectedApppointmentCat" type="String" default=""/>
+    
+    <aura:attribute name="isLocationManditory" type="boolean" default="true"/>
+    <aura:attribute name="isLocationMultipleSelect" type="boolean" default="false"/>
+    
+    <aura:attribute name="isServiceManditory" type="boolean" default="true"/>
+    <aura:attribute name="isServiceMultipleSelect" type="boolean" default="false"/>
+    
+    <aura:attribute name="isAttendeeManditory" type="boolean" default="false"/>
+    <aura:attribute name="isAttendeeMultipleSelect" type="boolean" default="false"/>
+    
+    <aura:attribute name="isAssetManditory" type="boolean" default="false"/>
+    <aura:attribute name="isAssetMultipleSelect" type="boolean" default="false"/>
+    <aura:attribute name="description" type="String"/>
+    <aura:attribute name="servicesPrice" type="Integer"/>
+    
+    <aura:attribute name="isResourceManditory" type="boolean" default="true"/>
+    <aura:attribute name="isResourceMultipleSelect" type="boolean" default="false"/>
+    <aura:attribute name="isCustomerList" type="boolean" default="false"/>
+    
+    <aura:attribute name="isPricingApplicable" type="boolean" default="false"/>
+    <aura:attribute name="discountedValue" type="Integer" default="0"/>
+    <aura:attribute name="totalServicePrice" type="Integer" />
+    
+    <aura:attribute name="appointmentId" type="String"/>
+    
+    <aura:attribute name="startDate" type="String"/>
+    <aura:attribute name="startTime" type="String"/>
+    <aura:attribute name="Duration" type="String"/>
+    <aura:attribute name="searchData" type="String"/>    
+    <aura:attribute name="appointmentName" type="String"/>
+    
+    
+    <aura:attribute name="isError" type="boolean" default="false"/>
+    <aura:attribute name="dateValidationError" type="boolean" default="false"/>
+    <aura:attribute name="isPublic" type="boolean" default="false"/>
+    <aura:attribute name="errorMessage" type="String" />
+    
+    
+    <!--@description Component Event  Register  --> 
+    <aura:registerEvent name="refreshEvent" type="c:ParentListRefresh"/>
+    
     
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     
     <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
-        <div class="slds-modal__container">
+        <div class="{!v.isPublic ? '' : 'slds-modal__container'}" style="{!v.isPublic ? 'width: 75%;margin: auto;height: 93% !important;' : '}">
             <header class="slds-modal__header">
                 <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeModal}">
                     <lightning:icon iconName="utility:close" alternativeText="Close"/>
@@ -15,24 +87,224 @@
                 </button>
                 <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Appointment Details</h2>
             </header>
-        	<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+               
+                <!-- ERROR HANDLING -->
+                <aura:if isTrue="{!v.isError}">
+                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                        <h2>{!v.errorMessage}</h2>
+                        <div class="slds-notify__close">
+                            <button class="slds-button slds-button_icon slds-button_icon-small" title="Close" onclick="{!c.closeAlert}">
+                                <lightning:icon iconName="utility:close" alternativeText="close" size="small" />
+                            </button>
+                        </div>
+                    </div> 
+                </aura:if>
+                
+                
                 <div class="slds-grid slds-wrap">
-  					<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                        <lightning:select name="AppointmentCat" value="{!v.selectedApppointmentCat}" label="Appointment Category" required="true" onchange="{!c.onCategorySelect}">
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <lightning:select name="AppointmentCat" value="{!v.selectedApppointmentCat}" label="Appointment Category" required="true" onchange="{!c.onCategorySelect}" aura:id="CategoryId">
                             
                             <option value="">--None--</option>
-                            <aura:iteration items="{!v.apppointmentCatList}" var="category">
-                            	<option value="{!category.Id}">{!category.Name}</option>
+                            <aura:iteration items="{!v.appointmentCatList}" var="category">
+                                <option value="{!category.Id}" selected="{!category == v.selectedApppointmentCat }">{!category.Name}</option>
+                                
                             </aura:iteration>
                         </lightning:select>
                     </div>
                 </div>
-        	</div>
-        	<footer class="slds-modal__footer">
+                
+                <hr/>
+                
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                      
+                        <lightning:input name="appointmentName" aura:id="appName" label="Appointment Name" value="{!v.appointmentName}" required="true"/>
+                        
+                        <aura:if isTrue="{!and(!v.isLocationMultipleSelect,v.isLocationManditory)}">
+                            <lightning:select aura:id="selectLocation" value="{!v.selectedLocation}" name="select" label="Select Location"  onchange="{!c.handleOnLocationSelect}" >
+                                <option value="">--None--</option>  
+                                <aura:iteration items="{!v.availableLocationList}" var="location">
+                                    <option value="{!location.Id}" selected="{!location.Id == v.selectedLocation[0]}">{!location.Name}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </aura:if>
+                        <aura:if isTrue="{!and(v.isLocationManditory,v.isLocationMultipleSelect)}">
+                            <lightning:dualListbox aura:id="AvailableLocation"
+                                                   name="multipleOptions"  
+                                                   sourceLabel="Available Location" 
+                                                   selectedLabel="Selected Location" 
+                                                   options="{!v.availableLocationList}" 
+                                                   value="{!v.selectedLocation}" 
+                                                   onchange="{! c.handleOnLocationSelect }"/>   
+                        </aura:if> 
+                        
+                        <aura:if isTrue="{!and(!v.isResourceMultipleSelect,v.isResourceManditory)}">
+                            <lightning:select aura:id="selectResource" value="{!v.selectedResourceList}" name="select" label="Select Resource" onchange="{!c.handleOnResourceSelect}" >
+                                <option value="">--None--</option>
+                                <aura:iteration items="{!v.availableResourceList}" var="resource">
+                                    <option value="{!resource.Id}" selected ="{!resource.Id == v.selectedResourceList[0]}">{!resource.Name}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </aura:if>
+                        <aura:if isTrue="{!and(v.isResourceManditory,v.isResourceMultipleSelect)}">
+                            <lightning:dualListbox name="multipleOptions"  
+                                                   aura:id = "AvailableResource"
+                                                   sourceLabel="Available Resource" 
+                                                   selectedLabel="Selected Resource" 
+                                                   options="{!v.availableResourceList}" 
+                                                   value="{!v.selectedResourceList}" 
+                                                   onchange="{! c.handleOnResourceSelect }"/>   
+                        </aura:if>  
+
+                        <aura:if isTrue="{!and(!v.isAttendeeMultipleSelect,v.isAttendeeManditory)}">
+                            <lightning:select aura:id="selectAttendee" name="select" value="{!v.selectedAttendeeList}" label="Select Attendee" onchange="{!c.handleOnAttendeeSelect}" >
+                                <option value="">--None--</option>
+                                <aura:iteration items="{!v.availableAttendeeList}" var="attendee">
+                                    <option value="{!attendee.Id}" selected="{!attendee.Id == v.selectedAttendeeList[0]}">{!attendee.Name}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </aura:if>
+                        <aura:if isTrue="{!and(v.isAttendeeManditory,v.isAttendeeMultipleSelect)}">
+                            <lightning:dualListbox name="multipleOptions"  
+                                                   aura:id="AvailableAttendee"
+                                                   sourceLabel="Available Attendee" 
+                                                   selectedLabel="Selected Attendee" 
+                                                   options="{!v.availableAttendeeList}" 
+                                                   value="{!v.selectedAttendeeList}" 
+                                                   onchange="{! c.handleOnAttendeeSelect }"/>   
+                        </aura:if>
+                        
+                        <lightning:input type="time" name="startTime" aura:id="startTimeField" label="Time" value="{!v.startTime}" required="true"/>  
+                         <lightning:textarea name="input1" label="Description" value="{!v.description}"/>
+                        
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">  
+                        <aura:if isTrue="{!and(!v.isServiceMultipleSelect,v.isServiceManditory)}">
+                            <lightning:select  aura:id="selectService" value="{!v.selectedService}" name="select" label="Select Service" onchange="{!c.handleOnServiceSelect}">
+                                <option value="">--None--</option>
+                                <aura:iteration items="{!v.availableServiceList}" var="service">
+                                    <option value="{!service.Id}" selected="{!service.Id == v.selectedService[0]}">{!service.Name}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </aura:if>
+                        <aura:if isTrue="{!and(v.isServiceManditory,v.isServiceMultipleSelect)}">
+                            <lightning:dualListbox name="multipleOptions"  
+                                                   aura:id="AvailableService"
+                                                   sourceLabel="Available Service" 
+                                                   selectedLabel="Selected Service" 
+                                                   options="{!v.availableServiceList}" 
+                                                   value="{!v.selectedService}" 
+                                                   onchange="{! c.handleOnServiceSelect }"/>   
+                        </aura:if>
+                        
+                        <aura:if isTrue="{!and(!v.isAssetMultipleSelect,v.isAssetManditory)}">
+                            <lightning:select aura:id="selectAsset" value="{!v.selectedAssetList}" name="select" label="Select Asset" onchange="{! c.handleOnAssetSelect }">
+                                <option value="">--None--</option>
+                                <aura:iteration items="{!v.availableAssetList}" var="asset">
+                                    <option value="{!asset.Id}" selected="{!asset.Id == v.selectedAssetList[0]}">{!asset.Name}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </aura:if>
+                        <aura:if isTrue="{!and(v.isAssetManditory,v.isAssetMultipleSelect)}">
+                            <lightning:dualListbox name="multipleOptions"  
+                                                   aura:id = "AvailableAsset"
+                                                   sourceLabel="Available Asset" 
+                                                   selectedLabel="Selected Asset" 
+                                                   options="{!v.availableAssetList}" 
+                                                   value="{!v.selectedAssetList}" 
+                                                   onchange="{! c.handleOnAssetSelect }"/>   
+                        </aura:if>   
+                        
+                        <lightning:select  aura:id="selectStatus" name="select" value="{!v.selectedStatus}"  disabled="true" label="Select Status" onchange="{!c.handleStatusSelect}">
+                            <aura:iteration items="{!v.statusList}" var="status" >
+                                <option value="{!status}" >{!status}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                        <lightning:input type="date" aura:id="startDateField" class="{! v.dateValidationError ? 'slds-has-error' : ''}" name="startDate" label="Start Date" value="{!v.startDate}"  onchange="{!c.dateValidation}" required="true"/>
+                        <aura:if isTrue="{!v.dateValidationError}">
+                            <div class="slds-text-color_error slds-p-left_x-small">
+                                Date must be in present or in future..
+                            </div>
+                        </aura:if>    
+                        
+                        <lightning:input type="number" name="duration" label="Duration In Minutes" value="{!v.Duration}" placeholder="Enter Minutes"/>      
+                    </div>
+                </div>
+                
+                <br/>  
+                
+                <aura:if isTrue="{!v.isPricingApplicable}">
+                    <div class="slds-page-header">
+                        <div class="slds-text-heading_medium">Price</div>
+                    </div>
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                            <lightning:input type="number" formatter="currency" name="Price" label="Price" value="{!v.servicesPrice}"/>  
+                            <lightning:input type="number"  formatter="currency" name="Total Price" label="Total Price" value="{!v.totalServicePrice}"/>  
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                            <label class="slds-form-element__label">Discount</label>
+                            <lightning:input type="number" name="Discount" label="Discount" variant="label-hidden" value="{!v.discountedValue}" onchange="{!c.handleDiscount}" min="0"/>  
+                        </div>
+                    </div>
+                </aura:if>
+                
+                <!-- Related Customer List --> 
+                <br/>
+                <aura:if isTrue="{!v.isCustomerList}">
+                    <div class="slds-page-header">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col  slds-size_3-of-6">
+                                <div class="slds-text-heading_medium slds-float_left">Select Customer</div>
+                            </div>
+                            <div class="slds-col slds-size_2-of-6">
+                                <lightning:input type="search" aura:id="enterSearch" class="label-hidden slds-size_2-of-2"  name="enter-search" placeholder="Search By Name"  variant="label-hidden" value="{!v.searchData}" />          
+                            </div>
+                            <div class="slds-col slds-size_1-of-6">
+                                <lightning:button class="slds-float_left" label="Search" title="Search" onclick="{! c.handleSearch }"/>
+                            </div>     
+                        </div>
+                    </div>      
+                <div class="slds-m-top_medium">
+                    <lightning:datatable aura:id = "cusData"
+                                         columns = "{!v.columns}"
+                                         data = "{!v.paginationData}"
+                                         keyField = "Id"
+                                         selectedRows = "{!v.selectedRowList}"
+                                         onrowaction="{!c.handleRowAction}"
+                                         onrowselection="{! c.updateSelectedCustomer }"
+                                         hideCheckboxColumn="false"
+                                         sortedBy="{!v.sortBy}"
+                                         sortedDirection="{!v.sortDirection}"
+                                         onsort="{!c.handleSort}"/>
+                    
+                    <div class="slds-clearfix slds-p-left_x-small">
+                        <div class="slds-float_right">            
+                            <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
+                                              onclick="{!c.handlePrev}" disabled="{!(v.pageNumber == 1 || v.pageNumber == 0)}"/>
+                            <lightning:button label="First"  iconPosition="left"
+                                              onclick="{!c.handleFirst}" disabled="{!(v.pageNumber == 1 || v.pageNumber == 0)}"/>
+                            <lightning:button  label="Last"  iconPosition="left"
+                                              onclick="{!c.handleLast}" disabled="{! v.pageNumber == v.totalPages }"/>
+                            <lightning:button label="Next" iconName="utility:chevronright" iconPosition="right"
+                                              disabled="{! v.pageNumber == v.totalPages }" onclick="{!c.handleNext}"/>
+                        </div>
+                        <!-- <p class="slds-page-header__title">Page {!v.pageNumber} | Showing records from {! ((v.pageNumber-1)*v.pageSize)+' to '+((v.pageNumber-1)*v.pageSize+(v.dataSize-1))}</p>-->
+                        <p class="slds-float_left">Page {!v.pageNumber} of {!v.totalPages}</p>
+                    </div>
+                </div>
+                </aura:if>
+            </div>
+            <footer class="slds-modal__footer">
                 <button class="slds-button slds-button_neutral" onclick="{!c.closeModal}">Cancel</button>
-                <button class="slds-button slds-button_brand">Save</button>
+                <button class="slds-button slds-button_brand" onclick="{!c.saveAppointment}">Save</button>
             </footer>
         </div>
     </section>
     <div class="slds-backdrop slds-backdrop_open"></div>
+    
 </aura:component>

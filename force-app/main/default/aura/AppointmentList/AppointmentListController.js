@@ -1,4 +1,9 @@
 ({
+    doInit: function(component,event,helper) {
+        if(component.get("v.recordId") != ''){
+        helper.fetchRelatedAppointment(component,event,helper);
+        }
+    },
    /*******************************************************************************************************
     * @description This is the method which will fetch related Appointments
    */
@@ -6,6 +11,7 @@
         var params = event.getParam('arguments');
         component.set("v.objName",params.objectName);
         component.set("v.recordId",params.Id);
+        component.set("v.showToast",false);
         helper.fetchRelatedAppointment(component,event,helper);
     },
    /*******************************************************************************************************

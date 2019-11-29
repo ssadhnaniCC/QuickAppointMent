@@ -41,5 +41,16 @@ public class TestResourceStaffTimeAllocation{
         RSTAObj.AllocationId  = '';
         RSTAObj.goToNewEditMode();
         RSTAObj.saveAllocation();
+        
+         Resource_Staff_Time__c Obj = new Resource_Staff_Time__c();
+         insert Obj;
+        
+        ResourceStaffTimeAllocation resourceTimeObj = new ResourceStaffTimeAllocation();
+        resourceTimeObj.AllocationId = Obj.Id;
+        resourceTimeObj.goToNewEditMode();
+        resourceTimeObj.saveAllocation();
+
     }
+ 
+      
 }

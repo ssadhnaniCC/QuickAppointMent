@@ -20,6 +20,7 @@
     
     <!--@description These attributes used to empty new modal data-->
     <aura:attribute name="selectlocation" type="Object[]" default="[]"/>
+    <aura:attribute name="selectService"  type="Object[]" default="[]"/>
     <aura:attribute name="hideServiceList" type="boolean"/>
     
     <!--@description This attribute is used to store search keyword--> 
@@ -51,14 +52,14 @@
             <span class="slds-text-heading_large ">Resource Staff Details</span> 
          </div>
         <div class="slds-col">
-            <lightning:button class="slds-m-right_large" label="New" title="New" onclick="{!c.handleNewResourceCmp}"/>        
+            <lightning:button class="slds-m-right_large" label="New" variant="brand" title="New" onclick="{!c.handleNewResourceCmp}"/>        
         </div>
         <div class="slds-col">
             <lightning:input type="search" class="label-hidden slds-size_1-of-2 slds-float_right"  name="enter-search" placeholder="Search Resource"  variant="label-hidden" value="{!v.searchResourceStaff}" onchange="{! c.handleSearch}"/>          
         </div>
     </div>
     
-    <c:NewResource aura:id="childCmp" openNewResourceModal="{!v.openNewResourceModal}" editresourceRecordId="{!v.resourceStaffId}" resourceRecord="{!v.editresourceRecord}" selectedLocation="{!v.selectlocation}" disableServiceDualLstBox="{!v.hideServiceList}"/>  
+    <c:NewResource aura:id="childCmp" openNewResourceModal="{!v.openNewResourceModal}" editresourceRecordId="{!v.resourceStaffId}" resourceRecord="{!v.editresourceRecord}" selectedLocation="{!v.selectlocation}" disableServiceDualLstBox="{!v.hideServiceList}" />  
     <div class="slds-m-top_medium"> 
         <aura:if isTrue="{!v.showspinner}">
             <div role="status" class="slds-spinner slds-spinner_medium">
@@ -80,13 +81,13 @@
         <aura:if isTrue="{!v.hideFooter}">
             <div class="slds-clearfix slds-p-top_medium slds-p-left_x-small">
                     <div class="slds-float_right">            
-                        <lightning:button label="Prev" iconName="utility:chevronleft" iconPosition="left"
+                        <lightning:button  variant="brand" label="Prev" iconName="utility:chevronleft" iconPosition="left"
                                           onclick="{!c.handlePrev}" disabled="{!(v.pageNumber == 1 || v.pageNumber == 0)}"/>
-                        <lightning:button label="First"  iconPosition="left"
+                        <lightning:button variant="brand" label="First"  iconPosition="left"
                                           onclick="{!c.handleFirst}" disabled="{!(v.pageNumber == 1 || v.pageNumber == 0)}"/>
-                        <lightning:button  label="Last"  iconPosition="left"
+                        <lightning:button variant="brand" label="Last"  iconPosition="left"
                                           onclick="{!c.handleLast}" disabled="{! v.pageNumber == v.totalPages }"/>
-                        <lightning:button label="Next" iconName="utility:chevronright" iconPosition="right"
+                        <lightning:button variant="brand" label="Next" iconName="utility:chevronright" iconPosition="right"
                                           disabled="{! v.pageNumber == v.totalPages }" onclick="{!c.handleNext}"/>
                     </div>
                     <!-- <p class="slds-page-header__title">Page {!v.pageNumber} | Showing records from {! ((v.pageNumber-1)*v.pageSize)+' to '+((v.pageNumber-1)*v.pageSize+(v.dataSize-1))}</p>-->

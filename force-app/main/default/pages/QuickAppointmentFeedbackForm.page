@@ -1,4 +1,4 @@
-<apex:page controller="FeedbackFormController" standardStylesheets="false" doctype="html-5.0">
+<apex:page controller="FeedbackFormController" standardStylesheets="false" showHeader="false" sidebar="false" doctype="html-5.0">
     <apex:slds />
     <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -263,7 +263,7 @@
     
     function checkTitle() {
         var title = $("[id$=titleVal]");
-        console.log('title==',title.val());
+        
         if(title.val().length>0) {
             title.next(".messageClass").remove();
         }

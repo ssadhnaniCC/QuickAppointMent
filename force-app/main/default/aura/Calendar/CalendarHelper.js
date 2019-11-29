@@ -1,12 +1,11 @@
 ({
-   /*******************************************************************************************************
+    /*******************************************************************************************************
     * @description This method fetches the appointment details to show on calendar.
    */
     getResponse : function(component,helper) {
-        console.log("objname",component.get("v.objName"));
-        console.log("recordId",component.get("v.recordId"));
+        
         var action = component.get("c.fetchAppointments");
-         action.setParams({
+        action.setParams({
             "ObjectName" : component.get("v.objName"),
             "recordId" :  component.get("v.recordId")       
         });
@@ -14,7 +13,6 @@
             var state = response.getState();
             if (state === "SUCCESS") {
                 var result = response.getReturnValue();
-                console.log("result"+ JSON.stringify(result));
                 component.set("v.RelatedList",result);
                 var eventArr = [];
                 result.forEach(function(key) {
@@ -28,18 +26,16 @@
                         'backgroundColor': key.eventColor
                     });
                 });
-                if(component.get("v.objName") != null && component.get("v.recordId")!= null ){
-                    component.set("v.isRelated",false);
+             
+              //FOR CALENDAR IN RELATED COMPONENTS
+              if(component.get("v.recordId")!= null ){
+                    component.set("v.isRelated",true);
                     if(eventArr.length){
-                      component.set("v.showToast",false);  
-                      $('#calendar').fullCalendar('destroy');  
-                      $('#calendar').css("display","");  
-                    /*  $('#calendar').fullCalendar('removeEvents');
-                      $("#calendar").fullCalendar('addEventSource', eventArr);
-                      $('#calendar').fullCalendar('rerenderEvents');   
-                      $('#calendar').fullCalendar( 'refetchResources' );    
-                    */
-                      this.loadCalendar(eventArr,event,helper,false);    
+                        component.set("v.showToast",false);  
+                        $('#calendar').fullCalendar('destroy');  
+                        $('#calendar').css("display","");  
+                      
+                        this.loadCalendar(component,eventArr,event,helper,false);    
                     }
                     else{
                         component.set("v.showToast",true);
@@ -48,8 +44,10 @@
                 }
                 else
                 {
-                component.set("v.isRelated",true);
-                this.loadCalendar(eventArr,event,helper,true);
+                    $('#calendar').css("display","");
+                    $('#calendar').fullCalendar('destroy');                        
+                    component.set("v.isRelated",false);
+                    this.loadCalendar(component,eventArr,event,helper,true);
                 }
             } else if (state === "INCOMPLETE") {
             } else if (state === "ERROR") {
@@ -65,13 +63,14 @@
         });
         $A.enqueueAction(action);
     },
-
+    
     
     /*******************************************************************************************************
     * @description This method loads the calendar with week,day,and month view.
    */
-    loadCalendar :function(data,event,helper,isRelated){
+    loadCalendar :function(component,data,event,helper,isRelated){
         var m = moment();
+         var self = this; 
         $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
@@ -107,7 +106,13 @@
             eventMouseout: function(data,event) {
                 $(this).css('z-index', 8);
                 $('.tooltipevent').remove();
-            }
+            },
+            eventClick : function(calEvent,event,helper) {     
+               var appId = calEvent.id;
+              component.set("v.editAppointmentId",appId);
+              component.set("v.showNewAppointment",true);
+              // self.handleEventClickSet(component,helper,true,appId);
+            }, 
         });     
         //On Previous Disable Click
         $('.fc-past').addClass('disable');  
@@ -117,7 +122,13 @@
         //On Previous button Disable Click
         $('.fc-month-button , .fc-agendaWeek-button , .fc-prev-button , .fc-prev-button').click(function(){helper.disableHandler(helper);});
     },
-    disableHandler : function(shelper){
+    disableHandler : function(helper){
         $('.fc-past').addClass('disable'); 
-    },    
+    },  
+  /*  handleEventClickSet : function(component,helper,isNewAppointment,appId){
+        component.set("v.showNewAppointment",isNewAppointment);
+        component.set("v.editAppointmentId",appId);
+        console.log("isNewAppointment",component.get("v.showNewAppointment"));
+        console.log("appointmentId",component.get("v.editAppointmentId"));
+    }*/
 })

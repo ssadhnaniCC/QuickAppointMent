@@ -14,8 +14,10 @@
         action.setCallback(this,function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
-                var resultData = response.getReturnValue();               
+                var resultData = response.getReturnValue(); 
+            	resultData.splice(0, 1,{label: 'Full Name', fieldName: 'linkName',sortable: true, type: 'url', typeAttributes: {label: { fieldName: 'Name' }, target: '_blank'}});
                 resultData.push({type: 'action', typeAttributes: { rowActions: actions }});
+            	console.log('resultData',JSON.stringify(resultData));
                 component.set("v.columns", resultData);
             }       
             else if (state === "INCOMPLETE") {
@@ -45,12 +47,13 @@
         action.setCallback(this,function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
-                var resultData = response.getReturnValue();
-                console.log('resultData=',resultData);
+                var resultData = response.getReturnValue(); 
+                resultData.forEach(function(record){
+                    record.linkName = '/'+record.Id;
+                });
                 var dataSize=resultData.length;
                 component.set("v.dataSize", resultData.length);
-                component.set("v.allRecords",resultData);             
-                console.log(resultData);             
+                component.set("v.allRecords",resultData);                                      
                 var recSize=parseInt(component.get("v.pageSize"));
                 var num=0;
                  var pgNumber=0;
@@ -67,8 +70,7 @@
                 num++;                    
             }                
         }
-        component.set("v.paginationList",customerRecords);  
-        console.log(component.get("v.paginationList")); 
+        component.set("v.paginationList",customerRecords);         
                 component.set("v.showspinner",false);
         component.set("v.data",component.get("v.paginationList"));
                 component.set("v.showFooter",true);
@@ -108,20 +110,7 @@
         });
         $A.enqueueAction(action);
     },
-    /*******************************************************************************************************
-    * @description This method is fired on component initialization.
-    * @returns void.
-    
-    viewRecord : function(component, event) {
-        var row = event.getParam('row');       
-        var recordId = row.Id;        
-        var navEvt = $A.get("event.force:navigateToSObject");
-        navEvt.setParams({
-            "recordId": recordId,
-            "slideDevName": "detail"
-        });
-        navEvt.fire();
-    },  */
+        
     /*******************************************************************************************************
     * @description This method is used to delete customer record.
     * @returns void.
@@ -137,7 +126,7 @@
             if (state === "SUCCESS" ) {
               component.set("v.showRelatedAppointment",false);
               component.set("v.showCalendar",false);
-               // alert('record deleted');                         
+                                    
                 /*var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     "title": "Success!",
@@ -164,7 +153,8 @@
                 }
         });
         $A.enqueueAction(action);
-    },  
+    }, 
+        
     /*******************************************************************************************************
     * @description This method is edit customer record.
     * @returns void.
@@ -173,12 +163,12 @@
         component.set("v.showCalendar",false);
         component.set("v.showRelatedAppointment",false);
         component.set("v.isModalOpen",true);
-        var rowId = event.getParam('row').Id;
-        console.log('rowId',rowId);
+        var rowId = event.getParam('row').Id;       
        // component.set("v.customerRecord",row);  
          var NewCustomerComponent = component.find("NewCustomer");
         NewCustomerComponent.GetCustomerRecords(rowId);
     }, 
+        
     /*******************************************************************************************************
     * @description This method is used  handle pagination in datatable.
     * @returns void.
@@ -198,26 +188,22 @@
             allRecords = component.get("v.allRecords");
             totalPages=Math.ceil((allRecords.length)/10);
              component.set("v.totalPages",totalPages);
-          //  totalPages= component.get("v.totalPages");
             }
         var total=allRecords.length;   
         var recSize=parseInt(component.get("v.pageSize"));
         var pgNumber=component.get("v.pageNumber");       
         var start=(parseInt(component.get("v.pageNumber"))-1)*parseInt(component.get("v.pageSize"));       
         var j=0;
-        var tempArray=[];
-        console.log('in pagination',allRecords);
+        var tempArray=[];      
         for(var i=start;i<total;i++){
             if(j>=recSize){
                 break;  
             }
-            if(allRecords[i]!='undefined'){
-                console.log(i);
+            if(allRecords[i]!='undefined'){               
                 tempArray.push(allRecords[i]);
                 j++;               
             }            
-        }
-        console.log('in pagination',tempArray);        
+        }       
         if(pgNumber==totalPages){
             component.set("v.isLastPage", true);
         } else{
@@ -227,16 +213,15 @@
         component.set("v.paginationList",tempArray);
         component.set("v.data", tempArray);
     },
+        
     /*******************************************************************************************************
     * @description This method is fired on component initialization.
     * @returns void.*/
     
     sortData : function(component,fieldName,sortDirection){
-        var data = component.get("v.data");
-        //function to return the value stored in the field
+        var data = component.get("v.data");        
         var key = function(a) { return a[fieldName]; }
-        var reverse = sortDirection == 'asc' ? 1: -1;      
-        // to handel number/currency type fields 
+        var reverse = sortDirection == 'asc' ? 1: -1;              
          console.log('fieldname',fieldName);
         if(fieldName == 'Business Phone'){ 
             data.sort(function(a,b){
@@ -245,57 +230,32 @@
                 return reverse * ((a>b) - (b>a));
             }); 
         }
-        else{// to handel text type fields 
+        else{
             data.sort(function(a,b){ 
-                var a = key(a) ? key(a).toLowerCase() : '';//To handle null values , uppercase records during sorting
+                var a = key(a) ? key(a).toLowerCase() : '';
                 var b = key(b) ? key(b).toLowerCase() : '';
                 return reverse * ((a>b) - (b>a));
             });    
         }
-        //set sorted data to accountData attribute
+       
         component.set("v.data",data);
     },
-    /*******************************************************************************************************
-    * @description This method is fired on component initialization.
-    * @returns void.
-    */
-   /* assignRecordsToList:function(component,event,helper){
-        var num=0;
-        var customerRecords=[];
-        var dataSize=component.get("v.allRecords").length;
-        var recSize=component.get("v.pageSize");
-        for(var i=0;i<dataSize;i++){
-            if(num>=recSize){
-                break;
-            }
-            if(component.get("v.allRecords")[i]!='undefined'){
-                customerRecords.push(component.get("v.allRecords")[i]);
-                num++;                    
-            }                
-        }
-        component.set("v.paginationList",customerRecords);  
-        console.log(component.get("v.paginationList"));               
-        component.set("v.data",component.get("v.paginationList"));
-        var pagecount= Math.ceil(dataSize/10);
-        var pgNumber=component.get("v.pageNumber");
-        var totalPages= component.get("v.totalPages");
-        component.set("v.totalPages",pagecount);
-        if(totalPages==pgNumber){
-            component.set("v.isLastPage", true);
-        } else{
-            component.set("v.isLastPage", false);
-        }
-    },*/
         
-     showRelatedCalendar : function(component,event,helper){
-      component.set("v.showRelatedAppointment",false);
-      var childCmp = component.find("childCalendar");
-      var retnMsg = childCmp.relatedcalendar('Contact',component.get("v.CustomerId"));  
-     },
-     showRelatedAppointments : function(component,event,helper){
+    
+        
+   showRelatedCalendar : function(component,event,helper){
+        component.set("v.showRelatedAppointment",false);
+        component.set('v.workingHours',false);
+        component.set("v.showWorkingHoursList",false);
+        var childCmp = component.find("childCalendar");
+        var retnMsg = childCmp.relatedcalendar('Contact',component.get("v.CustomerId"));  
+    },
+    showRelatedAppointments : function(component,event,helper){
+        var rowId = event.getParam('row').Id;
         component.set("v.showCalendar",false);
-      var childCmp = component.find("childAppointment");
-      var retnMsg = childCmp.relatedAppointments('Contact',component.get("v.CustomerId"));    
-     }
-       
+        component.set('v.workingHours',false);
+        component.set("v.showWorkingHoursList",false);
+        var childCmp = component.find("childAppointment");
+        var retnMsg = childCmp.relatedAppointments('Contact',component.get("v.CustomerId"));    
+    },
 })

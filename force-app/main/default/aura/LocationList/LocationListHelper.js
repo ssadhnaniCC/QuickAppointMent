@@ -8,6 +8,9 @@
             var state = response.getState();
             if(state === "SUCCESS"){
                 var resultData = response.getReturnValue();
+                resultData.forEach(function(record){
+                    record.linkName = '/'+record.Id;
+                });
                 var pageSize = component.get("v.pageSize");
                 if(resultData != null){
                     component.set("v.dataList",resultData);
@@ -52,6 +55,9 @@
         action.setCallback(this,function(response){
             if(response.getState() === 'SUCCESS'){
                 var resourceData = response.getReturnValue();
+            console.log('fhj',JSON.stringify(resourceData));
+                resourceData.splice(0, 1,{label: 'Location', fieldName: 'linkName',sortable: true, type: 'url', typeAttributes: {label: { fieldName: 'Name' }, target: '_blank'}});
+                
                 resourceData.push({type: 'action', typeAttributes: { rowActions: actions } });
                 component.set('v.columns',resourceData);
             }
@@ -227,12 +233,12 @@
         component.set("v.showCalendar",false);
         var recordId = event.getParam('row').Id;
         var childCmp = component.find("childAppointment");
-        var retnMsg = childCmp.relatedAppointments('Location',recordId);    
+        var retnMsg = childCmp.relatedAppointments('CC_QAppt__Location__c',recordId);    
     },
        showRelatedCalendar : function(component,event,helper){
             component.set("v.showRelatedAppointment",false);
             var recordId = event.getParam('row').Id;
            var childCmp = component.find("childCalendar");
-           var retnMsg = childCmp.relatedcalendar('Location',recordId);  
+           var retnMsg = childCmp.relatedcalendar('CC_QAppt__Location__c',recordId);  
        },
 })

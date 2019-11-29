@@ -1,12 +1,16 @@
 ({
+    /*******************************************************************************************************
+    * @description This method is fired on component initialization.
+    * @returns void.
+    */
 	init : function(component, event, helper) {
-        component.set("v.isModalOpen",true);
+       // component.set("v.isModalOpen",true);
 		 var action = component.get("c.getLocations");
        // action.setParams({"CustomerId":null});
         action.setCallback(this,function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
-                console.log(response.getReturnValue());
+               
                 component.set("v.locationList",response.getReturnValue());
             }
           
@@ -27,25 +31,34 @@
         });
         $A.enqueueAction(action);
     },
+    /*******************************************************************************************************
+    * @description This method is is used to assign selected picklist  value to location object.
+    * @returns void.
+    */
     onValueChange :function(component, event, helper){
-        var locationLst = component.get("v.locationList");
-        // console.log(component.find("Location").get("v.obj"));
+        var locationLst = component.get("v.locationList");       
         var Id = component.find("Location").get("v.value");
         for (var i=0; i < locationLst.length; i++) {
         if (locationLst[i].Id == Id) {
-            console.log(locationLst[i]);
             component.set("v.LocationObj",locationLst[i]);
         }
     }
-var a = locationLst.indexOf(component.find("Location").get("v.value"));
-        console.log(a);
+var a = locationLst.indexOf(component.find("Location").get("v.value"));      
     },
+    /*******************************************************************************************************
+    * @description This method is used to close.
+    * @returns void.
+    */
     closeModel:function(component, event, helper){
-        component.set("v.isModalOpen",false);
+        component.set("v.showPublicHolidayLocationSelectorModal",false);
     },
+    /*******************************************************************************************************
+    * @description This method is used show holiday modifier modal.
+    * @returns void.
+    */
     NextClick :function(component, event, helper){
     component.set("v.showPublicHolidayModal",true);
-        component.set("v.isModalOpen",false);
+ 
     }
 	
 })

@@ -1,0 +1,127 @@
+<apex:component access="global" controller="AppointmentEmailTemplateController">
+    <apex:attribute name="appointmentIdValue" type="String" description="This is the Id of the appointment" assignTo="{!appointmentId}" access="global" />
+    
+    <style>
+        .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: blue;
+        color: white;
+        text-align: center;
+        }
+    </style>
+    
+    <!--<html>
+<head>
+<title>Bootstrap Example</title>
+
+<apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+<img src="{!$Resource.companylogo}" width="25%"/>
+<p>Your Appointment has been scheduled!</p> 
+</div>
+
+<div class="card text-center">
+
+<div class="card-body">
+<h4>
+Your Appointment Details are :
+
+</h4>
+<div class="row">
+<div class="col-sm-4">
+<span>Appointment Name : </span> <span>{!appRecord.Name}</span>
+</div>
+<div class="col-sm-4">
+<span>Status : </span> <span>Upcoming</span>
+</div>
+<div class="col-sm-4">
+<span>Start Date : </span> <span>TsetAppointment</span>
+</div>
+<div class="col-sm-4">
+<span>End Date : </span> <span>TsetAppointment</span>
+</div>
+<a href="#" class="btn btn-primary">Submit your feedback</a>
+</div>
+
+</div>
+</div>
+</body>
+</html>-->
+    
+    <div class="header" style="background:#f3f2f2;text-align: center;">
+        
+        <apex:image id="theImage" value="https://www.cloudcertitude.com/wp-content/uploads/2019/07/cloudlogo.png" width="18%"/>
+        
+        <p>
+           <b> Your appointment has been submitted!</b>
+            
+        </p>
+        
+        
+    </div>
+    
+    <p>
+        <center><b>Your Appointment details are : </b> </center>
+    </p>
+    
+    <table width="100%" >
+        
+        
+        <tr style="margin-top:10px;">
+            <center>
+                Appointment Name : {!appRecord.Name}
+            </center>
+        </tr>
+        <tr>
+            <center>
+                Appointment Start Date : {!appRecord.CC_QAppt__Start_Date_Time__c}
+            </center>
+        </tr>
+        <tr>
+            <center>
+                Appointment End Date : {!appRecord.CC_QAppt__End_Date_Time__c}
+            </center>
+        </tr>
+        <tr>
+            <center>
+                Available Services : {!serviceNameList}
+            </center>
+            
+        </tr>
+        <tr>
+            <center>
+                Available Resources : {!resourceNameList}
+            </center>
+            
+        </tr>
+        
+        
+        
+    </table>
+    <p>
+        
+        <center>
+            <button type="button" onclick="submit();">Submit Feedback</button></center>
+        
+    </p>
+    
+    <apex:form >
+<apex:actionFunction name="submit" action="{!submitFeedback}" rerender="div1">
+    
+</apex:actionFunction>
+</apex:form>
+    
+    <div class="footer">
+        <p>Footer</p>
+    </div>
+    
+</apex:component>

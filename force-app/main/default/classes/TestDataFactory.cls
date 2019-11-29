@@ -1,6 +1,6 @@
 @isTest
-public class TestDataFactory {
-    // public static  list<contact> custList=new list<contact>();
+public class TestDataFactory {   
+    /* Inserts testing data for customer */
     public static list<contact> customerList(Integer size){
         list<contact> custList=new list<contact>();
         for(integer i=0; i<size; i++){            
@@ -11,6 +11,18 @@ public class TestDataFactory {
         }
         return custList;
     }
+    
+    /* Inserts testing data for publicholiday */
+    public static list<CC_QAppt__Public_Holidays__c> publicHolidayList(integer size){
+        list<CC_QAppt__Public_Holidays__c> pubicHolidayList=new list<CC_QAppt__Public_Holidays__c>();
+        for(integer i=0;i<size;i++){
+            CC_QAppt__Public_Holidays__c holidayObj=new  CC_QAppt__Public_Holidays__c(CC_QAppt__Description__c='test'+i,CC_QAppt__Holiday_Date__c=system.today().addDays(i),Name='test'+i);
+       pubicHolidayList.add(holidayObj);
+        }
+        return pubicHolidayList;
+    }
+    
+    /* Inserts testing data for AppointmentCategoryList */
     public static list<CC_QAppt__Appointment_Category__c> AppointmentCategoryList(integer size){
         list<CC_QAppt__Appointment_Category__c> categoryList=new list<CC_QAppt__Appointment_Category__c>();
         for(integer i=0;i<size;i++){
@@ -20,6 +32,8 @@ public class TestDataFactory {
         return categoryList;
         
     }
+    
+    /* Inserts testing data for AppointmentCategoryList */
     public static list<contact> resourceList(Integer size){
         List<contact> resourceList = new List<contact>();
         for(Integer i=0 ; i<size ;i++){
@@ -30,6 +44,8 @@ public class TestDataFactory {
         }
         return resourceList;
     }
+    
+   /* Inserts testing data for LocationList */
     public static List<CC_QAppt__Location__c> locationList(Integer size){
         List<CC_QAppt__Location__c> locationList = new List<CC_QAppt__Location__c>();
         for(Integer i=0 ; i<size ;i++){
@@ -38,6 +54,8 @@ public class TestDataFactory {
         }
         return locationList;
     }
+    
+   /* Inserts testing data for LocationServiceAlignment */
     public static List<CC_QAppt__Location_Service__c> locationServiceAlignment(List<Id> Location ,Id ServiceId){
         List<CC_QAppt__Location_Service__c> locationServiceList = new List<CC_QAppt__Location_Service__c>();
         for(Id ids : Location){
@@ -46,6 +64,8 @@ public class TestDataFactory {
         }
         return locationServiceList;
     }
+    
+    /* Inserts testing data for ServiceList */
     public static List<CC_QAppt__Service__c> serviceList(Integer size){
         List<CC_QAppt__Service__c> serviceList = new List<CC_QAppt__Service__c>();
         for(Integer i=0 ; i<size ;i++){
@@ -54,6 +74,8 @@ public class TestDataFactory {
         }
         return serviceList;
     }
+    
+    /* Inserts testing data for ResourceServiceAlignment */
     public static List<Resource_Service_Alignment__c> resourceServiceAlignment(List<Id> locationids ,List<Id> serviceids ,String ResourceId){
         List<Resource_Service_Alignment__c> resourceServiceAlignmentList = new List<Resource_Service_Alignment__c>();
         for(Integer i = 0;i<locationids.size();i++){
@@ -64,12 +86,15 @@ public class TestDataFactory {
         }
       return resourceServiceAlignmentList;  
     }
-    public static List<CC_QAppt__Appointment__c> createAppointment(String ResourceServiceId,String appointmentCategoryId){
+    /* Inserts testing data for Creating Appointment */
+    public static List<CC_QAppt__Appointment__c> createAppointment(String ResourceServiceId,String appointmentCategoryId,String status){
         List<CC_QAppt__Appointment__c> appList = new List<CC_QAppt__Appointment__c>();
-        CC_QAppt__Appointment__c appointmentRecord = new CC_QAppt__Appointment__c(Name='App',CC_QAppt__Description__c='Desc',CC_QAppt__Resource_Service_Alignment__c=ResourceServiceId,CC_QAppt__Appointment_Category__c=appointmentCategoryId,CC_QAppt__Start_Date_Time__c=Datetime.now(),CC_QAppt__End_Date_Time__c=Datetime.now());
+        CC_QAppt__Appointment__c appointmentRecord = new CC_QAppt__Appointment__c(Name='App',CC_QAppt__Description__c='Desc',CC_QAppt__Resource_Service_Alignment__c=ResourceServiceId,CC_QAppt__Appointment_Category__c=appointmentCategoryId,CC_QAppt__Start_Date_Time__c=Datetime.now(),CC_QAppt__End_Date_Time__c=Datetime.now(),CC_QAppt__Status__c = status);
         appList.add(appointmentRecord);
         return appList;
     }
+    
+    /* Inserts testing data for Creating AppointmentCategory */
     public static List<CC_QAppt__Appointment_Category__c> createAppointmentCategory(Integer size){
         List<CC_QAppt__Appointment_Category__c> appCategoryList = new List<CC_QAppt__Appointment_Category__c>(); 
         for(Integer i=0;i<size;i++){
@@ -79,6 +104,7 @@ public class TestDataFactory {
         return appCategoryList;
     }
     
+   /* Inserts testing data for Creating workingHourList */
     public static List<CC_QAppt__Working_Hour__c> workingHourList(Integer size){
         contact con = new contact();
         con.LastName = 'Test';
@@ -91,6 +117,27 @@ public class TestDataFactory {
             workingHourList.add(workingHour);
         }
         return workingHourList;
+    }
+    
+    /* Inserts testing data for Creating AppointmentFeedback */
+    public static List<CC_QAppt__Appointment_Feedback__c> createAppointmentFeedback(Integer size){
+        List<CC_QAppt__Appointment_Feedback__c> appFeedbackList = new List<CC_QAppt__Appointment_Feedback__c>(); 
+        for(Integer i=0;i<size;i++){
+           CC_QAppt__Appointment_Feedback__c appFeedback = new CC_QAppt__Appointment_Feedback__c(Name='Feedback'+i,CC_QAppt__Rating__c= String.valueOf(i + 1));
+           appFeedbackList.add(appFeedback);
+        }
+        return appFeedbackList;
+    }
+	
+	
+	/* Inserts testing data for Creating Participant */
+    public static List<CC_QAppt__Participant__c> createAppointmentParticipant(String appointment,String contact,integer size){
+        List<CC_QAppt__Participant__c> appParticipantList = new List<CC_QAppt__Participant__c>(); 
+        for(Integer i=0;i<size;i++){
+           CC_QAppt__Participant__c appParticipant = new CC_QAppt__Participant__c(CC_QAppt__Appointment__c= appointment, CC_QAppt__Participant_Name__c = contact);
+           appParticipantList.add(appParticipant);
+        }
+        return appParticipantList;
     }
     
 }

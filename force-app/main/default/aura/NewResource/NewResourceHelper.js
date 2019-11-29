@@ -20,7 +20,7 @@
         });
       action.setCallback(this,function(response) {
             var state = response.getState();
-            console.log("state"+state);
+           // console.log("state"+state);
             if (state === "SUCCESS") {
             /*  var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
@@ -85,10 +85,12 @@
              var state = response.getState();
              if (state === "SUCCESS") {
                 var serviceList = response.getReturnValue();
+                 console.log("serviceList"+JSON.stringify(serviceList));
               component.set("v.showSpinner",false);
               var options = [];
                 serviceList.forEach(function(Service){
-                options.push({ value: Service.CC_QAppt__Service__c, label: Service.CC_QAppt__Service__r.Name ,Id: Service.CC_QAppt__Service__c});
+                    console.log("service"+JSON.stringify(Service));
+                options.push({value: Service.Id, label: Service.Name ,Id: Service.Id});
                 });
                component.set("v.availableService",options);
                  if(component.get("v.availableService").length==0){
@@ -115,29 +117,30 @@
                 });
           action.setCallback(this,function(response) {
              var state = response.getState();
-             if (state === "SUCCESS") {
-              var resourceservice = response.getReturnValue();  
-                component.set("v.resourceRecord",resourceservice.resContact);
-                 var options = [];
-                resourceservice.resourceServiceList.forEach(function(Service){
-                options.push(Service.CC_QAppt__Service__c);
-                });
-                var options  = options.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
-                 var listoptions = [];
-                resourceservice.resourceServiceList.forEach(function(Location){                        
-                listoptions.push(Location.CC_QAppt__Location__c);
-                }); 
-                 var listoptions  = listoptions.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);  
-                 var availableServiceoptions = [];
-                resourceservice.availableResourceServiceList.forEach(function(AvailableService){
-                availableServiceoptions.push({ value: AvailableService.CC_QAppt__Service__c, label: AvailableService.CC_QAppt__Service__r.Name ,Id: AvailableService.CC_QAppt__Service__c});
-                });
-                 if(availableServiceoptions.length==0){
-                       component.set("v.disableServiceDualLstBox",false);   
-                 }
-                 else{
+              if (state === "SUCCESS") {
+                  var resourceservice = response.getReturnValue();  
+                  component.set("v.resourceRecord",resourceservice.resContact);
+                  var options = [];
+                  resourceservice.resourceServiceList.forEach(function(Service){
+                      options.push(Service.CC_QAppt__Service__c);
+                  });
+                  var options  = options.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
+                  var listoptions = [];
+                  resourceservice.resourceServiceList.forEach(function(Location){                        
+                      listoptions.push(Location.CC_QAppt__Location__c);
+                  }); 
+                  var listoptions  = listoptions.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);  
+                  var availableServiceoptions = [];
+                  resourceservice.availableResourceServiceList.forEach(function(AvailableService){
+                      availableServiceoptions.push({ value: AvailableService.CC_QAppt__Service__c, label: AvailableService.CC_QAppt__Service__r.Name ,Id: AvailableService.CC_QAppt__Service__c});
+                  });
+                   availableServiceoptions = availableServiceoptions.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
+                  if(availableServiceoptions.length==0){
+                      component.set("v.disableServiceDualLstBox",false);   
+                  }
+                  else{
                       component.set("v.disableServiceDualLstBox",true);
-                 }
+                  }
                component.set("v.availableService",availableServiceoptions);   
                component.set("v.selectedService",options); 
                component.set("v.selectedLocation",listoptions);  

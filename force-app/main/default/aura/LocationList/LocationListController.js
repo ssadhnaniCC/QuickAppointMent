@@ -87,6 +87,10 @@
         helper.sortData(component,sortBy,sortDirection);
     },
     AddPublicHoliday : function(component,event,helper){
-        
-    }
+        component.set("v.isModalOpen",true);      
+    },
+    getselectedRow :function(component,event,helper){
+       var selectedRows = event.getParam('selectedRows');
+        console.log('selectedRow',JSON.stringify(selectedRows));
+    },
 })

@@ -1,9 +1,16 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="PublicHolidayLightningController" >
+   <!--@description contains reference to public holiday object.-->
     <aura:attribute name="publicHolidayObj" type="Public_Holidays__c" default="{'sObjectType':'CC_QAppt__Public_Holidays__c', 'Name':'','CC_QAppt__Holiday_Date__c':'','CC_QAppt__Description__c':'','CC_QAppt__Location__c':''}"/>
+    <!--@description contains  reference to location object.-->
     <aura:attribute name="LocationObj" type="Object"/>
-    <aura:attribute name="showHolidayModal" type="Boolean"/>
-     <aura:attribute name="showToast" type="Boolean" default="false"/>
+      <!--@description contains  boolean attributes to hide or show modal.-->
+    <aura:attribute name="showHolidayModal" type="Boolean" default="false"/>
+    <aura:attribute name="showHolidayLocationSelectorModal" type="Boolean" default="false"/>
+     <aura:attribute name="showTable" type="Boolean" default="false"/>
+     <aura:attribute name="showToast" type="Boolean" default="false"/>  
+      <!--@description contains  list of public holidays.-->
     <aura:attribute name="PublicHolidayList" type="Object[]"/> 
+      <!--@description handler for init event.-->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:if isTrue="{!v.showHolidayModal}">
     <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
@@ -15,16 +22,22 @@
                                       alternativeText="close"
                                       variant="bare-inverse"
                                       class="slds-modal__close "/>
-            </header>
-            <div>
-                <span class="slds-text-heading_large" >{!v.LocationObj.Name}
+                <div class="float-left">
+                <span class="slds-text-heading_large" >{!v.LocationObj.Name} Public Holidays
                 </span>
-                <span class="slds-m-left--xx-large "><lightning:button label="Add Public Holiday" class="slds-m-bottom_x-small" onclick="{!c.addRow}"/>
-                </span>
+             
             </div>
+            </header>
+             <div class="slds-grid " style="background:white">
+                    <div class="slds-col slds-align_absolute-center slds-m-vertical_medium"><lightning:button label="Add Public Holiday" class="slds-m-bottom_x-small" onclick="{!c.addRow}" /></div>
+                </div>
             
-            
-           <div class="slds-scrollable" style="height:10rem;width:75rem"> <table class="slds-table slds-table_bordered slds-table_cell-buffer"> 
+            <aura:if isTrue="{!v.showTable}">
+               
+              
+           <div class="slds-scrollable " style="height:9.5rem;"> <table class="slds-table slds-table_bordered slds-table_cell-buffer"> 
+                
+                
                 <thead>
                     <tr class="slds-text-title_caps">
                         <th scope="col">
@@ -58,7 +71,7 @@
                                 <lightning:input  type="text" aura:id="HolidayName"  value="{!item.Name}" required="true" messageWhenValueMissing="Enter Name"/>
                             </td>
                             <td>
-                                <lightning:input  type="date" aura:id="HolidayDate" value="{!item.CC_QAppt__Holiday_Date__c}" required="true" messageWhenValueMissing="Enter Date" />
+                                <lightning:input  type="date" id="datepick"  aura:id="HolidayDate" value="{!item.CC_QAppt__Holiday_Date__c}" required="true" messageWhenValueMissing="Enter Date" />
                             </td>
                             <td>
                                 <lightning:input  type="text" value="{!item.CC_QAppt__Description__c}"/>
@@ -77,6 +90,7 @@
                 </tbody>
             </table>  
                </div>
+                </aura:if>
             <aura:if isTrue="{!v.showToast}">
       <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
              <h2>No Public Holidays Available</h2>
@@ -87,15 +101,20 @@
              </div>
          </div> 
     </aura:if>
+           
             <!--Modal/Popup Box Footer Starts here-->
             
             <footer class="slds-modal__footer">
                 <lightning:button variant="brand"
+                                  aura:id="save"
                                   label="Save"
                                   title="Next"
+                                  disabled="false"
                                   onclick="{!c.onSave}"/>
                 <lightning:button variant="brand"
-                                  label="SaveClose"
+                                  aura:id="saveClose"
+                                  label="Save  &amp; Close"
+                                  disabled="false"
                                   title="Next"
                                   onclick="{!c.OnSaveClose}"/>
                 <lightning:button variant="neutral"
@@ -106,5 +125,7 @@
             
         </div>
     </section>
+         <div class="slds-backdrop slds-backdrop_open"></div>
     </aura:if>
+     
 </aura:component>

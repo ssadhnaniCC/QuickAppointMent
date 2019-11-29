@@ -22,16 +22,29 @@ public with sharing class CustomerLightningController{
         } 
      @AuraEnabled
     public  static boolean saveCustomer(contact customerRecord){
+        // Database.UpsertResult ur;
             Contact conObj=new Contact(Id=customerRecord.Id,FirstName=customerRecord.FirstName,LastName=customerRecord.LastName,Email=customerRecord.Email,Phone=customerRecord.Phone,MailingStreet=customerRecord.MailingStreet,MailingCity=customerRecord.MailingCity,MailingState=customerRecord.MailingState,MailingPostalCode=customerRecord.MailingPostalCode,MailingCountry=customerRecord.MailingCountry,Description=customerRecord.Description);
         Id recordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByName().get('User').getRecordTypeId();
         conObj.RecordtypeId=recordTypeId;
+        try{
+          database.upsert (conObj,true);
+        }catch(Exception e){
+            system.debug('error'+e.getMessage());
+            return false;
+        }
         
-        Database.UpsertResult ur=database.upsert (conObj,false);
-        return ur.isSuccess();
+        return true;
         } 
     @AuraEnabled
     public  static boolean deleteCustomer(Id customerId ){
-       Database.deleteResult dr= Database.delete(customerId,false);
-        return dr.isSuccess();
+        
+        try{
+           Database.delete(customerId,true);
+        }
+        catch(DMLException e){
+            system.debug('error'+e.getMessage());
+        }
+       
+        return true;
         } 
 }

@@ -54,8 +54,7 @@
     * @returns void.
     */
     handleRowAction: function (component, event, helper) {
-        var action = event.getParam('action');
-       // alert(action.name);
+        var action = event.getParam('action');     
           var row = event.getParam('row');  
          component.set("v.CustomerId",row.Id);
         switch (action.name) {
@@ -106,10 +105,9 @@
                  component.set("v.pageNumber",0);
                  component.set("v.totalPages",0);
                 
-           //    setTimeout(function(){ alert("no record found"); },300);              
+                     
                 return;
-            }
-            console.log('tpArray',tpArray);
+            }          
              component.set("v.searchList",tpArray);  
             component.set("v.onSearch",true);
             helper.pagination(component,event,helper);

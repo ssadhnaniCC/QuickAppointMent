@@ -11,6 +11,7 @@
 	closeNewResourceModel : function(component, event, helper) {
 		component.set("v.openNewResourceModal",false);
         component.set('v.selectedLocation',{});
+        component.set("v.selectedService",{}); 
 	},
     
     /*******************************************************************************************************
@@ -37,6 +38,7 @@
     handleOnLocationSelect : function(component,event,helper){
         
        var selectedLocationList = event.getParam("value");
+        console.log("selectedLocationList"+selectedLocationList);
         component.set("v.selectedLocation",selectedLocationList);
         component.set("v.showSpinner",true);
         helper.fetchServiceBasedOnLocations(component,helper);

@@ -1,0 +1,25 @@
+<apex:page showHeader="false" standardStylesheets="false"> 
+    <apex:slds />
+    <apex:includeLightning />
+    
+    <div style="width:100%;height:100px;" id="lexContainer"> 
+        <div style="height:6rem;" id="sliderDemo">
+            <div role="status" class="slds-spinner slds-spinner_medium" >
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div> 
+            </div>
+        </div> 
+    </div>
+    
+    <script>
+        $Lightning.use("c:QuickAppointment_LightningOut", function() {
+            $Lightning.createComponent("c:NewEditAppointment",
+            {'showModal': true},
+            "lexContainer",
+            function(cmp) {
+            document.getElementById("sliderDemo").style.display = 'none'; 
+            });
+        });
+    </script> 
+</apex:page>

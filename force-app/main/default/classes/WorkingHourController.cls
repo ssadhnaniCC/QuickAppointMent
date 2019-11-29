@@ -15,11 +15,7 @@ public class WorkingHourController {
         return QuickAppointmentUtils.getFieldFromFieldSet('CC_QAppt__Working_Hour__c','CC_QAppt__WorkingHourFieldSet');
     }
     
-    @AuraEnabled
-    public  static void deleteWorkingHour(Id workingHourId ){
-        Database.delete(workingHourId,false);
-        } 
-
+  
    @AuraEnabled
     public  static CC_QAppt__Working_Hour__c getWorkingHourRecord(Id workingHourId ){
         return [SELECT CC_QAppt__Start_Date__c,CC_QAppt__End_Date__c,CC_QAppt__Active__c,CC_QAppt__End_Time__c,CC_QAppt__Start_Time__c FROM CC_QAppt__Working_Hour__c where id =: workingHourId LIMIT 1];

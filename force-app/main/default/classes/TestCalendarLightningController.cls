@@ -11,6 +11,7 @@ public class TestCalendarLightningController {
         List<Id> appointmentCategoryIds = new List<Id>();
         
         insert resourceList;
+        insert customerList;
         insert locationList;
         insert serviceList;
         
@@ -29,8 +30,14 @@ public class TestCalendarLightningController {
         List<CC_QAppt__Appointment_Category__c> appointmentCategoryList = TestDataFactory.createAppointmentCategory(1); 
         insert appointmentCategoryList;
         
-        List<CC_QAppt__Appointment__c> appList = TestDataFactory.createAppointment(resourceServiceAlignment[0].Id,appointmentCategoryList[0].Id);
-        insert appList;
+        List<CC_QAppt__Appointment__c> upcomingAppointments = TestDataFactory.createAppointment(resourceServiceAlignment[0].Id,appointmentCategoryList[0].Id,'Upcoming');
+        List<CC_QAppt__Appointment__c> runningAppointments = TestDataFactory.createAppointment(resourceServiceAlignment[0].Id,appointmentCategoryList[0].Id,'Running'); 
+        List<CC_QAppt__Appointment__c> CompletedAppointments = TestDataFactory.createAppointment(resourceServiceAlignment[0].Id,appointmentCategoryList[0].Id,'Completed');
+        List<CC_QAppt__Appointment__c> declinedAppointments = TestDataFactory.createAppointment(resourceServiceAlignment[0].Id,appointmentCategoryList[0].Id,'Declined'); 
+        insert upcomingAppointments;
+        insert runningAppointments;
+        insert declinedAppointments;
+        insert  CompletedAppointments;
     }
     
     /* method to test Appointment for Location are fetched */
@@ -40,7 +47,7 @@ public class TestCalendarLightningController {
         Test.startTest();
        List<CalendarLightningController.calendarWrapper> appList = CalendarLightningController.fetchAppointments('Location',locationIds[0].CC_QAppt__Location__c);
         Test.stopTest();
-        system.assertEquals(appList.size(),1,'while fetching Appointment');
+        system.assertEquals(appList.size(),4,'error while fetching Appointment');
     }
     
    /* method to test Appointment for Service are fetched */
@@ -50,8 +57,9 @@ public class TestCalendarLightningController {
         Test.startTest();
        List<CalendarLightningController.calendarWrapper> appList = CalendarLightningController.fetchAppointments('Service',locationIds[0].CC_QAppt__Service__c);
         Test.stopTest();
-        system.assertEquals(appList.size(),1,'while fetching Appointment');
+        system.assertEquals(appList.size(),4,'error while fetching Appointment');
     }
+    
     /* method to test Appointment for AppointmentCategory are fetched */
     @isTest
     static void fetchAppointmentRelatedtoAppointmentCategory(){
@@ -59,7 +67,36 @@ public class TestCalendarLightningController {
         Test.startTest();
        List<CalendarLightningController.calendarWrapper> appList = CalendarLightningController.fetchAppointments('AppointmentCategory',appCategoryIds[0].Id);
         Test.stopTest();
-        system.assertEquals(appList.size(),1,'while fetching Appointment');
+        system.assertEquals(appList.size(),4,' error while fetching Appointment');
+    }
+    
+   /* method to test Appointment for Resource are fetched */
+    @isTest
+    static void fetchAppointmentRelatedtoResource(){
+        
+        List<contact> relatedToUser = [select id from  contact limit 1];
+        Test.startTest();
+       List<CalendarLightningController.calendarWrapper> appList = CalendarLightningController.fetchAppointments('Contact',relatedToUser[0].Id);
+        Test.stopTest();
+        system.assertEquals(appList.size(),4,' error while fetching Appointment');
+    }
+   /* method to fetch Appointment related to Customer are fetched */
+    @isTest
+    static void fetchAppointmentRelatedtoCustomer(){
+        Id recordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByName().get('User').getRecordTypeId();
+        List<contact> relatedToCustomer = [select id from contact where RecordtypeId =: recordTypeId limit 1 ];
+        Test.startTest();
+        List<CalendarLightningController.calendarWrapper> appList = CalendarLightningController.fetchAppointments('Contact',relatedToCustomer[0].Id);
+        Test.stopTest();
+      //  system.assertEquals(appList.size(),1,' error while fetching Appointment');
+    }
+    /* method to fetch All Appointments */
+    @isTest
+    static void fetchAllAppointment(){
+        Test.startTest();
+        List<CalendarLightningController.calendarWrapper> appList = CalendarLightningController.fetchAppointments('','');
+        Test.stopTest();
+       system.assertEquals(appList.size(),4,' error while fetching Appointment');
     }
     
 }

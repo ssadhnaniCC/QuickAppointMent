@@ -12,6 +12,11 @@ public class CalendarLightningController {
     @AuraEnabled
     public static List<calendarWrapper> fetchAppointments(String ObjectName, String recordId){
         String recordTypeName ;
+        
+        If(!String.isBlank(recordId) && String.isBlank(ObjectName)){
+          Id recordIds = recordId;
+           ObjectName = recordIds.getSObjectType().getDescribe().getName();        
+        }
         List<CC_QAppt__Appointment__c> previousAppointments  = new List<CC_QAppt__Appointment__c>();
         List<calendarWrapper> calWrapp = new List<calendarWrapper>();
         List<contact> customerList = new List<contact>();  
@@ -36,28 +41,47 @@ public class CalendarLightningController {
             previousAppointments = QuickAppointmentSOQLManager.getPreviousAppointmentsForCustomers(recordId);
         }
         if((recordTypeName == '' || recordTypeName == null ) && (ObjectName == '' || ObjectName == null )){
-            previousAppointments = QuickAppointmentSOQLManager.getPreviousAppointments('','');
+           previousAppointments = QuickAppointmentSOQLManager.getPreviousAppointments('','');
         }
-        if((recordTypeName == '' || recordTypeName == null ) && (ObjectName != '' || ObjectName != null )){
+        if((recordTypeName == null ) && (ObjectName != null )){
            previousAppointments = QuickAppointmentSOQLManager.getPreviousAppointments(ObjectName,recordId);
-          }
-  //List<CC_QAppt__Appointment__c> previousAppointments  = QuickAppointmentSOQLManager.getPreviousAppointments(ObjectName,recordId);
+        }
         for(CC_QAppt__Appointment__c prevApp : previousAppointments){
             calendarWrapper obj = new calendarWrapper();
             obj.Id = prevApp.Id;
-            obj.startDate = prevApp.CC_QAppt__Start_Date_Time__c.format('MM/dd/yyyy HH:mm:ss',currentTimeZone);
-            obj.endDate = prevApp.CC_QAppt__End_Date_Time__c.format('MM/dd/yyyy HH:mm:ss',currentTimeZone);
-           if(recordTypeName == 'Resource'){
-            obj.RelatedListName =  prevApp.CC_QAppt__Resource_Service_Alignment__r.CC_QAppt__Resource_Staff__r.Name ;
+            obj.startDate = prevApp.CC_QAppt__Start_Date_Time__c.format('MM/dd/yyyy h:mm a',currentTimeZone);
+            obj.endDate = prevApp.CC_QAppt__End_Date_Time__c.format('MM/dd/yyyy h:mm a',currentTimeZone);
+           
+            if(recordTypeName == 'Resource'){
+               List<contact> resourceList =  QuickAppointmentSOQLManager.fetchAllResourceStaff(recordId);
+               if(resourceList.size()>0){
+                   obj.RelatedListName = resourceList[0].Name; 
+               }         
             }
-            if(ObjectName == 'Location'){
-            obj.RelatedListName = prevApp.CC_QAppt__Resource_Service_Alignment__r.Location__r.Name;  
+            
+            if(ObjectName == 'CC_QAppt__Location__c'){
+                  Set<Id> locationid = new set<id>();
+                locationid.add(recordId);
+                List<CC_QAppt__Location__c> LocationList = QuickAppointmentSOQLManager.fetchSelectedLocationForAppointment(locationid);
+                if(LocationList.size()>0){  
+                    obj.RelatedListName =  LocationList[0].Name;
+                }
+                locationid.clear();    
             }
-            if(ObjectName == 'Service'){
-            obj.RelatedListName = prevApp.CC_QAppt__Resource_Service_Alignment__r.Service__r.Name;  
+            if(ObjectName == 'CC_QAppt__Service__c'){
+                Set<Id> Serviceid = new set<id>();
+                Serviceid.add(recordId);
+                List<CC_QAppt__Service__c> selectedServicesList = QuickAppointmentSOQLManager.fetchSelectedServiceForAppointment(Serviceid);
+                if(selectedServicesList.size()>0){  
+                    obj.RelatedListName =  selectedServicesList[0].Name;
+                }
+                Serviceid.clear();
             }
-            if(ObjectName == 'AppointmentCategory'){
-              obj.RelatedListName = prevApp.CC_QAppt__Appointment_Category__r.Name;  
+           
+            if(ObjectName == 'CC_QAppt__Appointment_Category__c'){
+                if( prevApp.CC_QAppt__Appointment_Category__r != null){
+                 obj.RelatedListName =  prevApp.CC_QAppt__Appointment_Category__r.Name;
+                }
             }    
             if(recordTypeName == 'User'){
             obj.RelatedListName = customerList[0].Name;

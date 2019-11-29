@@ -1,6 +1,9 @@
 ({
+    /*******************************************************************************************************
+    * @description This method is used get column headers of datatable.
+    * @returns list of columns name.
+    */
     getPublicHolidays: function(component, event) {
-       console.log(component.get("v.PublicHolidayList"));
         var action = component.get("c.getPublicHolidays");
         action.setParams({
             "locationId": component.get("v.LocationObj").Id
@@ -15,20 +18,32 @@
                 // helper.createObjectData(component, event);
                 if(response.getReturnValue().length>0){
                      component.set("v.PublicHolidayList",response.getReturnValue());
-                     component.set("v.showToast",false);
+                    component.set("v.showTable",true);
+                     component.set("v.showToast",false);                   
+                }               
+                else{
+                    component.find("save").set("v.disabled",true);
+                    component.find("saveClose").set("v.disabled",true);
+                     component.set("v.showTable",false);
+                     component.set("v.showToast",true);
                 }
-               
-                else
-                    component.set("v.showToast",true);
-                    
-               
             }
         });
         // enqueue the server side action  
         $A.enqueueAction(action);
     },
+    
+        /*******************************************************************************************************
+    * @description This method is used to add add new object to PublicHolidayList .
+    * @returns list of columns name.
+    */
     createObjectData: function(component, event) {
-        // get the contactList from component and add(push) New Object to List  
+        // get the PublicHolidayList from component and add(push) New Object to List  
+        if(component.get("v.showTable")==false){
+            component.set("v.showTable",true)
+            component.find("save").set("v.disabled",false);
+            component.find("saveClose").set("v.disabled",false);
+        }
         var RowItemList = component.get("v.PublicHolidayList");
         RowItemList.push({            
             'sObjectType':'CC_QAppt__Public_Holidays__c', 
@@ -36,11 +51,17 @@
             'CC_QAppt__Holiday_Date__c':'',
             'CC_QAppt__Description__c':''
         });
-        // set the updated list to attribute (contactList) again    
+        // set the updated list to attribute (PublicHolidayList) again    
         component.set("v.PublicHolidayList", RowItemList);
     },
+    
+    /*******************************************************************************************************
+    * @description This method is used to save records to database.
+    * @returns list of columns name.
+    */
     Save: function(component, event, helper) { 
-        console.log(component.get("v.PublicHolidayList"));
+        console.log('PublicHolidayList==',component.get("v.PublicHolidayList"));
+        debugger;
         var action = component.get("c.savePublicHolidays");
         action.setParams({
             "reclist": component.get("v.PublicHolidayList")
@@ -49,9 +70,7 @@
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
-                    alert('record Save');
-                
-              
+            
             }
         });
         // enqueue the server side action  

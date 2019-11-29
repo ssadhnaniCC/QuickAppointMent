@@ -1,5 +1,5 @@
 @isTest
-public class TestResourceLightnngController {
+public class TestResourceLightningController {
     @testSetup static void setup() {
         List<contact> resourceList = TestDataFactory.resourceList(10);
         List<CC_QAppt__Location__c> locationList = TestDataFactory.locationList(10);
@@ -68,6 +68,7 @@ public class TestResourceLightnngController {
       Test.startTest();
       ResourceLightningController.ResourceServiceWrapper wrapperResource = ResourceLightningController.getResourcesOnEdit(resourceRecord[0].Id);
       Test.stopTest(); 
+      System.assertEquals(wrapperResource!=null,true,'Unable to fetch Location');
     }
     
     /* method to fetch Available Location List*/

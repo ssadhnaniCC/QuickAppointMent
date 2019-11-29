@@ -37,7 +37,7 @@ public with sharing class AppointmentHelper{
     }
     
     
-    public static list<contact> fetchAllResourceStaffUsers(){
+  /*  public static list<contact> fetchAllResourceStaffUsers(){
         if(Schema.sObjectType.contact.fields.name.isAccessible() && Schema.sObjectType.contact.fields.Capacity__c.isAccessible()
         && Schema.sObjectType.contact.fields.Languages__c.isAccessible() && Schema.sObjectType.contact.fields.Level__c.isAccessible() && Schema.sObjectType.contact.fields.Phone.isAccessible()
         && Schema.sObjectType.contact.fields.MailingCity.isAccessible() && Schema.sObjectType.contact.fields.MailingCountry.isAccessible() && Schema.sObjectType.contact.fields.MailingState.isAccessible()
@@ -46,7 +46,7 @@ public with sharing class AppointmentHelper{
                     MailingState,MailingStreet,MailingPostalCode,location__c from contact where RecordType.Name IN ('Resource', 'Staff')];
         }
         return null;
-    }
+    }*/
     
     public static list<contact> fetchAllResourceStaff(){
         if(Schema.sObjectType.contact.fields.name.isAccessible() && Schema.sObjectType.contact.fields.Capacity__c.isAccessible()

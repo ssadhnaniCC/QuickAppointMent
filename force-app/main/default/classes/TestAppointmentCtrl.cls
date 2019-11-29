@@ -82,6 +82,7 @@ public class TestAppointmentCtrl{
         obj.fetchProviderBasedOnService();
         obj.getLocationList();
         obj.getServiceList();
+        obj.getServiceDuration();
         obj.getProviderList();
         obj.selectedProvider = newCon.id;
         obj.getPriceBasedOnService();
@@ -97,5 +98,167 @@ public class TestAppointmentCtrl{
         obj.cloneExistingRecord(); 
         obj.saveCustomer();     
     }
+    
+    
+    static testMethod void TestSaveAppointment() {
+        
+        Location__c Loc = new Location__c();
+        Loc.Street__c = 'street';
+        Loc.State__c = 'state';
+        Loc.Country__c = 'country';
+        Loc.City__c  = 'city';
+        Loc.Postal_Code__c = '00112233';
+        Loc.Active__c = true;
+        Loc.Coordinates__Latitude__s = 77.000000;
+        Loc.Coordinates__Longitude__s = 102.000000;
+        insert Loc;
+           
+        AppointmentCtrl app = new AppointmentCtrl();
+        app.selectedLocation = Loc.Id;
+        
+        app.saveAppointment();
+        
+    }
+    
+    static testMethod void TestSaveAppointmentForNoLocation() {
+        
+        Service__c  newService = new Service__c ();
+        newService.Name = 'My service';
+        newService.Description__c = 'Service Description';
+         
+        newService.Duration__c = 5;
+        newService.Padding_Time__c = 10;
+        newService.Price__c = 1200;
+        newService.Active__c = true;
+        newService.Chargable__c = true;
+        
+        insert newService;
+           
+        AppointmentCtrl app = new AppointmentCtrl();
+        app.selectedService = newService.Id;
+        
+        app.saveAppointment();
+        
+    }
+    
+     static testMethod void TestSaveAppointmentForNoProvider() {
+        
+        Service__c  newService = new Service__c ();
+        newService.Name = 'My service';
+        newService.Description__c = 'Service Description';
+         
+        newService.Duration__c = 5;
+        newService.Padding_Time__c = 10;
+        newService.Price__c = 1200;
+        newService.Active__c = true;
+        newService.Chargable__c = true;
+        
+        insert newService;
+         
+         
+        Location__c Loc = new Location__c();
+        Loc.Street__c = 'street';
+        Loc.State__c = 'state';
+        Loc.Country__c = 'country';
+        Loc.City__c  = 'city';
+        Loc.Postal_Code__c = '00112233';
+        Loc.Active__c = true;
+        Loc.Coordinates__Latitude__s = 77.000000;
+        Loc.Coordinates__Longitude__s = 102.000000;
+        insert Loc;
+           
+        AppointmentCtrl app = new AppointmentCtrl();
+        app.selectedService = newService.Id;
+        app.selectedLocation = Loc.Id;
+        app.saveAppointment();
+        
+    }
+    
+    static testMethod void TestSaveAppointmentForNoStartTime() {
+        
+        Service__c  newService = new Service__c ();
+        newService.Name = 'My service';
+        newService.Description__c = 'Service Description';
+         
+        newService.Duration__c = 5;
+        newService.Padding_Time__c = 10;
+        newService.Price__c = 1200;
+        newService.Active__c = true;
+        newService.Chargable__c = true;
+        
+        insert newService;
+         
+         
+        Location__c Loc = new Location__c();
+        Loc.Street__c = 'street';
+        Loc.State__c = 'state';
+        Loc.Country__c = 'country';
+        Loc.City__c  = 'city';
+        Loc.Postal_Code__c = '00112233';
+        Loc.Active__c = true;
+        Loc.Coordinates__Latitude__s = 77.000000;
+        Loc.Coordinates__Longitude__s = 102.000000;
+        insert Loc;
+        
+        contact newCon = new contact();
+        newCon.lastname= 'Jams Smith';
+        newCon.Capacity__c = 0;
+        newCon.Languages__c = 'English';
+        
+        insert newCon;
+           
+        AppointmentCtrl app = new AppointmentCtrl();
+        app.selectedService = newService.Id;
+        app.selectedLocation = Loc.Id;
+        app.selectedProvider = newCon.Id;
+        app.saveAppointment();
+        
+    }
+    
+    static testMethod void TestSaveAppointmentForNoEndTime() {
+        
+        Service__c  newService = new Service__c ();
+        newService.Name = 'My service';
+        newService.Description__c = 'Service Description';
+         
+        newService.Duration__c = 5;
+        newService.Padding_Time__c = 10;
+        newService.Price__c = 1200;
+        newService.Active__c = true;
+        newService.Chargable__c = true;
+        
+        insert newService;
+         
+         
+        Location__c Loc = new Location__c();
+        Loc.Street__c = 'street';
+        Loc.State__c = 'state';
+        Loc.Country__c = 'country';
+        Loc.City__c  = 'city';
+        Loc.Postal_Code__c = '00112233';
+        Loc.Active__c = true;
+        Loc.Coordinates__Latitude__s = 77.000000;
+        Loc.Coordinates__Longitude__s = 102.000000;
+        insert Loc;
+        
+        contact newCon = new contact();
+        newCon.lastname= 'Jams Smith';
+        newCon.Capacity__c = 0;
+        newCon.Languages__c = 'English';
+        
+        insert newCon;
+           
+        AppointmentCtrl app = new AppointmentCtrl();
+        app.selectedService = newService.Id;
+        app.selectedLocation = Loc.Id;
+        app.selectedProvider = newCon.Id;
+        app.startDate = '2015-10-07';
+        app.fromCloneButton = true;
+        app.checkDobuleBooking = false;
+        app.saveAppointment();
+        
+    }
+    
+    
     
 }

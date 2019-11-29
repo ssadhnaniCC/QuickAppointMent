@@ -47,7 +47,7 @@
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS" ) {
-                // alert('record deleted');                         
+                                   
                 /*var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     "title": "Success!",

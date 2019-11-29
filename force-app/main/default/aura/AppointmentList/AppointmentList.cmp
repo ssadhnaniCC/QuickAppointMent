@@ -1,4 +1,4 @@
-<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="AppointmentLightningController">
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global" controller="AppointmentLightningController">
   <!--@description contains attributes for Storing Pagination Data-->
     <aura:attribute name="paginationData" type="Object[]"/>
   
@@ -25,13 +25,17 @@
     <aura:attribute name="sortBy" type="String" />
     <aura:attribute name="sortDirection" type="String" />
     
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
   <!--@description hanldes Aura Method-->  
     <aura:method name="relatedAppointments" action="{!c.getRelatedAppointments}">
         <aura:attribute name="objectName" type="String" />
         <aura:attribute name="Id" type="String" />
     </aura:method> 
     <hr/>
-    
+    <aura:if isTrue = "{!not(v.relatedAppointment.length > 0)}">
+            <c:pageHeader headerName="Appointments" iconName="standard:related_list" iconSize="medium"/>   
+    </aura:if>
     <aura:if isTrue = "{!v.relatedAppointment.length > 0}">
         <!-- Calling Header PageHeader to show header -->
         <c:pageHeader headerName="{!v.relatedAppointment[0].ResourceStaffOrCustomer + ' ' +'Appointments'}" iconName="standard:related_list" iconSize="medium"/>   
@@ -62,7 +66,7 @@
             </div>
         
     </aura:if>
-    <aura:if isTrue="{!v.showToast}">
+    <aura:if isTrue="{!and(v.showToast,v.relatedAppointment.length==0)}">
         <div class=" slds-m-top_x-small slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
             <h2>There is no Appointment</h2>
             <div class="slds-notify__close">

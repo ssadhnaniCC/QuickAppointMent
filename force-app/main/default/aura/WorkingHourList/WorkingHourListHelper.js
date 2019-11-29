@@ -3,6 +3,10 @@
         
     },
     
+    /*******************************************************************************************************
+    * @description Method for all column action
+   */
+    
     getColumnAndAction : function(component) {
         
         var action = component.get("c.getWorkingHourFieldSet");
@@ -30,6 +34,10 @@
         $A.enqueueAction(action);
     }, 
     
+    /*******************************************************************************************************
+    * @description Method to fetch all working hour list
+   */
+    
     getWorkingHour : function(component,helper) {
         component.set('v.isSpinner',true);
         
@@ -41,12 +49,12 @@
                 
                 var resultData = response.getReturnValue();
                 if(resultData.length>0) {
-                    console.log('resultData=',resultData);
+                    
                     component.set('v.showToast',false);
                     var dataSize=resultData.length;
                     component.set("v.dataSize", resultData.length);
                     component.set("v.allRecords",resultData);             
-                    console.log(resultData);             
+                    
                     var recSize=parseInt(component.get("v.pageSize"));
                     var num=0;
                     var pgNumber=0;
@@ -64,7 +72,7 @@
                         }                
                     }
                     component.set("v.paginationList",customerRecords);  
-                    console.log(component.get("v.paginationList")); 
+                    
                     component.set("v.isSpinner",false);
                     component.set("v.data",component.get("v.paginationList"));
                     component.set("v.hideFooter",true);
@@ -116,56 +124,11 @@
         $A.enqueueAction(action);
     },
     
-    deleteRecord : function(component, event,helper) {         
-        var action = component.get("c.deleteWorkingHour");       
-        var rowId=event.getParam('row').Id;        
-        action.setParams({
-            "workingHourId":rowId
-        });
-        action.setCallback(this, function(response) {
-            var state = response.getState();
-            if (state === "SUCCESS" ) {
-                // alert('record deleted');                         
-                /*var toastEvent = $A.get("e.force:showToast");
-                toastEvent.setParams({
-                    "title": "Success!",
-                    "message": "The record has been delete successfully."
-                });
-                toastEvent.fire();              
-               */
-                //component.set("v.pageNumber",1);
-                this.getWorkingHour(component,helper);
-            }
-            else if (state === "INCOMPLETE") {
-                // do something
-            }
-                else if (state === "ERROR") {
-                    var errors = response.getError();
-                    if (errors) {
-                        if (errors[0] && errors[0].message) {
-                            console.log("Error message: " + 
-                                        errors[0].message);
-                        }
-                    } else {
-                        console.log("Unknown error");
-                    }
-                }
-        });
-            $A.enqueueAction(action);
-        },  
+    
     
     /*******************************************************************************************************
-    * @description This method is edit working hour record.
-    * @returns void.
-    */
-    editRecord : function(component, event) {
-        component.set("v.isModalOpen",true);
-        var rowId = event.getParam('row').Id;
-        console.log('rowId',rowId);
-        // component.set("v.customerRecord",row);  
-        var NewWorkingHourComponent = component.find("NewWorkingHour");
-        NewWorkingHourComponent.GetWorkingHourRecords(rowId);
-    }, 
+    * @description Method to handle sorting in datatable
+   */
     
     sortData : function(component,fieldName,sortDirection){
         var data = component.get("v.data");
@@ -173,7 +136,7 @@
         var key = function(a) { return a[fieldName]; }
         var reverse = sortDirection == 'asc' ? 1: -1;      
         // to handel number/currency type fields 
-        console.log('fieldname',fieldName);
+        
         if(fieldName == 'Start Date'){ 
             data.sort(function(a,b){
                 var a = key(a) ? key(a) : '';
@@ -192,6 +155,9 @@
         component.set("v.data",data);
     },
     
+    /*******************************************************************************************************
+    * @description In this method we handle pagination
+   */
     
     pagination:function(component,event,helper){
         var allRecords=[];
@@ -216,13 +182,13 @@
         var start=(parseInt(component.get("v.pageNumber"))-1)*parseInt(component.get("v.pageSize"));       
         var j=0;
         var tempArray=[];
-        console.log('in pagination',allRecords);
+        
         for(var i=start;i<total;i++){
             if(j>=recSize){
                 break;  
             }
             if(allRecords[i]!='undefined'){
-                console.log(i);
+                
                 tempArray.push(allRecords[i]);
                 j++;               
             }            
@@ -233,10 +199,14 @@
         } else{
             component.set("v.isLastPage", false);
         }
-        console.log('after pagination',tempArray);
+        
         component.set("v.paginationList",tempArray);
         component.set("v.data", tempArray);
     },
+    
+    /*******************************************************************************************************
+    * @description Method to fetch resource name
+   */
     
     fetchResourceName : function(component,event,resourceId) {
         var action = component.get('c.getResourceName');
@@ -246,9 +216,9 @@
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS" ) {
-                console.log('Name==',response.getReturnValue());
+                
                 component.set('v.resourceRecord',response.getReturnValue());
-                console.log('resourceRecord==',component.get('v.resourceRecord'));
+                
                 // alert('record deleted');                         
                 /*var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
@@ -267,15 +237,14 @@
                     var errors = response.getError();
                     if (errors) {
                         if (errors[0] && errors[0].message) {
-                            console.log("Error message: " + 
-                                        errors[0].message);
+                            
                         }
                     } else {
-                        console.log("Unknown error");
+                        
                     }
                 }
         });
-            $A.enqueueAction(action);
-        }
+        $A.enqueueAction(action);
+    }
     
 })

@@ -9,24 +9,31 @@ public class PublicHolidayLightningController {
     }
     
      @AuraEnabled
-    public  static void savePublicHolidays(list<CC_QAppt__Public_Holidays__c> reclist){      
+    public  static boolean savePublicHolidays(list<CC_QAppt__Public_Holidays__c> reclist){      
             //CC_QAppt__Public_Holidays__c Obj=new CC_QAppt__Public_Holidays__c(Name=rec.Name,CC_QAppt__Description__c=rec.CC_QAppt__Description__c,CC_QAppt__Holiday_Date__c=rec.CC_QAppt__Holiday_Date__c,CC_QAppt__Location__c=rec.CC_QAppt__Location__c);      
-        upsert reclist;       
+        try{
+            upsert reclist; 
+        }
+        catch(DMLException e){
+            system.debug('error'+e.getMessage());
+        }
+        return true;
         } 
      @AuraEnabled
     public  static list<CC_QAppt__Public_Holidays__c> getPublicHolidays(Id locationId){      
-            return [select Name,CC_QAppt__Description__c,CC_QAppt__Holiday_Date__c  from CC_QAppt__Public_Holidays__c where CC_QAppt__Location__c=:locationId];      
+            return QuickAppointmentSOQLManager.getPublicHolidays(locationId);      
               
         } 
     @AuraEnabled
-    public  static void deletePublicHoliday(list<id> recList){
-        Database.delete(recList,false);
+    public  static boolean deletePublicHoliday(list<id> recList){
+        try{
+             Database.delete(recList,true);
+        }
+        catch(DMLException e){
+            system.debug('error'+e.getMessage());
+            
+        }
+       return true;
         } 
-    
-    public class publicHolidayWrapper{
-        @AuraEnabled   public String name;
-        @AuraEnabled   public String location;
-        @AuraEnabled   public date holidayDate;
-    }
     
 }

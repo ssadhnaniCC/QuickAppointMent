@@ -7,13 +7,10 @@
             {label: 'Appointment Name', fieldName: 'Name', type: 'text' , sortable: true},
             {label: 'Location', fieldName: 'Location', type: 'text' , sortable: true}, 
             {label: 'Service', fieldName: 'Service', type: 'text' , sortable: true},     
-            {label: 'ResourceStaff', fieldName: 'ResourceStaff', type: 'text' , sortable: true},     
             {label: 'Start Date	', fieldName: 'StartDate', type: 'text' , sortable: true},     
-            {label: 'End Date', fieldName: 'EndDate', type: 'text' , sortable: true},     
             {label: 'Status', fieldName: 'Status', type: 'text' , sortable: true},         
         ]);
-            console.log("recordId"+component.get("v.recordId"));
-            console.log("objName"+component.get("v.objName"));
+            
             var action = component.get("c.relatedAppointment");
             action.setParams({
             "ObjectName" : component.get("v.objName"),
@@ -44,10 +41,10 @@
             this.handleFirstLast(component,event,helper,component.get("v.pageNumber"));
             }   
             }
-          }
-       }
+            }
+            }
             else {
-            console.log('Failed with state: ' + state);
+            
             }               
             });
             $A.enqueueAction(action);  

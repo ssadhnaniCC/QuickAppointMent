@@ -1,5 +1,5 @@
 ({
-   
+    
     /*******************************************************************************************************
     * @description This is the method which will handle delete service record row
    */
@@ -49,12 +49,12 @@
         component.set("v.showRelatedAppointment",false);
         component.set('v.serviceId',' ');
         var row = event.getParam('row');  
-       
+        
         component.set("v.isModelOpen",true);   
         component.set("v.serviceId",row.Id);  
         var childCmp = component.find("childComp");
         var retnMsg = childCmp.getEditMethod();   
-       
+        
     },    
     
     /*******************************************************************************************************
@@ -62,21 +62,23 @@
    */
     
     getServiceRecords : function(component,event,helper) {
-       component.set('v.isSpinner',true);
+        component.set('v.isSpinner',true);
         var action = component.get('c.getAllServices');
         action.setCallback(this, function(response){
             
             var state = response.getState();
             if(state === 'SUCCESS' && component.isValid()){
-              
-               var responseData = response.getReturnValue();
+                
+                var responseData = response.getReturnValue();
                 
                 this.getColumnOfServices(component,event,responseData.listOfFieldSets);
-                
+                 responseData.listOfServices.forEach(function(record){
+                    record.linkName = '/'+record.Id;
+                });
                 component.set('v.data',responseData.listOfServices);
                 var dataLength = component.get('v.data').length;
                 var pageSize = component.get('v.pageSize');
-               
+                
                 component.set("v.totalSize", dataLength);
                 component.set("v.dataSize", dataLength);
                 var recSize=parseInt(component.get("v.pageSize"));
@@ -127,52 +129,53 @@
                     component.set("v.isLastPage", false);
                 }          
                 
-               
+                
             }
-             else if (state === "ERROR") {
-                    var errors = response.getError();
-                    if (errors) {
-                        if (errors[0] && errors[0].message) {
-                            console.log("Error message: " + 
-                                        errors[0].message);
-                        }
-                    } else {
-                        console.log("Unknown error");
+            else if (state === "ERROR") {
+                var errors = response.getError();
+                if (errors) {
+                    if (errors[0] && errors[0].message) {
+                        console.log("Error message: " + 
+                                    errors[0].message);
                     }
+                } else {
+                    console.log("Unknown error");
                 }
+            }
             
         });
         $A.enqueueAction(action);
     },
-
-
-/*******************************************************************************************************
+    
+    
+    /*******************************************************************************************************
     * @description This is the method which will handle edit, delete functionality for table row
    */    
     getColumnOfServices : function(component,event,columnList) {
-         var actions = [
+        var actions = [
             {label: 'Edit', name: 'edit'},
             {label: 'Delete', name: 'delete'},
             {label: 'Appointment', name: 'appointment'},
             {label: 'View Calendar', name: 'calendar'}, 
         ];
-             
-             var colNames = columnList;
-             colNames.push({type: 'action', typeAttributes: { rowActions: actions }});
-             component.set('v.columns',colNames);
-    },
-    
-   /*******************************************************************************************************
+            
+            var colNames = columnList;
+            colNames.splice(0, 1,{label: 'Service Name', fieldName: 'linkName',sortable: true, type: 'url', typeAttributes: {label: { fieldName: 'Name' }, target: '_blank'}});
+            colNames.push({type: 'action', typeAttributes: { rowActions: actions }});
+            component.set('v.columns',colNames);
+            },
+            
+            /*******************************************************************************************************
     * @description This is the method which will handle the pagination functionlity for datatable
    */
-    
-    pagination:function(component,event,helper){
-        //alert();
-        var allRecords=[];
+             
+             pagination:function(component,event,helper){
+             //alert();
+             var allRecords=[];
         var totalPages=0;        
         if(component.get("v.onSearch")){
             allRecords=component.get("v.searchList");            
-           
+            
             component.set("v.pageNumber",1);
             totalPages=Math.ceil((allRecords.length)/10);
             component.set("v.onSearch",false);
@@ -192,12 +195,12 @@
                 break;  
             }
             if(allRecords[i]!='undefined'){
-                console.log(i);
+                
                 tempArray.push(allRecords[i]);
                 j++;               
             }            
         }
-                
+        
         if(pgNumber==totalPages){
             component.set("v.isLastPage", true);
         } else{
@@ -209,7 +212,7 @@
     },
     
     
-
+    
     sortData : function(component,fieldName,sortDirection){
         var data = component.get("v.filteredData");
         //function to return the value stored in the field
@@ -233,18 +236,18 @@
         //set sorted data to accountData attribute
         component.set("v.filteredData",data);
     },
-     showRelatedAppointments : function(component,event,helper){
+    showRelatedAppointments : function(component,event,helper){
         component.set("v.showCalendar",false);
         var recordId = event.getParam('row').Id;
         var childCmp = component.find("childAppointment");
-        var retnMsg = childCmp.relatedAppointments('Service',recordId);    
+        var retnMsg = childCmp.relatedAppointments('CC_QAppt__Service__c',recordId);    
     },
-      showRelatedCalendar : function(component,event,helper){
-            component.set("v.showRelatedAppointment",false);
-           var recordId = event.getParam('row').Id;
-           var childCmp = component.find("childCalendar");
-           var retnMsg = childCmp.relatedcalendar('Service',recordId);  
-       },
-   
+    showRelatedCalendar : function(component,event,helper){
+        component.set("v.showRelatedAppointment",false);
+        var recordId = event.getParam('row').Id;
+        var childCmp = component.find("childCalendar");
+        var retnMsg = childCmp.relatedcalendar('CC_QAppt__Service__c',recordId);  
+    },
+    
     
 })

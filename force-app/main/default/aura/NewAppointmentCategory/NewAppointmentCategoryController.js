@@ -3,8 +3,7 @@
     * @description This method is used to initialize NewCustomer component.
     * @returns void.
     */
-	onInit : function(component, event, helper) {
-        console.log('dfdf');
+	onInit : function(component, event, helper) {       
         component.set("v.AppointmentCategoryRecord",{});
 	},
     /*******************************************************************************************************
@@ -91,15 +90,13 @@
             if (params) {
              param1 = params.recordId;
         }
-       var action = component.get("c.getAppointmentCategories");       
-        //var rowId=event.getParam('row').Id;        
+       var action = component.get("c.getAppointmentCategories");                       
         action.setParams({
-            "appointmentId":param1
+            'appointmentCategoryId':param1
         });
         action.setCallback(this, function(response) {
             var state = response.getState();
-            if (state === "SUCCESS" ) {
-               // alert('record deleted');                         
+            if (state === "SUCCESS" ) {                         
                 /*var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                     "title": "Success!",
@@ -108,15 +105,11 @@
                 toastEvent.fire();              
                */
                 //component.set("v.pageNumber",1);
-                //this.getCategories(component,helper);
-                console.log('hey');
-               
+                //this.getCategories(component,helper);                            
                 var recdetails=response.getReturnValue()[0];
-                Object.keys(recdetails).forEach((key,index)=>{
-                     console.log('hey');
+                Object.keys(recdetails).forEach((key,index)=>{                    
                     switch(key) {
-  case 'CC_QAppt__IsAssetMandatory__c':
-                    
+  case 'CC_QAppt__IsAssetMandatory__c':                   
     helper.hideOrShowCheckbox(component, event, helper,'multipleAsset',recdetails[key]);
     break;
   case 'CC_QAppt__IsAttendeeMandatory__c':
@@ -131,27 +124,25 @@
                     case 'CC_QAppt__IsLocationMandatory__c':
                     // code block
                     helper.hideOrShowCheckbox(component, event, helper,'multipleLocation',recdetails[key]);
-    break;
-                   
+    break;                  
                     case 'CC_QAppt__IsServiceMandatory__c':
                     // code block
                   helper.hideOrShowCheckbox(component, event, helper,'multipleService',recdetails[key]);
     break;
-                    
-                                                       
+                                                                           
   default:
     // code block
      return;
 }
-                    console.log(key,recdetails[key]);})
-                console.log('recdetail',recdetails);
+                    
+               
                 for(var i=0;i<recdetails.length;i++){
-                    console.log('recdetail',recdetails[i]);
+                   
                   //  hideOrShowCheckbox(component, event, helper,recdetails)
-                }
-                console.log(response.getReturnValue()[0]);
+                }              
                 component.set("v.AppointmentCategoryRecord",response.getReturnValue()[0]);
-            }
+            });
+        }
             else if (state === "INCOMPLETE") {
                 // do something
             }

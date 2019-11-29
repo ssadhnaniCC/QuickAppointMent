@@ -2,7 +2,7 @@ public class QuickAppointmentSOQLManager {
     
     @AuraEnabled
     public static list<Service__c> fetchAllServices(){
-        return [select name,Description__c,Duration__c,Price__c from Service__c ];
+        return [select Id,name,Description__c,Duration__c,Price__c from Service__c ];
         
     }
     @AuraEnabled
@@ -26,24 +26,37 @@ public class QuickAppointmentSOQLManager {
         }
     }
     @AuraEnabled
-    public  static List<CC_QAppt__Appointment_Category__c> getAppointmentCategories(Id appointmentId){   
-        if(appointmentId!=null){
-            return [select Id,Name,CC_QAppt__IsAssetMandatory__c,CC_QAppt__IsAttendeeMandatory__c,CC_QAppt__IsMultipleAsset__c,CC_QAppt__IsMultipleAttendee__c,	CC_QAppt__IsMultipleLocation__c,	CC_QAppt__IsMultipleResource__c,CC_QAppt__IsMultipleService__c,CC_QAppt__IsResourceMandatory__c,CC_QAppt__IsLocationMandatory__c,CC_QAppt__IsAvaliablePublically__c,CC_QAppt__IsServiceMandatory__c,CC_QAppt__IsPricingApplicable__c from CC_QAppt__Appointment_Category__c where id=:appointmentId];
+    public  static List<CC_QAppt__Appointment_Category__c> getAppointmentCategories(Id appointmentCategoryId){   
+        if(appointmentCategoryId!=null){
+            return [select Id,Name,CC_QAppt__IsAssetMandatory__c,CC_QAppt__IsAttendeeMandatory__c,CC_QAppt__IsMultipleAsset__c,CC_QAppt__IsMultipleAttendee__c,	CC_QAppt__IsMultipleLocation__c,CC_QAppt__IsMultipleResource__c,CC_QAppt__IsMultipleService__c,CC_QAppt__IsResourceMandatory__c,CC_QAppt__IsLocationMandatory__c,CC_QAppt__IsAvaliablePublically__c,CC_QAppt__IsServiceMandatory__c,CC_QAppt__IsPricingApplicable__c from CC_QAppt__Appointment_Category__c where id=:appointmentCategoryId];
         }
         else{
-            return [select Id,CC_QAppt__IsLocationMandatory__c,Name,CC_QAppt__IsAvaliablePublically__c,CC_QAppt__IsServiceMandatory__c,CC_QAppt__IsPricingApplicable__c from CC_QAppt__Appointment_Category__c limit 100];
+            return [select Id,CC_QAppt__IsLocationMandatory__c,CC_QAppt__IsMultipleLocation__c,CC_QAppt__IsAttendeeMandatory__c,CC_QAppt__IsMultipleAttendee__c,CC_QAppt__IsAssetMandatory__c,CC_QAppt__IsMultipleAsset__c,CC_QAppt__IsResourceMandatory__c,CC_QAppt__IsMultipleResource__c,Name,CC_QAppt__IsAvaliablePublically__c,CC_QAppt__IsServiceMandatory__c,CC_QAppt__IsMultipleService__c,CC_QAppt__IsPricingApplicable__c from CC_QAppt__Appointment_Category__c limit 100];
         }
         
     }  
+
+    public static List<CC_QAppt__Appointment_Category__c> getPublicAppointmentCategories(){
+      return [select Id,CC_QAppt__IsLocationMandatory__c,CC_QAppt__IsMultipleLocation__c,CC_QAppt__IsAttendeeMandatory__c,CC_QAppt__IsMultipleAttendee__c,CC_QAppt__IsAssetMandatory__c,CC_QAppt__IsMultipleAsset__c,CC_QAppt__IsResourceMandatory__c,CC_QAppt__IsMultipleResource__c,Name,CC_QAppt__IsAvaliablePublically__c,CC_QAppt__IsServiceMandatory__c,CC_QAppt__IsMultipleService__c,CC_QAppt__IsPricingApplicable__c from CC_QAppt__Appointment_Category__c where CC_QAppt__IsAvaliablePublically__c = true limit 100];
+        
+    }
+    
+    public static List<contact> getRecentCustomers(){
+     return [select Id,firstname,lastname,name,email,phone,Description,recordtype.name,MailingStreet,MailingCity,MailingState,MailingCountry,MailingPostalcode from contact where recordtype.name =: 'User' order by lastmodifieddate desc  LIMIT 100]; 
+
+        
+    }
+    public static List<Contact> filterCustomers(String CustName){
+        String searchKey = '%' + CustName + '%';
+        return [select Id,firstname,lastname,name,email,phone,Description,recordtype.name,MailingStreet,MailingCity,MailingState,MailingCountry,MailingPostalcode from contact where Name Like :searchKey  And recordtype.name =: 'User' ORDER BY LastModifiedDate DESC  LIMIT 100];
+    }
     
     @AuraEnabled
-    public  static List<CC_QAppt__Public_Holidays__c> getPublicHolidays(Id recordId){   
-        if(recordId!=null){
-            return [select Id,Name,CC_QAppt__Holiday_Date__c,CC_QAppt__Location__r.Name from CC_QAppt__Public_Holidays__c where id=:recordId ];
+    public  static List<CC_QAppt__Public_Holidays__c> getPublicHolidays(Id locationId){   
+        if(locationId!=null){
+            return [select Id,Name,CC_QAppt__Holiday_Date__c,CC_QAppt__Location__r.Name from CC_QAppt__Public_Holidays__c where CC_QAppt__Location__c=:locationId ];
         }
-        else{
-            return [select Id,Name,CC_QAppt__Holiday_Date__c,CC_QAppt__Location__r.Name from CC_QAppt__Public_Holidays__c  order by lastmodifieddate desc limit 1000];
-        }
+        return null;
         
     }  
     
@@ -64,8 +77,30 @@ public class QuickAppointmentSOQLManager {
         return [SELECT Id,name,CC_QAppt__City__c,CC_QAppt__Country__c,CC_QAppt__Postal_Code__c,CC_QAppt__State__c,CC_QAppt__Street__c,CC_QAppt__Valid__c FROM CC_QAppt__Location__c Limit 10000];
     }   
     public static List<CC_QAppt__Location_Service__c> getDependentService(Set<Id> LocationIds){
-        return [select CC_QAppt__Service__c,CC_QAppt__Service__r.name, CC_QAppt__Location__c from CC_QAppt__Location_Service__c where location__c IN: LocationIds];
+        return [select CC_QAppt__Service__c,CC_QAppt__Service__r.name, CC_QAppt__Location__c  , CC_QAppt__Service__r.CC_QAppt__Price__c from CC_QAppt__Location_Service__c where location__c IN: LocationIds];
     }
+    
+    
+    public static List<Contact> getDependentResourceStaff(Set<Id> ServiceIds){
+     Set<Id> resourceIds = new set<Id>();  
+    List<Resource_Service_Alignment__c> resourceServiceAlignment =  [select name,CC_QAppt__Service__c,CC_QAppt__Resource_Staff__c,CC_QAppt__Resource_Staff__r.name,CC_QAppt__Resource_Staff__r.Capacity__c from Resource_Service_Alignment__c where Service__c IN: ServiceIds];
+        for(Resource_Service_Alignment__c resource   : resourceServiceAlignment){
+            resourceIds.add(resource.CC_QAppt__Resource_Staff__c);
+        }
+      return [select id,name from contact where id in:resourceIds];
+    }
+    
+    public static List<Contact> getResourceStaffBasedOnLocation(Set<Id> locationIds){
+     Set<Id> resourceIds = new set<Id>();  
+    List<Resource_Service_Alignment__c> resourceServiceAlignment =  [select name,CC_QAppt__Service__c,CC_QAppt__Resource_Staff__c,CC_QAppt__Resource_Staff__r.name,CC_QAppt__Resource_Staff__r.Capacity__c from Resource_Service_Alignment__c where CC_QAppt__Location__c IN: locationIds];
+        for(Resource_Service_Alignment__c resource   : resourceServiceAlignment){
+            resourceIds.add(resource.CC_QAppt__Resource_Staff__c);
+        }
+      return [select id,name from contact where id in:resourceIds];
+    }
+    
+    
+    
     
     //Get Selected Locations
     public static List<location__c> getSelectedLocationWithSer(String serId) {
@@ -89,28 +124,38 @@ public class QuickAppointmentSOQLManager {
         return locList;
     }
     public static List<CC_QAppt__Appointment__c> getPreviousAppointments(String objName, String RecordId){
-        system.debug('recordId'+RecordId);
         if(RecordId != '' && objName != '' ){
-            String query = 'select id,name,CC_QAppt__Appointment_Category__r.Name,CC_QAppt__Resource_Service_Alignment__r.Location__r.Name,CC_QAppt__Resource_Service_Alignment__r.Location__r.street__c,CC_QAppt__Resource_Service_Alignment__r.Service__r.Name,CC_QAppt__Resource_Service_Alignment__r.Resource_Staff__r.name,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c,CC_QAppt__Capacity__c,CC_QAppt__Total_Participants__c,CC_QAppt__Description__c from Appointment__c';
-            if(objName == 'Contact'){
-                query += ' where Start_Date_Time__c != null And Resource_Service_Alignment__r.Resource_Staff__c =:  RecordId';      
-            }
-            if(objName == 'Location'){
-                system.debug('Location');
-                query += ' where Start_Date_Time__c != null And Resource_Service_Alignment__r.CC_QAppt__Location__c =:  RecordId';       
-            }
-            if(objName == 'Service'){
-                query += ' where Start_Date_Time__c != null And Resource_Service_Alignment__r.CC_QAppt__Service__c =:  RecordId';       
-            }
-            if(objName == 'AppointmentCategory'){
-                query += ' where Start_Date_Time__c != null And CC_QAppt__Appointment_Category__c =:  RecordId';          
+            String query = 'select id,name,CC_QAppt__Appointment_Category__r.Name,CC_QAppt__Resources__c,CC_QAppt__Description__c,CC_QAppt__Services__c,CC_QAppt__Locations__c,CC_QAppt__Assets__c,CC_QAppt__Attendees__c,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c from Appointment__c  where Start_Date_Time__c != null ';      
+            if(objName == 'CC_QAppt__Appointment_Category__c'){
+                query += ' And CC_QAppt__Appointment_Category__c =:  RecordId';          
             }
             List<CC_QAppt__Appointment__c> applist = Database.query(query);
-            return applist;
+            List<CC_QAppt__Appointment__c> filteredAppointments = new List<CC_QAppt__Appointment__c>(); 
+            if(objName == 'CC_QAppt__Appointment_Category__c'){
+               filteredAppointments.addAll(applist); 
+            }
+            for(CC_QAppt__Appointment__c app : applist){
+                if(objName == 'Contact'){
+                    if( app.CC_QAppt__Resources__c !=null && app.CC_QAppt__Resources__c.contains(RecordId)){
+                       filteredAppointments.add(app); 
+                    }
+                }
+                if(objName == 'CC_QAppt__Location__c'){
+                    if(app.CC_QAppt__Locations__c !=null  && app.CC_QAppt__Locations__c.contains(RecordId)){
+                         filteredAppointments.add(app);
+                    }
+                }
+                if(objName == 'CC_QAppt__Service__c'){
+                     if( app.CC_QAppt__Services__c !=null && app.CC_QAppt__Services__c.contains(RecordId)){
+                         filteredAppointments.add(app);
+                    }
+                }
+            }
+            return filteredAppointments;
         }
         else{
-            system.debug('Else');
-            return  [select id,name,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Resource_Service_Alignment__r.Service__r.Name,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c,CC_QAppt__Capacity__c,CC_QAppt__Total_Participants__c,CC_QAppt__Description__c from Appointment__c where Start_Date_Time__c != null];     
+            List<CC_QAppt__Appointment__c> applist = [select id,name,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c,CC_QAppt__Description__c from CC_QAppt__Appointment__c where Start_Date_Time__c != null];     
+            return applist;
         }
     }
     public static List<CC_QAppt__Appointment__c> getPreviousAppointmentsForCustomers(String customerId){
@@ -121,14 +166,27 @@ public class QuickAppointmentSOQLManager {
             for(Participant__c p : PartList){
                 appIds.add(p.Appointment__c);
             }
-            
-            return  [select name,Status__c,Resource_Service_Alignment__r.Location__r.street__c,Resource_Service_Alignment__r.Location__r.city__c,Resource_Service_Alignment__r.Service__r.name,Resource_Service_Alignment__r.Service__r.Price__c,Discount__c,
-                     Resource_Service_Alignment__r.Resource_Staff__r.name,Description__c,Start_Date_Time__c,End_Date_Time__c
-                     from Appointment__c where id in :appIds];
+            return  [select id,name,CC_QAppt__Appointment_Category__r.Name,CC_QAppt__Resources__c,CC_QAppt__Description__c,CC_QAppt__Services__c,CC_QAppt__Locations__c,CC_QAppt__Assets__c,CC_QAppt__Attendees__c,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c from Appointment__c where id in :appIds];
         }
         else{
             return  [select id,name,CC_QAppt__Start_Date_Time__c,CC_QAppt__End_Date_Time__c,CC_QAppt__Busy_Time__c,CC_QAppt__Status__c,CC_QAppt__Capacity__c,CC_QAppt__Total_Participants__c,CC_QAppt__Description__c from Appointment__c where Start_Date_Time__c != null];     
         }
+    }
+    public static List<CC_QAppt__Appointment__c> getAppointmentOnEdit(String appId){
+        return [select id,name,CC_QAppt__Status__c,CC_QAppt__Appointment_Category__c,CC_QAppt__Description__c,CC_QAppt__TotalPrice__c,CC_QAppt__Duration__c,CC_QAppt__Start_Date_Time__c,CC_QAppt__Locations__c,CC_QAppt__Services__c,CC_QAppt__Resources__c,CC_QAppt__Assets__c,CC_QAppt__Attendees__c,CC_QAppt__Discount__c,CC_QAppt__End_Date_Time__c from CC_QAppt__Appointment__c where id =:appId];
+    }        
+    
+    public static List<CC_QAppt__Location__c> fetchSelectedLocationForAppointment(Set<Id> locationIds){
+           return [SELECT Id,name,CC_QAppt__City__c,CC_QAppt__Country__c,CC_QAppt__Postal_Code__c,CC_QAppt__State__c,CC_QAppt__Street__c,CC_QAppt__Valid__c FROM CC_QAppt__Location__c where id In:locationIds];
+        
+    }
+    
+     public static List<CC_QAppt__Service__c> fetchSelectedServiceForAppointment(Set<Id> serviceIds){
+           return [select Id,name,Description__c,Duration__c,CC_QAppt__Price__c from Service__c  where id In:serviceIds];    
+    }
+    public static List<Contact> fetchSelectedResourcesForAppointment(Set<Id> resourcesIDs){
+         return [select Id,name,RecordType.Name,Capacity__c,Languages__c,Level__c,Phone,MailingCity,MailingCountry,
+                    MailingState,MailingStreet,MailingPostalCode,location__c from contact where RecordType.Name IN ('Resource', 'Staff') And Id In: resourcesIDs]; 
     }
     
     /*
@@ -220,4 +278,37 @@ public class QuickAppointmentSOQLManager {
     public static List<CC_QAppt__Participant__c> getUpcomingCustomer(){
         return[select CC_QAppt__Appointment__r.Name ,CC_QAppt__Participant_Name__r.Name, CC_QAppt__Appointment__r.CC_QAppt__Start_Date_Time__c from CC_QAppt__Participant__c WHERE CC_QAppt__Appointment__r.CC_QAppt__Start_Date_Time__c >= TODAY];
     }
-}
+    
+    /*******************************************************************************************************
+    * @description This method is used for getting total number of rate.
+    * @returns Integer.
+    */
+    public static Integer totalRating(){
+        list<CC_QAppt__Appointment_Feedback__c> rate = [select id, CC_QAppt__Rating__c from CC_QAppt__Appointment_Feedback__c where CC_QAppt__Rating__c != null];
+        return rate.size();
+    }
+    public static List<CC_QAppt__Attendee__c> fetchAttendeeList(Set<id> selectedAttendeeIds){
+        if(selectedAttendeeIds !=null){
+        return [select id,Name from CC_QAppt__Attendee__c where id In:selectedAttendeeIds];
+        }
+        else{
+         return [select id,Name from CC_QAppt__Attendee__c];
+        }
+    } 
+      public static List<CC_QAppt__Asset__c> fetchAssetList(Set<Id> selectedAssetList){
+        if(selectedAssetList !=null){
+         return [select id,Name from CC_QAppt__Asset__c where id In:selectedAssetList];
+        }
+          else{
+            return [select id,Name from CC_QAppt__Asset__c];
+          }
+    } 
+    public static List<contact> selectedCustomerListForEditAppointment(String appId){
+        Set<Id> customerids = new Set<Id>();
+     List<Participant__c> PartList = [select Appointment__c,Participant_Name__c from Participant__c where Appointment__c =: appId];    
+        for(Participant__c customerId : PartList){
+            customerids.add(customerId.Participant_Name__c);
+        }
+       return [select Id,firstname,lastname,name,email,phone,Description,recordtype.name,MailingStreet,MailingCity,MailingState,MailingCountry,MailingPostalcode from contact where recordtype.name =: 'User' And Id In:customerids]; 
+    } 
+ }

@@ -41,33 +41,33 @@
                     <lightning:verticalNavigationItemIcon
                                                           label="Appointment Category"
                                                           name="appointmentcategory"
-                                                          iconName="standard:dashboard_ea"/>
+                                                          iconName="standard:category"/>
                     
                    
                     <lightning:verticalNavigationItemIcon
                                                           label="Locations"
                                                           name="locations"
-                                                          iconName="utility:user"/>
+                                                          iconName="standard:location"/>
                     
                     <lightning:verticalNavigationItemIcon
                                                           label="Services"
                                                           name="services"
-                                                          iconName="utility:lock"/>
+                                                          iconName="standard:maintenance_plan"/>
                     
                     <lightning:verticalNavigationItemIcon
                                                           label="Resource Staff"
                                                           name="resource_staff"
-                                                          iconName="utility:groups"/>
+                                                          iconName="standard:user"/>
                    
                    <lightning:verticalNavigationItemIcon
                                                           label="Customer"
                                                           name="customer"
-                                                          iconName="utility:groups"/>
+                                                          iconName="standard:groups"/>
                    
                    <lightning:verticalNavigationItemIcon
                                                           label="Calendar"
                                                           name="calendar"
-                                                          iconName="utility:groups"/>
+                                                          iconName="standard:date_time"/>
                     
                 </lightning:verticalNavigationSection>
             </lightning:verticalNavigation>
@@ -75,6 +75,7 @@
         <div class="slds-col slds-size_1-of-1 slds-large-size_10-of-12 ">
             <div class="slds-m-around_large">
             	<aura:if isTrue="{!v.selectedNavigationItem == 'dashboard'}">
+                    <c:Dashboard/>
                 </aura:if>
                	<aura:if isTrue="{!v.selectedNavigationItem == 'appointmentcategory'}">
                 	<c:AppointmentCategory/>

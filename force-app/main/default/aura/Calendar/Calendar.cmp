@@ -1,18 +1,24 @@
-<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="CalendarLightningController">
-   <!--@description It stores Record Id--> 
-   <aura:attribute name="recordId" type="String"/>
-   <!--@description It stores Object Name--> 
-   <aura:attribute name="objName" type="String"/>
-   <!--@description It stores related Appointments--> 
-   <aura:attribute name="RelatedList" type="List"/>
-   <!--@description Boolean variable which set related Appointments true--> 
-   <aura:attribute name="isRelated" type="boolean"/>
-   <!--@description Checks script is loaded successfully-->  
-   <aura:attribute name="scriptLoaded" type="boolean"/>
-   <!--@description Show message if there is no Appointment-->
-   <aura:attribute name="showToast" type="boolean" default="false"/>
-   <!--@description Show New Appointment -->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global" controller="CalendarLightningController">
+    <!--@description It stores Record Id--> 
+    <aura:attribute name="recordId" type="String"/>
+    <!--@description It stores Object Name--> 
+    <aura:attribute name="objName" type="String"/>
+    <!--@description It stores related Appointments--> 
+    <aura:attribute name="RelatedList" type="List"/>
+    <!--@description Boolean variable which set related Appointments true--> 
+    <aura:attribute name="isRelated" type="boolean" default="false"/>
+    <!--@description Checks script is loaded successfully-->  
+    <aura:attribute name="scriptLoaded" type="boolean"/>
+    <!--@description Show message if there is no Appointment-->
+    <aura:attribute name="showToast" type="boolean" default="false"/>
+    <!--@description Show New Appointment -->
     <aura:attribute name="showNewAppointment" type="boolean" default="false"/>
+    <aura:attribute name="editAppointmentId" type="String"/>
+    
+     
+    <!-- Component event Handler-->
+    <aura:handler name="refreshEvent" event="c:ParentListRefresh" action="{!c.parentComponentEvent}"/>
+    
     <ltng:require scripts="{!join(',', 
                            $Resource.jquery,
                            $Resource.calender + '/calender/moment.js',
@@ -22,38 +28,38 @@
                   styles="{!$Resource.calender + '/calender/fullcalendar.css'}"      
                   afterScriptsLoaded="{!c.scriptsLoaded}" />
     
-   <aura:method name="relatedcalendar" action="{!c.relatedCalendarShow}" access="public">
+    <aura:method name="relatedcalendar" action="{!c.relatedCalendarShow}" access="public">
         <aura:attribute name="objectName" type="String" />
         <aura:attribute name="Id" type="String"/>
     </aura:method>
     <hr/>
-  <aura:if isTrue="{!v.isRelated}">
-    <div class="slds-grid slds-gutters slds-m-vertical_medium">
-  		<div class="slds-col slds-text-align_center">
-            <lightning:button class="slds-button slds-button_neutral custom_button" onclick="{!c.newAppointment}" label="Add Appointment"/>
-        	<aura:if isTrue="{!v.showNewAppointment}">
-                <c:NewEditAppointment/>
-            </aura:if>
+    <aura:if isTrue="{!!v.isRelated}">
+        <div class="slds-grid slds-gutters slds-m-vertical_medium">
+            <div class="slds-col slds-text-align_center">
+                <lightning:button class="slds-button slds-button_neutral custom_button" onclick="{!c.newAppointment}" label="Add Appointment"/>
+                <aura:if isTrue="{!v.showNewAppointment}">
+                    <c:NewEditAppointment showModal = "{!v.showNewAppointment}" appointmentId = "{!v.editAppointmentId}"/>
+                </aura:if>
+            </div>
         </div>
-    </div>
-   </aura:if>
+    </aura:if>
     <!-- appointment popOver -->
-    <aura:if isTrue="{!and(not(v.isRelated) , v.RelatedList.length > 0) }">
+    <aura:if isTrue="{!v.isRelated}">
         <!-- Calling Header PageHeader to show header -->
         <c:pageHeader headerName="{!v.RelatedList[0].RelatedListName + ' ' +'Calendar'}" iconName="standard:event" iconSize="medium"/>   
     </aura:if>
     <aura:if isTrue="{!v.showToast}">
-      <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
-             <h2>There is no Appointment</h2>
-             <div class="slds-notify__close">
-                 <button class="slds-button slds-button_icon slds-button_icon-small" title="Close" onclick="{!c.closeAlert}">
-                      <lightning:icon iconName="utility:close" alternativeText="close" size="small" />
-                 </button>
-             </div>
-         </div> 
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
+            <h2>There is no Appointment</h2>
+            <div class="slds-notify__close">
+                <button class="slds-button slds-button_icon slds-button_icon-small" title="Close" onclick="{!c.closeAlert}">
+                    <lightning:icon iconName="utility:close" alternativeText="close" size="small" />
+                </button>
+            </div>
+        </div> 
     </aura:if>
     <div class="slds-m-top_x-small" id='calendar'>
-
+        
     </div> 
     
 </aura:component>

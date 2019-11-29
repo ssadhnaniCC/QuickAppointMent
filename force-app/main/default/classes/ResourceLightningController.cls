@@ -18,7 +18,7 @@ public class ResourceLightningController {
    */
     @AuraEnabled
     public static void saveNewResources(Contact resourceObj,List<Id> selectedLocationList,List<Id> selectedServiceList){
-        system.debug('newResourceCon');
+       // system.debug('newResourceCon');
        Set<id> alignmentIds = new Set<Id>();
        List<Resource_Service_Alignment__c> saveResourceAlignment = new List<Resource_Service_Alignment__c>(); 
        String selectedType = 'Resource';
@@ -41,10 +41,10 @@ public class ResourceLightningController {
             newResourceCon.Phone = resourceObj.Phone;            
         try{
             upsert newResourceCon;
-            system.debug('newResourceCon'+newResourceCon.Id);
+          //  system.debug('newResourceCon'+newResourceCon.Id);
            }
         catch(Exception e){
-            system.debug('Upsert Exception'+e);
+        //    system.debug('Upsert Exception'+e);
         }
         // For Delete Alignments
       List<Resource_Service_Alignment__c> DeleteAlignments = new List<Resource_Service_Alignment__c>();
@@ -83,7 +83,7 @@ public class ResourceLightningController {
                 insert saveResourceAlignment;
              }
             catch(Exception e){
-                system.debug('Exception'+e);
+          //      system.debug('Exception'+e);
             }
         }
     }
@@ -104,10 +104,15 @@ public class ResourceLightningController {
         return QuickAppointmentSOQLManager.getLocation();
     }
     @AuraEnabled
-    public static List<CC_QAppt__Location_Service__c> getServicesBasedOnLocation(List<Id> selectedLocationIds){
+    public static List<CC_QAppt__Service__c> getServicesBasedOnLocation(List<Id> selectedLocationIds){
         Set<Id> locationIds = new Set<Id>();
+        Set<Id> servicesId = new Set<Id>();
         locationIds.addAll(selectedLocationIds);
-        return QuickAppointmentSOQLManager.getDependentService(locationIds);
+        List<CC_QAppt__Location_Service__c> locationservices = QuickAppointmentSOQLManager.getDependentService(locationIds);
+        for(CC_QAppt__Location_Service__c locserv : locationservices){
+            servicesId.add(locserv.CC_QAppt__Service__c);
+        }
+        return QuickAppointmentSOQLManager.fetchSelectedServiceForAppointment(servicesId);
     }
    @AuraEnabled
     public static void deleteResourceStaff(String resourceStaffId){
@@ -127,13 +132,13 @@ public class ResourceLightningController {
    */   
     @AuraEnabled
     public static ResourceServiceWrapper getResourcesOnEdit(String selectedResourceId){
-        List<Id> selectedlocationIds = new List<Id>();
+        Set<Id> selectedlocationIds = new Set<Id>();
       List<contact> resourceList     = QuickAppointmentSOQLManager.fetchAllResourceStaff(selectedResourceId);
        List<CC_QAppt__Resource_Service_Alignment__c> resourceService = QuickAppointmentSOQLManager.previousResourceServiceAlignemnts(null,selectedResourceId);
        for(CC_QAppt__Resource_Service_Alignment__c loclist   : resourceService){
           selectedlocationIds.add(loclist.CC_QAppt__Location__c);
        }
-     List<CC_QAppt__Location_Service__c> availableServices = ResourceLightningController.getServicesBasedOnLocation(selectedlocationIds);
+     List<CC_QAppt__Location_Service__c> availableServices = QuickAppointmentSOQLManager.getDependentService(selectedlocationIds);
         ResourceLightningController.ResourceServiceWrapper wrappResourceService = new ResourceLightningController.ResourceServiceWrapper(resourceList[0],resourceService,availableServices);
         return wrappResourceService;
         
@@ -150,7 +155,7 @@ public class ResourceLightningController {
         public ResourceServiceWrapper(Contact resourceContact , List<CC_QAppt__Resource_Service_Alignment__c> resServiceList,List<CC_QAppt__Location_Service__c> availservice){
            resContact =  resourceContact;
            resourceServiceList =  resServiceList;
-            availableResourceServiceList =  availservice;
+           availableResourceServiceList =  availservice;
         }
    
     }
