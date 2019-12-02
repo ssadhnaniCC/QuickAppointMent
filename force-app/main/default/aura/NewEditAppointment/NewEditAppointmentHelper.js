@@ -487,12 +487,13 @@
                     if(relatedData.appointmentCategory[0].CC_QAppt__IsLocationMandatory__c == true && relatedData.appointmentCategory[0].CC_QAppt__IsServiceMandatory__c == true){
                         this.fetchServiceBasedOnLocations(component,event,helper);
                         var selectedServices = [];
-                        var price = 0;
                         relatedData.selectedserviceList.forEach(function(service){
                             selectedServices.push(service.Id);
-                             price = price + service.CC_QAppt__Price__c; 
                         })
-                        component.set("v.servicesPrice",price);
+                     
+                       //Calculating the Actual price before Discount
+                       var PriceBeforeDiscount =  relatedData.totalPrice + ((relatedData.totalPrice * relatedData.discount)/100);
+                        component.set("v.servicesPrice",PriceBeforeDiscount);
                         component.set("v.selectedService",selectedServices);
                     }
                     

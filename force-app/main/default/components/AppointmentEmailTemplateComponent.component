@@ -79,13 +79,9 @@ Your Appointment Details are :
         </center> 
         </p>
         <center>
-            Services :
+            Services : {!storeServices}
+            
            
-            <apex:repeat value="{!appRecord}" var="varString">
-                
-                <span> <apex:outputText value="{!varString.CC_QAppt__Service__r.Name}" />&nbsp;&nbsp; </span>
-                
-                </apex:repeat>
         </center>
         
     </table>

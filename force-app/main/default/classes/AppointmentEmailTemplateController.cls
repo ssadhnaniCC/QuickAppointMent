@@ -2,6 +2,7 @@ public class AppointmentEmailTemplateController {
     
     public String appointmentId{get;set;}
     public String appointmentName{get;set;}
+    public string storeServices{get;set;}
     public datetime startDate{get;set;}
     public datetime endDate{get;set;}
     public String serviceValues{get;set;}
@@ -21,7 +22,7 @@ public class AppointmentEmailTemplateController {
             appointmentName = appRecord[0].CC_QAppt__Appointment__r.name;
             startDate = appRecord[0].CC_QAppt__Appointment__r.CC_QAppt__Start_Date_Time__c;
             endDate = appRecord[0].CC_QAppt__Appointment__r.CC_QAppt__End_Date_Time__c;
-          
+            
             return appRecord; 
         }
         set;

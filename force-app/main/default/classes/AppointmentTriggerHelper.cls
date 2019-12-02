@@ -1,4 +1,5 @@
 public without sharing class AppointmentTriggerHelper {
+    public Static List<Appointment_Detail__c> insertAppointmentDetailList = new List<Appointment_Detail__c>();
     public static void checkHoliday(List<Appointment__c> newAppointmentList){
         try{
             Set<Id> locationIdSet = new Set<Id>();
@@ -71,162 +72,49 @@ public without sharing class AppointmentTriggerHelper {
     }
     
     public Static void updateAppointmentDetail(List<Appointment__c> newAppointmentList,Map<Id,Appointment__c> oldAppointmentMap){
-        List<Appointment_Detail__c> insertAppointmentDetailList = new List<Appointment_Detail__c>();
-        Set<String> deleteLocationSet = new Set<String>();
-        Set<String> deleteResourceSet = new Set<String>();
-        Set<String> deleteServiceSet = new Set<String>();
-        Set<String> deleteAttendeeSet = new Set<String>();
-        Set<String> deleteAssetsSet = new Set<String>();
+		Map<String,Set<String>> deleteIdMap = new Map<String,Set<String>>();
         
         try{
             for(Appointment__c appObj : newAppointmentList){
                 System.debug('Appointment');
                 if(appObj.CC_QAppt__Locations__c != null){
-                    Set<String> newLocationIdSet = new Set<String>(appObj.CC_QAppt__Locations__c.split(','));
-                    Set<String> oldLocationIdSet = new Set<String>(oldAppointmentMap.get(appObj.Id).CC_QAppt__Locations__c.split(','));
-                    Set<String> newOldLocation =  new Set<String>();
-                    newOldLocation.addAll(oldLocationIdSet);
-                    newOldLocation.addAll(newLocationIdSet);
-                    if( !newOldLocation.isEmpty()){
-                        for(String locationId : newOldLocation){
-                            System.debug('location');
-                            if(!oldLocationIdSet.contains(locationId) && newLocationIdSet.contains(locationId))
-                                insertAppointmentDetailList.add(new Appointment_Detail__c(CC_QAppt__Appointment__c = appObj.Id,CC_QAppt__Location__c = locationId));
-                            if(oldLocationIdSet.contains(locationId) && !newLocationIdSet.contains(locationId))
-                                deleteLocationSet.add(appObj.Id + ',' +locationId);
-                        }
-                        System.debug('location inse'+insertAppointmentDetailList);
-                        System.debug('location old'+oldLocationIdSet);
-                        System.debug('location new'+newLocationIdSet);
-                        System.debug('location delete'+deleteLocationSet);
-                    }
+                    updatedData('CC_QAppt__Locations__c','CC_QAppt__Location__c',appObj,oldAppointmentMap);
                     
                 }
                 if(appObj.CC_QAppt__Services__c != Null){
-                    Set<String> oldServiceIdSet = new Set<String>(appObj.CC_QAppt__Services__c.split(','));
-                    Set<String> newServiceIdSet = new Set<String>(oldAppointmentMap.get(appObj.Id).CC_QAppt__Services__c.split(','));
-                    Set<String> newOldService =  new Set<String>();
-                    newOldService.addAll(oldServiceIdSet);
-                    newOldService.addAll(newServiceIdSet);
-                    if( !newOldService.isEmpty()){
-                        for(String serviceId : newOldService){
-                            System.debug('service');
-                            if(!oldServiceIdSet.contains(serviceId) && newServiceIdSet.contains(serviceId))
-                                insertAppointmentDetailList.add(new Appointment_Detail__c(CC_QAppt__Appointment__c = appObj.Id,CC_QAppt__Service__c = serviceId));
-                            if(oldServiceIdSet.contains(serviceId) && !newServiceIdSet.contains(serviceId))
-                                deleteServiceSet.add(appObj.Id + ',' +serviceId);
-                        }
-                    }
+                    updatedData('CC_QAppt__Services__c','CC_QAppt__Service__c',appObj,oldAppointmentMap);
                 }
                 
                 if(appObj.CC_QAppt__Resources__c != Null){
-                    Set<String> oldResourceIdSet = new Set<String>(appObj.CC_QAppt__Resources__c.split(','));
-                    Set<String> newResourceIdSet = new Set<String>(oldAppointmentMap.get(appObj.Id).CC_QAppt__Resources__c.split(','));
-                    Set<String> newOldResource =  new Set<String>();
-                    newOldResource.addAll(oldResourceIdSet);
-                    newOldResource.addAll(newResourceIdSet);
-                    if( !newOldResource.isEmpty()){
-                        for(String resourceId : newOldResource){
-                            System.debug('resource');
-                            if(!oldResourceIdSet.contains(resourceId) && newResourceIdSet.contains(resourceId))
-                                insertAppointmentDetailList.add(new Appointment_Detail__c(CC_QAppt__Appointment__c = appObj.Id,CC_QAppt__Resource__c = resourceId));
-                            if(oldResourceIdSet.contains(resourceId) && !newResourceIdSet.contains(resourceId))
-                                deleteResourceSet.add(appObj.Id + ',' +resourceId);
-                        }
-                    }
+                     updatedData('CC_QAppt__Resources__c','CC_QAppt__Resource__c',appObj,oldAppointmentMap);
                 }
                 
                 if(appObj.CC_QAppt__Attendees__c != Null){
-                    Set<String> oldAttendeesIdSet = new Set<String>(appObj.CC_QAppt__Attendees__c.split(','));
-                    Set<String> newAttendeesIdSet = new Set<String>(oldAppointmentMap.get(appObj.Id).CC_QAppt__Attendees__c.split(','));
-                    Set<String> newOldAttendees =  new Set<String>();
-                    newOldAttendees.addAll(oldAttendeesIdSet);
-                    newOldAttendees.addAll(newAttendeesIdSet);
-                    if( !newOldAttendees.isEmpty()){
-                        for(String attendeeId : newOldAttendees){
-                            if(!oldAttendeesIdSet.contains(attendeeId) && newAttendeesIdSet.contains(attendeeId))
-                                insertAppointmentDetailList.add(new Appointment_Detail__c(CC_QAppt__Appointment__c = appObj.Id,CC_QAppt__Attendee__c = attendeeId));
-                            if(oldAttendeesIdSet.contains(attendeeId) && !newAttendeesIdSet.contains(attendeeId))
-                                deleteAttendeeSet.add(appObj.Id + ',' +attendeeId);
-                        }
-                    }
+                    updatedData('CC_QAppt__Attendees__c','CC_QAppt__Attendee__c',appObj,oldAppointmentMap);
                 }
                 
                 if(appObj.CC_QAppt__Assets__c != Null){
-                    Set<String> oldAssetsIdSet = new Set<String>(appObj.CC_QAppt__Assets__c.split(','));
-                    Set<String> newAssetsIdSet = new Set<String>(oldAppointmentMap.get(appObj.Id).CC_QAppt__Assets__c.split(','));
-                    Set<String> newOldAssets = new Set<String>();
-                    newOldAssets.addAll(oldAssetsIdSet);
-                    newOldAssets.addAll(newAssetsIdSet);
-                    if( !newOldAssets.isEmpty()){
-                        for(String assetsId : newOldAssets){
-                            if(!oldAssetsIdSet.contains(assetsId) && newAssetsIdSet.contains(assetsId))
-                                insertAppointmentDetailList.add(new Appointment_Detail__c(CC_QAppt__Appointment__c = appObj.Id,CC_QAppt__Asset__c = assetsId));
-                            if(oldAssetsIdSet.contains(assetsId) && !newAssetsIdSet.contains(assetsId))
-                                deleteAssetsSet.add(appObj.Id + ',' +assetsId);
-                        }
-                    }
+                    updatedData('CC_QAppt__Assets__c','CC_QAppt__Asset__c',appObj,oldAppointmentMap);
                 }
             }
-            Set<String> AppointmentId = new Set<String>();
-            Set<String> recordId = new Set<String>();
+		
             List<CC_QAppt__Appointment_Detail__c> deleteAppointmentList = new List<CC_QAppt__Appointment_Detail__c>();
-            if(!deleteLocationSet.isEmpty()){
-                for(String locationId : deleteLocationSet){
-                    AppointmentId.add(locationId.substringBefore(','));
-                    recordId.add(locationId.substringAfter(','));
-                }
-                deleteAppointmentList = [SELECt Id,CC_QAppt__Appointment__c,CC_QAppt__Location__c FROM CC_QAppt__Appointment_Detail__c WHERE CC_QAppt__Appointment__c IN: AppointmentId AND CC_QAppt__Location__c IN: recordId];
-                System.debug('AppointmentId'+AppointmentId);
-                System.debug('recordId'+recordId);
-                System.debug('deleteAppointmentList'+deleteAppointmentList);
-            }
-            
-            if(!deleteServiceSet.isEmpty()){
-                AppointmentId.clear();
-                recordId.clear();
-                for(String serviceId : deleteServiceSet){
-                    AppointmentId.add(serviceId.substringBefore(','));
-                    recordId.add(serviceId.substringAfter(','));
-                }
-                deleteAppointmentList = [SELECt Id FROM CC_QAppt__Appointment_Detail__c WHERE CC_QAppt__Appointment__c IN: AppointmentId AND CC_QAppt__Service__c IN: recordId];
-            }
-            
-            if(!deleteResourceSet.isEmpty()){
-                AppointmentId.clear();
-                recordId.clear();
-                for(String resourceId : deleteResourceSet){
-                    AppointmentId.add(resourceId.substringBefore(','));
-                    recordId.add(resourceId.substringAfter(','));
-                }
-                deleteAppointmentList = [SELECt Id FROM CC_QAppt__Appointment_Detail__c WHERE CC_QAppt__Appointment__c IN: AppointmentId AND CC_QAppt__Resource__c IN: recordId];
-            }
-            
-            if(!deleteAttendeeSet.isEmpty()){
-                AppointmentId.clear();
-                recordId.clear();
-                for(String attendeesId : deleteAttendeeSet){
-                    AppointmentId.add(attendeesId.substringBefore(','));
-                    recordId.add(attendeesId.substringAfter(','));
-                }
-                deleteAppointmentList = [SELECt Id FROM CC_QAppt__Appointment_Detail__c WHERE CC_QAppt__Appointment__c IN: AppointmentId AND CC_QAppt__Attendee__c IN: recordId];
-            }
-            
-            if(!deleteAssetsSet.isEmpty()){
-                AppointmentId.clear();
-                recordId.clear();
-                for(String assetsId : deleteAssetsSet){
-                    AppointmentId.add(assetsId.substringBefore(','));
-                    recordId.add(assetsId.substringAfter(','));
-                }
-                deleteAppointmentList = [SELECt Id FROM CC_QAppt__Appointment_Detail__c WHERE CC_QAppt__Appointment__c IN: AppointmentId AND CC_QAppt__Asset__c IN: recordId];
-            }
+            for(String fieldName : deleteIdMap.keySet()){
+				Set<String> AppointmentId = new Set<String>();
+				Set<String> recordId = new Set<String>();
+				for(String concatenatedId : deleteIdMap.get(fieldName)){
+					AppointmentId.add(concatenatedId.substringBefore(','));
+					recordId.add(concatenatedId.substringAfter(','));
+				}
+				String query = 'SELECt Id FROM CC_QAppt__Appointment_Detail__c WHERE CC_QAppt__Appointment__c IN: AppointmentId AND' + fieldName + 'IN: recordId';
+				deleteAppointmentList = Database.query(query);
+			}
+			
             if(!insertAppointmentDetailList.isEmpty()){
-                System.debug('rtfrom inse'+insertAppointmentDetailList);
                 INSERT insertAppointmentDetailList;
+				insertAppointmentDetailList = new List<Appointment_Detail__c>();
             }
             if(!deleteAppointmentList.isEmpty()){
-                System.debug('delete'+deleteAppointmentList);
                 DELETE deleteAppointmentList;
             }
         }catch(Exception exp){
@@ -320,6 +208,39 @@ public without sharing class AppointmentTriggerHelper {
             
         }
     }
+	
+	public static Map<String,Set<String>> updatedData(String appointmentField, String appointmentDetailField,Appointment__c appObj,Map<Id,Appointment__c> oldAppointmentMap){
+	Map<String,Set<String>> deleteIdMap = new Map<String,Set<String>>();
+        String newId = String.valueof(appObj.get(appointmentField));
+        String oldId = String.valueOf(oldAppointmentMap.get(appObj.Id).get(appointmentField));
+	Set<String> oldIdSet = new Set<String>(newId.split(','));
+	Set<String> newIdSet = new Set<String>(oldId.split(','));
+	Set<String> newOldIdSet = new Set<String>();
+	Set<String> deleteIdSet;
+	newOldIdSet.addAll(oldIdSet);
+	newOldIdSet.addAll(newIdSet);
+	if( !newOldIdSet.isEmpty()){
+		for(String objId : newOldIdSet){
+			if(!oldIdSet.contains(objId) && newIdSet.contains(objId)){
+				Appointment_Detail__c appDetailObj = new Appointment_Detail__c();
+				appDetailObj.CC_QAppt__Appointment__c = appObj.Id;
+				appDetailObj.put(appointmentDetailField,objId);
+				insertAppointmentDetailList.add(appDetailObj);
+			}
+			if(oldIdSet.contains(objId) && !newIdSet.contains(objId)){
+				if(!deleteIdMap.containsKey(appointmentDetailField)){
+					deleteIdSet= new Set<String>();
+				}
+				else
+					deleteIdSet = deleteIdMap.get(appointmentDetailField);
+				deleteIdSet.add(appObj.Id + ',' +objId);
+			}
+		}
+		if(!deleteIdSet.isEmpty())
+			deleteIdMap.put(appointmentDetailField,deleteIdSet);
+	}
+	return deleteIdMap;
+}
     
     public static void handleOnBeforeInsert(List<Appointment__c> newAppointmentList) {
         AppointmentTriggerHelper.checkHoliday(newAppointmentList);

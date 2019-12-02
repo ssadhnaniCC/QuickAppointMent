@@ -302,7 +302,7 @@
                     <!-- Other Info -->
                     <div class="slds-grid slds-gutters slds-wrap">
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                            <lightning:input type="date" aura:id="startDateField" class="{! v.dateValidationError ? 'slds-has-error' : ''}" name="startDate" label="Start Date" value="{!v.startDate}"  onchange="{!c.dateValidation}" required="true"/>
+                            <lightning:input type="date" aura:id="startDateField" name="startDate" label="Start Date" value="{!v.startDate}"  onchange="{!c.dateValidation}" required="true"/>
                         </div>    
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
                             <lightning:input type="time" name="startTime" aura:id="startTimeField" label="Time" value="{!v.startTime}" required="true"/>  
@@ -313,14 +313,14 @@
                                     <option value="{!status}" >{!status}</option>
                                 </aura:iteration>
                             </lightning:select>
-                            <aura:if isTrue="{!v.dateValidationError}">
+                         <!--   <aura:if isTrue="{!v.dateValidationError}">
                                 <div class="slds-text-color_error slds-p-left_x-small">
                                     Date must be in present or in future..
                                 </div>
-                            </aura:if>    
+                            </aura:if> -->    
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                            <lightning:input type="number" name="duration" label="Duration In Minutes" value="{!v.Duration}" placeholder="Enter Minutes"/>      
+                            <lightning:input type="number" aura:id="DurationField" name="duration" label="Duration In Minutes" value="{!v.Duration}" placeholder="Enter Minutes" required="true"/>      
                         </div>
                         
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">        

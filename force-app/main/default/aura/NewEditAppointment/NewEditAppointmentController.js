@@ -214,7 +214,7 @@
         var resourceId =     (selectedObject.CC_QAppt__IsMultipleResource__c == true) ? "AvailableResource" : "selectResource"; 
         var assetId =     (selectedObject.CC_QAppt__IsMultipleAsset__c == true) ? "AvailableAsset" : "selectAsset"; 
         var attendeeId =     (selectedObject.CC_QAppt__IsMultipleAttendee__c == true) ? "AvailableAttendee" : "selectAttendee"; 
-        var controlAuraIds = ["startDateField","startTimeField","appName"];
+        var controlAuraIds = ["startDateField","startTimeField","appName","DurationField"];
       let isAllValid = controlAuraIds.reduce(function(isValidSoFar, controlAuraId){
             //fetches the component details from the auraId
             var inputCmp = component.find(controlAuraId);
@@ -290,6 +290,7 @@
         component.set("v.isError",false);
     },
     dateValidation : function(component,event,helper){
+        var inputCmp = component.find("startDateField");
          var today = new Date();        
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
@@ -305,10 +306,11 @@
         
      var todayFormattedDate = yyyy+'-'+mm+'-'+dd;
         if(component.get("v.startDate") != '' && component.get("v.startDate") < todayFormattedDate){
-            component.set("v.dateValidationError" , true);
+              inputCmp.setCustomValidity('Date should be in present or Future');
         }else{
-            component.set("v.dateValidationError" , false);
+           inputCmp.setCustomValidity('');
         }
+       inputCmp.reportValidity();
     }
     
 })
