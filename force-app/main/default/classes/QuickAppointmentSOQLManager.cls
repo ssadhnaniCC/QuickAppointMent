@@ -26,13 +26,15 @@ public class QuickAppointmentSOQLManager {
         }
     }
     @AuraEnabled
-    public  static List<CC_QAppt__Appointment_Category__c> getAppointmentCategories(Id appointmentCategoryId){   
-        if(appointmentCategoryId!=null){
-            return [select Id,Name,CC_QAppt__IsAssetMandatory__c,CC_QAppt__IsAttendeeMandatory__c,CC_QAppt__IsMultipleAsset__c,CC_QAppt__IsMultipleAttendee__c,	CC_QAppt__IsMultipleLocation__c,CC_QAppt__IsMultipleResource__c,CC_QAppt__IsMultipleService__c,CC_QAppt__IsResourceMandatory__c,CC_QAppt__IsLocationMandatory__c,CC_QAppt__IsAvaliablePublically__c,CC_QAppt__IsServiceMandatory__c,CC_QAppt__IsPricingApplicable__c from CC_QAppt__Appointment_Category__c where id=:appointmentCategoryId];
-        }
-        else{
-            return [select Id,CC_QAppt__IsLocationMandatory__c,CC_QAppt__IsMultipleLocation__c,CC_QAppt__IsAttendeeMandatory__c,CC_QAppt__IsMultipleAttendee__c,CC_QAppt__IsAssetMandatory__c,CC_QAppt__IsMultipleAsset__c,CC_QAppt__IsResourceMandatory__c,CC_QAppt__IsMultipleResource__c,Name,CC_QAppt__IsAvaliablePublically__c,CC_QAppt__IsServiceMandatory__c,CC_QAppt__IsMultipleService__c,CC_QAppt__IsPricingApplicable__c from CC_QAppt__Appointment_Category__c limit 100];
-        }
+    public  static List<CC_QAppt__Appointment_Category__c> getAppointmentCategories(String appointmentCategoryId, Boolean isPublic){   
+        isPublic = isPublic == null ? false : isPublic;
+        String query = 'select Id,Name,CC_QAppt__IsAssetMandatory__c,CC_QAppt__IsAttendeeMandatory__c,CC_QAppt__IsMultipleAsset__c,CC_QAppt__IsMultipleAttendee__c, CC_QAppt__IsMultipleLocation__c,CC_QAppt__IsMultipleResource__c,CC_QAppt__IsMultipleService__c,CC_QAppt__IsResourceMandatory__c,CC_QAppt__IsLocationMandatory__c,CC_QAppt__IsAvaliablePublically__c,CC_QAppt__IsServiceMandatory__c,CC_QAppt__IsPricingApplicable__c from CC_QAppt__Appointment_Category__c ';
+        query += (String.isNotBlank(appointmentCategoryId) || isPublic) ? 'WHERE ' : '';
+        query += isPublic ? 'CC_QAppt__IsAvaliablePublically__c = true ' : '';
+        query += String.isNotBlank(appointmentCategoryId) ? 'Id = :appointmentCategoryId ' : '';
+        
+        return Database.query(query + ' LIMIT 100');
+        
         
     }  
 

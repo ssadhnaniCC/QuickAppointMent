@@ -49,7 +49,8 @@
     <!-- New And Search Component -->
     <div class="slds-grid slds-gutters slds-p-left_x-small">
          <div class="slds-col">
-            <span class="slds-text-heading_large ">Resource Staff Details</span> 
+            <span class="slds-text-heading_large ">
+                <lightning:icon iconName="standard:user" alternativeText="Click to Call" size="meduim"/> Resource Staff Details</span> 
          </div>
         <div class="slds-col">
             <lightning:button class="slds-m-right_large" label="New" variant="brand" title="New" onclick="{!c.handleNewResourceCmp}"/>        
@@ -59,7 +60,7 @@
         </div>
     </div>
     
-    <c:NewResource aura:id="childCmp" openNewResourceModal="{!v.openNewResourceModal}" editresourceRecordId="{!v.resourceStaffId}" resourceRecord="{!v.editresourceRecord}" selectedLocation="{!v.selectlocation}" disableServiceDualLstBox="{!v.hideServiceList}" />  
+    <c:NewResource aura:id="childCmp" openNewResourceModal="{!v.openNewResourceModal}" editresourceRecordId="{!v.resourceStaffId}" resourceRecord="{!v.editresourceRecord}" selectedLocation="{!v.selectlocation}" disableServiceDualLstBox="{!v.hideServiceList}" selectedService="{!v.selectService}" />  
     <div class="slds-m-top_medium"> 
         <aura:if isTrue="{!v.showspinner}">
             <div role="status" class="slds-spinner slds-spinner_medium">

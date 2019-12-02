@@ -14,6 +14,7 @@
         component.set("v.openNewResourceModal",true);
         component.set("v.editresourceRecord",{});
         component.set("v.selectlocation",{});
+        component.set("v.selectService",[]);
         component.set("v.hideServiceList",false);
     },
     

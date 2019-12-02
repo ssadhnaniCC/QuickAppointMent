@@ -1,17 +1,7 @@
 <apex:component access="global" controller="AppointmentEmailTemplateController">
     <apex:attribute name="appointmentIdValue" type="String" description="This is the Id of the appointment" assignTo="{!appointmentId}" access="global" />
     
-    <style>
-        .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background-color: blue;
-        color: white;
-        text-align: center;
-        }
-    </style>
+   
     
     <!--<html>
 <head>
@@ -62,7 +52,7 @@ Your Appointment Details are :
         <apex:image id="theImage" value="https://www.cloudcertitude.com/wp-content/uploads/2019/07/cloudlogo.png" width="18%"/>
         
         <p>
-           <b> Your appointment has been submitted!</b>
+            <b> Your appointment has been submitted!</b>
             
         </p>
         
@@ -73,55 +63,41 @@ Your Appointment Details are :
         <center><b>Your Appointment details are : </b> </center>
     </p>
     
-    <table width="100%" >
-        
-        
-        <tr style="margin-top:10px;">
-            <center>
-                Appointment Name : {!appRecord.Name}
-            </center>
-        </tr>
-        <tr>
-            <center>
-                Appointment Start Date : {!appRecord.CC_QAppt__Start_Date_Time__c}
-            </center>
-        </tr>
-        <tr>
-            <center>
-                Appointment End Date : {!appRecord.CC_QAppt__End_Date_Time__c}
-            </center>
-        </tr>
-        <tr>
-            <center>
-                Available Services : {!serviceNameList}
-            </center>
-            
-        </tr>
-        <tr>
-            <center>
-                Available Resources : {!resourceNameList}
-            </center>
-            
-        </tr>
-        
-        
+    <table width="100%">
+        <p>
+            <center> 
+                Appointment Name : {!appointmentName}
+            </center> 
+        </p>
+        <p>
+            <center> 
+                StartDate : {!startDate}
+            </center> 
+        </p> <p>
+        <center> 
+            End Date : {!endDate}
+        </center> 
+        </p>
+        <center>
+            Services :
+           
+            <apex:repeat value="{!appRecord}" var="varString">
+                
+                <span> <apex:outputText value="{!varString.CC_QAppt__Service__r.Name}" />&nbsp;&nbsp; </span>
+                
+                </apex:repeat>
+        </center>
         
     </table>
     <p>
         
         <center>
-            <button type="button" onclick="submit();">Submit Feedback</button></center>
+            <a href="https://site-speed-6446-dev-ed--cc-qappt.visualforce.com/apex/QuickAppointmentFeedbackForm?id={!appointmentId}">Submit Feedback</a></center>
         
     </p>
     
-    <apex:form >
-<apex:actionFunction name="submit" action="{!submitFeedback}" rerender="div1">
+   
     
-</apex:actionFunction>
-</apex:form>
-    
-    <div class="footer">
-        <p>Footer</p>
-    </div>
+   
     
 </apex:component>

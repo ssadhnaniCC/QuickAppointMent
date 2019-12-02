@@ -3,15 +3,23 @@
     * @description This is the init method which will fetch Appointment category and fetch status of Appointment.
    */
     doInit : function(component, event, helper) {
+        //var pageReference = component.get("v.pageReference");
+		//console.log("###parameters=", pageReference);
         console.log("showModal",component.get("v.showModal"));
         console.log("aPPId",component.get("v.appointmentId"));
         if(component.get("v.appointmentId") == null || component.get("v.appointmentId") == ''){
         var action = component.get("c.getAppointmentCategory");
+        action.setParams({
+            isPublic : component.get("v.isPublic")
+        });  
         action.setCallback(this, function(response){
             var state = response.getState();
+            
             if(state === 'SUCCESS'){
-                //    console.log("appointmentList"+JSON.stringify(response.getReturnValue()));
+                 console.log("appointmentList"+JSON.stringify(response.getReturnValue()));
                 component.set("v.appointmentCatList", response.getReturnValue());
+            }else if(state === 'ERROR'){
+            	console.log("@@ERROR", response.getError());
             }
         });
         $A.enqueueAction(action);

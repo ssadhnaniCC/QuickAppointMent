@@ -5,13 +5,13 @@ trigger DeleteNotificationOfAppointment on Appointment__c (before insert,after i
     if ( Trigger.isAfter){
         if (Trigger.isInsert){
            if(Trigger.New != Null)
-            AppointmentTriggerHelper.insertAppointmentDetail(Trigger.New);
+            AppointmentTriggerHelper.handleOnAfterInsert(Trigger.New);
         }
         if (Trigger.isUpdate){
-            AppointmentTriggerHelper.updateAppointmentDetail(Trigger.New,Trigger.oldmap);
+            AppointmentTriggerHelper.handleOnAfterUpdate(Trigger.New,Trigger.OldMap);
         }
         if (Trigger.isDelete ) {
-            AppointmentTriggerHelper.deleteAppointmentDetail(Trigger.old);
+            AppointmentTriggerHelper.handleOnAfterDelete(Trigger.old);
             for(Appointment__c app : Trigger.old){
                 appIds.add(app.Id);
             }
@@ -21,12 +21,12 @@ trigger DeleteNotificationOfAppointment on Appointment__c (before insert,after i
             }
         }
         if (Trigger.isUndelete){
-            AppointmentTriggerHelper.insertAppointmentDetail(Trigger.New);
+            AppointmentTriggerHelper.handleOnUndeleteFunctionality(Trigger.New);
         }
     }
     if(Trigger.isBefore){
         if(Trigger.isInsert){
-            AppointmentTriggerHelper.checkHoliday(Trigger.new);
+            AppointmentTriggerHelper.handleOnBeforeInsert(Trigger.new);
         }
     }
 }

@@ -239,9 +239,11 @@
     * @description This is the method which will fetch Customer List
    */         
     fetchCustomerList : function(component,event,helper){
+        console.log('@@@CustomerListCalled');
         var action = component.get("c.getCustomers");
         action.setCallback(this,function(response) {
             var state = response.getState();
+            console.log("@@stateCust",state);
             if (state === "SUCCESS") {
                 var customerList = response.getReturnValue();
                 console.log("customerList"+JSON.stringify(customerList));
@@ -367,6 +369,11 @@
                 refreshEvent.fire();   
                 component.set("v.showModal",false);
                 console.log("state"+state);
+                
+                //Show success notification on public site
+                if(component.get("v.isPublic")){
+                    component.set("v.overrideWithSuccessAlert", true);
+                }
             }       
             else if (state=="ERROR"){
                    

@@ -154,8 +154,9 @@
     <enableStreamingApi>true</enableStreamingApi>
     <label>Appointment Detail</label>
     <nameField>
+        <displayFormat>SESP-{00000}</displayFormat>
         <label>Appointment Detail Name</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Appointment Details</pluralLabel>
     <searchLayouts/>

@@ -49,7 +49,8 @@
         
     <div class="slds-grid slds-gutters slds-p-left_x-small">
          <div class="slds-col">
-            <span class="slds-text-heading_large ">Customer Details</span> 
+            <span class="slds-text-heading_large ">
+                <lightning:icon iconName="standard:groups" alternativeText="Click to Call" size="meduim"/> Customer Details</span> 
             </div>
         <div class="slds-align_absolute-center" > 
             <div class="slds-col">

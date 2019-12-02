@@ -1,4 +1,4 @@
-<apex:page showHeader="false" standardStylesheets="false"> 
+<apex:page showHeader="false" standardStylesheets="false" controller="PublicAppointmentBookingController"> 
     <apex:slds />
     <apex:includeLightning />
     
@@ -15,7 +15,7 @@
     <script>
         $Lightning.use("c:QuickAppointment_LightningOut", function() {
             $Lightning.createComponent("c:NewEditAppointment",
-            {'showModal': true},
+            {'showModal': true, 'isPublic': true},
             "lexContainer",
             function(cmp) {
             document.getElementById("sliderDemo").style.display = 'none'; 

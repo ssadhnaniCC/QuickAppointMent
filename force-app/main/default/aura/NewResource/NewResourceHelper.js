@@ -118,21 +118,23 @@
           action.setCallback(this,function(response) {
              var state = response.getState();
               if (state === "SUCCESS") {
-                  var resourceservice = response.getReturnValue();  
+                  var resourceservice = response.getReturnValue(); 
+                  console.log("resourceservice"+JSON.stringify(resourceservice));
+                //  console.log("resourceservice"+JSON.stringify(resourceservice.resourceServiceList));
                   component.set("v.resourceRecord",resourceservice.resContact);
                   var options = [];
-                  resourceservice.resourceServiceList.forEach(function(Service){
-                      options.push(Service.CC_QAppt__Service__c);
+                  resourceservice.selectedService.forEach(function(Service){
+                      options.push(Service);
                   });
                   var options  = options.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
                   var listoptions = [];
-                  resourceservice.resourceServiceList.forEach(function(Location){                        
-                      listoptions.push(Location.CC_QAppt__Location__c);
+                  resourceservice.selectedlocation.forEach(function(Location){                        
+                      listoptions.push(Location);
                   }); 
                   var listoptions  = listoptions.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);  
                   var availableServiceoptions = [];
-                  resourceservice.availableResourceServiceList.forEach(function(AvailableService){
-                      availableServiceoptions.push({ value: AvailableService.CC_QAppt__Service__c, label: AvailableService.CC_QAppt__Service__r.Name ,Id: AvailableService.CC_QAppt__Service__c});
+                  resourceservice.availableServices.forEach(function(AvailableService){
+                      availableServiceoptions.push({ value: AvailableService.Id, label: AvailableService.Name ,Id: AvailableService.Id});
                   });
                    availableServiceoptions = availableServiceoptions.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
                   if(availableServiceoptions.length==0){

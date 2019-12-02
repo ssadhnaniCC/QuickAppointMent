@@ -45,7 +45,9 @@
     <!-- New And Search Component -->
     <div class="slds-grid slds-gutters slds-grid--pull-padded">
         
-        <div class="slds-col slds-size_4-of-12 slds-medium-size--4-of-12 slds-large-size--4-of-12 slds-text-heading_large slds-p-left_xx-large">Location Details</div>
+        <div class="slds-col slds-size_4-of-12 slds-medium-size--4-of-12 slds-large-size--4-of-12 slds-text-heading_large slds-p-left_xx-large">
+            <lightning:icon iconName="standard:location" alternativeText="Click to Call" size="meduim"/>
+            Location Details</div>
         <div class="slds-col slds-size_4-of-12 slds-medium-size--4-of-12 slds-large-size--4-of-12 slds-align_absolute-center">
             <lightning:button class="slds-float_right" variant="brand" label="New" title="Neutral action" onclick="{!c.handleNew}"/>
             <div class="slds-m-left_medium">

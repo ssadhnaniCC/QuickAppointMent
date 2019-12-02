@@ -1,7 +1,7 @@
-public class NewEditAppointmentController {
+public without sharing class NewEditAppointmentController {
     @AuraEnabled
-   public static List<CC_QAppt__Appointment_Category__c> getAppointmentCategory(){
-        return QuickAppointmentSOQLManager.getAppointmentCategories(null);
+   public static List<CC_QAppt__Appointment_Category__c> getAppointmentCategory(Boolean isPublic){
+        return QuickAppointmentSOQLManager.getAppointmentCategories(null, isPublic);
     }
     @AuraEnabled
     public static List<CC_QAppt__Service__c> getDependentServices(List<Id> selectedLocationIds){
@@ -59,7 +59,7 @@ public class NewEditAppointmentController {
     }
     @AuraEnabled
     public static List<Contact> getCustomers(){
-          return QuickAppointmentSOQLManager.getRecentCustomers();
+        return QuickAppointmentSOQLManager.getRecentCustomers();
     }  
     @AuraEnabled 
     public static List<CC_QAppt__Asset__c> getAsset(){
@@ -76,8 +76,8 @@ public class NewEditAppointmentController {
        
       list<string> timeList = startTime.split(':');                                         
       list<string> dtList = startDate.split('-');
-      try
-          {    
+          try{
+              
               date startdt = Date.newInstance(Integer.valueOf(dtList[0]),Integer.valueOf(dtList[1]),Integer.valueOf(dtList[2].trim()));
               Time myTime = Time.newInstance(Integer.valueOf(timeList[0].trim()),Integer.valueOf(timeList[1].trim()),0,0);
               set<id> resourceIds = new set<id>();
@@ -117,10 +117,10 @@ public class NewEditAppointmentController {
              if(PList.size()>0){
                   insert PList;      
              }
+         
+         }catch(Exception ex){
+            throw new AuraHandledException(ex.getMessage());
          }
-          catch(Exception ex){
-              throw new AuraHandledException(ex.getMessage());
-           }
     }
     @AuraEnabled
     public static WrappAppointmentEditForm editAppointment(String appointmentId){
@@ -133,7 +133,7 @@ public class NewEditAppointmentController {
         
         
        List<CC_QAppt__Appointment__c> selectedAppointment = QuickAppointmentSOQLManager.getAppointmentOnEdit(appointmentId); 
-       List<CC_QAppt__Appointment_Category__c> selectedAppointmentCategory = QuickAppointmentSOQLManager.getAppointmentCategories(selectedAppointment[0].CC_QAppt__Appointment_Category__c);  
+       List<CC_QAppt__Appointment_Category__c> selectedAppointmentCategory = QuickAppointmentSOQLManager.getAppointmentCategories(selectedAppointment[0].CC_QAppt__Appointment_Category__c, null);  
         
         if(!String.isBlank(selectedAppointment[0].CC_QAppt__Locations__c)){
           List<Id> LocationsIds = selectedAppointment[0].CC_QAppt__Locations__c.split(',');
@@ -204,4 +204,24 @@ public class NewEditAppointmentController {
         @AuraEnabled public string description;
     }
     
+    public class ContactWrapper {
+        @AuraEnabled public ID Id;
+        @AuraEnabled public string Name;
+        @AuraEnabled public string Email;
+        @AuraEnabled public string Phone;
+        @AuraEnabled public string MailingCity;
+        @AuraEnabled public string MailingState;
+        
+        public ContactWrapper(){}
+        
+        public ContactWrapper(ID Id, String Name, String Email, String Phone, String MailingCity, string MailingState){
+            this.Id = Id;
+            this.Name = Name;
+            this.Email = Email;
+            this.Phone = Phone;
+            this.MailingCity = MailingCity;
+            this.MailingState = MailingState;
+        }
+        
+    }
 }

@@ -35,7 +35,7 @@
             <aura:if isTrue="{!v.showTable}">
                
               
-           <div class="slds-scrollable " style="height:9.5rem;"> <table class="slds-table slds-table_bordered slds-table_cell-buffer"> 
+           <div class="slds-scrollable " style=""> <table class="slds-table slds-table_bordered slds-table_cell-buffer"> 
                 
                 
                 <thead>

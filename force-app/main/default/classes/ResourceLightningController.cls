@@ -4,10 +4,10 @@
 * @description This class is used to display, edit & delete Contact records where RecordType is 'Resource'
 */
 public class ResourceLightningController {   
-   /*******************************************************************************************************
-    * @description This is the method which returns All the Resources.
-   * @returns Returns List of Contact resources on PageLoad.
-   */
+      /*******************************************************************************************************
+      * @description This is the method which returns All the Resources.
+      * @returns Returns List of Contact resources on PageLoad.
+      */
     @AuraEnabled
     public static List<Contact> getAllResources(){
         return QuickAppointmentSOQLManager.fetchAllResourceStaff(null);
@@ -18,74 +18,71 @@ public class ResourceLightningController {
    */
     @AuraEnabled
     public static void saveNewResources(Contact resourceObj,List<Id> selectedLocationList,List<Id> selectedServiceList){
-       // system.debug('newResourceCon');
-       Set<id> alignmentIds = new Set<Id>();
-       List<Resource_Service_Alignment__c> saveResourceAlignment = new List<Resource_Service_Alignment__c>(); 
-       String selectedType = 'Resource';
-       Id TypeRecordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByName().get(selectedType).getRecordTypeId();
-        Contact newResourceCon = new Contact();
-        newResourceCon.Id = resourceObj.Id;
-        newResourceCon.RecordTypeId = TypeRecordTypeId;
-        if(resourceObj.Name.CONTAINS(' ')){
-            list<string> tempList = resourceObj.Name.split(' ');
-            newResourceCon.firstname = tempList[0];
-            newResourceCon.lastname = tempList[1];
-        }else{
-            newResourceCon.lastname = resourceObj.Name;
-        }
+        // system.debug('newResourceCon');
+        Set<id> alignmentIds = new Set<Id>();
+        List<Resource_Service_Alignment__c> saveResourceAlignment = new List<Resource_Service_Alignment__c>(); 
+        String selectedType = 'Resource';
+      
+        try{
+            Id TypeRecordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByName().get(selectedType).getRecordTypeId();
+            Contact newResourceCon = new Contact();
+            newResourceCon.Id = resourceObj.Id;
+            newResourceCon.RecordTypeId = TypeRecordTypeId;
+            if(resourceObj.Name.CONTAINS(' ')){
+                list<string> tempList = resourceObj.Name.split(' ');
+                newResourceCon.firstname = tempList[0];
+                newResourceCon.lastname = tempList[1];
+            }else{
+                newResourceCon.lastname = resourceObj.Name;
+            }
             newResourceCon.MailingStreet = resourceObj.MailingStreet;
             newResourceCon.MailingCity = resourceObj.MailingCity;
             newResourceCon.Mailingstate = resourceObj.MailingState;
             newResourceCon.MailingPostalCode = resourceObj.MailingPostalCode;
             newResourceCon.MailingCountry = resourceObj.MailingCountry;
             newResourceCon.Phone = resourceObj.Phone;            
-        try{
+            
             upsert newResourceCon;
-          //  system.debug('newResourceCon'+newResourceCon.Id);
-           }
-        catch(Exception e){
-        //    system.debug('Upsert Exception'+e);
-        }
-        // For Delete Alignments
-      List<Resource_Service_Alignment__c> DeleteAlignments = new List<Resource_Service_Alignment__c>();
-          DeleteAlignments   =     QuickAppointmentSOQLManager.previousResourceServiceAlignemnts(null,newResourceCon.Id);
-        for(Resource_Service_Alignment__c ali : DeleteAlignments){
-            alignmentIds.add(ali.id);
-        }
-        List<appointment__c> DeleteAppointment = new List<appointment__c>();
-        if(alignmentIds.size() > 0){
-             DeleteAppointment = QuickAppointmentSOQLManager.getAppointments(alignmentIds);
-        }
-      /******  Delete Previous Appointmnents     ******/
-       if(DeleteAppointment.size()>0){
-            if(appointment__c.sObjectType.getDescribe().isDeletable()){
-                delete DeleteAppointment;
+            
+            // For Delete Alignments
+            List<Resource_Service_Alignment__c> DeleteAlignments = new List<Resource_Service_Alignment__c>();
+            DeleteAlignments   =     QuickAppointmentSOQLManager.previousResourceServiceAlignemnts(null,newResourceCon.Id);
+            for(Resource_Service_Alignment__c ali : DeleteAlignments){
+                alignmentIds.add(ali.id);
             }
-        }
-        /******  Delete Previous ResourceServicesAlignment     ******/
-        if(DeleteAlignments.size() > 0){
-            if(Resource_Service_Alignment__c.sObjectType.getDescribe().isDeletable()){
-                delete DeleteAlignments;
+            List<appointment__c> DeleteAppointment = new List<appointment__c>();
+            if(alignmentIds.size() > 0){
+                DeleteAppointment = QuickAppointmentSOQLManager.getAppointments(alignmentIds);
             }
-        }
-        /****** List to fill  Resource Service Alignment ***/
-         for(integer i=0; i< selectedLocationList.size(); i++){
-            for(integer j=0; j<selectedServiceList.size(); j++){
-                Resource_Service_Alignment__c Alignments = new Resource_Service_Alignment__c();
-                Alignments.location__c = selectedLocationList[i];
-                Alignments.service__c  = selectedServiceList[j];
-                Alignments.Resource_Staff__c = newResourceCon.Id;
-                saveResourceAlignment.add(Alignments);
+            /******  Delete Previous Appointmnents     ******/
+            if(DeleteAppointment.size()>0){
+                if(appointment__c.sObjectType.getDescribe().isDeletable()){
+                    delete DeleteAppointment;
+                }
             }
-        }
-        if(saveResourceAlignment.size()>0){
-           try{
-                insert saveResourceAlignment;
-             }
-            catch(Exception e){
-          //      system.debug('Exception'+e);
+            /******  Delete Previous ResourceServicesAlignment     ******/
+            if(DeleteAlignments.size() > 0){
+                if(Resource_Service_Alignment__c.sObjectType.getDescribe().isDeletable()){
+                    delete DeleteAlignments;
+                }
             }
-        }
+            /****** List to fill  Resource Service Alignment ***/
+            for(integer i=0; i< selectedLocationList.size(); i++){
+                for(integer j=0; j<selectedServiceList.size(); j++){
+                    Resource_Service_Alignment__c Alignments = new Resource_Service_Alignment__c();
+                    Alignments.location__c = selectedLocationList[i];
+                    Alignments.service__c  = selectedServiceList[j];
+                    Alignments.Resource_Staff__c = newResourceCon.Id;
+                    saveResourceAlignment.add(Alignments);
+                }
+            }
+            if(saveResourceAlignment.size()>0){
+                insert saveResourceAlignment;         
+            }
+      }
+      catch(Exception ex){
+            system.debug('ex'+ex);
+      }
     }
     /*******************************************************************************************************
     * @description This is the method which returns FieldSet for ResourceStaff.
@@ -103,6 +100,11 @@ public class ResourceLightningController {
     public static List<CC_QAppt__Location__c> getAllAvailableLocation(){
         return QuickAppointmentSOQLManager.getLocation();
     }
+   
+   /*******************************************************************************************************
+    * @description This is the method which returns Services based on Locations.
+   * @returns Returns List of Services on PageLoad.
+   */
     @AuraEnabled
     public static List<CC_QAppt__Service__c> getServicesBasedOnLocation(List<Id> selectedLocationIds){
         Set<Id> locationIds = new Set<Id>();
@@ -133,30 +135,44 @@ public class ResourceLightningController {
     @AuraEnabled
     public static ResourceServiceWrapper getResourcesOnEdit(String selectedResourceId){
         Set<Id> selectedlocationIds = new Set<Id>();
-      List<contact> resourceList     = QuickAppointmentSOQLManager.fetchAllResourceStaff(selectedResourceId);
-       List<CC_QAppt__Resource_Service_Alignment__c> resourceService = QuickAppointmentSOQLManager.previousResourceServiceAlignemnts(null,selectedResourceId);
-       for(CC_QAppt__Resource_Service_Alignment__c loclist   : resourceService){
-          selectedlocationIds.add(loclist.CC_QAppt__Location__c);
-       }
-     List<CC_QAppt__Location_Service__c> availableServices = QuickAppointmentSOQLManager.getDependentService(selectedlocationIds);
-        ResourceLightningController.ResourceServiceWrapper wrappResourceService = new ResourceLightningController.ResourceServiceWrapper(resourceList[0],resourceService,availableServices);
+        List<Id> selectedlocationIdsList = new List<Id>();
+        List<Id> selectedServiceIdsList = new List<Id>();
+        Set<Id> selectedServiceIds = new Set<Id>();
+        
+        List<contact> resourceList     = QuickAppointmentSOQLManager.fetchAllResourceStaff(selectedResourceId);
+        List<CC_QAppt__Resource_Service_Alignment__c> resourceService = QuickAppointmentSOQLManager.previousResourceServiceAlignemnts(null,selectedResourceId);
+        for(CC_QAppt__Resource_Service_Alignment__c resource   : resourceService){
+            selectedlocationIds.add(resource.CC_QAppt__Location__c);
+            selectedServiceIds.add(resource.CC_QAppt__Service__c);
+            selectedlocationIdsList.add(resource.CC_QAppt__Location__c);
+        }
+        List<CC_QAppt__Service__c> availableServices = ResourceLightningController.getServicesBasedOnLocation(selectedlocationIdsList);
+        if(selectedlocationIdsList.size()>0){
+            selectedlocationIdsList.clear();
+        }
+        selectedlocationIdsList.addAll(selectedlocationIds);
+        selectedServiceIdsList.addAll(selectedServiceIds);
+        
+        ResourceLightningController.ResourceServiceWrapper wrappResourceService = new ResourceLightningController.ResourceServiceWrapper(resourceList[0],resourceService,selectedServiceIdsList,selectedlocationIdsList,availableServices);
         return wrappResourceService;
         
      }
     
-   
     public class ResourceServiceWrapper{
-     @AuraEnabled
-     public  contact resContact;
-     @AuraEnabled
-     public  List<CC_QAppt__Resource_Service_Alignment__c> resourceServiceList;
-     @AuraEnabled
-     public  List<CC_QAppt__Location_Service__c> availableResourceServiceList;
-        public ResourceServiceWrapper(Contact resourceContact , List<CC_QAppt__Resource_Service_Alignment__c> resServiceList,List<CC_QAppt__Location_Service__c> availservice){
-           resContact =  resourceContact;
-           resourceServiceList =  resServiceList;
-           availableResourceServiceList =  availservice;
+        @AuraEnabled public  contact resContact;
+        @AuraEnabled  public  List<CC_QAppt__Resource_Service_Alignment__c> resourceServiceList;
+        @AuraEnabled  public List<Id> selectedService;
+        @AuraEnabled public List<Id> selectedlocation;       
+        @AuraEnabled public List<CC_QAppt__Service__c> availableServices;    
+        
+        public  List<CC_QAppt__Service__c> availableResourceServiceList;
+        public ResourceServiceWrapper(Contact resourceContact , List<CC_QAppt__Resource_Service_Alignment__c> resServiceList,List<Id> services ,List<Id> locations,List<CC_QAppt__Service__c> availservice){
+            resContact =  resourceContact;
+            resourceServiceList =  resServiceList;
+            selectedService = services;
+            selectedlocation = locations;
+            availableServices =  availservice;
         }
-   
+        
     }
 }

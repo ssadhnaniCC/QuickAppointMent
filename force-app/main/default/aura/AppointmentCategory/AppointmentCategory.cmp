@@ -41,7 +41,9 @@
     <c:NewAppointmentCategory isModalOpen="{!v.isModalOpen}" AppointmentCategoryRecord="{!v.AppointmentCategoryRecord}"  aura:id="NewAppointmentCategory"/>   
     <div class="slds-grid slds-gutters slds-p-left_x-small">
         <div class="slds-col">
-            <div class="slds-text-heading_large ">Appointment Category</div>  
+            <div class="slds-text-heading_large ">
+                <lightning:icon iconName="standard:category" alternativeText="Click to Call" size="medium"/>
+                Appointment Category</div>  
         </div>
         <div class="slds-align_absolute-center" > 
             
