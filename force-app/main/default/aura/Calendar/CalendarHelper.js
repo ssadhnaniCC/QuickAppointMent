@@ -23,7 +23,6 @@
                         'end':key.endDate,
                         'title':key.Name,
                         'status':key.Status,
-                        'backgroundColor': key.eventColor
                     });
                 });
              
@@ -115,7 +114,7 @@
             }, 
         });     
         //On Previous Disable Click
-        $('.fc-past').addClass('disable');  
+        $('.fc-past').addClass('slds-theme_info');  
         //Adding SLDS Style to buttons
         $('.fc-month-button , .fc-prev-button , .fc-today-button , .fc-agendaWeek-button , .fc-next-button , .fc-agendaDay-button').addClass('slds-button slds-button_neutral custom_button');
         $('.fc-month-button , .fc-prev-button ,  .fc-today-button , .fc-agendaWeek-button , .fc-next-button , .fc-agendaDay-button').removeClass('fc-button fc-state-default fc-corner-left');
@@ -123,7 +122,7 @@
         $('.fc-month-button , .fc-agendaWeek-button , .fc-prev-button , .fc-prev-button').click(function(){helper.disableHandler(helper);});
     },
     disableHandler : function(helper){
-        $('.fc-past').addClass('disable'); 
+        $('.fc-past').addClass('slds-theme_info'); 
     },  
   /*  handleEventClickSet : function(component,helper,isNewAppointment,appId){
         component.set("v.showNewAppointment",isNewAppointment);

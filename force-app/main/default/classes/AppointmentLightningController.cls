@@ -17,7 +17,8 @@ public class AppointmentLightningController {
             ObjectName = recordIds.getSObjectType().getDescribe().getName();  
         }
         List<AppointmentWrapper> appWrapp = new List<AppointmentWrapper>();
-        List<CC_QAppt__Appointment__c> relatedAppointments = new List<CC_QAppt__Appointment__c>();
+        List<CC_QAppt__Appointment_Detail__c> relatedAppointmentsdetails = new List<CC_QAppt__Appointment_Detail__c>();
+        Map<Id,CC_QAppt__Appointment_Detail__c> mapsofrelatedAppointment ;
         List<contact> customerList = new List<contact>();  
         //Get User Time Zone
         TimeZone tz = UserInfo.getTimeZone();
@@ -32,112 +33,49 @@ public class AppointmentLightningController {
         } 
         if(recordTypeName == 'Resource'){
             //   system.debug('Resource');
-            relatedAppointments = QuickAppointmentSOQLManager.getPreviousAppointments('contact',recordId);
+            relatedAppointmentsdetails = QuickAppointmentSOQLManager.getPreviousAppointments('contact',recordId);
         }
         if(recordTypeName == 'User'){
             customerList = QuickAppointmentSOQLManager.getCustomers(recordId);
-            relatedAppointments = QuickAppointmentSOQLManager.getPreviousAppointmentsForCustomers(recordId);
+            mapsofrelatedAppointment = QuickAppointmentSOQLManager.getPreviousAppointmentsForCustomers(recordId);
+            for(Id keys :mapsofrelatedAppointment.keyset()){
+                relatedAppointmentsdetails.add(mapsofrelatedAppointment.get(keys));
+            }
         }
         if((recordTypeName == '' || recordTypeName == null ) && (ObjectName == '' || ObjectName == null )){
-            relatedAppointments = QuickAppointmentSOQLManager.getPreviousAppointments('','');
+            relatedAppointmentsdetails = QuickAppointmentSOQLManager.getPreviousAppointments('','');
         }
         if((recordTypeName == '' || recordTypeName == null ) && (ObjectName != '' || ObjectName != null )){
-            relatedAppointments = QuickAppointmentSOQLManager.getPreviousAppointments(ObjectName,recordId);
+            relatedAppointmentsdetails = QuickAppointmentSOQLManager.getPreviousAppointments(ObjectName,recordId);
         }
-        system.debug('relatedAppointments'+relatedAppointments);
-        for(CC_QAppt__Appointment__c appointment : relatedAppointments){
-            Set<Id> selectedLocationId = new Set<Id>();
-            Set<Id> selectedServiceId = new Set<Id>();
+        system.debug('relatedAppointments'+relatedAppointmentsdetails);
+        for(CC_QAppt__Appointment_Detail__c appointment : relatedAppointmentsdetails){
             AppointmentWrapper obj = new AppointmentWrapper();
-            if(!String.isBlank(appointment.CC_QAppt__Locations__c)){
-                List<Id> locationids =  appointment.CC_QAppt__Locations__c.split(','); 
-                selectedLocationId.addall(locationids);
-                List<CC_QAppt__Location__c> selectedLocationList =  QuickAppointmentSOQLManager.fetchSelectedLocationForAppointment(selectedLocationId);
-                if(selectedLocationList.size() == 1){
-                    obj.Location =  selectedLocationList[0].Name;
-                }
-                else{
-                    String commaSepratedList = '';
-                    for(CC_QAppt__Location__c loc : selectedLocationList){
-                        if(commaSepratedList == ''){
-                            commaSepratedList = loc.Name;
-                        }
-                        else{
-                            commaSepratedList += ',' + loc.Name ; 
-                        }
-                    }
-                    obj.Location = commaSepratedList;
-                }
-                selectedLocationList.clear();
-                locationids.clear();
-            }         
-            if(!String.isBlank(appointment.CC_QAppt__Services__c)){
-                List<Id> servicesids =  appointment.CC_QAppt__Services__c.split(','); 
-                selectedServiceId.addall(servicesids);
-                List<CC_QAppt__Service__c> selectedServicesList = QuickAppointmentSOQLManager.fetchSelectedServiceForAppointment(selectedServiceId);
-                if(selectedServicesList.size() == 1){
-                    obj.Service =  selectedServicesList[0].Name;
-                }
-                else{
-                    String commaSepratedList = '';
-                    for(CC_QAppt__Service__c service : selectedServicesList){
-                        if(commaSepratedList == ''){
-                            commaSepratedList = service.Name;
-                        }
-                        else{
-                            commaSepratedList += ',' + service.Name ; 
-                        }
-                    }
-                    obj.Service = commaSepratedList;
-                }
-                servicesids.clear();
-                selectedServicesList.clear();
-            }
             if(recordTypeName == 'Resource'){
-                List<contact> resourceList =  QuickAppointmentSOQLManager.fetchAllResourceStaff(recordId);
-                if(resourceList.size()>0){
-                    obj.ResourceStaffOrCustomer = resourceList[0].Name; 
-                }               
+                    obj.ResourceStaffOrCustomer = appointment.CC_QAppt__Resource__r.Name; 
             }
             if(ObjectName == 'CC_QAppt__Appointment_Category__c'){
-                    obj.ResourceStaffOrCustomer =  appointment.CC_QAppt__Appointment_Category__r.Name;
+               List<CC_QAppt__Appointment_Category__c> appcategory  = QuickAppointmentSOQLManager.getAppointmentCategories(appointment.CC_QAppt__Appointment__r.CC_QAppt__Appointment_Category__c,false); 
+                obj.ResourceStaffOrCustomer = appcategory[0].Name;
             }     
             if(ObjectName == 'CC_QAppt__Location__c'){
-                Set<Id> locationid = new set<id>();
-                locationid.add(recordId);
-                List<CC_QAppt__Location__c> LocationList = QuickAppointmentSOQLManager.fetchSelectedLocationForAppointment(locationid);
-                if(LocationList.size()>0){  
-                    obj.ResourceStaffOrCustomer =  LocationList[0].Name;
-                }
-                locationid.clear();
+               obj.ResourceStaffOrCustomer =   appointment.CC_QAppt__LocationService__r.CC_QAppt__Location__r.Name;
             }
             if(ObjectName == 'CC_QAppt__Service__c'){
-                Set<Id> Serviceid = new set<id>();
-                Serviceid.add(recordId);
-                List<CC_QAppt__Service__c> selectedServicesList = QuickAppointmentSOQLManager.fetchSelectedServiceForAppointment(Serviceid);
-                if(selectedServicesList.size()>0){  
-                    obj.ResourceStaffOrCustomer =  selectedServicesList[0].Name;
-                }
-                Serviceid.clear();
+              obj.ResourceStaffOrCustomer =   appointment.CC_QAppt__LocationService__r.CC_QAppt__Service__r.Name;
             } 
-            if(recordTypeName == 'User'){
+           if(recordTypeName == 'User'){
                List<contact> customerLists = QuickAppointmentSOQLManager.getCustomers(recordId);
                 if(customerLists.size()>0){
                     obj.ResourceStaffOrCustomer =  customerLists[0].Name;   
                 }
             }
-            
-            obj.Name = appointment.Name;
-            obj.StartDate =  appointment.CC_QAppt__Start_Date_Time__c.format('MM/dd/yyyy HH:mm:ss',currentTimeZone);
-            obj.Status = appointment.CC_QAppt__Status__c;
+            obj.Location = appointment.CC_QAppt__LocationService__r.CC_QAppt__Location__r.Name;
+            obj.Service = appointment.CC_QAppt__LocationService__r.CC_QAppt__Service__r.Name;
+            obj.Name = appointment.CC_QAppt__Appointment__r.Name;
+            obj.StartDate =  appointment.CC_QAppt__Appointment__r.CC_QAppt__Start_Date_Time__c.format('MM/dd/yyyy HH:mm:ss',currentTimeZone);
+            obj.Status = appointment.CC_QAppt__Appointment__r.CC_QAppt__Status__c;
             appWrapp.add(obj);
-            
-            if(!selectedLocationId.isEmpty()){
-            selectedLocationId.clear();
-            }
-            if(!selectedServiceId.isEmpty()){
-            selectedServiceId.clear();
-            }
         }
         return appWrapp;
     }

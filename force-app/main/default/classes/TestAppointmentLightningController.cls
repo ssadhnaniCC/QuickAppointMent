@@ -39,7 +39,7 @@ public class TestAppointmentLightningController {
     static void fetchAppointmentRelatedtoLocation(){
         List<CC_QAppt__Resource_Service_Alignment__c> locationIds = [select CC_QAppt__Location__c,CC_QAppt__Service__c from CC_QAppt__Resource_Service_Alignment__c limit 1];
         Test.startTest();
-       List<AppointmentLightningController.AppointmentWrapper> appList = AppointmentLightningController.relatedAppointment('Location',locationIds[0].CC_QAppt__Location__c);
+       List<AppointmentLightningController.AppointmentWrapper> appList = AppointmentLightningController.relatedAppointment('CC_QAppt__Location__c',locationIds[0].CC_QAppt__Location__c);
         Test.stopTest();
         system.assertEquals(appList.size(),1,'error while fetching Appointment');
     }
@@ -49,8 +49,9 @@ public class TestAppointmentLightningController {
     static void fetchAppointmentRelatedtoService(){
         List<CC_QAppt__Resource_Service_Alignment__c> locationIds = [select CC_QAppt__Location__c,CC_QAppt__Service__c from CC_QAppt__Resource_Service_Alignment__c limit 1];
         Test.startTest();
-       List<AppointmentLightningController.AppointmentWrapper> appList = AppointmentLightningController.relatedAppointment('Service',locationIds[0].CC_QAppt__Service__c);
+       List<AppointmentLightningController.AppointmentWrapper> appList = AppointmentLightningController.relatedAppointment('CC_QAppt__Service__c',locationIds[0].CC_QAppt__Service__c);
         Test.stopTest();
+        system.debug('appList'+appList);
         system.assertEquals(appList.size(),1,'error while fetching Appointment');
     }
     /* method to test Appointment for AppointmentCategory are fetched */
@@ -58,7 +59,7 @@ public class TestAppointmentLightningController {
     static void fetchAppointmentRelatedtoAppointmentCategory(){
         List<CC_QAppt__Appointment_Category__c> appCategoryIds = [select id from  CC_QAppt__Appointment_Category__c limit 1];
         Test.startTest();
-       List<AppointmentLightningController.AppointmentWrapper> appList = AppointmentLightningController.relatedAppointment('AppointmentCategory',appCategoryIds[0].Id);
+       List<AppointmentLightningController.AppointmentWrapper> appList = AppointmentLightningController.relatedAppointment('CC_QAppt__Appointment_Category__c',appCategoryIds[0].Id);
         Test.stopTest();
         system.assertEquals(appList.size(),1,'error while fetching Appointment');
     }

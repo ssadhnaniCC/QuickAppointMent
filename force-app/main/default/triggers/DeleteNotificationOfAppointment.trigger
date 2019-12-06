@@ -8,6 +8,7 @@ trigger DeleteNotificationOfAppointment on Appointment__c (before insert,after i
             AppointmentTriggerHelper.handleOnAfterInsert(Trigger.New);
         }
         if (Trigger.isUpdate){
+            System.debug('isupdate');
             AppointmentTriggerHelper.handleOnAfterUpdate(Trigger.New,Trigger.OldMap);
         }
         if (Trigger.isDelete ) {

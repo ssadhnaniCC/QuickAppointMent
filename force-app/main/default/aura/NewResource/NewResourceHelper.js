@@ -16,7 +16,8 @@
         action.setParams({
             "resourceObj" :  resourceRecord,
             "selectedLocationList" : selectedLocations,
-            "selectedServiceList"  : selectedServices
+            "selectedServiceList"  : selectedServices,
+            "Price" : component.get("v.resourcePrice")            
         });
       action.setCallback(this,function(response) {
             var state = response.getState();
@@ -119,9 +120,10 @@
              var state = response.getState();
               if (state === "SUCCESS") {
                   var resourceservice = response.getReturnValue(); 
-                  console.log("resourceservice"+JSON.stringify(resourceservice));
+           //       console.log("resourceservice"+JSON.stringify(resourceservice));
                 //  console.log("resourceservice"+JSON.stringify(resourceservice.resourceServiceList));
                   component.set("v.resourceRecord",resourceservice.resContact);
+                  component.set("v.resourcePrice",resourceservice.resourceServiceList[0].CC_QAppt__Price__c); 
                   var options = [];
                   resourceservice.selectedService.forEach(function(Service){
                       options.push(Service);

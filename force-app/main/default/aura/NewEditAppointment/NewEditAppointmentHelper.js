@@ -15,7 +15,7 @@
                 
                 component.set("v.isResourceManditory",selectedCategory.CC_QAppt__IsResourceMandatory__c);
                 component.set("v.isResourceMultipleSelect",selectedCategory.CC_QAppt__IsMultipleResource__c);
-                component.set("v.isPricingApplicable",selectedCategory.CC_QAppt__IsPricingApplicable__c);
+              //  component.set("v.isPricingApplicable",selectedCategory.CC_QAppt__IsPricingApplicable__c);
                 
                 if(mandatoryObj == 'Location'){
                     var AvailableLocations = response.getReturnValue();
@@ -34,11 +34,14 @@
                     component.set("v.availableServiceList",options);
                 }
                 if(mandatoryObj == 'Resource'){
-                    var AvailableResources = response.getReturnValue();
+                    var resourceList = response.getReturnValue();
                     var options = [];
-                    AvailableResources.forEach(function(Resource){
+                    /* AvailableResources.forEach(function(Resource){
                         options.push({ value: Resource.Id, label: Resource.Name ,Id: Resource.Id , Name:Resource.Name});
-                    });
+                    });*/
+                  for(var key in resourceList){
+                    options.push({value: resourceList[key].CC_QAppt__Resource_Staff__c ,label:resourceList[key].CC_QAppt__Resource_Staff__r.Name, Name:resourceList[key].CC_QAppt__Resource_Staff__r.Name,value: resourceList[key].CC_QAppt__Resource_Staff__c , Id:resourceList[key].CC_QAppt__Resource_Staff__c , Price: resourceList[key].CC_QAppt__Price__c }); 
+                   }
                     component.set("v.availableResourceList",options);
                 }
             }
@@ -108,9 +111,10 @@
                 var AssetList =     response.getReturnValue();
                 var options = [];
                 AssetList.forEach(function(asset){
-                 //   console.log('asset'+asset);
-                    options.push({value:asset.Id , Id: asset.Id , label: asset.Name , Name : asset.Name});
+                   console.log("asset@@@@@"+JSON.stringify(asset));
+                    options.push({value:asset.Id , Id: asset.Id , label: asset.Name , Name : asset.Name ,Price:asset.CC_QAppt__Price__c});
                 });
+             //   console.log("options@@@"+JSON.stringify(options));
                 component.set("v.availableAssetList",options);
             }
         });
@@ -131,10 +135,10 @@
                 var serviceList = response.getReturnValue();
                 var options = [];
                 serviceList.forEach(function(Service){
-               //     console.log("Service"+JSON.stringify(Service));
-                    options.push({ value: Service.Id, Name: Service.Name, label: Service.Name ,Id: Service.Id , price: Service.CC_QAppt__Price__c});
+                console.log("Service"+JSON.stringify(Service));
+                    options.push({ value: Service.CC_QAppt__Service__c, Name: Service.CC_QAppt__Service__r.Name,LocationService:Service.Id, label: Service.CC_QAppt__Service__r.Name ,Id: Service.CC_QAppt__Service__c , price: Service.CC_QAppt__Service__r.CC_QAppt__Price__c ,LocationService: Service.Id , LocationId: Service.CC_QAppt__Location__c});
                 });
-                component.set("v.availableServiceList",options);
+             component.set("v.availableServiceList",options);
             }
             else {
                 console.log('Failed with state: ' + state);
@@ -156,9 +160,12 @@
             if (state === "SUCCESS") {
                 var resourceList = response.getReturnValue();
                 var options = [];
-                resourceList.forEach(function(resource){
+            /*    resourceList.forEach(function(resource){
                     options.push({ value: resource.Id , Name: resource.Name, label: resource.Name ,Id: resource.Id});
-                });
+                });*/
+                for(var key in resourceList){
+                    options.push({value: resourceList[key].CC_QAppt__Resource_Staff__c ,label:resourceList[key].CC_QAppt__Resource_Staff__r.Name, Name:resourceList[key].CC_QAppt__Resource_Staff__r.Name,value: resourceList[key].CC_QAppt__Resource_Staff__c , Id:resourceList[key].CC_QAppt__Resource_Staff__c , Price: resourceList[key].CC_QAppt__Price__c }); 
+                }
                 component.set("v.availableResourceList",options);
             }
             else {
@@ -204,9 +211,12 @@
             if (state === "SUCCESS") {
                   var resourceList = response.getReturnValue();
                 var options = [];
-                resourceList.forEach(function(resource){
+              /*  resourceList.forEach(function(resource){
                     options.push({ value: resource.Id,Name: resource.Name, label: resource.Name ,Id: resource.Id});
-                });
+                });*/
+                 for(var key in resourceList){
+                    options.push({value: resourceList[key].CC_QAppt__Resource_Staff__c ,label:resourceList[key].CC_QAppt__Resource_Staff__r.Name, Name:resourceList[key].CC_QAppt__Resource_Staff__r.Name,value: resourceList[key].CC_QAppt__Resource_Staff__c , Id:resourceList[key].CC_QAppt__Resource_Staff__c , Price: resourceList[key].CC_QAppt__Price__c }); 
+                }              
                 component.set("v.availableResourceList",options);
             }
             else {
@@ -342,24 +352,33 @@
     * @description This is the method which will save appointment
    */          
     saveAppointment : function(component,event,helper){
-        var action = component.get("c.createAppointment");
+        var selectedLocation = component.get("v.selectedLocation");
+        var selectedService = component.get("v.selectedService");
+        var LocationServiceList = component.get("v.availableServiceList");
+        var LocationService = LocationServiceList.filter(function(locServ){
+            if(locServ.LocationId == selectedLocation[0] && locServ.Id == selectedService[0]){
+                return locServ.LocationService;
+            }
+        });
+        console.log("pricingList"+JSON.stringify(component.get("v.pricingList")));
+      var action = component.get("c.createAppointment");
         action.setParams({
             appointmentId       : component.get("v.appointmentId"), 
             appointmentName     : component.get("v.appointmentName"),
-            selectedLocationIds : component.get("v.selectedLocation").join(), 
-            selectedServiceIds  : component.get("v.selectedService").join(),
-            selectedResourceIds :  component.get("v.selectedResourceList").join(),
-            selectedAssetIds    :  component.get("v.selectedAssetList").join(),
-            selectedAttendeeIds :  component.get("v.selectedAttendeeList").join(),
+            selectedResourceIds :  component.get("v.selectedResourceList"),
+            selectedAssetIds    :  component.get("v.selectedAssetList"),
+            selectedLocService  : LocationService[0].LocationService,
+            selectedLocationId  : component.get("v.selectedLocation"),
+            selectedServiceId   : component.get("v.selectedService"),
             statusOfAppointment : component.get("v.selectedStatus"),
             startDate           : component.get("v.startDate"),
             startTime           : component.get("v.startTime"),
             duration            : component.get("v.Duration"),
             description         : component.get("v.description"),
-            appointmentDiscount : component.get("v.discountedValue"),
-            totalPrice          : component.get("v.totalServicePrice"),
+            totalPrice          : component.get("v.totalAppointmentPrice"),
             appointmentCategory : component.get("v.selectedAppointmentCategory").Id,       
-            selectedCustomer    : component.get("v.selectedCustomers"),   
+            selectedCustomer    : component.get("v.selectedCustomers"),
+            pricingOfList       : component.get("v.pricingList")
         });
         action.setCallback(this,function(response) {
             var state = response.getState();
@@ -431,15 +450,13 @@
     },
     
     editAppointment : function(component,event,helper){
-        var action = component.get("c.editAppointment");
-        
+        var action = component.get("c.editAppointment");      
         action.setParams({
             appointmentId : component.get("v.appointmentId")
         });   
         action.setCallback(this,function(response) {
             var state = response.getState();
             var relatedData = response.getReturnValue();
-        //    console.log("response"+JSON.stringify(response.getReturnValue()));
             if (state === "SUCCESS") {
                 component.set("v.appointmentName", relatedData.AppointmentName);
                 component.set("v.appointmentCatList",relatedData.appointmentCategory[0]);
@@ -455,21 +472,13 @@
                 component.set("v.statusList",relatedData.Status);               
                 component.set("v.selectedStatus",relatedData.Status);
                 
-                component.set("v.discountedValue",relatedData.discount);
                 component.set("v.Duration",relatedData.duration);
-                component.set("v.totalServicePrice",relatedData.totalPrice);
-                
-                //Set Selected Attendee List
-                var selectedAttendee = [];
-                relatedData.selectedattendeeList.forEach(function(attendee){
-                    selectedAttendee.push(attendee.Id);
-                })
-                component.set("v.selectedAttendeeList",selectedAttendee);
+                component.set("v.totalAppointmentPrice",relatedData.totalPrice);
                 
                 //Set Asset List
                 var selectedAsset = [];
                 relatedData.selectedassetList.forEach(function(asset){
-                    selectedAsset.push(asset.Id);
+                    selectedAsset.push(asset);
                 })
                 component.set("v.selectedAssetList",selectedAsset);
                 
@@ -479,7 +488,7 @@
                 fetchCategory.setCallback(this,function(resp){
                     var selectedLocations = [];
                     relatedData.selectedlocationList.forEach(function(location){
-                        selectedLocations.push(location.Id);
+                        selectedLocations.push(location);
                     })
                     component.set("v.selectedLocation",selectedLocations);
                     
@@ -488,21 +497,17 @@
                         this.fetchServiceBasedOnLocations(component,event,helper);
                         var selectedServices = [];
                         relatedData.selectedserviceList.forEach(function(service){
-                            selectedServices.push(service.Id);
+                            selectedServices.push(service);
                         })
-                     
-                       //Calculating the Actual price before Discount
-                       var PriceBeforeDiscount =  relatedData.totalPrice + ((relatedData.totalPrice * relatedData.discount)/100);
-                        component.set("v.servicesPrice",PriceBeforeDiscount);
-                        component.set("v.selectedService",selectedServices);
                     }
+                     component.set("v.selectedService",selectedServices);
                     
                     //Fetch Resources based on service if service is mandatory
                     if(relatedData.appointmentCategory[0].CC_QAppt__IsServiceMandatory__c == true && relatedData.appointmentCategory[0].CC_QAppt__IsResourceMandatory__c == true){
                         this.fetchResourceBasedOnService(component,event,helper);
                         var selectedResources = [];
                         relatedData.selectedresourceList.forEach(function(resource){
-                            selectedResources.push(resource.Id);
+                            selectedResources.push(resource);
                         })
                         component.set("v.selectedResourceList",selectedResources);
                     }
@@ -513,11 +518,23 @@
                         this.fetchResourcesBasedOnLocation(component,event,helper);
                         var selectedResources = [];
                         relatedData.selectedresourceList.forEach(function(resource){
-                            selectedResources.push(resource.Id);
+                            selectedResources.push(resource);
                         })
                         component.set("v.selectedResourceList",selectedResources);
                         }   
                     }
+                    
+                    var updatedpricinglist = [];
+                    var pricinglist = relatedData.wrappprice.forEach(function(priceobj){
+                        var PriceBeforeDiscount = 0;
+                         PriceBeforeDiscount =  parseFloat(priceobj.TotalPrice) + ((parseFloat(priceobj.TotalPrice) * parseInt(priceobj.Discount))/100);
+                        var pricecalculate = {Price:PriceBeforeDiscount};
+                        Object.assign(priceobj,pricecalculate);
+                        updatedpricinglist.push(priceobj);
+                    });
+                    
+                    component.set("v.pricingList",updatedpricinglist);
+                    
                     var selectedCustomerList = new Array();
                     relatedData.selectedcustomerList.forEach(function(customer){
                         selectedCustomerList.push(customer.Id);            

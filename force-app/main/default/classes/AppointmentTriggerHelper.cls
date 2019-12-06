@@ -73,32 +73,45 @@ public without sharing class AppointmentTriggerHelper {
     
     public Static void updateAppointmentDetail(List<Appointment__c> newAppointmentList,Map<Id,Appointment__c> oldAppointmentMap){
 		Map<String,Set<String>> deleteIdMap = new Map<String,Set<String>>();
-        
+        Map<String,Set<String>> tmpMap = new Map<String,Set<String>>();
+        System.debug('line 76');
         try{
             for(Appointment__c appObj : newAppointmentList){
                 System.debug('Appointment');
                 if(appObj.CC_QAppt__Locations__c != null){
-                    updatedData('CC_QAppt__Locations__c','CC_QAppt__Location__c',appObj,oldAppointmentMap);
+                    System.debug('line 81');
+                    tmpMap = updatedData('CC_QAppt__Locations__c','CC_QAppt__Location__c',appObj,oldAppointmentMap);
+                    if(!tmpMap.isEmpty())
+                       deleteIdMap = tmpMap;
                     
                 }
                 if(appObj.CC_QAppt__Services__c != Null){
-                    updatedData('CC_QAppt__Services__c','CC_QAppt__Service__c',appObj,oldAppointmentMap);
+                    tmpMap = updatedData('CC_QAppt__Services__c','CC_QAppt__Service__c',appObj,oldAppointmentMap);
+                    if(!tmpMap.isEmpty())
+                       deleteIdMap = tmpMap;
                 }
                 
                 if(appObj.CC_QAppt__Resources__c != Null){
-                     updatedData('CC_QAppt__Resources__c','CC_QAppt__Resource__c',appObj,oldAppointmentMap);
+                     tmpMap = updatedData('CC_QAppt__Resources__c','CC_QAppt__Resource__c',appObj,oldAppointmentMap);
+                    if(!tmpMap.isEmpty())
+                       deleteIdMap = tmpMap;
                 }
                 
                 if(appObj.CC_QAppt__Attendees__c != Null){
-                    updatedData('CC_QAppt__Attendees__c','CC_QAppt__Attendee__c',appObj,oldAppointmentMap);
+                    tmpMap = updatedData('CC_QAppt__Attendees__c','CC_QAppt__Attendee__c',appObj,oldAppointmentMap);
+                    if(!tmpMap.isEmpty())
+                       deleteIdMap = tmpMap;
                 }
                 
                 if(appObj.CC_QAppt__Assets__c != Null){
-                    updatedData('CC_QAppt__Assets__c','CC_QAppt__Asset__c',appObj,oldAppointmentMap);
+                    tmpMap = updatedData('CC_QAppt__Assets__c','CC_QAppt__Asset__c',appObj,oldAppointmentMap);
+                    if(!tmpMap.isEmpty())
+                       deleteIdMap = tmpMap;
                 }
             }
 		
             List<CC_QAppt__Appointment_Detail__c> deleteAppointmentList = new List<CC_QAppt__Appointment_Detail__c>();
+            if(!deleteIdMap.isEmpty()){
             for(String fieldName : deleteIdMap.keySet()){
 				Set<String> AppointmentId = new Set<String>();
 				Set<String> recordId = new Set<String>();
@@ -106,15 +119,18 @@ public without sharing class AppointmentTriggerHelper {
 					AppointmentId.add(concatenatedId.substringBefore(','));
 					recordId.add(concatenatedId.substringAfter(','));
 				}
-				String query = 'SELECt Id FROM CC_QAppt__Appointment_Detail__c WHERE CC_QAppt__Appointment__c IN: AppointmentId AND' + fieldName + 'IN: recordId';
+				String query = 'SELECt Id FROM CC_QAppt__Appointment_Detail__c WHERE CC_QAppt__Appointment__c IN: AppointmentId AND ' + fieldName + ' IN: recordId';
 				deleteAppointmentList = Database.query(query);
+                System.debug('deleteAppointmentList'+deleteAppointmentList);
 			}
-			
+            }
             if(!insertAppointmentDetailList.isEmpty()){
                 INSERT insertAppointmentDetailList;
+                System.debug('insert'+insertAppointmentDetailList);
 				insertAppointmentDetailList = new List<Appointment_Detail__c>();
             }
             if(!deleteAppointmentList.isEmpty()){
+                System.debug('delete'+deleteAppointmentList);
                 DELETE deleteAppointmentList;
             }
         }catch(Exception exp){
@@ -213,12 +229,15 @@ public without sharing class AppointmentTriggerHelper {
 	Map<String,Set<String>> deleteIdMap = new Map<String,Set<String>>();
         String newId = String.valueof(appObj.get(appointmentField));
         String oldId = String.valueOf(oldAppointmentMap.get(appObj.Id).get(appointmentField));
-	Set<String> oldIdSet = new Set<String>(newId.split(','));
-	Set<String> newIdSet = new Set<String>(oldId.split(','));
+	Set<String> newIdSet = new Set<String>(newId.split(','));
+	Set<String>  oldIdSet = new Set<String>(oldId.split(','));
 	Set<String> newOldIdSet = new Set<String>();
-	Set<String> deleteIdSet;
+	Set<String> deleteIdSet = new Set<String>();
 	newOldIdSet.addAll(oldIdSet);
 	newOldIdSet.addAll(newIdSet);
+        System.debug('######oldIdSet'+oldIdSet);
+        System.debug('######newIdSet'+newIdSet);
+        System.debug('######newOldIdSet'+oldIdSet);
 	if( !newOldIdSet.isEmpty()){
 		for(String objId : newOldIdSet){
 			if(!oldIdSet.contains(objId) && newIdSet.contains(objId)){
@@ -226,6 +245,7 @@ public without sharing class AppointmentTriggerHelper {
 				appDetailObj.CC_QAppt__Appointment__c = appObj.Id;
 				appDetailObj.put(appointmentDetailField,objId);
 				insertAppointmentDetailList.add(appDetailObj);
+                 System.debug('######appDetailObj'+appDetailObj);
 			}
 			if(oldIdSet.contains(objId) && !newIdSet.contains(objId)){
 				if(!deleteIdMap.containsKey(appointmentDetailField)){
@@ -238,6 +258,7 @@ public without sharing class AppointmentTriggerHelper {
 		}
 		if(!deleteIdSet.isEmpty())
 			deleteIdMap.put(appointmentDetailField,deleteIdSet);
+                System.debug('######deleteIdMap'+deleteIdMap);
 	}
 	return deleteIdMap;
 }

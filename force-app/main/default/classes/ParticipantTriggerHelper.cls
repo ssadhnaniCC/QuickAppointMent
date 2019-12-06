@@ -25,16 +25,14 @@ public class ParticipantTriggerHelper {
         if(customerIds.size()>0) {
             List<Messaging.SingleEmailMessage> messages =   NEW List<Messaging.SingleEmailMessage>();
             
-            for(contact con : [select Id,email from contact where recordtype.name =: 'User' And Id In:customerids AND email != null]) {
+            for(contact con : [select Id,email from contact where Id In:customerids AND email != null]) {
                 String appcategory ;
                 for(Id ids :mapOfCustomer.keySet()){
                     Set<Id> idsofcustomer =   mapOfCustomer.get(ids);
                     if(idsofcustomer.contains(con.id)){
                         appcategory = ids; 
                     }
-                    else {
-                        return;
-                    }
+                  
                 }
                 
                 Messaging.SingleEmailMessage email = Messaging.renderStoredEmailTemplate(empList[0].id, con.id,appcategory);

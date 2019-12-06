@@ -16,6 +16,7 @@
     
     <!--@description Boolean attribute to disable dualservicelist initially--> 
     <aura:attribute name="disableServiceDualLstBox" type="boolean" default="false"/>
+    <aura:attribute name="resourcePrice" type="Integer" default="0"/>
    
     <!--@description Init Handler--> 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
@@ -97,7 +98,15 @@
                                 </div>
                             </div>                           
                         </div>
-                    </div>                        
+                        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <lightning:input name="Resource_Price" class="label-hidden" label="Price"  placeholder="Price" value="{!v.resourcePrice}"/>  
+                                </div>
+                            </div>                           
+                        </div>
+                    </div>
+                        
                     <div class="slds-grid slds-gutters slds-wrap" style="postion:relative">
                         <aura:if isTrue="{!v.showSpinner}">
                             <div class="slds-spinner_container">

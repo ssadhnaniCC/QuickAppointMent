@@ -11,13 +11,16 @@ public class CalendarLightningController {
 */
     @AuraEnabled
     public static List<calendarWrapper> fetchAppointments(String ObjectName, String recordId){
-        String recordTypeName ;
+       String recordTypeName ;
         
         If(!String.isBlank(recordId) && String.isBlank(ObjectName)){
           Id recordIds = recordId;
            ObjectName = recordIds.getSObjectType().getDescribe().getName();        
         }
-        List<CC_QAppt__Appointment__c> previousAppointments  = new List<CC_QAppt__Appointment__c>();
+        List<CC_QAppt__Appointment_Detail__c> previousAppointments  = new List<CC_QAppt__Appointment_Detail__c>();
+        
+        List<CC_QAppt__Appointment__c> appointments = new List<CC_QAppt__Appointment__c>();
+        Map<Id,CC_QAppt__Appointment_Detail__c> mapsofrelatedAppointment ;
         List<calendarWrapper> calWrapp = new List<calendarWrapper>();
         List<contact> customerList = new List<contact>();  
         //Get User Time Zone
@@ -38,58 +41,47 @@ public class CalendarLightningController {
         }
         if(recordTypeName == 'User'){
             customerList = QuickAppointmentSOQLManager.getCustomers(recordId);
-            previousAppointments = QuickAppointmentSOQLManager.getPreviousAppointmentsForCustomers(recordId);
+            mapsofrelatedAppointment = QuickAppointmentSOQLManager.getPreviousAppointmentsForCustomers(recordId);
+             for(Id keys :mapsofrelatedAppointment.keyset()){
+                previousAppointments.add(mapsofrelatedAppointment.get(keys));
+            }
         }
         if((recordTypeName == '' || recordTypeName == null ) && (ObjectName == '' || ObjectName == null )){
-           previousAppointments = QuickAppointmentSOQLManager.getPreviousAppointments('','');
+           mapsofrelatedAppointment = QuickAppointmentSOQLManager.getAllAppointments();
+            for(Id keys :mapsofrelatedAppointment.keyset()){
+                previousAppointments.add(mapsofrelatedAppointment.get(keys));
+            }
         }
         if((recordTypeName == null ) && (ObjectName != null )){
            previousAppointments = QuickAppointmentSOQLManager.getPreviousAppointments(ObjectName,recordId);
         }
-        for(CC_QAppt__Appointment__c prevApp : previousAppointments){
+        for(CC_QAppt__Appointment_Detail__c prevApp : previousAppointments){
             calendarWrapper obj = new calendarWrapper();
-            obj.Id = prevApp.Id;
-            obj.startDate = prevApp.CC_QAppt__Start_Date_Time__c.format('MM/dd/yyyy h:mm a',currentTimeZone);
-            obj.endDate = prevApp.CC_QAppt__End_Date_Time__c.format('MM/dd/yyyy h:mm a',currentTimeZone);
+            obj.Id = prevApp.CC_QAppt__Appointment__c;
+            obj.startDate = prevApp.CC_QAppt__Appointment__r.CC_QAppt__Start_Date_Time__c.format('MM/dd/yyyy h:mm a',currentTimeZone);
+            obj.endDate = prevApp.CC_QAppt__Appointment__r.CC_QAppt__End_Date_Time__c.format('MM/dd/yyyy h:mm a',currentTimeZone);
            
             if(recordTypeName == 'Resource'){
-               List<contact> resourceList =  QuickAppointmentSOQLManager.fetchAllResourceStaff(recordId);
-               if(resourceList.size()>0){
-                   obj.RelatedListName = resourceList[0].Name; 
-               }         
+            obj.RelatedListName  =  prevApp.CC_QAppt__Resource__r.Name;              
             }
             
             if(ObjectName == 'CC_QAppt__Location__c'){
-                  Set<Id> locationid = new set<id>();
-                locationid.add(recordId);
-                List<CC_QAppt__Location__c> LocationList = QuickAppointmentSOQLManager.fetchSelectedLocationForAppointment(locationid);
-                if(LocationList.size()>0){  
-                    obj.RelatedListName =  LocationList[0].Name;
-                }
-                locationid.clear();    
+            obj.RelatedListName      = prevApp.CC_QAppt__LocationService__r.CC_QAppt__Location__r.Name;     
             }
             if(ObjectName == 'CC_QAppt__Service__c'){
-                Set<Id> Serviceid = new set<id>();
-                Serviceid.add(recordId);
-                List<CC_QAppt__Service__c> selectedServicesList = QuickAppointmentSOQLManager.fetchSelectedServiceForAppointment(Serviceid);
-                if(selectedServicesList.size()>0){  
-                    obj.RelatedListName =  selectedServicesList[0].Name;
-                }
-                Serviceid.clear();
-            }
-           
+             obj.RelatedListName      = prevApp.CC_QAppt__LocationService__r.CC_QAppt__Service__r.Name;
+ 
+            } 
             if(ObjectName == 'CC_QAppt__Appointment_Category__c'){
-                if( prevApp.CC_QAppt__Appointment_Category__r != null){
-                 obj.RelatedListName =  prevApp.CC_QAppt__Appointment_Category__r.Name;
-                }
+              obj.RelatedListName      = prevApp.CC_QAppt__Appointment__r.CC_QAppt__Appointment_Category__r.Name;
             }    
             if(recordTypeName == 'User'){
             obj.RelatedListName = customerList[0].Name;
             }
-            obj.Name = prevApp.Name;
-            obj.Description = prevApp.CC_QAppt__Description__c;
-            obj.Status = prevApp.CC_QAppt__Status__c;
-            if(prevApp.CC_QAppt__Status__c == 'Upcoming'){
+            obj.Name = prevApp.CC_QAppt__Appointment__r.Name;
+            obj.Description = prevApp.CC_QAppt__Appointment__r.CC_QAppt__Description__c;
+            obj.Status = prevApp.CC_QAppt__Appointment__r.CC_QAppt__Status__c;
+            if(prevApp.CC_QAppt__Appointment__r.CC_QAppt__Status__c == 'Upcoming'){
                 obj.eventColor = StatusUpcoming;        
             }
             else if (obj.Status == 'Running'){
@@ -101,7 +93,7 @@ public class CalendarLightningController {
             else if (obj.Status == 'Declined'){
                 obj.eventColor = StatusDeclined;        
             }
-            else if(prevApp.Busy_Time__c == true){
+            else if(prevApp.CC_QAppt__Appointment__r.Busy_Time__c == true){
                 obj.eventColor = 'red';         
             }
             calWrapp.add(obj);

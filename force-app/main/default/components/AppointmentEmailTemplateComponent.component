@@ -79,8 +79,11 @@ Your Appointment Details are :
         </center> 
         </p>
         <center>
-            Services : {!storeServices}
-            
+            Services : 
+            <apex:repeat value="{!appRecord}" var="app">
+                <apex:outputText rendered="{!app.Service__c != null}">{!app.CC_QAppt__Service__r.name}</apex:outputText>
+                <apex:outputText rendered="{!app.Id != appRecord[appRecord.size-1].Id}">,</apex:outputText>
+            </apex:repeat>
            
         </center>
         

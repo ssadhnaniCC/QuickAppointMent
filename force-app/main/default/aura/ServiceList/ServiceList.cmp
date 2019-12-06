@@ -112,9 +112,9 @@
                 <p class="  slds-float_left slds-badge slds-badge_lightest">Page {!v.pageNumber} of {!v.totalPages} </p>
             </div></aura:if>
     </div>
-    <aura:if isTrue = "{!v.showCalendar}">
+  <aura:if isTrue = "{!v.showCalendar}">
         <c:Calendar aura:id="childCalendar" />
-    </aura:if>
+    </aura:if> 
     <aura:if isTrue ="{!v.showRelatedAppointment}">
         <c:AppointmentList aura:id="childAppointment" />
     </aura:if>

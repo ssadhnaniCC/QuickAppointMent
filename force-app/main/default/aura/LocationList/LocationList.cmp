@@ -97,7 +97,7 @@
     </div>
      <aura:if isTrue = "{!v.showCalendar}">
         <c:Calendar aura:id="childCalendar" />
-    </aura:if>
+    </aura:if> 
     <aura:if isTrue ="{!v.showRelatedAppointment}">
         <c:AppointmentList aura:id="childAppointment" />
     </aura:if>

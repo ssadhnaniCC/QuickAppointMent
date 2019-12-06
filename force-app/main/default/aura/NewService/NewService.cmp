@@ -10,7 +10,7 @@
     <aura:attribute name="recId" type="String"/>
     <aura:attribute name="description" type="String"/>
     <aura:attribute name="errorMsg" type="String" default=" "/>
-    <aura:attribute name="serviceRecord" type="Service__c" default="{'sObjectType':'CC_QAppt__Service__c', 'Name':'','CC_QAppt__Description__c':'',CC_QAppt__Duration__c:'',CC_QAppt__Price__c:''}"/>
+    <aura:attribute name="serviceRecord" type="object" />
     
     <!--@description this block contain all integer attribute-->
     <aura:attribute name="durInMin" type="Integer"/>
@@ -56,7 +56,7 @@
                         </aura:if>
                         
                         <div class="slds-grid slds-gutters slds-wrap">
-                             <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                           <!--  <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
                                 <lightning:input aura:id="ServiceName" name="Service_Name" label="Service Name" placeholder="Service Name" value="{!v.serviceRecord.Name}" type="text" required="true" messageWhenValueMissing="Please Enter Service Name"/>
                                 <lightning:input aura:id="des" name="Description" label="Description" placeholder="Description" value="{!v.serviceRecord.CC_QAppt__Description__c}" type="text"/>
                                 
@@ -65,9 +65,9 @@
                                 <lightning:input aura:id="Duration" name="Duration in Minutes" label="Duration in Minutes" value="{!v.serviceRecord.CC_QAppt__Duration__c}" placeholder="Duration in Minutes" type="number" required="true" messageWhenValueMissing="Please Enter Duration"/>
                                 <lightning:input aura:id="Price" name="Price" label="Price" placeholder="Price" value="{!v.serviceRecord.CC_QAppt__Price__c}" type="currency" required="true" messageWhenValueMissing="Please Enter Price"/>
                                 
-                            </div>
+                            </div>-->
                             
-                           <!-- <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                           <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
                                 <div class="slds-form-element">
                                     <div class="slds-form-element__control">
                                         <lightning:input aura:id="ServiceName" name="Service_Name" label="Service Name" placeholder="Service Name" value="{!v.serviceRecord.Name}" type="text" required="true" messageWhenValueMissing="Please Enter Service Name"/>
@@ -97,7 +97,7 @@
                                         <lightning:input aura:id="Price" name="Price" label="Price" placeholder="Price" value="{!v.serviceRecord.CC_QAppt__Price__c}" type="currency" required="true" messageWhenValueMissing="Please Enter Price"/>
                                     </div>
                                 </div>                           
-                            </div>-->
+                            </div>
                             
                         </div>
                         

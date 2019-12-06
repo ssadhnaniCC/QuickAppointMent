@@ -9,7 +9,7 @@ public class FeedbackFormController {
     public CC_QAppt__Appointment_Feedback__c qaf {get;set;} 
     public string ratingNumber {get;set;}
     public string category {get;set;}
-   
+    
     public boolean showForm {get;set;}
     public boolean showSuccess {get;set;}
     
@@ -39,9 +39,9 @@ public class FeedbackFormController {
     
     /* Method to save feedback record */
     public PageReference saveFeedback() {
-       
-       
-       
+        
+        
+        
         if(!string.isEmpty(ratingNumber))
             qaf.CC_QAppt__Rating__c = ratingNumber;
         
@@ -51,7 +51,7 @@ public class FeedbackFormController {
             qaf.CC_QAppt__Feedback_Category__c = category;
         
         try{
-            INSERT qaf;
+            Upsert qaf;
             ApexPages.addmessage(new ApexPages.message(ApexPages.severity.CONFIRM,'Feedback submit successfully')); 
             
             
@@ -66,24 +66,24 @@ public class FeedbackFormController {
             showForm = false;
             showSuccess = true;
             if(fetchContactEMail.size()>0 && fetchContactEMail[0].CC_QAppt__Participant_Name__r.email!=null) {
-            Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
-            message.toAddresses = new String[] { fetchContactEMail[0].CC_QAppt__Participant_Name__r.email };
-                message.subject = 'Quick Appointment Feedback Form';
-            message.plainTextBody = 'Thanks for Submitting feedback form';
-            Messaging.SingleEmailMessage[] messages =   new List<Messaging.SingleEmailMessage> {message};
-                Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
-            
-            if (results[0].success) {
-                System.debug('The email was sent successfully.');
+                Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+                message.toAddresses = new String[] { fetchContactEMail[0].CC_QAppt__Participant_Name__r.email };
+                    message.subject = 'Quick Appointment Feedback Form';
+                message.plainTextBody = 'Thanks for Submitting feedback form';
+                Messaging.SingleEmailMessage[] messages =   new List<Messaging.SingleEmailMessage> {message};
+                    Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
+                
+                if (results[0].success) {
+                    System.debug('The email was sent successfully.');
+                } 
+                else {
+                    System.debug('The email failed to send: ' + results[0].errors[0].message);
+                }
             } 
-            else {
-                System.debug('The email failed to send: ' + results[0].errors[0].message);
-            }
-        } 
         }
-            
+        
         return null;
-            
+        
     }
     
 }

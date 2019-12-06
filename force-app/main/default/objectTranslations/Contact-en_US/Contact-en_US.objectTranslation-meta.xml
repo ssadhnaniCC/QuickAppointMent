@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Resource/Staff</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Resources/Staff</value>
+    </caseValues>
+    <fieldSets>
+        <label><!-- CustomerListFieldset --></label>
+        <name>CustomerListFieldset</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- ResourceStaffFieldSet --></label>
+        <name>ResourceStaffFieldSet</name>
+    </fieldSets>
+    <recordTypes>
+        <label><!-- Resource --></label>
+        <name>Resource</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Staff --></label>
+        <name>Staff</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- User --></label>
+        <name>User</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

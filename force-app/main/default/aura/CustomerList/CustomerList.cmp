@@ -102,7 +102,7 @@
    <aura:if isTrue ="{!v.showRelatedAppointment}">
         <c:AppointmentList recordId="{!v.CustomerId}" aura:id="childAppointment"/>
     </aura:if>    
-    <aura:if isTrue = "{!v.showCalendar}">
+   <aura:if isTrue = "{!v.showCalendar}">
         <c:Calendar aura:id="childCalendar" />
     </aura:if>    
 

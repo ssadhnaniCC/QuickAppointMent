@@ -1,18 +1,15 @@
 public without sharing class NewEditAppointmentController {
-    @AuraEnabled
+ 
+   @AuraEnabled
    public static List<CC_QAppt__Appointment_Category__c> getAppointmentCategory(Boolean isPublic){
         return QuickAppointmentSOQLManager.getAppointmentCategories(null, isPublic);
     }
     @AuraEnabled
-    public static List<CC_QAppt__Service__c> getDependentServices(List<Id> selectedLocationIds){
+    public static List<CC_QAppt__Location_Service__c> getDependentServices(List<Id> selectedLocationIds){
           Set<Id> locationIds = new Set<Id>();
         Set<Id> servicesId = new Set<Id>();
         locationIds.addAll(selectedLocationIds);
-        List<CC_QAppt__Location_Service__c> locationservices = QuickAppointmentSOQLManager.getDependentService(locationIds);
-        for(CC_QAppt__Location_Service__c locserv : locationservices){
-            servicesId.add(locserv.CC_QAppt__Service__c);
-        }
-        return QuickAppointmentSOQLManager.fetchSelectedServiceForAppointment(servicesId);
+         return QuickAppointmentSOQLManager.getDependentService(locationIds);
     }
     @AuraEnabled
     public Static List<CC_QAppt__Location__c> getLocations(){
@@ -23,25 +20,47 @@ public without sharing class NewEditAppointmentController {
           return QuickAppointmentSOQLManager.fetchAllServices();        
     }
     @AuraEnabled 
-    public static List<contact> getResources(){
-            return QuickAppointmentSOQLManager.fetchAllResourceStaff(null);        
+    public static Map<Id,CC_QAppt__Resource_Service_Alignment__c> getResources(){
+     Map<Id,CC_QAppt__Resource_Service_Alignment__c> mapOfResourceService = new Map<Id,CC_QAppt__Resource_Service_Alignment__c>(); 
+   
+        List<CC_QAppt__Resource_Service_Alignment__c> resourceServiceList  = QuickAppointmentSOQLManager.fetchResourceServiceAlignments();
+         for(CC_QAppt__Resource_Service_Alignment__c resource : resourceServiceList){
+            if(!mapOfResourceService.containsKey(resource.CC_QAppt__Resource_Staff__c)){
+                mapOfResourceService.put(resource.CC_QAppt__Resource_Staff__c,resource);
+            }
+        }
+        return mapOfResourceService;
+        
     }
     @AuraEnabled 
     public static List<CC_QAppt__Attendee__c> getAttendee(){
          return QuickAppointmentSOQLManager.fetchAttendeeList(null);  
     }
     @AuraEnabled
-    public static List<contact> getResourceBasedOnService(List<Id> selectedServiceIds){
-         Set<Id> serviceIds = new Set<Id>();
+    public static Map<Id,CC_QAppt__Resource_Service_Alignment__c> getResourceBasedOnService(List<Id> selectedServiceIds){
+       Map<Id,CC_QAppt__Resource_Service_Alignment__c> mapOfResourceService = new Map<Id,CC_QAppt__Resource_Service_Alignment__c>(); 
+        Set<Id> serviceIds = new Set<Id>();
         serviceIds.addAll(selectedServiceIds);
-        return QuickAppointmentSOQLManager.getDependentResourceStaff(serviceIds);
-        
+      List<CC_QAppt__Resource_Service_Alignment__c> resourceServiceList = QuickAppointmentSOQLManager.getDependentResourceStaff(serviceIds);
+        for(CC_QAppt__Resource_Service_Alignment__c resource : resourceServiceList){
+            if(!mapOfResourceService.containsKey(resource.CC_QAppt__Resource_Staff__c)){
+                mapOfResourceService.put(resource.CC_QAppt__Resource_Staff__c,resource);
+            }
+        }
+        return mapOfResourceService;
     }
     @AuraEnabled
-    public static List<contact>  getResourceBasedOnLocation(List<Id> selectedLocationIds){
+    public static Map<Id,CC_QAppt__Resource_Service_Alignment__c>  getResourceBasedOnLocation(List<Id> selectedLocationIds){
+      Map<Id,CC_QAppt__Resource_Service_Alignment__c> mapOfResourceService = new Map<Id,CC_QAppt__Resource_Service_Alignment__c>(); 
          Set<Id> locationIds = new Set<Id>();
         locationIds.addAll(selectedLocationIds);
-         return QuickAppointmentSOQLManager.getResourceStaffBasedOnLocation(locationIds);
+       List<CC_QAppt__Resource_Service_Alignment__c> resourceServiceList =  QuickAppointmentSOQLManager.getResourceStaffBasedOnLocation(locationIds);
+        for(CC_QAppt__Resource_Service_Alignment__c resource : resourceServiceList){
+            if(!mapOfResourceService.containsKey(resource.CC_QAppt__Resource_Staff__c)){
+                mapOfResourceService.put(resource.CC_QAppt__Resource_Staff__c,resource);
+            }
+        }
+        return mapOfResourceService;
     }
     @AuraEnabled
     public static List<String> fetchStatusOfAppointment(){
@@ -70,98 +89,171 @@ public without sharing class NewEditAppointmentController {
           return QuickAppointmentSOQLManager.filterCustomers(customerName);
     }
     @AuraEnabled
-    public static void createAppointment(String appointmentId,String appointmentName,String selectedLocationIds,String selectedServiceIds,String selectedResourceIds ,
-                                        String selectedAssetIds , String selectedAttendeeIds , String statusOfAppointment , String startDate,
-                                        String startTime, Integer duration ,String description , Decimal appointmentDiscount,Decimal totalPrice, Id appointmentCategory,List<contact> selectedCustomer){  
+    public static void createAppointment(String appointmentId,String appointmentName,List<String> selectedResourceIds ,
+                                        List<String> selectedAssetIds ,String selectedLocService, List<String> selectedLocationId , List<String> selectedServiceId,String statusOfAppointment , String startDate,
+                                        String startTime, Integer duration ,String description , Decimal totalPrice, Id appointmentCategory,List<contact> selectedCustomer,List<wrappedPriceList> pricingOfList){  
        
       list<string> timeList = startTime.split(':');                                         
       list<string> dtList = startDate.split('-');
           try{
-              
               date startdt = Date.newInstance(Integer.valueOf(dtList[0]),Integer.valueOf(dtList[1]),Integer.valueOf(dtList[2].trim()));
               Time myTime = Time.newInstance(Integer.valueOf(timeList[0].trim()),Integer.valueOf(timeList[1].trim()),0,0);
               set<id> resourceIds = new set<id>();
               CC_QAppt__Appointment__c app = new  CC_QAppt__Appointment__c();      
               app.Id  = appointmentId;
               app.Name   =  appointmentName;                               
-              app.CC_QAppt__Locations__c  = selectedLocationIds;
-              app.CC_QAppt__Services__c =   selectedServiceIds;
-              app.CC_QAppt__Resources__c =  selectedResourceIds; 
-              app.CC_QAppt__Assets__c  =  selectedAssetIds;
               app.CC_QAppt__Duration__c =  duration;
               app.CC_QAppt__TotalPrice__c = totalPrice;                                
-              app.CC_QAppt__Attendees__c =  selectedAttendeeIds;
               app.CC_QAppt__Status__c    =  statusOfAppointment ;
               app.CC_QAppt__Description__c = description ;                                
               app.CC_QAppt__Start_Date_Time__c   = datetime.newInstance(startdt,myTime);  
               app.CC_QAppt__End_Date_Time__c =  datetime.newInstance(startdt,myTime).addMinutes(duration);   
-              app.CC_QAppt__Discount__c =   appointmentDiscount;
               app.CC_QAppt__Appointment_Category__c =  appointmentCategory;                              
-              upsert app;     
+               upsert app;     
             
               List<Participant__c> tempListDelete = new List<Participant__c>();
+              List<CC_QAppt__Appointment_Detail__c> deleteDetailList  = new List<CC_QAppt__Appointment_Detail__c>(); 
               if(appointmentId != ''){
                   tempListDelete =   [select Participant_Name__c,Appointment__c from Participant__c where Appointment__c =: appointmentId];  
                   if(tempListDelete.size()>0){
                       delete tempListDelete;
-                  }                                 
-              }                             
-           List<Participant__c> PList = new List<Participant__c>();
+                  } 
+                 deleteDetailList = [select id from CC_QAppt__Appointment_Detail__c where CC_QAppt__Appointment__c =: appointmentId];
+                  if(deleteDetailList.size()>0){
+                      delete deleteDetailList;
+                  } 
+              }  
+              
+           List<Participant__c> ParticipantList = new List<Participant__c>();
+           List<CC_QAppt__Appointment_Detail__c> appointmentDetailList  = new List<CC_QAppt__Appointment_Detail__c>(); 
+           //Insert Customers for Appointment
            for(contact customer   : selectedCustomer) {
               Participant__c participant = new Participant__c();
+                participant.CC_QAppt__LocationService__c = selectedLocService;
                 participant.Participant_Name__c = customer.id;
                 participant.Appointment__c = app.id;
-                PList.add(participant);                                   
-             }              
-                                            
-             if(PList.size()>0){
-                  insert PList;      
+                ParticipantList.add(participant);                                   
+             }  
+              
+              Integer AssetCount =  0;
+              Integer ResourceCount = 0;
+              
+              for(Integer i=0 ;i<pricingOfList.size();i++){                 
+                  
+                  if(pricingOfList[i].ListType == 'Service'){
+                   CC_QAppt__Appointment_Detail__c appdetail = new CC_QAppt__Appointment_Detail__c();
+                   appdetail.CC_QAppt__LocationService__c = selectedLocService;
+                   appdetail.CC_QAppt__Discount__c =   pricingOfList[i].Discount;
+                   appdetail.CC_QAppt__Price__c =  pricingOfList[i].TotalPrice;
+                   appdetail.CC_QAppt__Appointment__c = app.id;
+                   appointmentDetailList.add(appdetail);                                   
+                  }
+                  
+                  if(pricingOfList[i].ListType == 'Resource'){
+                    //  while(ResourceCount < selectedResourceIds.size()){
+                        CC_QAppt__Appointment_Detail__c appdetail = new CC_QAppt__Appointment_Detail__c();
+                             appdetail.CC_QAppt__LocationService__c = selectedLocService;
+                             appdetail.CC_QAppt__Appointment__c = app.id;
+                             appdetail.CC_QAppt__Resource__c =  pricingOfList[i].Id; 
+                             appdetail.CC_QAppt__Discount__c =   pricingOfList[i].Discount;
+                             appdetail.CC_QAppt__Price__c =  pricingOfList[i].TotalPrice; 
+                             appointmentDetailList.add(appdetail);  
+                       //      ResourceCount++;
+                     // }
+                  }
+                  
+                  if(pricingOfList[i].ListType == 'Asset'){
+                     // while(AssetCount < selectedAssetIds.size()){
+                        CC_QAppt__Appointment_Detail__c appdetail = new CC_QAppt__Appointment_Detail__c();
+                         appdetail.CC_QAppt__LocationService__c = selectedLocService;
+                         appdetail.CC_QAppt__Appointment__c = app.id;
+                         appdetail.CC_QAppt__Asset__c = pricingOfList[i].Id;
+                         appdetail.CC_QAppt__Discount__c =   pricingOfList[i].Discount;
+                         appdetail.CC_QAppt__Price__c =  pricingOfList[i].TotalPrice;  
+                         appointmentDetailList.add(appdetail);     
+                         //AssetCount++;
+                   //   } 
+                  }
+                  
+              }
+                     
+             if(ParticipantList.size()>0){
+                insert ParticipantList;      
              }
+              if(appointmentDetailList.size()>0){
+                insert appointmentDetailList;      
+              }
          
          }catch(Exception ex){
             throw new AuraHandledException(ex.getMessage());
          }
     }
+    
+    
+    
     @AuraEnabled
     public static WrappAppointmentEditForm editAppointment(String appointmentId){
-        
-       Set<Id> selectedLocations = new Set<Id>();
-       Set<Id> selectedServices = new Set<Id>();
-       Set<Id> selectedResources = new Set<Id>();
-       Set<Id> selectedAssets = new Set<Id>();
-       Set<Id> selectedAttendees = new Set<Id>();
-        
-        
+
        List<CC_QAppt__Appointment__c> selectedAppointment = QuickAppointmentSOQLManager.getAppointmentOnEdit(appointmentId); 
-       List<CC_QAppt__Appointment_Category__c> selectedAppointmentCategory = QuickAppointmentSOQLManager.getAppointmentCategories(selectedAppointment[0].CC_QAppt__Appointment_Category__c, null);  
+       List<CC_QAppt__Appointment_Category__c> selectedAppointmentCategory = QuickAppointmentSOQLManager.getAppointmentCategories(selectedAppointment[0].CC_QAppt__Appointment_Category__c, null); 
+       List<contact> selectedcustomerList = QuickAppointmentSOQLManager.selectedCustomerListForEditAppointment(appointmentId);
         
-        if(!String.isBlank(selectedAppointment[0].CC_QAppt__Locations__c)){
-          List<Id> LocationsIds = selectedAppointment[0].CC_QAppt__Locations__c.split(',');
-          selectedLocations.addAll(LocationsIds);
-        }
-        if(!String.isBlank(selectedAppointment[0].CC_QAppt__Services__c)){
-         List<Id> servicesIds = selectedAppointment[0].CC_QAppt__Services__c.split(',');
-         selectedServices.addAll(servicesIds);
-        }
-         if(!String.isBlank(selectedAppointment[0].CC_QAppt__Resources__c)){
-           List<Id> resourceIds = selectedAppointment[0].CC_QAppt__Resources__c.split(',');
-           selectedResources.addAll(resourceIds);  
-          }
-         if(!String.isBlank(selectedAppointment[0].CC_QAppt__Assets__c)){
-              List<Id> assetIds = selectedAppointment[0].CC_QAppt__Assets__c.split(','); 
-              selectedAssets.addAll(assetIds);
-          }
-          if(!String.isBlank(selectedAppointment[0].CC_QAppt__Attendees__c)){
-            List<Id> attendeeIds = selectedAppointment[0].CC_QAppt__Attendees__c.split(',');
-            selectedAttendees.addAll(attendeeIds);
-          } 
-        List<CC_QAppt__Location__c> selectedLocationList = QuickAppointmentSOQLManager.fetchSelectedLocationForAppointment(selectedLocations);
-        List<CC_QAppt__Service__c> selectedServicesList = QuickAppointmentSOQLManager.fetchSelectedServiceForAppointment(selectedServices);
-        List<contact> selectedResourcesList = QuickAppointmentSOQLManager.fetchSelectedResourcesForAppointment(selectedResources);
-        List<CC_QAppt__Asset__c> selectedAssetList = QuickAppointmentSOQLManager.fetchAssetList(selectedAssets);
-        List<CC_QAppt__Attendee__c> selectedAttendeeList =  QuickAppointmentSOQLManager.fetchAttendeeList(selectedAttendees);
-        List<contact> selectedcustomerList = QuickAppointmentSOQLManager.selectedCustomerListForEditAppointment(appointmentId);
+       List<CC_QAppt__Appointment_Detail__c> appointmentdetailForService  =  QuickAppointmentSOQLManager.appointmentDetailforAppointment(appointmentId,'Service');
         
+       List<CC_QAppt__Appointment_Detail__c> appointmentdetailForResource  =  QuickAppointmentSOQLManager.appointmentDetailforAppointment(appointmentId,'Resource');
+        
+       List<CC_QAppt__Appointment_Detail__c> appointmentdetailForAsset  =  QuickAppointmentSOQLManager.appointmentDetailforAppointment(appointmentId,'Asset');
+       
+        List<Id> selectedLocationList = new List<Id>();
+        List<Id> selectedServicesList = new List<Id>();
+        Set<Id> selectedServiceId = new Set<Id>();
+        List<Id> selectedResourcesList = new List<Id>();
+        List<Id> selectedAssetList = new List<Id>();
+        
+        selectedServiceId.add(appointmentdetailForService[0].CC_QAppt__LocationService__r.CC_QAppt__Service__c);
+        
+        List<CC_QAppt__Service__c> serviceDetail = QuickAppointmentSOQLManager.fetchSelectedServiceForAppointment(selectedServiceId);
+        
+        List<wrappedPriceList> wrapPriceList = new List<wrappedPriceList>();
+        
+        selectedLocationList.add(appointmentdetailForService[0].CC_QAppt__LocationService__r.CC_QAppt__Location__c);
+        selectedServicesList.add(appointmentdetailForService[0].CC_QAppt__LocationService__r.CC_QAppt__Service__c);
+        
+        for(CC_QAppt__Appointment_Detail__c res : appointmentdetailForResource){
+        selectedResourcesList.add(res.CC_QAppt__Resource__c);
+        }
+        for(CC_QAppt__Appointment_Detail__c asset : appointmentdetailForAsset){
+        selectedAssetList.add(asset.CC_QAppt__Asset__c);
+        }
+        
+        for(CC_QAppt__Appointment_Detail__c appdetailsForService : appointmentdetailForService){
+            wrappedPriceList priceobj = new wrappedPriceList();
+            priceobj.Id = appdetailsForService.CC_QAppt__LocationService__r.CC_QAppt__Service__c;
+            priceobj.ListType ='Service';
+            priceobj.Discount = appdetailsForService.CC_QAppt__Discount__c;
+            priceobj.TotalPrice = appdetailsForService.CC_QAppt__Price__c;
+            priceobj.Name = serviceDetail[0].Name; 
+            wrapPriceList.add(priceobj);
+        }
+        for(CC_QAppt__Appointment_Detail__c appdetailsForResource : appointmentdetailForResource){
+            wrappedPriceList priceobj = new wrappedPriceList();
+            priceobj.Id = appdetailsForResource.CC_QAppt__Resource__c;
+            priceobj.ListType ='Resource';
+            priceobj.Discount = appdetailsForResource.CC_QAppt__Discount__c;
+            priceobj.TotalPrice = appdetailsForResource.CC_QAppt__Price__c; 
+            priceobj.Name = appdetailsForResource.CC_QAppt__Resource__r.Name; 
+            wrapPriceList.add(priceobj);
+        }
+         for(CC_QAppt__Appointment_Detail__c appdetailsForAsset : appointmentdetailForAsset){
+            wrappedPriceList priceobj = new wrappedPriceList();
+            priceobj.Id = appdetailsForAsset.CC_QAppt__Asset__c;
+            priceobj.ListType ='Asset';
+            priceobj.Discount = appdetailsForAsset.CC_QAppt__Discount__c;
+            priceobj.TotalPrice = appdetailsForAsset.CC_QAppt__Price__c; 
+            priceobj.Name = appdetailsForAsset.CC_QAppt__Asset__r.Name; 
+            wrapPriceList.add(priceobj);
+        }
+
         Date myDate = date.newinstance(selectedAppointment[0].CC_QAppt__Start_Date_Time__c.year(),selectedAppointment[0].CC_QAppt__Start_Date_Time__c.month(),selectedAppointment[0].CC_QAppt__Start_Date_Time__c.day());
         String startdate  = String.valueOf(myDate);
         String startDateTime =  selectedAppointment[0].CC_QAppt__Start_Date_Time__c.format('MM/dd/yyyy h:mm a');
@@ -172,10 +264,9 @@ public without sharing class NewEditAppointmentController {
           wrappEdit.selectedlocationList = selectedLocationList;
           wrappEdit.selectedserviceList = selectedServicesList;
           wrappEdit.selectedresourceList = selectedResourcesList;
-          wrappEdit.selectedattendeeList = selectedAttendeeList;
           wrappEdit.selectedcustomerList = selectedcustomerList;
           wrappEdit.selectedassetList = selectedAssetList;
-          wrappEdit.discount = selectedAppointment[0].CC_QAppt__Discount__c;
+           wrappEdit.wrappprice = wrapPriceList;
           wrappEdit.Status =   selectedAppointment[0].CC_QAppt__Status__c;
           wrappEdit.duration = selectedAppointment[0].CC_QAppt__Duration__c;
           wrappEdit.totalPrice = selectedAppointment[0].CC_QAppt__TotalPrice__c;
@@ -188,20 +279,19 @@ public without sharing class NewEditAppointmentController {
     }
     public class WrappAppointmentEditForm {
         @AuraEnabled public List<CC_QAppt__Appointment_Category__c> appointmentCategory;
-        @AuraEnabled public List<CC_QAppt__Location__c> selectedlocationList;
-        @AuraEnabled public List<CC_QAppt__Service__c> selectedserviceList;
-        @AuraEnabled public List<contact>  selectedresourceList; 
-        @AuraEnabled public List<CC_QAppt__Attendee__c> selectedattendeeList;
-        @AuraEnabled public List<CC_QAppt__Asset__c> selectedassetList;
+        @AuraEnabled public List<Id> selectedlocationList;
+        @AuraEnabled public List<Id> selectedserviceList;
+        @AuraEnabled public List<Id>  selectedresourceList; 
+        @AuraEnabled public List<Id> selectedassetList;
         @AuraEnabled public List<contact>  selectedcustomerList;
         @AuraEnabled public String AppointmentName;
-        @AuraEnabled public Decimal discount;
         @AuraEnabled public string startDate;
         @AuraEnabled public string startTime;
         @AuraEnabled public Decimal totalPrice;
         @AuraEnabled public Decimal duration;
         @AuraEnabled public string Status;
         @AuraEnabled public string description;
+        @AuraEnabled public List<wrappedPriceList> wrappprice;
     }
     
     public class ContactWrapper {
@@ -223,5 +313,13 @@ public without sharing class NewEditAppointmentController {
             this.MailingState = MailingState;
         }
         
+    }
+    public class wrappedPriceList{
+        @AuraEnabled  public string Id {get;set;}
+        @AuraEnabled   public  Decimal Discount {get;set;}
+        @AuraEnabled  public String ListType {get;set;}
+        @AuraEnabled public String Name {get;set;}
+        @AuraEnabled  public Decimal Price {get;set;}
+        @AuraEnabled public Decimal TotalPrice {get;set;}
     }
 }

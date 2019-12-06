@@ -53,11 +53,16 @@ public class ServiceLightningController {
         appService.CC_QAppt__Price__c = serRecord.CC_QAppt__Price__c;
        
         try{
-        UPSERT appService;
-            }
+            UPSERT appService;
+        }
         catch(Exception e){
-                    system.debug('Exception'+e);                 
-                }
+            system.debug('Exception'+e);                 
+        }
+      //Delete previous location service in case of edit
+        List<CC_QAppt__Location_Service__c>  previousLocationServices =   [select id from CC_QAppt__Location_Service__c where CC_QAppt__Service__c=:serRecord.Id];
+        if(previousLocationServices.size()>0){
+            delete previousLocationServices;
+        }
         
        List<Location_Service__c> locServiceList = NEW List<Location_Service__c>();
        for(integer i=0; i< locValuesList.size(); i++){
@@ -65,13 +70,13 @@ public class ServiceLightningController {
                 Location_Service__c locService = new Location_Service__c();
                 locService.location__c = locValuesList[i];
                 locService.service__c  = appService.Id;
-                
+                locService.CC_QAppt__Price__c = serRecord.CC_QAppt__Price__c; 
                 locServiceList.add(locService);
             
         }
         if(locServiceList.size()>0){
            try{
-                UPSERT locServiceList;
+                insert locServiceList;
                system.debug('locServiceList=='+locServiceList[0].id);
              }
             catch(Exception e){

@@ -57,7 +57,8 @@
     
     <aura:attribute name="isPricingApplicable" type="boolean" default="false"/>
     <aura:attribute name="discountedValue" type="Integer" default="0"/>
-    <aura:attribute name="totalServicePrice" type="Integer" />
+    <aura:attribute name="totalAppointmentPrice" type="Integer" default="0" />
+    <aura:attribute name="pricingList" type="Object[]"/>
     
     <aura:attribute name="appointmentId" type="String"/>
     
@@ -329,7 +330,7 @@
                     </div>
                     <hr/>
                     <!--Pricing Section -->
-                    <aura:if isTrue="{!v.isPricingApplicable}">
+                  <!--  <aura:if isTrue="{!v.isPricingApplicable}"> -->
                         <div class="slds-page-header">
                           <div class="slds-page-header__row">
                             <div class="slds-page-header__col-title">
@@ -347,11 +348,17 @@
                                   </div>
                                   <p class="slds-page-header__name-meta"></p>
                                 </div>
+                                  <div>
+                                      <span>TotalPrice:</span>
+                                      <span>${!v.totalAppointmentPrice}</span> 
+                                     <!-- <label class="slds-form-element__label">TotalPrice</label> -->
+                                    <!--  <lightning:input type="number" readonly="true" formatter="currency" name="Total Price"  value="{!v.totalAppointmentPrice}"/> -->
+                                  </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="slds-grid slds-gutters slds-wrap">
+                       <!-- <div class="slds-grid slds-gutters slds-wrap">
                             <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
                                 <lightning:input type="number" formatter="currency" name="Price" label="Price" value="{!v.servicesPrice}" onchange="{!c.handleDiscount}"/>  
                             </div>
@@ -362,8 +369,51 @@
                             <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
                                 <lightning:input type="number" disabled="true" formatter="currency" name="Total Price" label="Total Price" value="{!v.totalServicePrice}"/>  
                             </div>
+                        </div> -->
+                  <!--  </aura:if>  -->
+                    
+                    <!--Pricing List -->
+                    
+                    <!--Headers of prcinglist -->
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-form-element  slds-size_1-of-1 slds-large-size_1-of-5">
+                            <div class="slds-text-title">PricingType</div>
                         </div>
-                    </aura:if>
+                        <div class="slds-col slds-form-element  slds-size_1-of-1 slds-large-size_1-of-5">
+                            <div class="slds-text-title">ListName</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+                            <div class="slds-text-title">Price</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5" data-index="{!index}">
+                            <div class="slds-text-title">Discount</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+                            <div class="slds-text-title">TotalPrice</div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        
+                        <!--Dynamic List -->
+                        <aura:iteration items="{!v.pricingList}" var="PriceObj"  indexVar="index">
+                            <div class="slds-col slds-form-element  slds-size_1-of-1 slds-large-size_1-of-5">
+                                <div class="slds-text-title" style="margin-top:1.7rem;">{!PriceObj.ListType}</div>
+                            </div>
+                            <div class="slds-col slds-form-element  slds-size_1-of-1 slds-large-size_1-of-5">
+                                <lightning:input  type="text"  value="{!PriceObj.Name}" readonly="true"/>  
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+                                <lightning:input type="number" formatter="currency" name="Price"  value="{!PriceObj.Price}" onchange="{!c.handleDiscount}"/>  
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5" data-index="{!index}">
+                                <lightning:input  type="number" name="Discount"   value="{!PriceObj.Discount}" onchange="{!c.handleDiscount}" min="0" max="100"/>              
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+                                <lightning:input type="number" disabled="true" formatter="currency" name="Total Price"  value="{!PriceObj.TotalPrice}"/>  
+                            </div>
+                        </aura:iteration>
+                    </div>
 
                     <aura:if isTrue="{!v.isCustomerList}">
                         <div class="slds-page-header slds-m-top_medium">

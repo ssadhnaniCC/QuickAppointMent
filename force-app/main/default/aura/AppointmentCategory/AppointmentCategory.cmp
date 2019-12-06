@@ -38,7 +38,6 @@
     <aura:attribute name="sortDirection" type="String"/>
     <aura:handler name="init" value="{! this }" action="{! c.init }"/>
     <aura:handler name="refreshEvent" event="c:ParentListRefresh" action="{! c.onSaveAndEdit }"/>
-    <c:NewAppointmentCategory isModalOpen="{!v.isModalOpen}" AppointmentCategoryRecord="{!v.AppointmentCategoryRecord}"  aura:id="NewAppointmentCategory"/>   
     <div class="slds-grid slds-gutters slds-p-left_x-small">
         <div class="slds-col">
             <div class="slds-text-heading_large ">
@@ -57,6 +56,11 @@
         </div>          
         
     </div>
+    
+    <aura:if isTrue = "{!v.isModalOpen}">
+    	<c:NewAppointmentCategory isModalOpen="{!v.isModalOpen}" AppointmentCategoryRecord="{!v.AppointmentCategoryRecord}"  aura:id="NewAppointmentCategory"/>   
+    </aura:if>
+    
     <div class="slds-m-top_xx-large ">
         <aura:if isTrue="{!v.showspinner}">
             <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">

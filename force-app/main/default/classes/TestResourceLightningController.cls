@@ -51,11 +51,12 @@ public class TestResourceLightningController {
          Contact resourceRecord = [select id,name,MailingStreet,MailingCity,MailingState,MailingPostalCode,MailingCountry,Phone,description from contact limit 1];
          List<Id> locationIds = new List<Id>();
          List<Id> serviceIds = new List<Id>();
+         Integer price = 55;
          List<CC_QAppt__Location_Service__c> locationserviceRecord =  [select CC_QAppt__Location__c,CC_QAppt__Service__c from CC_QAppt__Location_Service__c limit 1];
          locationids.add(locationserviceRecord[0].CC_QAppt__Location__c);
          serviceIds.add(locationserviceRecord[0].CC_QAppt__Service__c);
          Test.startTest();
-         ResourceLightningController.saveNewResources(resourceRecord, locationIds, serviceIds);
+         ResourceLightningController.saveNewResources(resourceRecord, locationIds, serviceIds,price);
          Test.stopTest();
          List<contact>   resList   = [select id from contact];
          system.assertEquals(resList.size(),10,'Resource Record Is Not Saved');

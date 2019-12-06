@@ -17,7 +17,7 @@ public class ResourceLightningController {
    * @returns Returns void 
    */
     @AuraEnabled
-    public static void saveNewResources(Contact resourceObj,List<Id> selectedLocationList,List<Id> selectedServiceList){
+    public static void saveNewResources(Contact resourceObj,List<Id> selectedLocationList,List<Id> selectedServiceList ,Integer Price){
         // system.debug('newResourceCon');
         Set<id> alignmentIds = new Set<Id>();
         List<Resource_Service_Alignment__c> saveResourceAlignment = new List<Resource_Service_Alignment__c>(); 
@@ -72,6 +72,7 @@ public class ResourceLightningController {
                     Resource_Service_Alignment__c Alignments = new Resource_Service_Alignment__c();
                     Alignments.location__c = selectedLocationList[i];
                     Alignments.service__c  = selectedServiceList[j];
+                    Alignments.CC_QAppt__Price__c = Price;
                     Alignments.Resource_Staff__c = newResourceCon.Id;
                     saveResourceAlignment.add(Alignments);
                 }

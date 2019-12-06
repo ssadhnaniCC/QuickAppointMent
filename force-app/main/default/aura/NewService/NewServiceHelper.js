@@ -7,7 +7,7 @@
     
 	saveService : function(component, event, helper) {
         
-     
+        console.log('saveService####');
 		var serRecord = component.get("v.serviceRecord"); 
         
         var selLocations = component.get("v.selectedLocation");
@@ -18,15 +18,22 @@
                 selLocations = [];
             }
         }
+        
+        console.log('@@@@@@parameters');
+        console.log(serRecord);
+        console.log(selLocations);
+        
         var action = component.get('c.saveServiceRecords');
         action.setParams({
-            "serRecord":serRecord,
-            "locValuesList": selLocations
+            "serRecord":component.get("v.serviceRecord"),
+            "locValuesList": component.get("v.selectedLocation")
         });
         
         action.setCallback(this, function(response) {
             var state = response.getState();
-            console.log("state"+state);
+            console.log("state", state);
+            console.log("error", response.getError());
+            
             if (state === "SUCCESS" ) {
                 
                  /*  var toastEvent = $A.get("e.force:showToast");

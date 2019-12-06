@@ -1,8 +1,3 @@
-.THIS .disable{
-    border: 1px solid #999999;
-    background-color: #cccccc;
-    color: #666666; 
-}
 .THIS #pop-up {
     display: none;
     position: absolute;
@@ -18,4 +13,48 @@
 }
 .THIS .slds-icon-text-default {
     fill: white;
+}
+
+.THIS .fc-day-grid-container .fc-content-skeleton{
+	overflow-x: hidden !important;
+    overflow-y: scroll !important;
+    height: 8.4rem !important;
+}
+
+.THIS .fc-event-container{
+    padding : 2px !important;
+}
+
+.THIS .fc-day-grid-event{
+    font-size: 1em !important;
+    line-height: 2.4 !important;
+    border-radius: 10px !important;
+    border: 1px solid rgb(22, 50, 92) !important;
+    background-color: rgb(22, 50, 92) !important;
+    
+    /*
+     * border: 1px solid #3a87ad !important;
+    background-color: #3a87ad !important;
+    
+     *border: 1px solid rgb(0, 112, 210) !important;
+    background-color: rgb(0, 112, 210) !important;
+    
+    border: 1px solid rgb(22, 50, 92) !important;
+    background-color: rgb(22, 50, 92) !important;
+     */
+}
+
+.THIS .fc-day{
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.025) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.025) 50%, rgba(0, 0, 0, 0.025) 75%, transparent 75%, transparent) !important;
+    background-size: 70px 70px !important;
+}
+
+.THIS .fc-day-grid-container .fc-today{
+    background-color: rgb(255, 183, 140) !important;
+}
+
+.THIS .fc-content{
+    padding-left: 5px !important;
+    max-width: 100% !important;
+    text-overflow: ellipsis !important;
 }
