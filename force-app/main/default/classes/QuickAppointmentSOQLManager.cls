@@ -125,7 +125,8 @@ public class QuickAppointmentSOQLManager {
         
         return locList;
     }
-    public static List<CC_QAppt__Appointment_Detail__c> getPreviousAppointments(String objName, String RecordId){
+    public static Map<Id,CC_QAppt__Appointment_Detail__c> getPreviousAppointments(String objName, String RecordId){
+        Map<Id,CC_QAppt__Appointment_Detail__c> mapofAppointment = new Map<Id,CC_QAppt__Appointment_Detail__c>();
         if(RecordId != '' && objName != '' ){
             String query = 'select CC_QAppt__Appointment__r.Busy_Time__c,CC_QAppt__Appointment__r.CC_QAppt__Appointment_Category__r.Name,CC_QAppt__Appointment__r.CC_QAppt__Description__c,CC_QAppt__Appointment__c,CC_QAppt__Resource__c,CC_QAppt__Resource__r.Name,CC_QAppt__Appointment__r.Name,CC_QAppt__Appointment__r.CC_QAppt__Start_Date_Time__c,CC_QAppt__LocationService__r.CC_QAppt__Location__c,CC_QAppt__LocationService__r.CC_QAppt__Location__r.Name,CC_QAppt__LocationService__r.CC_QAppt__Service__r.Name,CC_QAppt__LocationService__r.CC_QAppt__Service__c,CC_QAppt__Appointment__r.CC_QAppt__End_Date_Time__c,CC_QAppt__Appointment__r.CC_QAppt__Status__c,CC_QAppt__Appointment__r.CC_QAppt__Appointment_Category__c from CC_QAppt__Appointment_Detail__c';
             if(objName == 'CC_QAppt__Appointment_Category__c'){
@@ -142,12 +143,15 @@ public class QuickAppointmentSOQLManager {
                 query += ' where CC_QAppt__Resource__c =: RecordId';
             }
             List<CC_QAppt__Appointment_Detail__c> appdetaillist = Database.query(query);
-        
-            return appdetaillist;
+            for(CC_QAppt__Appointment_Detail__c appdetails : appdetaillist){
+                if(!mapofAppointment.containsKey(appdetails.CC_QAppt__Appointment__c)){
+                   mapofAppointment.put(appdetails.CC_QAppt__Appointment__c,appdetails); 
+                }
+            }
+            return mapofAppointment;
         }
         else{
-         //   return applist;
-          return null;
+            return null;
         }
     }
     public static Map<Id,CC_QAppt__Appointment_Detail__c>  getAllAppointments(){

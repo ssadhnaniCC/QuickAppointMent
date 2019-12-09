@@ -403,7 +403,7 @@
                             <div class="slds-col slds-form-element  slds-size_1-of-1 slds-large-size_1-of-5">
                                 <lightning:input  type="text"  value="{!PriceObj.Name}" readonly="true"/>  
                             </div>
-                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5" data-index="{!index}">
                                 <lightning:input type="number" formatter="currency" name="Price"  value="{!PriceObj.Price}" onchange="{!c.handleDiscount}"/>  
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5" data-index="{!index}">

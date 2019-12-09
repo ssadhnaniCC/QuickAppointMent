@@ -37,7 +37,10 @@ public class CalendarLightningController {
         recordTypeName = con[0].RecordType.Name;
         }
         if(recordTypeName == 'Resource'){
-            previousAppointments = QuickAppointmentSOQLManager.getPreviousAppointments('contact',recordId);
+            mapsofrelatedAppointment = QuickAppointmentSOQLManager.getPreviousAppointments('contact',recordId);
+            for(Id keys :mapsofrelatedAppointment.keyset()){
+                previousAppointments.add(mapsofrelatedAppointment.get(keys));
+            } 
         }
         if(recordTypeName == 'User'){
             customerList = QuickAppointmentSOQLManager.getCustomers(recordId);
@@ -53,7 +56,10 @@ public class CalendarLightningController {
             }
         }
         if((recordTypeName == null ) && (ObjectName != null )){
-           previousAppointments = QuickAppointmentSOQLManager.getPreviousAppointments(ObjectName,recordId);
+           mapsofrelatedAppointment = QuickAppointmentSOQLManager.getPreviousAppointments(ObjectName,recordId);
+            for(Id keys :mapsofrelatedAppointment.keyset()){
+                previousAppointments.add(mapsofrelatedAppointment.get(keys));
+            }
         }
         for(CC_QAppt__Appointment_Detail__c prevApp : previousAppointments){
             calendarWrapper obj = new calendarWrapper();

@@ -343,6 +343,7 @@
         var pricingList = component.get("v.pricingList");
         for(var i=0;i<pricingList.length;i++){
             if(i==selectedRowIndex){
+                console.log("Price"+JSON.stringify(pricingList[i].Price));
                 pricingList[i].TotalPrice = pricingList[i].Price - ((pricingList[i].Price * pricingList[i].Discount)/100);
             }
         }
@@ -353,6 +354,7 @@
         component.set("v.pricingList",pricingList); 
         component.set("v.totalAppointmentPrice",totalPrice.toFixed(2)); 
     },
+    
     
     /*******************************************************************************************************
     * @description This is the method which will set list for selected customer

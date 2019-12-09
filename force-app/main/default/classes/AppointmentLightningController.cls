@@ -33,7 +33,10 @@ public class AppointmentLightningController {
         } 
         if(recordTypeName == 'Resource'){
             //   system.debug('Resource');
-            relatedAppointmentsdetails = QuickAppointmentSOQLManager.getPreviousAppointments('contact',recordId);
+            mapsofrelatedAppointment = QuickAppointmentSOQLManager.getPreviousAppointments('contact',recordId);
+             for(Id keys :mapsofrelatedAppointment.keyset()){
+                relatedAppointmentsdetails.add(mapsofrelatedAppointment.get(keys));
+            }
         }
         if(recordTypeName == 'User'){
             customerList = QuickAppointmentSOQLManager.getCustomers(recordId);
@@ -43,10 +46,16 @@ public class AppointmentLightningController {
             }
         }
         if((recordTypeName == '' || recordTypeName == null ) && (ObjectName == '' || ObjectName == null )){
-            relatedAppointmentsdetails = QuickAppointmentSOQLManager.getPreviousAppointments('','');
+            mapsofrelatedAppointment = QuickAppointmentSOQLManager.getPreviousAppointments('','');
+            for(Id keys :mapsofrelatedAppointment.keyset()){
+                relatedAppointmentsdetails.add(mapsofrelatedAppointment.get(keys));
+            }
         }
         if((recordTypeName == '' || recordTypeName == null ) && (ObjectName != '' || ObjectName != null )){
-            relatedAppointmentsdetails = QuickAppointmentSOQLManager.getPreviousAppointments(ObjectName,recordId);
+            mapsofrelatedAppointment = QuickAppointmentSOQLManager.getPreviousAppointments(ObjectName,recordId);
+             for(Id keys :mapsofrelatedAppointment.keyset()){
+                relatedAppointmentsdetails.add(mapsofrelatedAppointment.get(keys));
+            }
         }
         system.debug('relatedAppointments'+relatedAppointmentsdetails);
         for(CC_QAppt__Appointment_Detail__c appointment : relatedAppointmentsdetails){

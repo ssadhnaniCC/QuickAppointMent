@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="slds-grid slds-wrap">
-        <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-border_right">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12">
             <lightning:verticalNavigation selectedItem="{!v.selectedNavigationItem}" onselect="{!c.onNavigationSelection}">
                <lightning:verticalNavigationSection label="Navigation">
                     <lightning:verticalNavigationItemIcon
@@ -72,7 +72,7 @@
                 </lightning:verticalNavigationSection>
             </lightning:verticalNavigation>
         </div>
-        <div class="slds-col slds-size_1-of-1 slds-large-size_10-of-12 ">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_10-of-12 slds-border_left" style="min-height: 19rem">
             <div class="slds-m-around_large">
             	<aura:if isTrue="{!v.selectedNavigationItem == 'dashboard'}">
                     <c:Dashboard/>
