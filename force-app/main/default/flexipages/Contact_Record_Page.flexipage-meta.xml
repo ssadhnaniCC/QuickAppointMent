@@ -52,12 +52,6 @@
             <componentName>force:detailPanel</componentName>
         </componentInstances>
         <componentInstances>
-            <componentName>TestComponentURLAddressable</componentName>
-        </componentInstances>
-        <componentInstances>
-            <componentName>TestComponentURLAddressable</componentName>
-        </componentInstances>
-        <componentInstances>
             <componentName>AppointmentList</componentName>
         </componentInstances>
         <componentInstances>
