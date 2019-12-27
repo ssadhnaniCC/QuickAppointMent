@@ -7,6 +7,8 @@
         //console.log("###parameters=", pageReference);
         console.log("showModal",component.get("v.showModal"));
         console.log("aPPId",component.get("v.appointmentId"));
+        helper.getTemplateList(component,event,helper);
+        
         if(component.get("v.appointmentId") == null || component.get("v.appointmentId") == ''){
             var action = component.get("c.getAppointmentCategory");
             action.setParams({
@@ -73,15 +75,20 @@
                 helper.handleOnCategorySelect(component,event,helper,selectedCategory,mandatoryObj,methodName); 
             }      
             
-            if(selectedCategory.CC_QAppt__IsAttendeeMandatory__c == true){
+         /*   if(selectedCategory.CC_QAppt__IsAttendeeMandatory__c == true){
                 helper.fetchAttendeeList(component,event,helper,selectedCategory);
-            }
+            }*/
             if(selectedCategory.CC_QAppt__IsAssetMandatory__c == true){
                 helper.fetchAssetList(component,event,helper,selectedCategory); 
             }
             helper.getColumnAndAction(component,event,helper);         
             helper.fetchCustomerList(component,event,helper); 
         }
+    },
+    
+    onTemplateSelect : function(component,event,helper){
+        var selectedObject =  component.get("v.selectedTemplate"); 
+        helper.getTemplate(component,event,helper);
     },
     
     
@@ -99,7 +106,9 @@
         }
         component.set("v.selectedLocation",selectedLocationList);
         component.set("v.showSpinner",true);
-        if(selectedObject.CC_QAppt__IsServiceMandatory__c == true){
+        if(selectedObject.CC_QAppt__IsServiceMandatory__c == true || component.get("v.isTemplateSelected")==true)
+        {
+            alert("location");
             helper.fetchServiceBasedOnLocations(component,event,helper);
         }
         if(selectedObject.CC_QAppt__IsServiceMandatory__c == false && selectedObject.CC_QAppt__IsResourceMandatory__c == true){

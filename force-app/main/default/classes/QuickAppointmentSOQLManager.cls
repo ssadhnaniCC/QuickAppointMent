@@ -8,7 +8,7 @@ public class QuickAppointmentSOQLManager {
     @AuraEnabled
     public static list<contact> fetchAllResourceStaff(String resourceId){
         if(resourceId != null){
-            return [select Id,name,RecordType.Name,Capacity__c,Languages__c,Level__c,Phone,MailingCity,MailingCountry,
+            return [select Id,name,RecordType.Name,Capacity__c,Languages__c,Level__c,Email,Phone,MailingCity,MailingCountry,
                     MailingState,MailingStreet,MailingPostalCode,location__c from contact where RecordType.Name IN ('Resource', 'Staff') And Id =: resourceId];
         }
         else{
@@ -344,6 +344,14 @@ public class QuickAppointmentSOQLManager {
         }   
        List<CC_QAppt__Appointment_Detail__c> applist = Database.query(query);
            return applist;
+    }
+    public static List<CC_QAppt__AppointmentTemplate__c> getUserTemplates(String templateId){
+        if(templateId != null){
+            return [select id,name,CC_QAppt__DisplayFieldJson__c from CC_QAppt__AppointmentTemplate__c where id =: templateId];
+        }
+        else{
+            return [select id,name,CC_QAppt__DisplayFieldJson__c from CC_QAppt__AppointmentTemplate__c];
+        }
     }
 
 

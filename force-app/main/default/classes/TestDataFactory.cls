@@ -37,7 +37,7 @@ public class TestDataFactory {
     public static list<contact> resourceList(Integer size){
         List<contact> resourceList = new List<contact>();
         for(Integer i=0 ; i<size ;i++){
-            Contact con = new Contact(firstname='first'+i,lastname='last'+i,MailingStreet='MailingStreet'+i,MailingCity='Gurgaon'+i,MailingState='Haryana'+i,MailingPostalCode='1100'+i,MailingCountry='India'+i,Phone='991199292'+i); 
+            Contact con = new Contact(firstname='first'+i,lastname='last'+i,MailingStreet='MailingStreet'+i,MailingCity='Gurgaon'+i,MailingState='Haryana'+i,MailingPostalCode='1100'+i,MailingCountry='India'+i,Phone='991199292'+i ,email='test@gmail.com'); 
             Id recordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByName().get('Resource').getRecordTypeId();
             con.RecordtypeId=recordTypeId;
             resourceList.add(con);
@@ -111,9 +111,9 @@ public class TestDataFactory {
         Id recordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByName().get('Resource').getRecordTypeId();
         con.RecordtypeId=recordTypeId;
         Insert con;
-         List<CC_QAppt__Working_Hour__c> workingHourList = new List<CC_QAppt__Working_Hour__c>();
+        List<CC_QAppt__Working_Hour__c> workingHourList = new List<CC_QAppt__Working_Hour__c>();
         for(Integer i=0 ; i<size ;i++){
-            CC_QAppt__Working_Hour__c workingHour = new CC_QAppt__Working_Hour__c(CC_QAppt__Start_Date__c=system.today()+i,CC_QAppt__Resource__c=con.Id);     
+            CC_QAppt__Working_Hour__c workingHour = new CC_QAppt__Working_Hour__c(CC_QAppt__Active__c=true,CC_QAppt__Start_Time__c=system.today(),CC_QAppt__Resource__c=con.Id,CC_QAppt__End_Time__c=system.today());     
             workingHourList.add(workingHour);
         }
         return workingHourList;
@@ -138,6 +138,24 @@ public class TestDataFactory {
            appParticipantList.add(appParticipant);
         }
         return appParticipantList;
+    }
+    public static CC_QAppt__Appointment_Detail__c createAppointmentDetails(String appointmentId,String locationServiceId,String ResourceId){
+        CC_QAppt__Appointment_Detail__c appDetail;
+        if(ResourceId != null){
+         appDetail = new CC_QAppt__Appointment_Detail__c(CC_QAppt__Appointment__c=appointmentId,CC_QAppt__LocationService__c=locationServiceId,CC_QAppt__Resource__c=ResourceId);
+        }
+        else{
+           appDetail = new CC_QAppt__Appointment_Detail__c(CC_QAppt__Appointment__c=appointmentId,CC_QAppt__LocationService__c=locationServiceId);
+        }
+        return appDetail;
+    }
+    public static List<CC_QAppt__Asset__c> createAssets(Integer size){
+       List<CC_QAppt__Asset__c> assetList = new List<CC_QAppt__Asset__c>();
+        for(Integer i=0 ;i<size;i++){
+            CC_QAppt__Asset__c asset = new CC_QAppt__Asset__c(Name='TestAsset'+i,CC_QAppt__Price__c=566);
+            assetList.add(asset);
+        }
+        return assetList;
     }
     
 }

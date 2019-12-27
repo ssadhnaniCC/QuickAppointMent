@@ -32,10 +32,10 @@ public without sharing class NewEditAppointmentController {
         return mapOfResourceService;
         
     }
-    @AuraEnabled 
-    public static List<CC_QAppt__Attendee__c> getAttendee(){
+   // @AuraEnabled 
+  /*  public static List<CC_QAppt__Attendee__c> getAttendee(){
          return QuickAppointmentSOQLManager.fetchAttendeeList(null);  
-    }
+    }*/
     @AuraEnabled
     public static Map<Id,CC_QAppt__Resource_Service_Alignment__c> getResourceBasedOnService(List<Id> selectedServiceIds){
        Map<Id,CC_QAppt__Resource_Service_Alignment__c> mapOfResourceService = new Map<Id,CC_QAppt__Resource_Service_Alignment__c>(); 
@@ -277,6 +277,18 @@ public without sharing class NewEditAppointmentController {
         return wrappEdit;
         
     }
+    @AuraEnabled
+    public static List<NewEditAppointmentController.UserTemplate> getUserTemplate(String selectedTemplate) {
+        List<CC_QAppt__AppointmentTemplate__c> lstapp = QuickAppointmentSOQLManager.getUserTemplates(selectedTemplate);
+        List<NewEditAppointmentController.UserTemplate> resp = (List<NewEditAppointmentController.UserTemplate>) JSON.deserialize(lstapp[0].CC_QAppt__DisplayFieldJson__c, List<NewEditAppointmentController.UserTemplate>.class);
+        return resp;
+        
+    }
+    @AuraEnabled
+    public static List<CC_QAppt__AppointmentTemplate__c> getTemplateList(){
+         return QuickAppointmentSOQLManager.getUserTemplates(null);           
+        
+    }
     public class WrappAppointmentEditForm {
         @AuraEnabled public List<CC_QAppt__Appointment_Category__c> appointmentCategory;
         @AuraEnabled public List<Id> selectedlocationList;
@@ -304,16 +316,18 @@ public without sharing class NewEditAppointmentController {
         
         public ContactWrapper(){}
         
-        public ContactWrapper(ID Id, String Name, String Email, String Phone, String MailingCity, string MailingState){
+     /*   public ContactWrapper(ID Id, String Name, String Email, String Phone, String MailingCity, string MailingState){
             this.Id = Id;
             this.Name = Name;
             this.Email = Email;
             this.Phone = Phone;
             this.MailingCity = MailingCity;
             this.MailingState = MailingState;
-        }
+        }*/
         
     }
+    
+    
     public class wrappedPriceList{
         @AuraEnabled  public string Id {get;set;}
         @AuraEnabled   public  Decimal Discount {get;set;}
@@ -322,4 +336,14 @@ public without sharing class NewEditAppointmentController {
         @AuraEnabled  public Decimal Price {get;set;}
         @AuraEnabled public Decimal TotalPrice {get;set;}
     }
+    public class UserTemplate{
+        @AuraEnabled public string sectionname;
+        @AuraEnabled public List<fieldsList> fields;
+    }
+    public class fieldsList{
+      @AuraEnabled  public String fieldName;
+      @AuraEnabled  public String sortOrder;
+      @AuraEnabled public String datatype;
+        
+    } 
 }

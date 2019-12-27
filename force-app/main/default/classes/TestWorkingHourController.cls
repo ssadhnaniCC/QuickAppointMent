@@ -36,9 +36,10 @@ public class TestWorkingHourController {
     @isTest
     static void testWorkingHourListRecords(){
         Contact resourceRecordId = [select id from contact limit 1];
+        system.debug('resourceRecordId'+resourceRecordId);
         Test.startTest();
         WorkingHourController.getWorkingHourFieldSet();
-        List<CC_QAppt__Working_Hour__c> workList = WorkingHourController.getWorkingHour(resourceRecordId.id);
+        List<WorkingHourController.wrappedWorkingHour> workList = WorkingHourController.getWorkingHour(resourceRecordId.id);
         Test.stopTest();
         system.assertEquals(workList.size(),10,'error while fetching record on component initialization');
     }

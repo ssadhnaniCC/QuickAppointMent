@@ -46,10 +46,9 @@
         action.setCallback(this,function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
-                
                 var resultData = response.getReturnValue();
                 if(resultData.length>0) {
-                    
+                    console.log('resultData'+JSON.stringify(resultData));
                     component.set('v.showToast',false);
                     var dataSize=resultData.length;
                     component.set("v.dataSize", resultData.length);
@@ -67,7 +66,12 @@
                             break;
                         }
                         if(component.get("v.allRecords")[i]!='undefined'){
-                            customerRecords.push(component.get("v.allRecords")[i]);
+                            console.log("recordsUPDATED"+JSON.stringify(component.get("v.allRecords")[i]));
+                            var obj = {Id:component.get("v.allRecords")[i].Id,CC_QAppt__Active__c:component.get("v.allRecords")[i].Active,CC_QAppt__Start_Time__c:component.get("v.allRecords")[i].StartTime,CC_QAppt__End_Time__c:component.get("v.allRecords")[i].EndTime};
+                           // console.log('startTime'+component.get("v.allRecords")[i].CC_QAppt__Start_Time__c);
+                           // console.log('EndTime'+component.get("v.allRecords")[i].CC_QAppt__End_Time__c);
+                          //  console.log($A.localizationService.formatDate(component.get("v.allRecords")[i].CC_QAppt__Start_Time__c, "MMMM dd yyyy, hh:mm:ss a"));
+                            customerRecords.push(obj);
                             num++;                    
                         }                
                     }

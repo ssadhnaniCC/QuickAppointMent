@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Start_Time__c</fullName>
     <externalId>false</externalId>
-    <label>Start Time</label>
+    <label>Start Date Time</label>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>

@@ -30,7 +30,7 @@
     <aura:attribute name="noDataFound" type="String" default=" "/>
     
     
-    <aura:attribute name="workingRecord" type="Working_Hour__c" default="{'sObjectType':'CC_QAppt__Working_Hour__c', 'CC_QAppt__Start_Date__c':'','CC_QAppt__End_Date__c':'','CC_QAppt__Active__c':'','CC_QAppt__End_Time__c':'','CC_QAppt__Start_Time__c':''}"/>
+    <aura:attribute name="workingRecord" type="Working_Hour__c" default="{'sObjectType':'CC_QAppt__Working_Hour__c','CC_QAppt__Active__c':'','CC_QAppt__End_Time__c':'','CC_QAppt__Start_Time__c':''}"/>
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:method name="getWorkingMethod" action="{!c.getResourceStaffId}" access="PUBLIC">
         <aura:attribute name="ResourceName" type="String" default=" "/>

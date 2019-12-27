@@ -57,7 +57,7 @@ public class AppointmentLightningController {
                 relatedAppointmentsdetails.add(mapsofrelatedAppointment.get(keys));
             }
         }
-        system.debug('relatedAppointments'+relatedAppointmentsdetails);
+       // system.debug('relatedAppointments'+relatedAppointmentsdetails);
         for(CC_QAppt__Appointment_Detail__c appointment : relatedAppointmentsdetails){
             AppointmentWrapper obj = new AppointmentWrapper();
             if(recordTypeName == 'Resource'){

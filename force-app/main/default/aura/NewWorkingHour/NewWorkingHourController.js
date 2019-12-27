@@ -4,7 +4,7 @@
     },
     
     saveWorkingHourRecord : function(component,event,helper) {
-         var controlAuraIds = ["StartDate","EndDate","StartTime","EndTime"];
+         var controlAuraIds = ["StartTime","EndTime"];
          let isAllValid = controlAuraIds.reduce(function(isValidSoFar, controlAuraId){
            //fetches the component details from the auraId
             var inputCmp = component.find(controlAuraId);

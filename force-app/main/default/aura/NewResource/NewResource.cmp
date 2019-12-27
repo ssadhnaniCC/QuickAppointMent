@@ -2,7 +2,7 @@
     <aura:attribute name="openNewResourceModal" type="boolean" default="false"/> 
  
     <!--@description This attribute holds the resource record-->   
-    <aura:attribute name="resourceRecord" type="Contact" default="{'sObjectType':'Contact', 'Name':'','MailingStreet':'','MailingCity':'','MailingStreet':'','MailingPostalCode':'','MailingCountry':'','Phone':''}"/>
+    <aura:attribute name="resourceRecord" type="Contact" default="{'sObjectType':'Contact', 'Name':'','MailingStreet':'','MailingCity':'','MailingStreet':'','MailingPostalCode':'','MailingCountry':'','Phone':'','Email':''}"/>
         
     <!--@description This attribute holds the editresource record--> 
     <aura:attribute name="editresourceRecordId" type="String"/>
@@ -102,6 +102,16 @@
                             <div class="slds-form-element">
                                 <div class="slds-form-element__control">
                                     <lightning:input name="Resource_Price" class="label-hidden" label="Price"  placeholder="Price" value="{!v.resourcePrice}"/>  
+                                </div>
+                            </div>                           
+                        </div>
+                    </div>
+                    
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <lightning:input aura:id="ResourceEmail" name="Resource_Email" class="label-hidden" label="Email"  placeholder="Email" value="{!v.resourceRecord.Email}"/>  
                                 </div>
                             </div>                           
                         </div>

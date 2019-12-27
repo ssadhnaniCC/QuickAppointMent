@@ -75,7 +75,7 @@
    /*******************************************************************************************************
     * @description This is the method which will fetch Attendee List
    */         
-    fetchAttendeeList :  function(component,event,helper,selectedCategory){
+   /* fetchAttendeeList :  function(component,event,helper,selectedCategory){
         var action = component.get('c.getAttendee');
         action.setParams({ 
         });
@@ -94,7 +94,7 @@
         });
         $A.enqueueAction(action);     
         
-    },
+    }, */
     
    /*******************************************************************************************************
     * @description This is the method which will fetch Asset List
@@ -548,5 +548,28 @@
         });
         $A.enqueueAction(action);        
     },
+    getTemplate : function(component,event,helper){
+       var action = component.get("c.getUserTemplate");
+        action.setParams({"selectedTemplate" : component.get("v.selectedTemplate")});
+        action.setCallback(this, function(response){
+            var state = response.getState();
+            if(state === 'SUCCESS'){
+            console.log('response.getReturnValue()'+JSON.stringify(response.getReturnValue()));
+            component.set("v.UserTemplate",response.getReturnValue());
+            component.set("v.isTemplateSelected",true);   
+            }
+        });
+        $A.enqueueAction(action);    
+    },
+    getTemplateList : function(component,event,helper){
+        var action = component.get("c.getTemplateList");
+        action.setCallback(this, function(response){
+            var state = response.getState();
+            if(state === 'SUCCESS'){
+            component.set("v.templateList",response.getReturnValue());
+            }
+        });
+        $A.enqueueAction(action);       
+    }
     
 })

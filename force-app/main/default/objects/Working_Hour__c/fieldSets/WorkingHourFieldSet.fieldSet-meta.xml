@@ -3,16 +3,6 @@
     <fullName>WorkingHourFieldSet</fullName>
     <description>In WorkingHourController</description>
     <displayedFields>
-        <field>Start_Date__c</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
-        <field>End_Date__c</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
         <field>Start_Time__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>

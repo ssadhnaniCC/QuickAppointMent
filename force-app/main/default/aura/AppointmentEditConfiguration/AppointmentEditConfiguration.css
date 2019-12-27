@@ -1,0 +1,9 @@
+.THIS .vertical-line{
+  border-left: 1px solid lightgray;
+  height: 100%;
+  position: absolute;
+  left: 35%;
+  margin-left: -3px;
+  top: 0;
+}
+.THIS #div2 > div > div { float: left; width:50%; }

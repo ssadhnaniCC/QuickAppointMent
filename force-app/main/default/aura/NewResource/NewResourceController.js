@@ -18,7 +18,7 @@
     * @description This method checks for required field validation and calls the helper to save resource .
    */
     saveNewResource : function(component,event,helper){
-        var controlAuraIds = ["ResourceName","AvailableLocation"];
+        var controlAuraIds = ["ResourceName","AvailableLocation","ResourceEmail"];
          let isAllValid = controlAuraIds.reduce(function(isValidSoFar, controlAuraId){
            //fetches the component details from the auraId
             var inputCmp = component.find(controlAuraId);

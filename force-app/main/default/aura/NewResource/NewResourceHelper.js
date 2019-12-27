@@ -120,8 +120,6 @@
              var state = response.getState();
               if (state === "SUCCESS") {
                   var resourceservice = response.getReturnValue(); 
-           //       console.log("resourceservice"+JSON.stringify(resourceservice));
-                //  console.log("resourceservice"+JSON.stringify(resourceservice.resourceServiceList));
                   component.set("v.resourceRecord",resourceservice.resContact);
                   component.set("v.resourcePrice",resourceservice.resourceServiceList[0].CC_QAppt__Price__c); 
                   var options = [];

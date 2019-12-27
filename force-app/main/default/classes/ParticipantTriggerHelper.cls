@@ -34,7 +34,9 @@ public class ParticipantTriggerHelper {
                     }
                   
                 }
-                
+
+                system.debug('con.id=='+con.id);      
+                system.debug('appcategory=='+appcategory);
                 Messaging.SingleEmailMessage email = Messaging.renderStoredEmailTemplate(empList[0].id, con.id,appcategory);
                 email.toAddresses = new List<string>{con.Email};
                 email.subject = 'Congratulation Your Appointment has been Scheduled';

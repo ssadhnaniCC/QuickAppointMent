@@ -18,11 +18,9 @@ public class ResourceLightningController {
    */
     @AuraEnabled
     public static void saveNewResources(Contact resourceObj,List<Id> selectedLocationList,List<Id> selectedServiceList ,Integer Price){
-        // system.debug('newResourceCon');
         Set<id> alignmentIds = new Set<Id>();
         List<Resource_Service_Alignment__c> saveResourceAlignment = new List<Resource_Service_Alignment__c>(); 
         String selectedType = 'Resource';
-      
         try{
             Id TypeRecordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByName().get(selectedType).getRecordTypeId();
             Contact newResourceCon = new Contact();
@@ -35,6 +33,7 @@ public class ResourceLightningController {
             }else{
                 newResourceCon.lastname = resourceObj.Name;
             }
+            newResourceCon.Email = resourceObj.Email;
             newResourceCon.MailingStreet = resourceObj.MailingStreet;
             newResourceCon.MailingCity = resourceObj.MailingCity;
             newResourceCon.Mailingstate = resourceObj.MailingState;

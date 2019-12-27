@@ -14,7 +14,7 @@
     <aura:attribute name="endDateTime" type="string" />
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <!--@description contains field values of customer record.-->
-    <aura:attribute name="workingRecord" type="Working_Hour__c" default="{'sObjectType':'CC_QAppt__Working_Hour__c', 'CC_QAppt__Start_Date__c':'','CC_QAppt__End_Date__c':'','CC_QAppt__Active__c':'','CC_QAppt__End_Time__c':'','CC_QAppt__Start_Time__c':''}"/>
+    <aura:attribute name="workingRecord" type="Working_Hour__c" default="{'sObjectType':'CC_QAppt__Working_Hour__c','CC_QAppt__Active__c':'','CC_QAppt__End_Time__c':'','CC_QAppt__Start_Time__c':''}"/>
     <aura:method name="GetWorkingHourRecords" action="{!c.getRecord}"
                  access="public">
         <aura:attribute name="recordId" type="String" />
@@ -48,27 +48,14 @@
                         </aura:if>
                         
                         <div class="slds-grid slds-gutters slds-wrap wrpClass">
-                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                                <lightning:input aura:id="StartDate" name="Start Date" label="Start Date" value="{!v.workingRecord.CC_QAppt__Start_Date__c}" type="date" required="true" messageWhenValueMissing="Please Enter Start Date"/>
-                                
+                              <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                <lightning:input aura:id="StartTime" name="Start Time" label="Start Date Time" value="{!v.workingRecord.CC_QAppt__Start_Time__c}" type="datetime" required="true" messageWhenValueMissing="Please Enter Start Date/Time"/>
                             </div>
                             <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                                <lightning:input aura:id="EndDate" name="End Date" label="End Date" value="{!v.workingRecord.CC_QAppt__End_Date__c}" type="date" required="true" messageWhenValueMissing="Please Enter End Date"/>
-                            </div>
+                                <lightning:input aura:id="EndTime" name="End Time" label="End Date Time" value="{!v.workingRecord.CC_QAppt__End_Time__c}" type="datetime" required="true" messageWhenValueMissing="Please Enter End Date/Time"/>
+                            </div> 
                         </div>
-                        <div class="slds-grid slds-gutters slds-wrap wrpClass">
-                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                                <lightning:input aura:id="StartTime" name="Start Time" label="Start Time" value="{!v.workingRecord.CC_QAppt__Start_Time__c}" type="datetime" required="true" messageWhenValueMissing="Please Enter Start Date/Time"/>
-                                
-                                
-                            </div>
-                            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                                <lightning:input aura:id="EndTime" name="End Time" label="End Time" value="{!v.workingRecord.CC_QAppt__End_Time__c}" type="datetime" required="true" messageWhenValueMissing="Please Enter End Date/Time"/>
-                            </div>
-                        </div>
-                        
-                        
-                        
+
                         <div class="slds-grid slds-gutters slds-wrap resourceName">
                             <lightning:input type="text" label="Resource Name" value="{!v.resourceRecord.Name}" name="Resource Name" disabled="true"/>
                         </div>

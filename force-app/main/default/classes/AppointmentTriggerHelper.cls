@@ -35,7 +35,7 @@ public without sharing class AppointmentTriggerHelper {
         }
     }
     
-    public static void insertAppointmentDetail(List<Appointment__c> appointmentList){
+ /*   public static void insertAppointmentDetail(List<Appointment__c> appointmentList){
         List<Appointment_Detail__c> appointmentDetailList = new List<Appointment_Detail__c>();
         try{
             for(Appointment__c appObj : appointmentList){
@@ -77,9 +77,9 @@ public without sharing class AppointmentTriggerHelper {
         System.debug('line 76');
         try{
             for(Appointment__c appObj : newAppointmentList){
-                System.debug('Appointment');
+             //   System.debug('Appointment');
                 if(appObj.CC_QAppt__Locations__c != null){
-                    System.debug('line 81');
+                  //  System.debug('line 81');
                     tmpMap = updatedData('CC_QAppt__Locations__c','CC_QAppt__Location__c',appObj,oldAppointmentMap);
                     if(!tmpMap.isEmpty())
                        deleteIdMap = tmpMap;
@@ -130,13 +130,13 @@ public without sharing class AppointmentTriggerHelper {
 				insertAppointmentDetailList = new List<Appointment_Detail__c>();
             }
             if(!deleteAppointmentList.isEmpty()){
-                System.debug('delete'+deleteAppointmentList);
+           //     System.debug('delete'+deleteAppointmentList);
                 DELETE deleteAppointmentList;
             }
         }catch(Exception exp){
             system.debug('Error:' + exp.getMessage() + ' - ' + exp.getLineNumber());
         }
-    }
+    }*/
     
     public Static void deleteAppointmentDetail(List<Appointment__c> deletedAppointment){
         try{
@@ -151,7 +151,7 @@ public without sharing class AppointmentTriggerHelper {
         }
     }
     
-    public static void sendEmailOnAppointmentBook(List<CC_QAppt__Appointment__c> appointmentList, String setSubject) {
+ /*   public static void sendEmailOnAppointmentBook(List<CC_QAppt__Appointment__c> appointmentList, String setSubject) {
         
         List<EmailTemplate> empList = [Select id from EmailTemplate where name ='Appointment Email Template' limit 1];
         system.debug('empList=='+empList);
@@ -164,7 +164,7 @@ public without sharing class AppointmentTriggerHelper {
         }
         
         if(appointmentIds.size()>0 && empList.size()>0) {
-            Set<Id> customerids = new Set<Id>();
+            Set<Id> customerids = new Set<Id>();*/
             
             /*for(Participant__c par : [select Id from Participant__c where CC_QAppt__Appointment__c IN : appointmentIds]) {
                 customerids.add(par.Id);
@@ -179,8 +179,8 @@ public without sharing class AppointmentTriggerHelper {
                 }
                 
             } */           
-            
-            List<Messaging.SingleEmailMessage> messages =   new List<Messaging.SingleEmailMessage>();
+         
+       /*     List<Messaging.SingleEmailMessage> messages =   new List<Messaging.SingleEmailMessage>();
                 
             for(CC_QAppt__Appointment_Detail__c cqad : [select Id, CC_QAppt__Appointment__c, CC_QAppt__Resource__c, CC_QAppt__Resource__r.email from CC_QAppt__Appointment_Detail__c where  CC_QAppt__Appointment__c In :appointmentIds and CC_QAppt__Resource__r.email != NULL]) {
                 //storeEmail.add(cqad.CC_QAppt__Resource__r.email);
@@ -197,7 +197,7 @@ public without sharing class AppointmentTriggerHelper {
                 messages.add(email);
                 
                 
-                
+                */
                 /*Messaging.SingleEmailMessage message = new        Messaging.SingleEmailMessage();
                 message.setTargetObjectId(contact.id); 
                    message.setSenderDisplayName(‘Company Support’); 
@@ -211,7 +211,7 @@ public without sharing class AppointmentTriggerHelper {
                   message.toAddresses = new String[] { contact.email};
                   Messaging.SingleEmailMessage[] messages = new List<Messaging.SingleEmailMessage> {message};
                   Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);*/
-            }
+        /*    }
             if(messages.size()>0) {
                 Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
                 if (results[0].success){
@@ -223,9 +223,9 @@ public without sharing class AppointmentTriggerHelper {
             
             
         }
-    }
+    }*/
 	
-	public static Map<String,Set<String>> updatedData(String appointmentField, String appointmentDetailField,Appointment__c appObj,Map<Id,Appointment__c> oldAppointmentMap){
+/*	public static Map<String,Set<String>> updatedData(String appointmentField, String appointmentDetailField,Appointment__c appObj,Map<Id,Appointment__c> oldAppointmentMap){
 	Map<String,Set<String>> deleteIdMap = new Map<String,Set<String>>();
         String newId = String.valueof(appObj.get(appointmentField));
         String oldId = String.valueOf(oldAppointmentMap.get(appObj.Id).get(appointmentField));
@@ -235,9 +235,9 @@ public without sharing class AppointmentTriggerHelper {
 	Set<String> deleteIdSet = new Set<String>();
 	newOldIdSet.addAll(oldIdSet);
 	newOldIdSet.addAll(newIdSet);
-        System.debug('######oldIdSet'+oldIdSet);
-        System.debug('######newIdSet'+newIdSet);
-        System.debug('######newOldIdSet'+oldIdSet);
+      //  System.debug('######oldIdSet'+oldIdSet);
+      //  System.debug('######newIdSet'+newIdSet);
+       // System.debug('######newOldIdSet'+oldIdSet);
 	if( !newOldIdSet.isEmpty()){
 		for(String objId : newOldIdSet){
 			if(!oldIdSet.contains(objId) && newIdSet.contains(objId)){
@@ -258,10 +258,10 @@ public without sharing class AppointmentTriggerHelper {
 		}
 		if(!deleteIdSet.isEmpty())
 			deleteIdMap.put(appointmentDetailField,deleteIdSet);
-                System.debug('######deleteIdMap'+deleteIdMap);
+             //   System.debug('######deleteIdMap'+deleteIdMap);
 	}
 	return deleteIdMap;
-}
+}*/
     
     public static void handleOnBeforeInsert(List<Appointment__c> newAppointmentList) {
         AppointmentTriggerHelper.checkHoliday(newAppointmentList);
@@ -272,16 +272,16 @@ public without sharing class AppointmentTriggerHelper {
     }
     
     public static void handleOnAfterInsert(List<CC_QAppt__Appointment__c> appointmentList) {
-        AppointmentTriggerHelper.insertAppointmentDetail(appointmentList);
-        AppointmentTriggerHelper.sendEmailOnAppointmentBook(appointmentList,'Scheduled');
+      //  AppointmentTriggerHelper.insertAppointmentDetail(appointmentList);
+    //    AppointmentTriggerHelper.sendEmailOnAppointmentBook(appointmentList,'Scheduled');
         
     }
     
     public static void handleOnAfterUpdate(List<CC_QAppt__Appointment__c> appointmentList,Map<Id,CC_QAppt__Appointment__c> oldAppointmentMap) {
         
         
-        AppointmentTriggerHelper.updateAppointmentDetail(appointmentList,oldAppointmentMap);
-        AppointmentTriggerHelper.sendEmailOnAppointmentBook(appointmentList,'Modified');
+     //   AppointmentTriggerHelper.updateAppointmentDetail(appointmentList,oldAppointmentMap);
+   //     AppointmentTriggerHelper.sendEmailOnAppointmentBook(appointmentList,'Modified');
     }
     
     public static void handleOnBeforeDelete() {
@@ -293,7 +293,7 @@ public without sharing class AppointmentTriggerHelper {
     }
     
     public static void handleOnUndeleteFunctionality(List<CC_QAppt__Appointment__c> appointmentList) {
-        AppointmentTriggerHelper.insertAppointmentDetail(appointmentList);
+     //   AppointmentTriggerHelper.insertAppointmentDetail(appointmentList);
     }
     
 }

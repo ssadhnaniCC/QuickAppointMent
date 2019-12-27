@@ -13,8 +13,8 @@
     </div>
     
     <script>
-        $Lightning.use("c:QuickAppointment_LightningOut", function() {
-            $Lightning.createComponent("c:NewEditAppointment",
+        $Lightning.use("CC_QAppt:QuickAppointment_LightningOut", function() {
+            $Lightning.createComponent("CC_QAppt:NewEditAppointment",
             {'showModal': true, 'isPublic': true},
             "lexContainer",
             function(cmp) {

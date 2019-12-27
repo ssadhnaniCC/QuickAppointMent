@@ -33,7 +33,9 @@
     <aura:attribute name="selectedResourceList" type="Object[]"/>
     <aura:attribute name="selectedCustomers" type="Object[]"/>
     <aura:attribute name="searchCustomerList" type="Object[]"/>
+    <aura:attribute name="templateList" type="Object[]"/>
     <aura:attribute name="selectedStatus" type="String"/>
+    <aura:attribute name="selectedTemplate" type="String"/>
     
     <aura:attribute name="selectedApppointmentCat" type="String" default=""/>
     
@@ -73,8 +75,11 @@
     <aura:attribute name="dateValidationError" type="boolean" default="false"/>
     <aura:attribute name="isPublic" type="boolean" default="false"/>
     <aura:attribute name="overrideWithSuccessAlert" type="boolean" default="false"/>
+    <aura:attribute name="isTemplateSelected" type="boolean" default="false"/>
     
     <aura:attribute name="errorMessage" type="String" />
+    
+    <aura:attribute name="UserTemplate" type="Object[]"/>
     
     
     <!--@description Component Event  Register  --> 
@@ -143,16 +148,17 @@
                                 </aura:iteration>
                         	 </lightning:select>
                     	</div>
-                    </div>
-                    <hr/>
-                    <!-- Name Section slds-box slds-m-top_medium-->
-                    <div class="slds-grid slds-gutters slds-wrap">
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
-                             <lightning:input name="appointmentName" aura:id="appName" label="Appointment Name" value="{!v.appointmentName}" required="true"/>
+                             <lightning:select name="selectTemplate" value="{!v.selectedTemplate}" label="Select Template"  onchange="{!c.onTemplateSelect}" aura:id="TemplateId">
+                           	 	<option value="">--None--</option>
+                                <aura:iteration items="{!v.templateList}" var="template">
+                                    <option value="{!template.Id}" selected="{!template == v.selectedTemplate }">{!template.Name}</option>
+                                </aura:iteration>
+                        	 </lightning:select>
                     	</div>
                     </div>
                     <hr/>
-                    
+            <aura:if isTrue="{!!v.isTemplateSelected}" >
                     <div class="slds-grid slds-gutters slds-wrap">
                         <!-- dynamic location -->  	    
                         <aura:if isTrue="{!v.isLocationManditory}">
@@ -329,6 +335,91 @@
                         </div>    
                     </div>
                     <hr/>
+            </aura:if>   
+
+                    <!-- This section will work when template is selected  Name Section slds-box slds-m-top_medium-->
+                    <aura:if isTrue="{!v.isTemplateSelected}">
+                        <aura:iteration items="{!v.UserTemplate}" var="template">
+                            <div class="slds-grid slds-gutters slds-wrap">
+                                <aura:iteration items="{!template.fields}" var="field">
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                                        <aura:if isTrue="{!field.fieldName == 'appointmentName'}">
+                                            <lightning:input name="appointmentName" aura:id="appName" label="Appointment Name" value="{!v.appointmentName}" required="true"/>
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(field.fieldName == 'location',v.isLocationManditory)}">
+                                            <lightning:select aura:id="selectLocation" value="{!v.selectedLocation}" name="select" label="Select Location"  onchange="{!c.handleOnLocationSelect}" >
+                                                <option value="">--None--</option>  
+                                                <aura:iteration items="{!v.availableLocationList}" var="location">
+                                                    <option value="{!location.Id}" selected="{!location.Id == v.selectedLocation[0]}">{!location.Name}</option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </aura:if> 
+                                        <aura:if isTrue="{!and(field.fieldName == 'service',v.isServiceManditory)}">
+                                            <lightning:select  aura:id="selectService" value="{!v.selectedService}" name="select" label="Select Service" onchange="{!c.handleOnServiceSelect}">
+                                                <option value="">--None--</option>
+                                                <aura:iteration items="{!v.availableServiceList}" var="service">
+                                                    <option value="{!service.Id}" selected="{!service.Id == v.selectedService[0]}">{!service.Name}</option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(field.fieldName == 'multipleresource',v.isResourceManditory)}">
+                                            <lightning:dualListbox name="multipleOptions"  
+                                                                   aura:id = "AvailableResource"
+                                                                   label= "Select Resources"
+                                                                   fieldLevelHelp="Select your preferred resources"        
+                                                                   sourceLabel="Available Resource" 
+                                                                   selectedLabel="Selected Resource" 
+                                                                   options="{!v.availableResourceList}" 
+                                                                   value="{!v.selectedResourceList}" 
+                                                                   onchange="{! c.handleOnResourceSelect }"/>   
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(field.fieldName == 'multipleasset',v.isAssetManditory)}">
+                                            <lightning:dualListbox name="multipleOptions"  
+                                                                   aura:id = "AvailableAsset"
+                                                                   label= "Select Assets"
+                                                                   sourceLabel="Available Asset" 
+                                                                   selectedLabel="Selected Asset" 
+                                                                   options="{!v.availableAssetList}" 
+                                                                   value="{!v.selectedAssetList}" 
+                                                                   onchange="{! c.handleOnAssetSelect }"/>
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(field.fieldName == 'resource',v.isResourceManditory)}">
+                                            <lightning:select aura:id="selectResource" value="{!v.selectedResourceList}" name="select" label="Select Resource" onchange="{!c.handleOnResourceSelect}" >
+                                                <option value="">--None--</option>
+                                                <aura:iteration items="{!v.availableResourceList}" var="resource">
+                                                    <option value="{!resource.Id}" selected ="{!resource.Id == v.selectedResourceList[0]}">{!resource.Name}</option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(field.fieldName == 'asset',v.isAssetManditory)}">
+                                            <lightning:select aura:id="selectAsset" value="{!v.selectedAssetList}" name="select" label="Select Asset" onchange="{! c.handleOnAssetSelect }">
+                                                <option value="">--None--</option>
+                                                <aura:iteration items="{!v.availableAssetList}" var="asset">
+                                                    <option value="{!asset.Id}" selected="{!asset.Id == v.selectedAssetList[0]}">{!asset.Name}</option>
+                                                </aura:iteration>
+                                            </lightning:select>                                        
+                                        </aura:if>
+                                        <aura:if isTrue="{!field.fieldName == 'startDate'}">
+                                            <lightning:input type="date" aura:id="startDateField" name="startDate" label="Start Date" value="{!v.startDate}"  onchange="{!c.dateValidation}" required="true"/>                                       
+                                        </aura:if>
+                                        <aura:if isTrue="{!field.fieldName == 'startTime'}">
+                                            <lightning:input type="time" name="startTime" aura:id="startTimeField" label="Time" value="{!v.startTime}" required="true"/>  
+                                        </aura:if>
+                                        <aura:if isTrue="{!field.fieldName == 'Duration'}">
+                                            <lightning:input type="number" aura:id="DurationField" name="duration" label="Duration In Minutes" value="{!v.Duration}" placeholder="Enter Minutes" required="true"/>      
+                                        </aura:if>
+                                        <aura:if isTrue="{!field.fieldName == 'Description'}">
+                                            <lightning:textarea name="input1" label="Description" value="{!v.description}"/>
+                                        </aura:if>
+                                        
+                                    </div>
+                                </aura:iteration>
+                                <br/>
+                                <hr/>
+                            </div>
+                        </aura:iteration> 
+                      </aura:if>  
+                        
                     <!--Pricing Section -->
                   <!--  <aura:if isTrue="{!v.isPricingApplicable}"> -->
                         <div class="slds-page-header">
@@ -375,21 +466,21 @@
                     <!--Pricing List -->
                     
                     <!--Headers of prcinglist -->
-                    <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-grid slds-gutters slds-wrap slds-m-top_medium">
                         <div class="slds-col slds-form-element  slds-size_1-of-1 slds-large-size_1-of-5">
-                            <div class="slds-text-title">PricingType</div>
+                            <div class="slds-text-title" style="font-weight:600;font-size:0.85rem;">PricingType</div>
                         </div>
                         <div class="slds-col slds-form-element  slds-size_1-of-1 slds-large-size_1-of-5">
-                            <div class="slds-text-title">ListName</div>
+                            <div class="slds-text-title" style="font-weight:600;font-size:0.85rem;">ListName</div>
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
-                            <div class="slds-text-title">Price</div>
+                            <div class="slds-text-title" style="font-weight:600;font-size:0.85rem;">Price</div>
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5" data-index="{!index}">
-                            <div class="slds-text-title">Discount</div>
+                            <div class="slds-text-title" style="font-weight:600;font-size:0.85rem;">Discount</div>
                         </div>
                         <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
-                            <div class="slds-text-title">TotalPrice</div>
+                            <div class="slds-text-title" style="font-weight:600;font-size:0.85rem;">TotalPrice</div>
                         </div>
                     </div>
                     

@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
-    <defaultLandingTab>Getting_Started</defaultLandingTab>
-    <description>Quick Appointment is an appointment scheduling app.</description>
+    <brand>
+        <headerColor>#9B4E4E</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <label>Quick Appointment</label>
-    <logo>Quick_Appointment_Images/Logo.jpg</logo>
-    <tabs>Quick_Appointment</tabs>
+    <navType>Standard</navType>
+    <tabs>Home</tabs>
+    <tabs>Appointment_Category__c</tabs>
     <tabs>Location__c</tabs>
+    <tabs>Public_Holidays__c</tabs>
     <tabs>Service__c</tabs>
+    <tabs>Asset__c</tabs>
     <tabs>standard-Contact</tabs>
-    <tabs>Participant__c</tabs>
-    <tabs>Appointment__c</tabs>
-    <tabs>Getting_Started</tabs>
+    <tabs>Working_Hour__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Quick_Appointment_UtilityBar1</utilityBar>
 </CustomApplication>

@@ -32,14 +32,21 @@ public class TestAppointmentLightningController {
         
         List<CC_QAppt__Appointment__c> appList = TestDataFactory.createAppointment(resourceServiceAlignment[0].Id,appointmentCategoryList[0].Id,'Upcoming');
         insert appList;
+        List<CC_QAppt__Participant__c> participantList = TestDataFactory.createAppointmentParticipant(appList[0].Id,customerList[0].Id,1);
+        insert participantList;
+        CC_QAppt__Appointment_Detail__c appdetails = TestDataFactory.createAppointmentDetails(appList[0].Id,locationService[0].Id,resourceList[0].Id);
+        CC_QAppt__Appointment_Detail__c appdetailsWithoutResource = TestDataFactory.createAppointmentDetails(appList[0].Id,locationService[0].Id,null);
+        insert appdetails;
+        insert appdetailsWithoutResource;
     }
     
     /* method to test Appointment for Location are fetched */
     @isTest
     static void fetchAppointmentRelatedtoLocation(){
-        List<CC_QAppt__Resource_Service_Alignment__c> locationIds = [select CC_QAppt__Location__c,CC_QAppt__Service__c from CC_QAppt__Resource_Service_Alignment__c limit 1];
-        Test.startTest();
-       List<AppointmentLightningController.AppointmentWrapper> appList = AppointmentLightningController.relatedAppointment('CC_QAppt__Location__c',locationIds[0].CC_QAppt__Location__c);
+    //    List<CC_QAppt__Resource_Service_Alignment__c> locationIds = [select CC_QAppt__Location__c,CC_QAppt__Service__c from CC_QAppt__Resource_Service_Alignment__c limit 1];
+      List<CC_QAppt__Appointment_Detail__c> locationRecord =   [select id,CC_QAppt__Appointment__r.CC_QAppt__End_Date_Time__c,CC_QAppt__Appointment__r.Busy_Time__c,CC_QAppt__LocationService__c,CC_QAppt__Asset__c,CC_QAppt__Resource__c,CC_QAppt__LocationService__r.CC_QAppt__Location__c from CC_QAppt__Appointment_Detail__c where CC_QAppt__Resource__c=null And CC_QAppt__Asset__c=null limit 1];
+       Test.startTest();
+       List<AppointmentLightningController.AppointmentWrapper> appList = AppointmentLightningController.relatedAppointment('CC_QAppt__Location__c',locationRecord[0].CC_QAppt__LocationService__r.CC_QAppt__Location__c);
         Test.stopTest();
         system.assertEquals(appList.size(),1,'error while fetching Appointment');
     }
@@ -47,11 +54,11 @@ public class TestAppointmentLightningController {
    /* method to test Appointment for Service are fetched */
     @isTest
     static void fetchAppointmentRelatedtoService(){
-        List<CC_QAppt__Resource_Service_Alignment__c> locationIds = [select CC_QAppt__Location__c,CC_QAppt__Service__c from CC_QAppt__Resource_Service_Alignment__c limit 1];
+      //  List<CC_QAppt__Resource_Service_Alignment__c> locationIds = [select CC_QAppt__Location__c,CC_QAppt__Service__c from CC_QAppt__Resource_Service_Alignment__c limit 1];
+        List<CC_QAppt__Appointment_Detail__c> serviceRecord =   [select id,CC_QAppt__LocationService__c,CC_QAppt__Asset__c,CC_QAppt__Resource__c,CC_QAppt__LocationService__r.CC_QAppt__Service__c from CC_QAppt__Appointment_Detail__c where CC_QAppt__Resource__c=null And CC_QAppt__Asset__c=null limit 1]; 
         Test.startTest();
-       List<AppointmentLightningController.AppointmentWrapper> appList = AppointmentLightningController.relatedAppointment('CC_QAppt__Service__c',locationIds[0].CC_QAppt__Service__c);
+       List<AppointmentLightningController.AppointmentWrapper> appList = AppointmentLightningController.relatedAppointment('CC_QAppt__Service__c',serviceRecord[0].CC_QAppt__LocationService__r.CC_QAppt__Service__c);
         Test.stopTest();
-        system.debug('appList'+appList);
         system.assertEquals(appList.size(),1,'error while fetching Appointment');
     }
     /* method to test Appointment for AppointmentCategory are fetched */

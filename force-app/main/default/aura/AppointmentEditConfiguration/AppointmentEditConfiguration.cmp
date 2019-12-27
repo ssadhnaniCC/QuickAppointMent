@@ -1,0 +1,113 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="AppointmentEditConfiguartionController">
+    <ltng:require scripts="{!join(',', $Resource.jquery, $Resource.JQueryUI)}" />    
+    <aura:attribute name="appointmentCatList" type="Object[]"/>
+    <aura:attribute name="selectedAppointmentCategory" type="Object"/>
+    <aura:attribute name="isResourceMultipleSelect" type="boolean"/>
+    <aura:attribute name="isAssetMultipleSelect" type="boolean"/>
+    <aura:attribute name="sectionCount" type="Integer[]" default="[1,2,3,4]"/>
+    
+    <aura:attribute name="selectedApppointmentCat" type="String" default=""/>
+    
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+    <div class="slds-grid slds-gutters slds-wrap" style="height:600px;">
+        <div class="slds-col slds-size_1-of-3 slds-large-size_1-of-3">
+            <div style="padding:30px;">
+                <div class="slds-panel slds-size_medium slds-is-open" aria-hidden="false" style="height:600px;width:100%;">
+                    <div class="slds-panel__header">
+                        <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate"  style="color:#999999; font-size:24px;align:center" title="Filter">Drag and Drop Elements</h2>
+                    </div>
+                    <div class="slds-panel__body">
+                        
+                        <div>
+                            <lightning:select name="AppointmentCat" value="{!v.selectedApppointmentCat}" label="Appointment Category" required="true" onchange="{!c.onCategorySelect}" aura:id="CategoryId">
+                                <option value="">--None--</option>
+                                <aura:iteration items="{!v.appointmentCatList}" var="category">
+                                    <option value="{!category.Id}" selected="{!category == v.selectedApppointmentCat }">{!category.Name}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </div> 
+                        
+                      <div id="outerDiv" style="height:400px;margin-top:5px;">
+                          <div id="appointmentName" class="inside-drag"  draggable="true"  ondragstart="{!c.recordBoxdrag}" data-datatype="text">
+                           <lightning:input name="appointmentName" aura:id="appName" label="Appointment Name" required="true" class="inside-drag"  ondragstart="{!c.recordBoxdrag}"/>
+                          </div>
+                         <div id="location" class="inside-drag"  draggable="true" ondragstart="{!c.recordBoxdrag}" data-datatype="picklist">
+                            <lightning:select aura:id="selectLocation" label="Select Location"/>
+                        </div> 
+                        <div id="service" class="inside-drag" draggable="true" ondragstart="{!c.recordBoxdrag}" data-datatype="picklist">
+                            <lightning:select aura:id="selectServices" label="Select Services"/>
+                        </div> 
+                        
+                        <div id="multipleresource" class="inside-drag" draggable="true" ondragstart="{!c.recordBoxdrag}" data-datatype="picklist">
+                            <aura:if isTrue="{!v.isResourceMultipleSelect}">
+                                <lightning:dualListbox name="multipleOptions"  
+                                                       aura:id = "AvailableResource"
+                                                       label= "Select Resources"
+                                                       fieldLevelHelp="Select your preferred resources"        
+                                                       sourceLabel="Available Resource" 
+                                                       selectedLabel="Selected Resource" 
+                                                       /> 
+                            </aura:if>
+                            <aura:set attribute="else">
+                                <lightning:select id="resource" class="inside-drag" draggable="true" ondragstart="{!c.recordBoxdrag}"  aura:id="selectResource" name="select" label="Select Resource" data-datatype="picklist">
+                                </lightning:select>
+                            </aura:set>
+                        </div> 
+                        <div id="multipleasset" class="inside-drag" draggable="true" ondragstart="{!c.recordBoxdrag}" data-datatype="picklist">
+                            <aura:if isTrue="{!v.isAssetMultipleSelect}">
+                                <lightning:dualListbox name="multipleOptions"  
+                                                       aura:id = "AvailableAsset"
+                                                       label= "Select Assets"
+                                                       sourceLabel="Available Asset" 
+                                                       selectedLabel="Selected Asset" 
+                                                       /> 
+                            </aura:if>
+                            <aura:set attribute="else">
+                                <lightning:select id="asset" class="inside-drag" draggable="true" ondragstart="{!c.recordBoxdrag}" aura:id="selectAsset" name="select" label="Select Asset" >
+                                </lightning:select>
+                            </aura:set>
+                        </div>
+                          <div id="startDate" class="inside-drag" draggable="true" ondragstart="{!c.recordBoxdrag}" data-datatype="date">
+                              <lightning:input type="date" aura:id="startDateField" name="startDate" label="Start Date" value="{!v.startDate}" required="true"/>
+                          </div>
+                          <div id="startTime" class="inside-drag" draggable="true" ondragstart="{!c.recordBoxdrag}"  data-datatype="Time">
+                              <lightning:input type="time" name="startTime" aura:id="startTimeField" label="Time" required="true"/>  
+                          </div>
+                          <div id="Duration" class="inside-drag" draggable="true" ondragstart="{!c.recordBoxdrag}" data-datatype="Number">
+                              <lightning:input type="number" aura:id="DurationField" name="duration" label="Duration In Minutes" value="{!v.Duration}" placeholder="Enter Minutes" required="true"/>      
+                          </div>
+                          
+                          <div id="Description" class="inside-drag" draggable="true" ondragstart="{!c.recordBoxdrag}" data-datatype="Textarea">        
+                              <lightning:textarea name="input1" label="Description" value="{!v.description}"/>
+                          </div>    
+                       </div> 
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  <div class="vertical-line"></div>-->
+        <div class="slds-col slds-size_2-of-3 slds-large-size_2-of-3">
+            <div style="padding:30px;">
+                <div class="slds-panel slds-size_medium slds-is-open" aria-hidden="false" style="height:600px;width:100%;">
+                    <div class="slds-panel__header">
+                        <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate"  style="color:#999999; font-size:24px;align:center" title="Filter">Drag and Drop Elements</h2>
+                       <button class="slds-button_brand" onclick="{!c.submit}">Submit</button>
+                    </div>
+                    <div class="slds-panel__body" >
+                        <div id="div2" style="width:100%;height:600px;">
+                            <aura:iteration items="{!v.sectionCount}" var="item" indexVar="ind">
+                                <div id="{! 'section' + item}" style="width:100%;border: 5px solid gray;height:100px;">
+                                   <a onclick="{!c.cloneSection}" data-index="{!item}" >Clone Section</a>
+                                   <a onclick="{!c.removeSection}" data-index="{!item}">Remove Section</a>
+                                </div>
+                            </aura:iteration>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

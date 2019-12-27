@@ -1,6 +1,5 @@
 ({
 	saveWorkingHour : function(component,event,helper) {
-        alert('MethodCall');
 		var workHourRecord = component.get('v.workingRecord');
        
         var ResourceId = component.get('v.resourceRecord');
@@ -22,7 +21,7 @@
             var state = response.getState();
             console.log("state"+state);
             if (state === "SUCCESS") {
-                alert();
+               
             /*  var toastEvent = $A.get("e.force:showToast");
                 toastEvent.setParams({
                "title": "Success!",
